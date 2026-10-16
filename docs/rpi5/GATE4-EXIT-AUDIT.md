@@ -1,5 +1,13 @@
 # Gate 4 exit audit — incomplete, 2026-10-12 15:14 UTC
 
+Offline update, 2026-10-16: the write policy now accepts a separately compiled,
+hash-pinned media profile and carries that profile's exact HFS extent in every
+authorized epoch. A local generator binds a profile to two identical complete
+partition reads and the qualified fixture. This prepares a future disposable
+card without weakening identity, range, cache or durability gates. It adds no
+physical evidence: the current card's unknown cache state, admitted write,
+post-write reboot, fsck and read-only persistence checks are still missing.
+
 Later recovery update, 2026-10-12 16:40 UTC: a separately authorized Gate 6 zsh
 trial superseded the current image/FAT baseline listed in this historical audit.
 Current probe is `b3db210c0a880688bfda783e306fb6ad3473431d9a9cc68e25035d3c8fc32fd0`;

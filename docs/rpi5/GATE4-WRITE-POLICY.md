@@ -1,5 +1,30 @@
 # Gate 4 write admission — distinct experimental profile
 
+## Offline media-profile continuation — 2026-10-16
+
+The write-admission core no longer requires editing C policy logic for every
+qualified disposable card. `rpi5_sd_write_profile` seals capacity, CID/CSD,
+MBR signature, boot and HFS extents, request ceiling and HFS allocation
+geometry. The live policy copies only the authorized HFS range into its epoch
+lease; failed authorization and quarantine clear that geometry. The provider
+reads both HFS headers using the selected profile and calls the explicit
+profile authorization entry point.
+
+`tools/rpi5/build_sd_write_profile.py` accepts only an already captured SD/HFS
+reference with at least two identical complete reads bound to the qualified
+fixture. Its generated C source is selected only by the distinct
+`RPI5_SD_WRITE_EXTERNAL_PROFILE` compile opt-in. The generator never opens a
+device, connects to the Pi, stages an image or grants cache/write authority.
+Mutation tests reject changed read hashes, partition geometry and any nonzero
+recorded SD-write count. The existing Samsung profile remains the default for
+historical reproducibility.
+
+The generated `sd-write-profile-20261016-v1` is therefore a software-only
+reproduction of the prior card/fixture expectation, not a new candidate or a
+reason to repeat W3. The unresolved cache-state requirement below remains
+unchanged; a future card still needs fresh identity/read/cache qualification
+and the full write/reboot/fsck/read-only-remount durability sequence.
+
 13:18 UTC: independent SD Status does not establish cache absence on this card.
 Official SD6 PERFORMANCE_ENHANCE Table 4.10.2-2 and section 4.17 define bit 330
 as cache support (zero means unsupported). Existing Linux sysfs SSR byte 22 is

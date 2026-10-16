@@ -1,5 +1,27 @@
 # Current: RAM zsh reverified; corrected USB-6 candidate ready — 2026-10-16
 
+Gate 4 advanced offline without touching the Pi, SD card, network or serial
+port. The bounded write policy is now media-profile driven: an admitted lease
+retains its exact HFS start, length and maximum request size instead of using a
+global range after authorization. `rpi5_sd_write_authorize_profile` checks the
+sealed capacity, 15 identity CID bytes, complete CSD, MBR signature and both
+partition entries, plus matching primary/alternate HFS allocation geometry.
+Failure clears the lease geometry; quarantine remains irreversible.
+
+`tools/rpi5/build_sd_write_profile.py` converts two complete, identical
+read-only partition captures plus the qualified HFS fixture into a separately
+compiled external profile. It rejects a changed read, geometry disagreement,
+write-tainted reference or unqualified fixture. The preserved historical card
+remains the default so old evidence does not change. Generated reference
+`build/rpi5/sd-write-profile-20261016-v1/profile.json` has SHA-256
+`c0d66d85f2fb925f45c4932ef1bc16c98c096594277b22452ad13005d2ff2c98`;
+its C source SHA-256 is
+`e3e971969921f9386edf6a74dc255b592f043363f68a1644f0ecb643c2ae8166`.
+All 150 HFS tests and 26 focused storage build/profile/provider tests pass.
+This removes the source-code hard-coding obstacle for a future disposable
+card, but does not prove cache state, authorize a write or establish physical
+durability. The existing card's cache-state hold remains fail-closed.
+
 The existing XNU kernel, mockfs root, Apple zsh 5.9 and command payload are
 RAM-resident after boot handoff. HDMI zsh remains proven; local input remains
 UART until the new USB gates complete.

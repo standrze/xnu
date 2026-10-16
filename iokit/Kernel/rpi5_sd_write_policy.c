@@ -27,12 +27,12 @@ const struct rpi5_sd_write_profile rpi5_sd_write_default_profile={
     .csd={0x40,0x0e,0x00,0x32,0xdb,0x79,0x00,0x03,
         0xba,0xff,0x7f,0x80,0x0a,0x40,0x00,0x00}
 };
-#if RPI5_SD_WRITE_EXTERNAL_PROFILE
+#if defined(RPI5_SD_WRITE_EXTERNAL_PROFILE) && RPI5_SD_WRITE_EXTERNAL_PROFILE
 extern const struct rpi5_sd_write_profile rpi5_sd_write_external_profile;
 #endif
 const struct rpi5_sd_write_profile *rpi5_sd_write_selected_profile(void)
 {
-#if RPI5_SD_WRITE_EXTERNAL_PROFILE
+#if defined(RPI5_SD_WRITE_EXTERNAL_PROFILE) && RPI5_SD_WRITE_EXTERNAL_PROFILE
     return &rpi5_sd_write_external_profile;
 #else
     return &rpi5_sd_write_default_profile;
@@ -58,7 +58,7 @@ static int header(const uint8_t *p, const struct rpi5_sd_write_profile *profile)
     /* Pinned Apple hfs_format.h: H+ v4, clean unmounted, no journal,
      * software/hardware lock, inconsistency, content protection or expanded
      * timestamps. The harmless unused-node-fix bit is allowed. Restrict the
-     * first write trial to the actual 4096 * 32768-byte standalone fixture.
+     * first write trial to the allocation geometry sealed by the profile.
      */
     uint32_t attributes=be32(p+4);
     return p[0]==0x48 && p[1]==0x2b && p[2]==0 && p[3]==4 &&
@@ -77,6 +77,7 @@ int rpi5_sd_write_authorize_profile(struct rpi5_sd_write_policy *p,
     if (!p) return -1;
     if (p->state>RPI5_SD_WRITE_ENABLED || p->epoch==UINT64_MAX) {
         p->state=RPI5_SD_WRITE_QUARANTINED;
+        p->start=0; p->blocks=0; p->max_request_blocks=0;
         return -1;
     }
     p->state=RPI5_SD_WRITE_DISABLED;
