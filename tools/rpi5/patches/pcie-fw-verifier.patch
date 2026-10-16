@@ -1,0 +1,11 @@
+--- a/plat/rpi/rpi5/platform.mk
++++ b/plat/rpi/rpi5/platform.mk
+@@ -28,5 +28,8 @@ BL31_SOURCES		+=	lib/cpus/aarch64/cortex_a76.S			\
+ 				plat/rpi/common/rpi4_bl31_setup.c		\
+ 				plat/rpi/rpi5/rpi5_setup.c			\
++				plat/rpi/rpi5/pcie_verifier.c		\
++				plat/rpi/rpi5/pcie_verifier_mmio.S		\
++				plat/rpi/rpi5/pcie_verifier_sip.c		\
+ 				plat/rpi/common/rpi3_pm.c			\
+ 				plat/common/plat_psci_common.c			\
+ 				plat/rpi/common/rpi3_topology.c			\

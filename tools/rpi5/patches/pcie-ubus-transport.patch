@@ -1,0 +1,68 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -3,7 +3,7 @@
+ #define BCM2712_PCIE_PHY_TRANSPORT_H
+ #include <IOKit/IOService.h>
+ #include <IOKit/IOMemoryDescriptor.h>
+-#include "BCM2712PCIePHYPolicy.h"
++#include "BCM2712PCIeUBUSPolicy.h"
+ extern "C" {
+-#include "../../loader/rpi5/pcie_serdes.h"
++#include "../../loader/rpi5/pcie_ubus.h"
+ #include "../../pexpert/arm/rpi5_pcie_watchdog_api.h"
+@@ -16,3 +16,8 @@
+ };
+ 
++struct bcm2712_ubus_observation {
++    struct bcm2712_phy_observation phy;
++    struct rpi5_pcie_ubus_observation ubus;
++};
++
+ /* Actual Device mapping/volatile-MMIO implementation for the first three
+@@ -46,2 +51,3 @@
+     struct rpi5_pcie_serdes serdes = {};
++    struct rpi5_pcie_ubus ubus = {};
+     unsigned phase = BCM2712_PHY_EMPTY;
+@@ -79,3 +85,7 @@
+     bool runInitialPHY(struct bcm2712_phy_observation *);
++    /* Separate one-shot reset/PHY/UBUS entry; same ownership and watchdog.
++     * All original physical-admission preconditions remain mandatory.
++     * No RC/windows/PERST release/config/BAR/IRQ/DMA authorization. */
++    bool runPHYAndUBUS(struct bcm2712_ubus_observation *);
+ };
+ #endif
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -1,5 +1,8 @@
+ /* SPDX-License-Identifier: BSD-2-Clause */
+ #if !defined(ARM64_BOARD_CONFIG_BCM2712) || !DEVELOPMENT || !RPI5_PCIE_PHY_DIAGNOSTIC
+ #error "PCIe PHY transport requires an opt-in BCM2712 DEVELOPMENT build"
+ #endif
++#if !RPI5_PCIE_UBUS_DIAGNOSTIC
++#error "PCIe UBUS continuation requires its separate diagnostic build"
++#endif
+ #include "BCM2712PCIePHYTransport.h"
+@@ -29,2 +32,3 @@
+     serdes.mdio.state = RPI5_PCIE_MDIO_QUARANTINED;
++    ubus.state = RPI5_PCIE_UBUS_QUARANTINED;
+     return -1;
+@@ -37,2 +41,4 @@
+-    if (!claimAttempted || currentPhase < BCM2712_PHY_RESETTING || currentPhase > BCM2712_PHY_CONFIGURING ||
++    if (!claimAttempted ||
++        !((currentPhase >= BCM2712_PHY_RESETTING && currentPhase <= BCM2712_PHY_CONFIGURING) ||
++          currentPhase == BCM2712_PHY_UBUS_CONFIGURING) ||
+         __atomic_load_n(&phyOwner, __ATOMIC_ACQUIRE) != this || !providerOpened ||
+@@ -112,3 +118,3 @@
+     if (!onOwnerThread()) return -1;
+-    if (!out || !bcm2712_phy_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
++    if (!out || !bcm2712_ubus_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
+     if (!guard()) return -1;
+@@ -124,3 +130,3 @@
+     if (!onOwnerThread()) return -1;
+-    if (!bcm2712_phy_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
++    if (!bcm2712_ubus_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
+     /* Reset SET/CLEAR must NEVER touch other controllers' bits. */
+@@ -214,2 +220,3 @@
+     return true;
+ }
++#include "BCM2712PCIeUBUS.inc"

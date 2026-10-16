@@ -62,6 +62,7 @@
 #include <sys/kdebug.h>
 #include <kern/coalition.h>
 #include <pexpert/device_tree.h>
+#include <pexpert/arm/protos.h>
 #include <pexpert/arm64/board_config.h>
 #include <kern/smr.h>
 
@@ -1254,8 +1255,16 @@ ml_parse_cpu_topology(void)
 		uint32_t phys_cluster_id = (cpu->cluster_type == CLUSTER_TYPE_P);
 #endif
 		assert(phys_cluster_id <= MAX_CPU_CLUSTER_PHY_ID);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+		/* BCM2712's Aff1 distinguishes the four reset targets. It does not
+		 * describe four scheduler/cache domains. Keep the physical Aff1 to
+		 * per-CPU offset mapping, but publish one homogeneous SMP group. */
+		cpu->cluster_id = 0;
+		cluster_phys_to_logical[phys_cluster_id] = 0;
+#else
 		cpu->cluster_id = ((cluster_phys_to_logical[phys_cluster_id] == -1) ?
 		    topology_info.num_clusters : cluster_phys_to_logical[phys_cluster_id]);
+#endif
 
 		assert(cpu->cluster_id < MAX_CPU_CLUSTERS);
 
@@ -1271,8 +1280,10 @@ ml_parse_cpu_topology(void)
 			cluster->die_id = cpu->die_id;
 			cluster->cluster_type = cpu->cluster_type;
 			cluster->first_cpu_id = cpu->cpu_id;
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 			assert(cluster_phys_to_logical[phys_cluster_id] == -1);
 			cluster_phys_to_logical[phys_cluster_id] = cpu->cluster_id;
+#endif
 
 			topology_info.cluster_type_num_clusters[cluster->cluster_type]++;
 
@@ -1289,10 +1300,20 @@ ml_parse_cpu_topology(void)
 		}
 #endif
 
-		cpu->die_cluster_id = (int)ml_readprop(child, "die-cluster-id", MPIDR_CLUSTER_ID(cpu->phys_id));
+		cpu->die_cluster_id = (int)ml_readprop(child, "die-cluster-id",
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+		    0);
+#else
+		    MPIDR_CLUSTER_ID(cpu->phys_id));
+#endif
 		cluster->die_cluster_id = cpu->die_cluster_id;
 
-		cpu->cluster_core_id = (int)ml_readprop(child, "cluster-core-id", MPIDR_CPU_ID(cpu->phys_id));
+		cpu->cluster_core_id = (int)ml_readprop(child, "cluster-core-id",
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+		    cpu->cpu_id);
+#else
+		    MPIDR_CPU_ID(cpu->phys_id));
+#endif
 
 		cpu->cpu_pset_id = PSET_ID_INVALID; /* initialized by ml_bootstrap_processors() */
 
@@ -1766,7 +1787,16 @@ ml_processor_register(ml_processor_info_t *in_processor_info,
 	 * It needs to be booted here for the boot processor to finish the
 	 * subsequent registerInterrupt operations and unblock the other cores.
 	 */
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Pi secondaries must not enter processor_boot until the PSCI handoff,
+	 * local GIC and IPI path are ready.  Registration only publishes their
+	 * processor and CPU data; the boot CPU still needs its normal boot. */
+	if (is_boot_cpu) {
+		processor_boot(processor);
+	}
+#else
 	processor_boot(processor);
+#endif
 #endif /* !USE_APPLEARMSMP */
 
 	return KERN_SUCCESS;
@@ -2720,6 +2750,13 @@ fiq_context_init(boolean_t enable_fiq __unused)
 {
 	/* Interrupts still disabled. */
 	assert(ml_get_interrupts_enabled() == FALSE);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* The boot CPU configured GIC-400 earlier. The CPU interface and PPI
+	 * state are banked; only a newly started secondary needs this call. */
+	if (ml_get_cpu_number_local() != ml_get_boot_cpu_number()) {
+		pe_init_fiq();
+	}
+#endif
 	_enable_virtual_timer();
 }
 

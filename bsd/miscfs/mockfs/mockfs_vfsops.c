@@ -31,15 +31,86 @@
 #include <libkern/libkern.h>
 #include <miscfs/mockfs/mockfs.h>
 #include <miscfs/mockfs/mockfs_fsnode.h>
+#include <miscfs/mockfs/mockfs_paging_policy.h>
 #include <miscfs/mockfs/mockfs_vnops.h>
 #include <miscfs/specfs/specdev.h>
 #include <sys/disk.h>
+#include <sys/buf.h>
 #include <sys/errno.h>
 #include <sys/malloc.h>
 #include <sys/mount_internal.h>
 #include <sys/vnode_internal.h>
 
 static LCK_GRP_DECLARE(mockfs_mtx_grp, "mockfs-mutex");
+
+#if MOCKFS_RPI5_RAMROOT
+static void
+mockfs_ramroot_destroy(mockfs_mount_t data)
+{
+	data->mockfs_root = NULL;
+	for (uint32_t i = 0; i < data->ramroot_count; i++) {
+		/* Archive topology uses the bounded node table, not legacy children. */
+		data->ramroot_nodes[i]->parent = NULL;
+		mockfs_fsnode_destroy(data->ramroot_nodes[i]);
+	}
+}
+
+/* ENOENT means no archive magic: keep the proven raw-executable path.
+ * Malformed metadata with the magic is rejected, never partially mounted.
+ */
+static int
+mockfs_ramroot_mount(mount_t mp, vnode_t rvp)
+{
+	uint64_t bytes = rvp->v_specinfo->si_devsize;
+	uint32_t block = mp->mnt_devblocksize, count = 0;
+	buf_t bp = NULL;
+	mockfs_mount_t data = NULL;
+	int error;
+	if (bytes < 2 * RPI5_RFS_PAGE || bytes > RPI5_RFS_MAX ||
+	    bytes % RPI5_RFS_PAGE) { return ENOENT; }
+	if (!block || RPI5_RFS_PAGE % block) { return EINVAL; }
+	error = buf_bread(rvp, (daddr64_t)((bytes - RPI5_RFS_PAGE) / block),
+	    RPI5_RFS_PAGE, NOCRED, &bp);
+	if (error) { goto out; }
+	if (buf_resid(bp)) { error = EIO; goto out; }
+	const uint8_t *table = (const uint8_t *)buf_dataptr(bp);
+	if (!rpi5_rfs_magic(table)) { error = ENOENT; goto out; }
+	if (rpi5_rfs_validate(table, bytes, &count)) { error = EINVAL; goto out; }
+	data = kalloc_type(struct mockfs_mount, Z_WAITOK | Z_ZERO);
+	if (!data) { error = ENOMEM; goto out; }
+	for (uint32_t i = 0; i < count; i++) {
+		const uint8_t *entry = rpi5_rfs_entry(table, i);
+		uint8_t type = rpi5_rfs_u32(entry + 4) == RPI5_RFS_FILE ? MOCKFS_FILE : MOCKFS_DIR;
+		if (!i) { type = MOCKFS_ROOT; }
+		error = mockfs_fsnode_create(mp, type, &data->ramroot_nodes[i]);
+		if (error) { goto out; }
+		data->ramroot_count++;
+		mockfs_fsnode_t node = data->ramroot_nodes[i];
+		node->size = rpi5_rfs_u64(entry + 16);
+		node->data_offset = rpi5_rfs_u64(entry + 8);
+		node->mode = rpi5_rfs_u32(entry + 24);
+		node->fileid = i + 2; /* Stable, nonzero, unique per archive node. */
+		memcpy(node->name, entry + 32, sizeof(node->name));
+		node->parent = i ? data->ramroot_nodes[rpi5_rfs_u32(entry)] : NULL;
+	}
+	lck_mtx_init(&data->mockfs_mnt_mtx, &mockfs_mtx_grp, LCK_ATTR_NULL);
+	data->mockfs_root = data->ramroot_nodes[0];
+	data->ramroot_bytes = bytes;
+	/* Direct physical pager remains off: each vnode maps a distinct extent. */
+	mp->mnt_data = (typeof(mp->mnt_data))data;
+	mp->mnt_flag |= MNT_RDONLY;
+	printf("RPI5XNU:RAMROOT:MOUNT NODES=%u BYTES=%llu READONLY\n", count, bytes);
+	data = NULL;
+	error = 0;
+out:
+	if (bp) { buf_brelse(bp); }
+	if (data) {
+		mockfs_ramroot_destroy(data);
+		kfree_type(struct mockfs_mount, data);
+	}
+	return error;
+}
+#endif
 
 int mockfs_mountroot(mount_t mp, vnode_t rvp, __unused vfs_context_t ctx);
 
@@ -65,6 +136,11 @@ int
 mockfs_mountroot(mount_t mp, vnode_t rvp, __unused vfs_context_t ctx)
 {
 	int rvalue = 0;
+#if MOCKFS_RPI5_RAMROOT
+	rvalue = mockfs_ramroot_mount(mp, rvp);
+	if (rvalue != ENOENT) { return rvalue; }
+	rvalue = 0;
+#endif
 	mockfs_fsnode_t root_fsnode = NULL;
 	mockfs_fsnode_t dev_fsnode = NULL;
 	mockfs_fsnode_t file_fsnode = NULL;
@@ -102,7 +178,8 @@ mockfs_mountroot(mount_t mp, vnode_t rvp, __unused vfs_context_t ctx)
 		 * For the moment, we won't try to optimize when mi_phys is true.
 		 */
 		if (!mockfs_mount_data->mockfs_physical_memory) {
-			mockfs_mount_data->mockfs_memory_backed = memdev_info.mi_mdev;
+			mockfs_mount_data->mockfs_memory_backed =
+			    mockfs_use_direct_memdev_pager(memdev_info.mi_mdev);
 			mockfs_mount_data->mockfs_physical_memory = memdev_info.mi_phys;
 			mockfs_mount_data->mockfs_memdev_base = memdev_info.mi_base;
 			mockfs_mount_data->mockfs_memdev_size = memdev_info.mi_size;
@@ -185,7 +262,15 @@ mockfs_unmount(struct mount *mp, int mntflags, __unused vfs_context_t ctx)
 	 */
 	root_fsnode = mockfs_mnt->mockfs_root;
 	mockfs_mnt->mockfs_root = NULL;
-	rvalue = mockfs_fsnode_destroy(root_fsnode);
+#if MOCKFS_RPI5_RAMROOT
+	if (mockfs_mnt->ramroot_count) {
+		mockfs_ramroot_destroy(mockfs_mnt);
+		rvalue = 0;
+	} else
+#endif
+	{
+		rvalue = mockfs_fsnode_destroy(root_fsnode);
+	}
 
 	if (rvalue) {
 		panic("mockfs_unmount: Failed to destroy the fsnode tree");
@@ -231,9 +316,41 @@ mockfs_init(__unused struct vfsconf * vfsc)
 	return 0;
 }
 
+#if MOCKFS_RPI5_RAMROOT
+/* statfs64 refreshes these attributes through VFS_GETATTR before copying the
+ * generic mount identity/flags. The archive occupies a fixed read-only extent;
+ * padding and the metadata page are allocated too, not writable free space.
+ * Preserve the legacy raw-executable path's unsupported statistics behavior.
+ */
+static int
+mockfs_vfs_getattr(mount_t mp, struct vfs_attr *attributes, __unused vfs_context_t ctx)
+{
+	if (!mp || !attributes) { return EINVAL; }
+	mockfs_mount_t data = (mockfs_mount_t)mp->mnt_data;
+	if (!data || !data->ramroot_count) { return ENOTSUP; }
+	if (!data->mockfs_root || data->ramroot_count < 4 || data->ramroot_count > RPI5_RFS_NODES ||
+	    data->ramroot_bytes < 2 * RPI5_RFS_PAGE || data->ramroot_bytes > RPI5_RFS_MAX ||
+	    data->ramroot_bytes % RPI5_RFS_PAGE) { return EIO; }
+	uint64_t blocks = data->ramroot_bytes / RPI5_RFS_PAGE;
+	VFSATTR_RETURN(attributes, f_bsize, RPI5_RFS_PAGE);
+	VFSATTR_RETURN(attributes, f_iosize, RPI5_RFS_PAGE);
+	VFSATTR_RETURN(attributes, f_blocks, blocks);
+	VFSATTR_RETURN(attributes, f_bused, blocks);
+	VFSATTR_RETURN(attributes, f_bfree, 0);
+	VFSATTR_RETURN(attributes, f_bavail, 0);
+	VFSATTR_RETURN(attributes, f_files, data->ramroot_count);
+	VFSATTR_RETURN(attributes, f_ffree, 0);
+	VFSATTR_RETURN(attributes, f_fssubtype, 0);
+	return 0;
+}
+#endif
+
 struct vfsops mockfs_vfsops = {
 	.vfs_unmount = mockfs_unmount,
 	.vfs_root = mockfs_root,
 	.vfs_sync = mockfs_sync,
 	.vfs_init = mockfs_init,
+#if MOCKFS_RPI5_RAMROOT
+	.vfs_getattr = mockfs_vfs_getattr,
+#endif
 };

@@ -1,0 +1,16 @@
+{
+  "passed": [
+    "prior-boot persistent file and real zsh saved history loaded",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "error": null,
+  "cli_exit": 0,
+  "host_restoration_observation": "not observable after macOS controlling PTY revocation; native restoration check applies",
+  "cli_sha256": "777341de75d37b9540e66a4055926b9d3e47ac23b9dbd1c706c5e8439713f119",
+  "scope": "one real VM PTY trial; no networking/GPU or Pi evidence"
+}

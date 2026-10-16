@@ -1,0 +1,23 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004hprint -r -- WS_READY:$DARWIN_NETWORK_STATUS:$ZSH_VERSION:$PWD:$HOME[?2004l
+WS_READY:ready:5.9:/data:/data
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- b420ee0ce9612f3c5905f584 > /data/workspace-proof; print -r -- WS_WRITE:$?[?2004l
+WS_WRITE:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- HISTORY_b420ee0ce9612f3c5905f584[?2004l
+HISTORY_b420ee0ce9612f3c5905f584
+#                                                                                                                       darwin-zsh# [?2004h/bin/sleep 20[?2004l
+^C
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- WS_INTERRUPT:$?[?2004l
+WS_INTERRUPT:130
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf[?2004l
+#                                                                                                                       darwin-zsh# [?2004h/bin/resolverctl gai 49261 479390462e9a063f58eba873.darwin.test 54998 479390462e9a063f58eba873; print -r -<873.darwin.test 54998 479390462e9a063f58eba873; print -r --                                                           WS_TCP:$?[?2004l
+DARWIN:NET:APPLE_LIBINFO_NUMERIC IPv4 IPv6 errors en0=2
+DARWIN:NET:APPLE_GETADDRINFO 479390462e9a063f58eba873.darwin.test 192.168.64.1 Libinfo-542.40.3
+DARWIN:NET:APPLE_GAI_TCP ECHO=479390462e9a063f58eba873
+WS_TCP:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf[?2004l
+#                                                                                                                       darwin-zsh# [?2004hexit[?2004l

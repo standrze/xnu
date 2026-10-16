@@ -1,0 +1,18 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004h/bin/dhcpctl; print -r -- APPLE_BOOTP_STATUS:$?[?2004l
+DARWIN:NET:APPLE_BOOTP bootp-268.1 options match BPF checksum IPv4
+DARWIN:NET:DHCP IP=192.168.64.16 MASK=255.255.255.0 ROUTER=192.168.64.1 DNS=192.168.64.1 LEASE=3600
+APPLE_BOOTP_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h[[ $(</data/resolv.conf) == 'nameserver 192.168.64.1' ]]; print -r -- CONFIG_DNS_STATUS:$?[?2004l
+CONFIG_DNS_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf[?2004l
+#                                                                                                                       darwin-zsh# [?2004h/bin/resolverctl gai 60362 eb9dfc4a3bf53927dc76c4c2.darwin.test 57567 eb9dfc4a3bf53927dc76c4c2; print -r -<4c2.darwin.test 57567 eb9dfc4a3bf53927dc76c4c2; print -r --                                                           APPLE_GAI_STATUS:$?[?2004l
+DARWIN:NET:APPLE_LIBINFO_NUMERIC IPv4 IPv6 errors en0=2
+DARWIN:NET:APPLE_GETADDRINFO eb9dfc4a3bf53927dc76c4c2.darwin.test 192.168.64.1 Libinfo-542.40.3
+DARWIN:NET:APPLE_GAI_TCP ECHO=eb9dfc4a3bf53927dc76c4c2
+APPLE_GAI_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf; exit[?2004l

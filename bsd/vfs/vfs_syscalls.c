@@ -5947,12 +5947,13 @@ static int
 linkat_internal(vfs_context_t ctx, int fd1, user_addr_t path, int fd2,
     user_addr_t link, int flag, enum uio_seg segflg)
 {
-	vnode_t vp, pvp, dvp, lvp;
+	vnode_t vp, dvp, lvp;
 	struct nameidata nd;
 	int follow;
 	int error;
 #if CONFIG_FSE
 	fse_info finfo;
+	vnode_t pvp;
 #endif
 	char *target_path = NULL;
 	char  *no_firmlink_path = NULL;

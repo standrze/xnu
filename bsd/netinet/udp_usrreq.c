@@ -357,19 +357,27 @@ udp_input(struct mbuf *m, int iphlen)
 	int len, isbroadcast;
 	struct ip save_ip;
 	struct sockaddr *append_sa = NULL;
+#if CONTENT_FILTER
 	struct sockaddr *append_da = NULL;
+#endif
 	struct inpcbinfo *pcbinfo = &udbinfo;
 	struct sockaddr_in udp_in;
+#if CONTENT_FILTER
 	struct sockaddr_in udp_dst;
+#endif
 	struct ip_moptions *imo = NULL;
 	int foundmembership = 0, ret = 0;
 	struct udp_in6 udp_in6;
+#if CONTENT_FILTER
 	struct udp_in6 udp_dst6;
+#endif
 	struct udp_ip6 udp_ip6;
 	struct ifnet *ifp = m->m_pkthdr.rcvif;
 	u_int16_t pf_tag = 0;
 	boolean_t is_wake_pkt = false;
+#if CONTENT_FILTER
 	boolean_t check_cfil = cfil_filter_present();
+#endif /* CONTENT_FILTER */
 	drop_reason_t drop_reason = DROP_REASON_UNSPECIFIED;
 	bool is_magic_packet = false;
 
@@ -505,9 +513,6 @@ udp_input(struct mbuf *m, int iphlen)
 		 */
 		udp_in6.uin6_init_done = udp_ip6.uip6_init_done = 0;
 		LIST_FOREACH(inp, &udb, inp_list) {
-#if IPSEC
-			int skipit;
-#endif /* IPSEC */
 
 			if (inp->inp_socket == NULL) {
 				continue;
@@ -608,7 +613,7 @@ udp_input(struct mbuf *m, int iphlen)
 			    (SO_REUSEPORT | SO_REUSEADDR));
 
 #if NECP
-			skipit = 0;
+			int skipit = 0;
 			if (!necp_socket_is_allowed_to_send_recv_v4(inp,
 			    uh->uh_dport, uh->uh_sport, &ip->ip_dst,
 			    &ip->ip_src, ifp, pf_tag, NULL, NULL, NULL, NULL)) {

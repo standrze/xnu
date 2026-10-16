@@ -1,0 +1,19 @@
+{
+  "profile": "bcm2712-gem-apple-dma-memory-default-off-v1",
+  "apple_checkout_base": "ac9718fb1af618d5ce8678d0dc6e8a58f252216f",
+  "apple_source_note": "Actual workspace source bytes include existing BCM2712 port changes; source SHA, not upstream identity alone, binds the compiled semantics.",
+  "linux_commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "arm_reference": "https://documentation-service.arm.com/static/60df1943677cf7536a55ddef",
+  "scope": "Apple wired contiguous descriptor, MapperNone, prepared unmapped IODMACommand, exact complete physical gen64 span; private retained same-boot FDT plus current released-window reads. No allocation or address declaration alone grants DMA authority.",
+  "sources": [
+    {"path":"iokit/Kernel/IOBufferMemoryDescriptor.cpp","bytes":26348,"sha256":"3167094ab5e0d9dbbc7fb4ad822f2fa4f71873870c9f601f5eb0bba0be301208"},
+    {"path":"iokit/Kernel/IODMACommand.cpp","bytes":49154,"sha256":"c832c0a0a84e1096464c18494b938252cba716a62dc8a8124af0b823abf67560"},
+    {"path":"iokit/Kernel/IOMemoryDescriptor.cpp","bytes":179699,"sha256":"8b8e747e24d5750230bc81d497884ad1b881ecc701ab6e8fd249757b062ab7d3"},
+    {"path":"osfmk/arm/pmap/pmap.c","bytes":463389,"sha256":"47623205734e22a847959b0d05893e7779236c0c4311b984241ef1e270749f4f"},
+    {"path":"osfmk/arm64/proc_reg.h","bytes":151866,"sha256":"b36e9aa4c3e06ccde80a6bd92d5fab632f694ae3645dd6c60734bdf6b733d995"},
+    {"path":"osfmk/arm/machine_routines_common.c","bytes":50068,"sha256":"f3e7840571c829601d9ae11df14173d5d4046087322f81df15ec9d98db84fbb4"},
+    {"path":"iokit/Kernel/BCM2712FirmwareFDT.cpp","bytes":1224,"sha256":"2decc76c792984cca6d3cc290bed87e52b3250de3931c3b07e1e079a0a9af063"},
+    {"path":"build/rpi5/gem-phy-prereq-primary-80d4218-20261014/bcm2712-rpi-5-b.dts","bytes":15551,"sha256":"b90fe894f860fac4f99f6be31d7d696bab8c2a5871b2ac1a25a29c3386ba59d3"}
+  ],
+  "remaining_real_authority": "Default-off provider has no driver caller. New serialized sleepable setup and separate bounded live owner lifecycle must bind genuine released-window callbacks, fresh GEM capabilities, endpoint quiescence and ring staging before any activation. No old lease reset or budget increase."
+}

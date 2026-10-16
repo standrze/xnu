@@ -30,6 +30,9 @@
 #include <libkern/crypto/register_crypto.h>
 #include <libkern/crypto/crypto_internal.h>
 #include <libkern/section_keywords.h>
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <libkern/crypto/rpi5_crypto_slots.h>
+#endif
 
 SECURITY_READ_ONLY_LATE(bool) crypto_init = false;
 SECURITY_READ_ONLY_LATE(crypto_functions_t) g_crypto_funcs = NULL;
@@ -37,6 +40,12 @@ SECURITY_READ_ONLY_LATE(crypto_functions_t) g_crypto_funcs = NULL;
 int
 register_crypto_functions(const crypto_functions_t funcs)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* A missing or structurally incomplete table must not be published. */
+	if (!rpi5_crypto_slots_present(funcs)) {
+		return -1;
+	}
+#endif
 	if (g_crypto_funcs) {
 		return -1;
 	}

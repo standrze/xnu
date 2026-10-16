@@ -97,6 +97,7 @@ struct esptail {
 
 #ifdef BSD_KERNEL_PRIVATE
 struct secasvar;
+struct ipsecrequest;
 
 #define ESP_AUTH_MAXSUMSIZE   64
 
@@ -158,8 +159,10 @@ extern int esp4_output(struct mbuf *, struct secasvar *);
 extern void esp4_input(struct mbuf *, int off);
 extern struct mbuf *esp4_input_extended(struct mbuf *, int off, ifnet_t interface);
 extern size_t esp_hdrsiz(struct ipsecrequest *);
+#if SKYWALK
 extern int esp_kpipe_output(struct secasvar *, kern_packet_t, kern_packet_t);
 extern int esp_kpipe_input(ifnet_t, kern_packet_t, kern_packet_t);
+#endif /* SKYWALK */
 
 extern int esp_schedule(const struct esp_algorithm *, struct secasvar *);
 extern int esp_auth(struct mbuf *, size_t, size_t,

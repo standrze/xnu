@@ -1,0 +1,30 @@
+{
+  "scope": "real VM fault localization followed by source fix and arithmetic tests; no successful guest boot claimed",
+  "trial": "/private/tmp/darwin-vz-xnu-trial-4",
+  "serial_sha256": "f91985ef55f74dafc3b1969e47583252d187b185724fccbe05493ed4cf822a47",
+  "failing_kernel_sha256": "bdfe473f76cbaee2033c7e978064d221836acffb371ab899f7bfafb6ffd619b0",
+  "last_checkpoints": "XDAZPMVCISTBDELHKWabcdefgh",
+  "exception": {
+    "esr_el1": "0x00000000f200bffc",
+    "elr_el1": "0xfffffe00078d4064",
+    "far_el1": "0x0000000000000000",
+    "instruction": "brk #0xbffc",
+    "kind": "MACH_ASSERT_DEFAULT",
+    "descriptor_address": "0xfffffe000726e600",
+    "file": "arm_vm_init.c",
+    "line": 1650,
+    "expression": "(temp_ptov_table[ptov_index - 1].va + temp_ptov_table[ptov_index - 1].len) <= physmap_end"
+  },
+  "cause": "Non-monitor ARM_LARGE_MEMORY reserved only real_phys_size bytes of virtual aperture, but block-congruent physmap entries insert alignment holes after the randomized 16-KiB base.",
+  "fix": "VZ-only reserve PTOV_TABLE_SIZE * ARM_TT_TWIG_SIZE extra virtual space and account for it in the initial L1 reservation. Physical RAM size, random slide and final assertion are unchanged; arithmetic overflow and overlap are rejected.",
+  "fixed_kernel_sha256": "a8048424c4fb7c223fb3d90bc52f6bc5fe67aa28d6407f431899471a3b2257c9",
+  "verification": {
+    "isolated_kernel_make_all_exit": 0,
+    "undefined_symbols": [],
+    "arithmetic_test_command": "python3 experiments/darwin-container/kernel/test_physmap_aperture.py",
+    "arithmetic_test_sha256": "31a603de0c5b64a4ce1aec46f5870d5d3db44df60f4d2453ff5edac64cb73c6b",
+    "arithmetic_tests_passed": 3,
+    "arithmetic_tests_are_guest_runtime_tests": false,
+    "fixed_guest_boot_proven": false
+  }
+}

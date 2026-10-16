@@ -1,0 +1,18 @@
+# Raspberry Pi port: generated SDK, downloaded dependencies and build evidence.
+/build/rpi5/
+/build/rpi5-xcode27/
+__pycache__/
+*.pyc
+/experiments/darwin-container/workspaces/
+/experiments/darwin-container/workload-state/
+/darwin-workloads/
+
+# Darwin-container generated products and dependency/build caches. Keep the
+# experiment sources, manifests, scripts and compact result metadata tracked.
+/experiments/darwin-container/userland/build/
+/experiments/darwin-container/kernel/build/
+/experiments/darwin-container/results/**/source/build/
+/experiments/darwin-container/results/**/workspaces/
+/experiments/darwin-container/results/**/runs/
+/experiments/darwin-container/**/.build/
+/experiments/darwin-container/**/.build-*/

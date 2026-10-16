@@ -1,0 +1,17 @@
+{
+  "description": "Initial isolated source snapshots. VM-specific modifications are local to userland/; this is not an Apple launchd or upstream sh implementation.",
+  "sources": {
+    "tools/rpi5/user/start.S": "731f3d121dc11b317d09b2f6242f4888aeadac618251aa6bbfb9e7f347465327",
+    "tools/rpi5/user/runtime.c": "664c6e3844de7259f85e48ced1526346a7cda8949cef98c0d0d6b4381ff07312",
+    "tools/rpi5/user/runtime.h": "1c70ec6ebc9e7c4f6aa461f1a62b540bf4130e58b221485604f398faa1133411",
+    "tools/rpi5/user/parser.c": "a49df640e50768ed0c02c7918758d86f243b81f7965f2ffc83e7c1b80b716dd3",
+    "tools/rpi5/user/parser.h": "fb84d66cc986748004f9d2e4cab9db4493ad526dbbc6365d859dec0b38fa9ea4",
+    "tools/rpi5/user/shell.c": "93e25a07213e03f146c0eec130a5b69d9ca0ca4821bce82482dca73c191dcbde",
+    "tools/rpi5/user/utilities.c": "f05edd93ed7ec8d26807d0d1cc00a44b37a8044ff70f13a8f3db414817434e66",
+    "tools/rpi5/user/init.c": "adb7b4c34cf6b905b628be6d04c4a6484c56c48f1a5747b3dbc6f80b220e2384",
+    "tools/rpi5/ramroot.py": "f0f9d37a0771d7b826f76b14c7067879136702f8dd1338c43739ddcef66c7218",
+    "tools/rpi5/prepare_pid1.py": "817d98722fd237e96b45eb630b01e8db5458147eb3092f1e4d288ba564c23646",
+    "tools/rpi5/tests/shell_host.c": "dca32977c07ea186ddab00679f675518ab7a0b31c7f84e704a11d05e70ff048e",
+    "tools/rpi5/tests/parser_host.c": "f07328625a04959df7b85a24f9abd39734898bf3bb944273a104e363c4d761bd"
+  }
+}

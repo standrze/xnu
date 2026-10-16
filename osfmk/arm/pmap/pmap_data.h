@@ -2080,6 +2080,9 @@ extern void pmap_cpu_data_init_internal(unsigned int);
  */
 extern void pmap_flush_noncoherent_page(pmap_paddr_t paddr);
 
+/* Mark a managed page for a later non-coherent cache flush. */
+extern void pmap_mark_page_for_cache_flush(pmap_paddr_t pa);
+
 #if DEBUG || DEVELOPMENT
 extern unsigned int pmap_wcrt_on_non_dram_count_get(void);
 extern void pmap_wcrt_on_non_dram_count_increment_atomic(void);

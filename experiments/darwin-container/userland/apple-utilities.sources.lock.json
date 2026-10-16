@@ -1,0 +1,11 @@
+{
+  "format": "apple-utilities-source-pins-1",
+  "sources": [
+    {"repository": "https://github.com/apple-oss-distributions/file_cmds", "tag": "file_cmds-82", "commit": "da9f74ebc406f385e4c325e103a8f21f4cc8d22b"},
+    {"repository": "https://github.com/apple-oss-distributions/text_cmds", "tag": "text_cmds-47", "commit": "81805ecdebe0ce0e7f3ea054d615444dd2b0d25b"},
+    {"repository": "https://github.com/apple-oss-distributions/shell_cmds", "tag": "shell_cmds-81", "commit": "edbf7e70982a319bf8564c0450707e4bdf3a7f1f"},
+    {"repository": "https://github.com/apple-oss-distributions/Libm", "tag": "Libm-2026", "commit": "17a5f9daa3f5679f7536b26f133b40cc078753c3"}
+  ],
+  "runtime_pins": "apple-runtime.sources.lock.json",
+  "policy": "Historical official Apple-published sources; generated ABI adaptations are recorded, upstream checkouts are unchanged. No host runtime linked."
+}

@@ -87,6 +87,8 @@ typedef struct xnupost_test * xnupost_test_t;
 
 extern struct xnupost_test kernel_post_tests[];
 extern uint32_t kernel_post_tests_count;
+extern struct xnupost_test bsd_post_tests[];
+extern uint32_t bsd_post_tests_count;
 extern uint32_t total_post_tests_count;
 
 #define XNUPOST_TEST_CONFIG_BASIC(func)                   \

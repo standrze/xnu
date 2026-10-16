@@ -207,7 +207,7 @@ void
 OSNumber::addValue(signed long long inValue)
 {
 	if ((size == 63) || (size == 31)) {
-		fpValue += inValue;
+		fpValue += static_cast<double>(inValue);
 	} else {
 		value = ((value + inValue) & sizeMask);
 	}

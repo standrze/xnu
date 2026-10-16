@@ -1,0 +1,5 @@
+# Independently versioned local forks; source pins and acquisition steps live here.
+/container/
+/containerization/
+/evidence/
+/userland/upstream/

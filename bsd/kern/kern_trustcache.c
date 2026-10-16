@@ -20,6 +20,10 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
+/* Raspberry Pi port, 2026-09-04: this provider is unavailable in the
+ * monitor-free DEVELOPMENT configuration. PMAP lookups fail closed instead.
+ */
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <os/atomic_private.h>
 #include <os/overflow.h>
 #include <pexpert/pexpert.h>
@@ -1348,3 +1352,4 @@ static_trust_cache_capabilities(
 
 	return KERN_SUCCESS;
 }
+#endif /* !ARM64_BOARD_CONFIG_BCM2712 */

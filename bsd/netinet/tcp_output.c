@@ -1770,11 +1770,15 @@ after_sack_rexmit:
 	 */
 	recwin = tcp_sbspace(tp);
 
-	if (!(so->so_flags & SOF_MP_SUBFLOW)) {
+#if MPTCP
+	if (!(so->so_flags & SOF_MP_SUBFLOW))
+#endif
+	{
 		if (recwin < (int32_t)(so->so_rcv.sb_hiwat / 4) &&
 		    recwin < (int)tp->t_maxseg) {
 			recwin = 0;
 		}
+#if MPTCP
 	} else {
 		struct mptcb *mp_tp = tptomptp(tp);
 		struct socket *mp_so = mptetoso(mp_tp->mpt_mpte);
@@ -1783,6 +1787,8 @@ after_sack_rexmit:
 		    recwin < (int)tp->t_maxseg) {
 			recwin = 0;
 		}
+
+#endif /* MPTCP */
 	}
 
 #if TRAFFIC_MGT
@@ -1816,10 +1822,14 @@ after_sack_rexmit:
 		recwin = (int32_t)(TCP_MAXWIN << tp->rcv_scale);
 	}
 
-	if (!(so->so_flags & SOF_MP_SUBFLOW)) {
+#if MPTCP
+	if (!(so->so_flags & SOF_MP_SUBFLOW))
+#endif
+	{
 		if (recwin < (int32_t)(tp->rcv_adv - tp->rcv_nxt)) {
 			recwin = (int32_t)(tp->rcv_adv - tp->rcv_nxt);
 		}
+#if MPTCP
 	} else {
 		struct mptcb *mp_tp = tptomptp(tp);
 		int64_t recwin_announced = (int64_t)(mp_tp->mpt_rcvadv - mp_tp->mpt_rcvnxt);
@@ -1835,6 +1845,8 @@ after_sack_rexmit:
 				recwin = (int32_t)(tp->rcv_adv - tp->rcv_nxt);
 			}
 		}
+
+#endif /* MPTCP */
 	}
 
 	/* One day we should have a single ROUNDUP macro across xnu... */
@@ -2968,10 +2980,14 @@ send:
 	tcp_set_flags(th, flags);
 	th->th_win = htons((u_short) (recwin >> tp->rcv_scale));
 	tp->t_last_recwin = recwin;
-	if (!(so->so_flags & SOF_MP_SUBFLOW)) {
+#if MPTCP
+	if (!(so->so_flags & SOF_MP_SUBFLOW))
+#endif
+	{
 		if (recwin > 0 && SEQ_LT(tp->rcv_adv, tp->rcv_nxt + recwin)) {
 			tp->rcv_adv = tp->rcv_nxt + recwin;
 		}
+#if MPTCP
 	} else {
 		struct mptcb *mp_tp = tptomptp(tp);
 		if (recwin > 0) {
@@ -2981,6 +2997,8 @@ send:
 		if (recwin > 0 && MPTCP_SEQ_LT(mp_tp->mpt_rcvadv, mp_tp->mpt_rcvnxt + recwin)) {
 			mp_tp->mpt_rcvadv = mp_tp->mpt_rcvnxt + recwin;
 		}
+
+#endif /* MPTCP */
 	}
 
 	/*

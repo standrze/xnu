@@ -1,0 +1,13 @@
+{
+  "commandExitStatus" : 0,
+  "commandRequested" : true,
+  "commandSucceeded" : true,
+  "elapsedSeconds" : 1.2769972083333414,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-shell-regression-2",
+  "serialByteCount" : 7175,
+  "sessionID" : "29ccae2ddd3b462b81ce8a672c6ab68f",
+  "shellReadyObserved" : true,
+  "started" : true,
+  "termination" : "guestStopped"
+}

@@ -1,0 +1,23 @@
+{
+  "workspace": "verification",
+  "package_version": "0.2.0",
+  "boot_sha256": "ca2bf0bf7e2709df7290e1c1f73f90f6fb133c2b4b6be7525d0ba8d217fd2876",
+  "entropy": "fresh host os.urandom(256); seed bytes never logged",
+  "data_disk": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/data.raw",
+  "command": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.2.0/container",
+    "darwin",
+    "run",
+    "--interactive",
+    "--framed-terminal",
+    "--network-nat",
+    "--boot-disk",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/runs/20261012T203602Z-79f7ac816e40/boot.img",
+    "--data-disk",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/data.raw",
+    "--output-dir",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/runs/20261012T203602Z-79f7ac816e40/session",
+    "--timeout-seconds",
+    "120"
+  ]
+}

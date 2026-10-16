@@ -25,6 +25,15 @@
 
 #ifdef KERNEL_PRIVATE
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* Raspberry Pi DEVELOPMENT intentionally exposes no trust-cache loading API. */
+#define XNU_HAS_TRUST_CACHE_LOADING 0
+#define XNU_HAS_TRUST_CACHE_CHECK_RUNTIME_FOR_UUID 0
+#define XNU_HAS_TRUST_CACHE_QUERY_FOR_REM 0
+#define XNU_HAS_TRUST_CACHE_UNLOADING 0
+#define XNU_HAS_LEGACY_TRUST_CACHE_LOADING 0
+#else
+
 #include <mach/kern_return.h>
 #include <sys/cdefs.h>
 #include <TrustCache/API.h>
@@ -181,6 +190,8 @@ query_trust_cache_for_rem(
 	uint8_t *rem_perms);
 
 __END_DECLS
+
+#endif /* !ARM64_BOARD_CONFIG_BCM2712 */
 
 #endif /* KERNEL_PRIVATE */
 #endif /* _SYS_TRUST_CACHES_H_ */

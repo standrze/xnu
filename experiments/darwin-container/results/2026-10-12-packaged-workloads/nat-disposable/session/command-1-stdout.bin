@@ -1,0 +1,5 @@
+DARWIN:NET:APPLE_BOOTP bootp-268.1 options match BPF checksum IPv4
+DARWIN:NET:DHCP IP=192.168.64.22 MASK=255.255.255.0 ROUTER=192.168.64.1 DNS=192.168.64.1 LEASE=3600
+DARWIN_WORKLOAD:zsh=5.9:count=1:cwd=/data
+Built from Apple's published zsh sources
+Darwin

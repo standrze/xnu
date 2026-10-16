@@ -1,0 +1,51 @@
+{
+  "outcome": "terminal-milestone-passed-not-full-goal",
+  "proved": [
+    "prior-boot persistent file and real zsh saved history loaded",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "kernel_sha256": "e7ed0c3afc37936087b012b3be136c888b257b33beb64d234db691b6abce27d8",
+  "zsh_sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3",
+  "remaining": [
+    "real guest VirtIO network driver and address/DNS/TCP exchange",
+    "guest GPU request/client channel and returned real Metal result"
+  ],
+  "limits": [
+    "compctl module not linked",
+    "no multibyte locale support",
+    "not production isolation or a soak"
+  ],
+  "sha256": {
+    "TERMINAL-PROTOCOL.md": "ca53ffec497a40e143c2143e9b313655b591436c212089ee1b5b801998f79367",
+    "apple-zsh-source.json": "c11d69f14c68bb5ec952a2a32e77cf47a771f60f5f7b04fceaf4d8a9254996f4",
+    "first-boot/host-terminal.bin": "e86d4db2dfdb94f6f3748e35431c34475e8176bdaddadb1e01f771ed6a3b5853",
+    "first-boot/preflight.json": "95aadf9c7b62ba3a40d5105ce9c52cd6bf48c2e9acc7b7f47bdcb907f160583a",
+    "first-boot/result.json": "62217da905d7a0bafb84ba218b1f3927fc4f686ef6933c4a7d7ba4c05729a429",
+    "first-boot/serial.bin": "dc9d53d38d29a54dd867cc3b625abf5db7144ddcf0af7a15455ce5be24876a9b",
+    "first-boot/serial.txt": "dc9d53d38d29a54dd867cc3b625abf5db7144ddcf0af7a15455ce5be24876a9b",
+    "first-boot/start-requested.json": "5e992c3064b415bd3979515d98c8d4a83184704cae0c31f632b18f36a8b752d2",
+    "first-boot/started.json": "66e57b6c262614de7709ddbc1bed20edd7dd2bd27aec6c05572f6f2fc929f40e",
+    "first-boot/stopped.json": "3dc7bd548688cf7992e9a351b1cd7005bb0718d3e21c9fa85fd2983b52e6bb93",
+    "first-boot/terminal-output.bin": "3129aa14fb9aa09487ad3e343e13b0bafbc024590b0cec979bb7baaa56a9b6a5",
+    "first-boot/terminal-trial.json": "ba0482f134f285c97b9a1fb95fc5e1a11ffde944959d3fa4353e41ee9ebd3669",
+    "kernel-manifest.json": "e7aa8f7de6cde703287b08c1bcae89611c303d699cc8737f4c9480ac526835b0",
+    "loader-manifest.json": "2a766e30b4ceb87c0d6e014333907af7e6ae46cb1fd29e074a9a190d894e0ac6",
+    "persistence-boot/host-terminal.bin": "15c98a177f55fb1ef39ef6916b9ef55870b900b457f64d868100ef4a07932201",
+    "persistence-boot/preflight.json": "95aadf9c7b62ba3a40d5105ce9c52cd6bf48c2e9acc7b7f47bdcb907f160583a",
+    "persistence-boot/result.json": "83d37c913585c1bd017781f8e0c7d1c0f0f80256a68175c3f831c617ffa694a6",
+    "persistence-boot/serial.bin": "4e13856f5508055d85fca1c2ca35a1d52c7f5df3bfc687c8eb741fabe1c5f6c2",
+    "persistence-boot/serial.txt": "4e13856f5508055d85fca1c2ca35a1d52c7f5df3bfc687c8eb741fabe1c5f6c2",
+    "persistence-boot/start-requested.json": "c6fcfc67ca7cd63d29557d1cafe54e71388caafa9a95e61217946869124576e1",
+    "persistence-boot/started.json": "1fc03a6c7e8e6b5d11618d7086bee4d1588e2b5a755d0b71e0177fa853c26f40",
+    "persistence-boot/stopped.json": "761f432620b50456cddb8de6a7bdb9126f53d2b00e0bbc7af1c67bd0ab1cd719",
+    "persistence-boot/terminal-output.bin": "a818c40c13a824066d70008d4b1e928dabcc9c6aa704e75c8e352e2b70a14882",
+    "persistence-boot/terminal-trial.json": "55f019ca5f504b0b46b342545d4dfcb050592885d334a2474a04a29b40a0d9df",
+    "root-manifest.json": "313ecc9305e89063373d8c3869e15e59d595c62ad192ab0c309facff63ca2b6f",
+    "zsh-link-manifest.json": "cbfa1c99b1ed49c0a83e04fc0a5b6fe86544b5e4e756e49e1bb29fd664316c38"
+  }
+}

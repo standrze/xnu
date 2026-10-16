@@ -1,0 +1,16 @@
+--- a/MASTER.arm64.bcm2712
++++ b/MASTER.arm64.bcm2712
+@@ -11,7 +11,7 @@
+ # KERNEL_DEV = [ KERNEL_BASE development mach_assert config_xnupost proc_ref_debug ]
+ # BSD_BASE = [ mach_bsd psynch config_proc_uuid_policy config_coredump ]
+ # NETWORK_BASE = [ inet necp traffic_mgt ]
+-# FILESYS_BASE = [ devfs mockfs fifo namedstreams config_fse ]
++# FILESYS_BASE = [ devfs mockfs fifo namedstreams config_fse fs_compression ]
+ # IOKIT_BASE = [ iokit iokitcpp no_kernel_hid ]
+ # LIBKERN_BASE = [ libkerncpp config_blocks crypto crypto_sha2 config_img4 zlib ]
+ # PERF_DBG_BASE = [ mach_kdp config_serial_kdp kdp_interactive_debugging kperf ]
+@@ -25,3 +25,4 @@
+ makeoptions OSFMK_MACHINE = "arm64"      # <mach>
+ options CONFIG_MACH_APPROXIMATE_TIME
+ options CONFIG_RPI5_BRINGUP
++options CONFIG_RPI5_STORAGE

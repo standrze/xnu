@@ -2648,7 +2648,7 @@ STATIC int
 sysctl_perfcontrol_callout_stat
 (__unused struct sysctl_oid *oidp, void *arg1, int arg2, struct sysctl_req *req)
 {
-	perfcontrol_callout_stat_t stat = (perfcontrol_callout_stat_t)arg1;
+	perfcontrol_callout_stat_t stat = (perfcontrol_callout_stat_t)(uintptr_t)arg1;
 	perfcontrol_callout_type_t type = (perfcontrol_callout_type_t)arg2;
 	return sysctl_io_number(req, (int)perfcontrol_callout_stat_avg(type, stat),
 	           sizeof(int), NULL, NULL);
@@ -3383,7 +3383,7 @@ STATIC int
 sysctl_timer
 (__unused struct sysctl_oid *oidp, __unused void *arg1, __unused int arg2, struct sysctl_req *req)
 {
-	int             oid = (int)arg1;
+	int             oid = (int)(uintptr_t)arg1;
 	uint64_t        value = timer_sysctl_get(oid);
 	uint64_t        new_value;
 	int             error;

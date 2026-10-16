@@ -1,0 +1,84 @@
+{
+  "project": "apple-oss-distributions/IONetworkingFamily",
+  "release": "IONetworkingFamily-186",
+  "release_catalog": "apple-oss-distributions/distribution-macOS release.json",
+  "release_catalog_url": "https://github.com/apple-oss-distributions/distribution-macOS/blob/main/release.json",
+  "catalog_xnu_tag": "xnu-12377.1.9",
+  "workspace_xnu_tag": "xnu-12377.121.6",
+  "workspace_xnu_commit": "ac9718fb1af618d5ce8678d0dc6e8a58f252216f",
+  "whole_family_compatibility_proven": false,
+  "release_archive": {
+    "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/archive/refs/tags/IONetworkingFamily-186.tar.gz",
+    "sha256": "589fda314ede20e7cb4718778e28232d047440b93032411b7548adcbbd8c07c7"
+  },
+  "bsd_name_prefix": "en",
+  "ethernet_mtu": 1500,
+  "max_packet_including_fcs": 1518,
+  "output_return_codes": {
+    "accepted": 0,
+    "dropped": 1,
+    "retry_stall": 258
+  },
+  "sources": [
+    {
+      "path": "IONetworkController.h",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IONetworkController.h",
+      "sha256": "727c06d8f31d4e2c4c8efd4b2f3437d62f430dcaa19afe9649143d24867f0dc8"
+    },
+    {
+      "path": "IONetworkController.cpp",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IONetworkController.cpp",
+      "sha256": "39ecaaec08c69661df2cab58868d750275d515113de1f455e690a5ac11640f6d"
+    },
+    {
+      "path": "IONetworkInterface.h",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IONetworkInterface.h",
+      "sha256": "5ceae4cb76560b39858fb695fe9b7ff215e54a2a24872198312f0b93c629204a"
+    },
+    {
+      "path": "IONetworkInterface.cpp",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IONetworkInterface.cpp",
+      "sha256": "b2cf42f7c621e0709d679ac599a3778983de5c72e42afcd90bd4d4b6d93b500a"
+    },
+    {
+      "path": "IOEthernetController.h",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IOEthernetController.h",
+      "sha256": "4c3d67c38619abfb1df39d9b85f38152b6536f0c24716ea5862a7c540169e51b"
+    },
+    {
+      "path": "IOEthernetController.cpp",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IOEthernetController.cpp",
+      "sha256": "aa0dabb177cfaf00f1e317ac2fe40dadcd046dd2f3678682d18d8de5626cf525"
+    },
+    {
+      "path": "IOEthernetInterface.h",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IOEthernetInterface.h",
+      "sha256": "30aba0bcb1146fcf230c37f8f1e399cf9362074d203fd5e817fbcf8e1171edc6"
+    },
+    {
+      "path": "IOEthernetInterface.cpp",
+      "url": "https://github.com/apple-oss-distributions/IONetworkingFamily/blob/IONetworkingFamily-186/IOEthernetInterface.cpp",
+      "sha256": "1339d99dbf4a7190a5b5afa0c433d0dc1eefa1e581fbfc821f085c66e2bf0a64"
+    }
+  ],
+  "implementation_sources": {
+    "IOEthernetController.cpp": "aa0dabb177cfaf00f1e317ac2fe40dadcd046dd2f3678682d18d8de5626cf525",
+    "IOEthernetInterface.cpp": "1339d99dbf4a7190a5b5afa0c433d0dc1eefa1e581fbfc821f085c66e2bf0a64",
+    "IOKernelDebugger.cpp": "bbac801acc6b02279db1635235dbc7500742111a40cf83ca9b96a27ea87064d8",
+    "IOMbufMemoryCursor.cpp": "0a74e504c7c22b906d0f4ce87a45605377320145c8daab3ea5b9219ab3de0c58",
+    "IONetworkController.cpp": "39ecaaec08c69661df2cab58868d750275d515113de1f455e690a5ac11640f6d",
+    "IONetworkData.cpp": "ad87ffd8e0b1244a59da182fd5ef97568259690a647a049a712482a4b390a1f2",
+    "IONetworkInterface.cpp": "b2cf42f7c621e0709d679ac599a3778983de5c72e42afcd90bd4d4b6d93b500a",
+    "IONetworkMedium.cpp": "7f0dc09de819b9a36f48f7e0109339a6fc847cc3a9e9f39ef68c1c17d2de3ab2",
+    "IONetworkStack.cpp": "a2b5d2302fdb7fceed1060e8ddcef9f4379a71ee229ad277f8ca56fd11b2da6c",
+    "IONetworkUserClient.cpp": "e18e58f89286f00fe3c0964e769e84028998081a47d2370eb98c0a6881eec7c6",
+    "IOOutputQueue.cpp": "dd6997db37216573ac82a97309d8891b8f651160b8b3a82b3aa9c976e2d27166",
+    "IOPacketQueue.cpp": "bb7da51725116f3065ee1c8f75049a8311101158899b0fd56fcc4267b939f22b"
+  },
+  "claims": {
+    "hardware_access": false,
+    "interface_registered": false,
+    "ethernet_packets": false,
+    "ssh": false
+  }
+}

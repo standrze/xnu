@@ -1,0 +1,17 @@
+{
+  "expectedCLIStatus": 1,
+  "files": {
+    "command-1-stderr.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command-1-stdout.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "loader-manifest.json": "12a79dde4f625258d6014c9144de433aaeed3d14544a9d283f90c49a7fade96c",
+    "preflight.json": "ae5e7e182a8b55696ff61c72afccd771ffbaef802a8b2566bc38ff53e8145fdb",
+    "result.json": "b2f809287025c36741dbd2e7d3cdead5e756e9395c2d5a9af07a9c38e5d38f9d",
+    "serial.bin": "88c1cd17ab8c58019c6dcb6d92144e82bff666f31692e69e4428fc49a9631679",
+    "serial.txt": "88c1cd17ab8c58019c6dcb6d92144e82bff666f31692e69e4428fc49a9631679",
+    "start-requested.json": "3354ecc35d3d389936a36dab7801099e8928979177178d6c7e68d2595b729b5f",
+    "started.json": "f94b3a4e96d2c3c6b4cb4132143439661199c73caa9bb28f656989e16f91c999",
+    "timeout.json": "b2592d3380ef8654b9c3681a98dfa9f9de022c28a7975ac451da324aa199bd4d"
+  },
+  "qualification": "historical failed trial",
+  "sessionID": "f4e895beb6724ef6ab7fa7be9f24cef2"
+}

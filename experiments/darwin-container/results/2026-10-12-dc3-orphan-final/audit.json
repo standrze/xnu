@@ -1,0 +1,31 @@
+{
+  "audit": "passed",
+  "commandSucceeded": true,
+  "commands": [
+    {
+      "commandID": 1,
+      "stderr": {
+        "bytes": 19,
+        "sha256": "69ede6ae16dec18e6937d61ce2d035c6d443bf342ee6ad21aa7f1f406971fa58"
+      },
+      "stdout": {
+        "bytes": 17,
+        "sha256": "fddb58397199eada823062bfdff844f1b283c3c17ba3889bffa65f20f92eb098"
+      }
+    },
+    {
+      "commandID": 2,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 21,
+        "sha256": "b4176e46244a4b3b1c7c4bb998ffdbb2f23e9d7710ddbf3d3da4e9c8c299a634"
+      }
+    }
+  ],
+  "guestFrames": 13,
+  "serialSHA256": "32f207db660435732f4aaef2f08c995653aa52f1aeb683740ed7dddf404961cb",
+  "sessionID": "7c8beabc426349efa3425e9c949b8da8"
+}

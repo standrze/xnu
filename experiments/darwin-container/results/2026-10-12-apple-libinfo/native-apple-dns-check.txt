@@ -1,0 +1,1 @@
+Original Apple DNS wire parser: valid compressed A, all truncations, loop/out-of-range pointer and wrong ID passed

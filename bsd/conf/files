@@ -216,7 +216,7 @@ bsd/net/pf_if.c				optional pf bound-checks
 bsd/net/pf_ioctl.c			optional pf bound-checks
 bsd/net/pf_norm.c			optional pf bound-checks
 bsd/net/pf_osfp.c			optional pf bound-checks
-bsd/net/pf_pbuf.c			optional pf bound-checks
+bsd/net/pf_pbuf.c			optional networking bound-checks
 bsd/net/pf_ruleset.c			optional pf bound-checks
 bsd/net/pf_table.c			optional pf bound-checks
 bsd/net/iptap.c				optional networking bound-checks
@@ -224,7 +224,7 @@ bsd/net/pktap.c				optional networking bound-checks
 bsd/net/droptap.c			optional networking bound-checks
 bsd/net/if_llreach.c          		optional networking bound-checks
 bsd/net/flowhash.c			optional networking bound-checks
-bsd/net/siphash.c			optional networking bound-checks
+bsd/net/siphash.c			standard bound-checks
 bsd/net/flowadv.c			optional networking bound-checks
 bsd/net/content_filter.c		optional content_filter bound-checks
 bsd/net/content_filter_crypto.c         optional content_filter bound-checks
@@ -347,7 +347,7 @@ bsd/netkey/key_debug.c    		optional ipsec bound-checks
 bsd/netkey/keysock.c      		optional ipsec bound-checks
 bsd/netkey/keydb.c      		optional ipsec bound-checks
 
-bsd/net/multi_layer_pkt_log.c		optional inet inet ipsec ipsec_esp bound-checks
+bsd/net/multi_layer_pkt_log.c		optional networking bound-checks
 
 bsd/crypto/entropy/entropy_sysctl.c standard
 

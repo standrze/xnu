@@ -1,0 +1,65 @@
+{
+  "format": "rpi5-display-allocate-zero-primary-v1",
+  "directory": "build/rpi5/display-allocate-primary-8e1779b-20261013",
+  "sources": [
+    {
+      "path": "../display-get-primary-80d4218-20261013/drivers/video/fbdev/bcm2708_fb.c",
+      "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/video/fbdev/bcm2708_fb.c",
+      "sha256": "ecdfa03f27085b49b5abdb6dcb6c13127613bb443d82819b1a0f1ae781c372c7",
+      "bytes": 34370
+    },
+    {
+      "path": "RpiFirmwareDxe.c",
+      "commit": "8e1779b538bcc1e6dc68d7df625394f933651d7a",
+      "url": "https://github.com/worproject/edk2-platforms/blob/8e1779b538bcc1e6dc68d7df625394f933651d7a/Platform/RaspberryPi/Drivers/RpiFirmwareDxe/RpiFirmwareDxe.c",
+      "sha256": "43e4ec120e129bbb6209d6db7e66d672b3a5f11114e5872b6802cca68852d3ac",
+      "bytes": 44265
+    },
+    {
+      "path": "RpiMbox.h",
+      "commit": "8e1779b538bcc1e6dc68d7df625394f933651d7a",
+      "url": "https://github.com/worproject/edk2-platforms/blob/8e1779b538bcc1e6dc68d7df625394f933651d7a/Platform/RaspberryPi/Include/IndustryStandard/RpiMbox.h",
+      "sha256": "8ffba78d8afa97645f4f451f69d130e5357aa80c3f3dfcf037ac2f742af90fe2",
+      "bytes": 10987
+    },
+    {
+      "path": "DisplayDxe.c",
+      "commit": "8e1779b538bcc1e6dc68d7df625394f933651d7a",
+      "url": "https://github.com/worproject/edk2-platforms/blob/8e1779b538bcc1e6dc68d7df625394f933651d7a/Platform/RaspberryPi/Drivers/DisplayDxe/DisplayDxe.c",
+      "sha256": "419290441d0819d5c38b2abd3abd9ac9e9843b55381d3b76c553667e2c7b1414",
+      "bytes": 18437
+    },
+    {
+      "path": "RPi5.dsc",
+      "commit": "8e1779b538bcc1e6dc68d7df625394f933651d7a",
+      "url": "https://github.com/worproject/edk2-platforms/blob/8e1779b538bcc1e6dc68d7df625394f933651d7a/Platform/RaspberryPi/RPi5/RPi5.dsc",
+      "sha256": "7ecb7e90752d57017af923cd3a8c64de7897c1fec040390e85d3e7cc7c16c20a",
+      "bytes": 33058
+    },
+    {
+      "path": "RPi5-RaspberryPiMem.c",
+      "commit": "8e1779b538bcc1e6dc68d7df625394f933651d7a",
+      "url": "https://github.com/worproject/edk2-platforms/blob/8e1779b538bcc1e6dc68d7df625394f933651d7a/Platform/RaspberryPi/RPi5/Library/PlatformLib/RaspberryPiMem.c",
+      "sha256": "709aee8bd2ed55217ce245d32c23235f81c09f9fd6c2a2bdff85355f44cec001",
+      "bytes": 9005
+    },
+    {
+      "path": "rpi5-config.txt",
+      "commit": "a6135b06d661b5f11bbf4bd742b42a1919b264dc",
+      "url": "https://github.com/worproject/rpi5-uefi/blob/a6135b06d661b5f11bbf4bd742b42a1919b264dc/config.txt",
+      "sha256": "cf8f011f2c9796192dee7429a868ace60586dad7b48d1655775396bde2e614f8",
+      "bytes": 331
+    },
+    {
+      "path": "Mailbox-property-interface.md",
+      "url": "https://github.com/raspberrypi/firmware/wiki/Mailbox-property-interface",
+      "revision": "content-SHA256-pinned wiki snapshot; fetched 2026-10-13",
+      "sha256": "1197d7f52ae2ce6b731bb1ea8e1fce93df4395983629994069e71d498160dd8b",
+      "bytes": 29399
+    }
+  ],
+  "address_profile": "The matched ALLOCATE reply must have raw top bits zero. EDK2 clears the top two bits without requiring an incoming C prefix. Linux independently normalizes with the same mask. This narrow successor rejects C and all other prefix classes; it does not admit arbitrary physical-looking addresses.",
+  "limits": "Original references, not imported code. Runtime32 preflight required; no SET fallback from16. No pixel/mapping authority from source alone. Pi5 alpha issue1971 and SET-depth issue1904 remain hardware caveats."
+}
+

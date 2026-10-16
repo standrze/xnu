@@ -1,0 +1,180 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -3,7 +3,7 @@
+ #define BCM2712_PCIE_PHY_TRANSPORT_H
+ #include <IOKit/IOService.h>
+ #include <IOKit/IOMemoryDescriptor.h>
+-#include "BCM2712PCIeClockPolicy.h"
++#include "BCM2712PCIeControllerPolicy.h"
+ extern "C" {
+ #include "../../loader/rpi5/pcie_ubus.h"
+ #include "../../loader/rpi5/pcie_unused.h"
+@@ -40,6 +40,27 @@
+     struct rpi5_pcie_clock_pre_observation clock;
+ };
+ 
++struct bcm2712_controller_admission {
++    /* Zero means CURRENT independently verified physical/lifecycle admission.
++     * Same retained provider; callback must stay valid until autonomous reset.
++     * Non-reentrant, separately bounded, no cached registry permission bit.
++     * Every phase retains accessible inherited power/clocks/shared RESCAL,
++     * exclusive controller/mapping, interrupt masking, endpoint/DMA quiescence
++     * and fault-contained recovery. HELD_RESET additionally requires asserted
++     * PERST/link down and unused windows disabled. RELEASED allows training/
++     * link up, retaining unused-window/IRQ/DMA safety; never require link down.
++     * RELEASED begins immediately before the release write, not proof it has
++     * completed. The link core independently checks actual posted completion. */
++    int (*check)(IOService *, unsigned lifecycle);
++};
++struct bcm2712_controller_observation {
++    struct bcm2712_clock_observation prior;
++    struct rpi5_pcie_rc_observation rc;
++    struct rpi5_pcie_link_observation link;
++    struct rpi5_pcie_clock_post_observation clock;
++    uint32_t fresh_unused_checks;
++};
++
+ /* Actual Device mapping/volatile-MMIO implementation for the first three
+  * initial bring-up cores. Not a registered PCI bridge or runtime NIC driver.
+  * Absent from source lists/catalogue; no current boot caller exists.
+@@ -74,6 +95,13 @@
+     struct rpi5_pcie_unused unused = {};
+     struct rpi5_pcie_qos qos = {};
+     struct rpi5_pcie_clock clockPolicy = {};
++    struct rpi5_pcie_windows windows = {};
++    struct rpi5_pcie_rc rc = {};
++    struct rpi5_pcie_link link = {};
++    struct bcm2712_controller_admission controllerAdmission = {};
++    unsigned lifecyclePhase = BCM2712_CONTROLLER_PRECLAIM;
++    uint32_t freshUnusedChecks = 0;
++    bool controllerMode = false, checkingLifecycle = false;
+     unsigned phase = BCM2712_PHY_EMPTY;
+     bool providerOpened = false, singletonHeld = false, claimAttempted = false;
+     unsigned getPhase() const { return __atomic_load_n(&phase, __ATOMIC_ACQUIRE); }
+@@ -97,6 +125,10 @@
+     static int nowUS(void *, uint64_t *);
+     static int delayUS(void *, uint32_t);
+     static int unusedOwner(void *);
++    static int controllerRead16(void *, uint32_t, uint16_t *);
++    static int controllerWrite16(void *, uint32_t, uint16_t);
++    static int controllerQuiescent(void *);
++    static int controllerLifecycle(void *, unsigned);
+ protected:
+     void free() override;
+ public:
+@@ -127,5 +159,11 @@
+      * Does not release PERST or program post-link CLKREQ. No fabricated
+      * lifecycle provider, COMPLETE RC/windows/link, or hardware admission. */
+     bool runPHYUBUSQoSAndClock(struct bcm2712_clock_observation *);
++    /* One actual prior chain -> RC/windows -> bounded link -> post-link clock.
++     * Missing genuine external provider checks REFUSE activation. No concrete
++     * lifecycle implementation/boot caller/personality is supplied here. Not
++     * endpoint enumeration, BAR mapping, IRQ routing or bus mastering/DMA. */
++    bool runController(const struct bcm2712_controller_admission *,
++        struct bcm2712_controller_observation *);
+ };
+ #endif
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -39,6 +39,9 @@
+     unused.state = RPI5_PCIE_UNUSED_QUARANTINED;
+     qos.state = RPI5_PCIE_QOS_QUARANTINED;
+     clockPolicy.state = RPI5_PCIE_CLOCK_QUARANTINED;
++    windows.state = RPI5_PCIE_WINDOWS_QUARANTINED;
++    rc.state = RPI5_PCIE_RC_QUARANTINED;
++    link.state = RPI5_PCIE_LINK_QUARANTINED;
+     return -1;
+ }
+ bool BCM2712PCIePHYTransport::guard()
+@@ -50,12 +53,24 @@
+           currentPhase == BCM2712_PHY_UBUS_CONFIGURING ||
+           currentPhase == BCM2712_PHY_UNUSED_INSPECTING ||
+           currentPhase == BCM2712_PHY_QOS_CONFIGURING ||
+-          currentPhase == BCM2712_PHY_CLOCK_PREPARING) ||
++          currentPhase == BCM2712_PHY_CLOCK_PREPARING ||
++          currentPhase == BCM2712_PHY_RC_CONFIGURING ||
++          currentPhase == BCM2712_PHY_LINK_TRAINING ||
++          currentPhase == BCM2712_PHY_CLOCK_FINISHING) ||
+         __atomic_load_n(&phyOwner, __ATOMIC_ACQUIRE) != this || !providerOpened ||
+         !ownerProvider || !ownerProvider->isOpen(this) || !pe_rpi5_watchdog_check_pcie(this)) {
+         fail();
+         return false;
+     }
++    if (controllerMode) {
++        if (checkingLifecycle || !controllerAdmission.check) { fail(); return false; }
++        checkingLifecycle = true;
++        int result = controllerAdmission.check(ownerProvider, lifecyclePhase);
++        checkingLifecycle = false;
++        if (result || getPhase() != currentPhase || !pe_rpi5_watchdog_check_pcie(this)) {
++            fail(); return false;
++        }
++    }
+     return true;
+ }
+ bool BCM2712PCIePHYTransport::mapBanks()
+@@ -123,7 +138,7 @@
+ int BCM2712PCIePHYTransport::read32(unsigned bank, uint32_t offset, uint32_t *out)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!out || !bcm2712_clock_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
++    if (!out || !bcm2712_controller_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
+     if (!guard()) return -1;
+     __asm__ volatile("dmb osh" ::: "memory");
+     uint32_t value = *reinterpret_cast<volatile uint32_t *>(registers[bank] + offset);
+@@ -135,10 +150,17 @@
+ int BCM2712PCIePHYTransport::write32(unsigned bank, uint32_t offset, uint32_t value)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!bcm2712_clock_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
++    if (!bcm2712_controller_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
+     /* Reset SET/CLEAR must NEVER touch other controllers' bits. */
+     if (bank == BCM2712_PHY_RESET && value != 0x1000) return fail();
+     if (!guard()) return -1;
++    if (controllerMode && getPhase() == BCM2712_PHY_LINK_TRAINING && offset == 0x4064) {
++        if (lifecyclePhase != BCM2712_CONTROLLER_HELD_RESET || (value & 5) != 4) return fail();
++        /* The callback's RELEASED contract allows the reset transition and
++         * training; it does not require link up or assert posted completion. */
++        lifecyclePhase = BCM2712_CONTROLLER_RELEASED;
++        if (!guard()) return -1;
++    }
+     __asm__ volatile("dmb osh" ::: "memory");
+     *reinterpret_cast<volatile uint32_t *>(registers[bank] + offset) = value;
+     __asm__ volatile("dsb sy" ::: "memory");
+@@ -194,14 +216,30 @@
+ {
+     auto *self = static_cast<BCM2712PCIePHYTransport *>(p);
+     if (!self->onOwnerThread()) return -1;
+-    if (!us || us > 100) return self->fail();
++    if (!us) return self->fail();
++    if (self->getPhase() == BCM2712_PHY_LINK_TRAINING) {
++        if (!self->controllerMode || us > 100000) return self->fail();
++        /* At most 100 one-ms independently terminating IODelay chunks. Check
++         * watchdog AND the independent provider before/after each chunk.
++         * The real link core measures the minimum settling/deadline with nowUS. */
++        while (us) {
++            uint32_t chunk = us > 1000 ? 1000 : us;
++            if (!self->guard()) return -1;
++            IODelay(chunk);
++            if (!self->guard()) return -1;
++            us -= chunk;
++        }
++        return 0;
++    }
++    if (us > 100) return self->fail();
+     if (!self->guard()) return -1;
+     IODelay(us);
+     return self->guard() ? 0 : -1;
+ }
+ bool BCM2712PCIePHYTransport::runInitialPHY(struct bcm2712_phy_observation *out)
+ {
+-    if (getPhase() != BCM2712_PHY_PREPARED || !onOwnerThread() || !out) return false;
++    if (getPhase() != BCM2712_PHY_PREPARED || !onOwnerThread() || !out ||
++        (controllerMode && checkingLifecycle)) return false;
+     /* Do not introduce another recovery-permission boolean. The future boot
+      * integration must close the documented admission BEFORE calling here. */
+     retain();
+@@ -236,3 +274,4 @@
+ #include "BCM2712PCIeUnused.inc"
+ #include "BCM2712PCIeQoS.inc"
+ #include "BCM2712PCIeClock.inc"
++#include "BCM2712PCIeController.inc"

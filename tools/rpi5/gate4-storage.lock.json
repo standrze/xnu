@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "distribution": {
+    "repository": "https://github.com/apple-oss-distributions/distribution-macOS.git",
+    "tag": "macos-265",
+    "commit": "83390100289cedfe669c31a96c94326d31afa1ed",
+    "release_sha256": "7878cf95a3511fad474e17dcd209375539772cfce2e37b3cd0660c1207621670",
+    "xnu_tag": "xnu-12377.121.6"
+  },
+  "dependencies": {
+    "IOStorageFamily": {
+      "tag": "IOStorageFamily-337.100.1",
+      "commit": "7edb88fbae296fb7c8ce2f64e115e116e566d51c",
+      "url": "https://codeload.github.com/apple-oss-distributions/IOStorageFamily/tar.gz/refs/tags/IOStorageFamily-337.100.1",
+      "sha256": "93463463f3a89de951aca2d2d2580d3600bf042b419d981c458a672e4f9ca1a2",
+      "directory": "IOStorageFamily-IOStorageFamily-337.100.1"
+    },
+    "hfs": {
+      "tag": "hfs-715.120.4",
+      "commit": "124b970fd5390f1c2cd6f985478616a04f6eeb1f",
+      "url": "https://codeload.github.com/apple-oss-distributions/hfs/tar.gz/refs/tags/hfs-715.120.4",
+      "sha256": "6a464595d1777e63691301f1bd1e04df35c5e5c81fd54dce7205372fb3cecacd",
+      "directory": "hfs-hfs-715.120.4"
+    }
+  },
+  "hardware_reference": {
+    "repository": "https://github.com/raspberrypi/linux.git",
+    "commit": "43c132e8863c3bff3647033b6a7d2bf87b15501c",
+    "path": "drivers/mmc/host/sdhci-brcmstb.c",
+    "sha256": "1feb4d7cb34e38cdb9ed4e15c2eb272a2e5d7f771fef34f5b7c0b6599f0eb371",
+    "usage": "Register and wiring reference only; GPL implementation is not imported into XNU"
+  }
+}

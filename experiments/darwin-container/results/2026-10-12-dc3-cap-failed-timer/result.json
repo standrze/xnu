@@ -1,0 +1,54 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 219648,
+        "stderrEOF" : false,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 219648,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : false
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 2,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "error" : "agent protocol: malformed frame or CRC mismatch",
+    "handshakeCompleted" : true,
+    "protocolValid" : false,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : false
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 7.240388000005623,
+  "error" : "agent protocol: malformed frame or CRC mismatch",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-cap-1",
+  "serialByteCount" : 1019160,
+  "sessionID" : "c5e67836ede149e6bed7ccdabb1f7dc1",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "failed"
+}

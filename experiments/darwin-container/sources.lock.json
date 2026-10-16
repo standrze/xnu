@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "workstream": "darwin-guest-bootstrap",
+  "sources": [
+    {
+      "name": "container",
+      "upstream": "https://github.com/apple/container.git",
+      "upstreamCommit": "f70ecbb926d925818a34917529e304b1177ce98c",
+      "fork": "https://github.com/standrze/container.git",
+      "forkDisposition": "existing fork preserved",
+      "localPath": "container",
+      "developmentBranch": "darwin-guest-bootstrap"
+    },
+    {
+      "name": "containerization",
+      "upstream": "https://github.com/apple/containerization.git",
+      "upstreamCommit": "3e7bc39e66b38806ec8199aaa24509d66708eb60",
+      "fork": "https://github.com/standrze/containerization.git",
+      "forkDisposition": "fork created for this workstream",
+      "localPath": "containerization",
+      "developmentBranch": "darwin-guest-bootstrap"
+    }
+  ],
+  "scope": {
+    "host": "Apple silicon macOS",
+    "virtualization": "Apple Virtualization.framework; no QEMU",
+    "guestBoot": "generic ARM64 EFI; downstream XNU VZGENERIC handoff implemented",
+    "piHardwareAccess": false,
+    "installedContainerServicesModified": false
+  }
+}

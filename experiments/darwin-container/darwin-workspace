@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: BSD-2-Clause
+"""Open the current packaged Darwin workspace."""
+from pathlib import Path
+import os
+import sys
+
+launcher = Path(__file__).resolve().parent / "userland/build/darwin-workspace-0.4.2/darwin"
+if not launcher.is_file():
+    raise SystemExit("Darwin workspace package is missing; see experiments/darwin-container/WORKSPACE.md for the build command")
+os.execv(sys.executable, [sys.executable, str(launcher), *sys.argv[1:]])

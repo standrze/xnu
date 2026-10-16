@@ -1,0 +1,11 @@
+{
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.4.1",
+  "manifest_sha256": "51887c74387d3bf44f6d832a2be9c53f3c48da0f702ae0a864cd9c3694e5116d",
+  "script_sha256": "6162763b4dbfdccc9c326d600f5e23e3eb1d30b516886312719e4bd7d02a5a90",
+  "runs": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/results/2026-10-12-apple-utilities-trial-3/workspaces/apple-userland/runs/20261012T231604Z-fdb18ca1eab5"
+  ],
+  "passed": [],
+  "error": "Command '['/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.4.1/darwin', 'apple-userland', '--workspace-root', '/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/results/2026-10-12-apple-utilities-trial-3/workspaces', '--timeout-seconds', '120']' timed out after 5 seconds",
+  "scope": "two short actual XNU workspace boots; utility examples and clean persistence; no soak or full option suite"
+}

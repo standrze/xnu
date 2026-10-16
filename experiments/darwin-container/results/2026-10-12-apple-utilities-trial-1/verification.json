@@ -1,0 +1,11 @@
+{
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.4.0",
+  "manifest_sha256": "2784b4b845e95d07300fb7f7c76d837a7f8c2a3cc60b5c0159faf79095318e6f",
+  "script_sha256": "6162763b4dbfdccc9c326d600f5e23e3eb1d30b516886312719e4bd7d02a5a90",
+  "runs": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/results/2026-10-12-apple-utilities-trial-1/workspaces/apple-userland/runs/20261012T231242Z-93e58b84054b"
+  ],
+  "passed": [],
+  "error": "[Errno 1] Operation not permitted",
+  "scope": "two short actual XNU workspace boots; utility examples and clean persistence; no soak or full option suite"
+}

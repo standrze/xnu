@@ -1,0 +1,27 @@
+{
+  "format": "rpi5-gem-capabilities-primary-v1",
+  "hardware_observed": false,
+  "source_code_imported": false,
+  "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "sources": [
+    {
+      "path": "build/rpi5/gem-capability-primary-80d4218-20261013/macb.h",
+      "bytes": 51692,
+      "sha256": "ec4394d8c2daf984517441d079e8ca61af986de007e822f094f5b051b90461e7",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb.h"
+    },
+    {
+      "path": "build/rpi5/gem-capability-primary-80d4218-20261013/macb_main.c",
+      "bytes": 172018,
+      "sha256": "ec5a8df6096d3a4541e7a17821ef81264ce230aa5676afe276af3aed26cbee87",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb_main.c"
+    },
+    {
+      "path": "build/rpi5/gem-capability-primary-80d4218-20261013/rp1.dtsi",
+      "bytes": 37929,
+      "sha256": "e8c537ab4f2a9b1a62ec8284c45085a3767d2316b0ad921a1d9f5fcfdfbda45a",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/rp1.dtsi"
+    }
+  ],
+  "scope": "Read-only MID and design configuration, no status/ISR/counters, reset/NCR/MDIO/IRQ/DMA writes. Existing Pi5 same-boot ownership/mapping and before/after clock checks remain authoritative. Raw design features do not qualify actual DMA addressing, PHY/link readiness or packet operation."
+}

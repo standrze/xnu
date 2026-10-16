@@ -1999,7 +1999,7 @@ void
 thread_call_delayed_timer(timer_call_param_t p0, timer_call_param_t p1)
 {
 	thread_call_group_t  group  = (thread_call_group_t)  p0;
-	thread_call_flavor_t flavor = (thread_call_flavor_t) p1;
+	thread_call_flavor_t flavor = (thread_call_flavor_t)(uintptr_t) p1;
 
 	assert((group - &thread_call_groups[0]) < THREAD_CALL_INDEX_MAX);
 	assert((group - &thread_call_groups[0]) > THREAD_CALL_INDEX_INVALID);

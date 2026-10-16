@@ -1,0 +1,149 @@
+VZ:VIRTIO:READY EL1 MMU_OFF GICD=0000000010000000 GICR=0000000010010000
+VZ:XNU:HANDOFF ARGS=0000000072004000 ENTRY=00000000714a5db8 ARENA=0000000070000000 SIZE=0000000014000000
+XDAZPMVCISTBDELHKWabcdefghijRPUNQ100kprintf initialized
+FSerial mode specified: 00000003
+initialize_screen: b=00000000, w=00000000, h=00000000, r=00000000, d=00000000
+initialize_screen: No video - forcing serial mode
+pe_arm_init_interrupts: args: 0xfffffe0007926f80
+pe_arm_map_interrupt_controller: soc_phys:  0x10000000
+pe_arm_map_interrupt_controller: failed to find the interrupt-controller.
+pe_arm_init_debug: failed to find cpu-debug-interface
+VZXNU:GIC:READY TIMER=27 SGI=1
+Darwin Kernel Version 12377.121.6: Sun Oct 11 22:44:15 EDT 2026; stephen:obj[xnu-12377.121.6-dirty]/DEVELOPMENT_ARM64_VZGENERIC
+pmap_startup() init/release time: 387 microsec
+vm_page_bootstrap: 18221 free pages, 2259 wired pages
+VM bootstrap: 73 maps, 256 entries and 64 nodes available
+Enable all vm_debug options with boot-arg vm_debug=1
+Maximum number of VM swap files: 100
+mb                      : 0xfffffe10004ec000 - 0xfffffe10044ec000 (64M)
+bufferhdr               : 0xfffffe10044ec000 - 0xfffffe1004520000 (208K)
+ipc_kernel_map          : 0xfffffe1004520000 - 0xfffffe1008520000 (64M)
+ipc_kernel_copy_map     : 0xfffffe1008520000 - 0xfffffe1008d20000 (8M)
+zone_meta               : 0xfffffe1008d20000 - 0xfffffe1010e28000 (129M)
+bsd_pageable            : 0xfffffe1010e28000 - 0xfffffe1013030000 (34M)
+compressor              : 0xfffffe1013030000 - 0xfffffe11530c0000 (5G)
+zones                   : 0xfffffe11530c0000 - 0xfffffe31530c0000 (128G)
+kmem_ptr_range_0        : 0xfffffe31530c0000 - 0xfffffe6601f80000 (210G)
+kmem_data_shared_range  : 0xfffffe6601f80000 - 0xfffffe9ab0e3c000 (210G)
+gIOKitPageableFixed     : 0xfffffe9ab0e3c000 - 0xfffffe9b10e3c000 (1536M)
+kmem_data_private_range : 0xfffffe9b10e3c000 - 0xfffffecfbfcf8000 (210G)
+kmem_io                 : 0xfffffecfbfcf8000 - 0xfffffecfffcf8000 (1024M)
+vm: "vm_compressor_mode" is 4
+zone_init: map VM    0xfffffe11530c0000:0xfffffe161fd8c000 (19G, 19G usable)
+zone_init: map RO    0xfffffe161fd8c000:0xfffffe17b9730000 (6G, 6G usable)
+zone_init: map GEN0  0xfffffe17b9730000:0xfffffe1c863fc000 (19G, 19G usable)
+zone_init: map GEN1  0xfffffe1c863fc000:0xfffffe21530c8000 (19G, 19G usable)
+zone_init: map GEN2  0xfffffe21530c8000:0xfffffe261fd94000 (19G, 19G usable)
+zone_init: map GEN3  0xfffffe261fd94000:0xfffffe2aeca60000 (19G, 19G usable)
+zone_init: map DATA  0xfffffe2aeca60000:0xfffffe31530c0000 (25G, 25G usable)
+zone_init: metadata  0xfffffe1008d30000:0xfffffe1010d30000 (128M)
+zone_init: metabits  0xfffffe1010d30000:0xfffffe1010e18000 (928K)
+zone_init: extra     0:0 (0B)
+Unable to find vm tag  for btlog
+VM bootstrap done: 71 maps, 235 entries and 60 nodes left
+IOKit IOMD setownership ENABLED
+ATM subsystem is initialized
+standard timeslicing quantum is 10000 us
+standard background quantum is 2500 us
+Scheduler: Default of clutch
+Setting scheduler priority decay band limit 18
+Log queues configured: slot count: 9, per-slot size: 32768, total size: 294912
+Long logs support configured: size: 16384
+Firehose configured: 16 chunks, 8 io pages
+OSLog stream configured: stream: 8192 bytes, cache: 2112 bytes
+OSLog stream verification: 0
+[trap_telemetry] trap_telemetry_init
+mig_table_max_displ = 90 mach_kobj_count = 381
+BANK subsystem is initialized
+debug_log_init: Error!! gPanicBase is still not initialized
+suspend_cluster_powerdown_locked>calling sched_update_powered_cores to suspend powerdown
+debug_log_init: Error!! gPanicBase is still not initialized
+kdp_core zlib memory 0x8000
+Registered coredump handler for kernel
+Serial requested, consistent debug disabled or debug boot arg not present, configuring debugging over serial
+Initializing serial KDP
+BCM2712 crypto provider registration
+BCM2712 crypto and PRNG registered
+BCM2712 pthread provider registered before IOKit lockdown
+iBoot version: 
+iBoot Stage 2 version: 
+"name" not a kext
+"RAMDisk" not a kext
+ulock_initialize>thread_max=2560, ull_hash_buckets=1024
+vm: creating swapout thread
+vm: creating swapfile creation thread
+vm: creating swapfile GC thread
+lockdown_mode: error getting state from nvram
+lockdown_mode: lockdown mode in nvram is off
+BCM2712 START PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 END PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 MAX_CPUS READY count=1
+BCM2712 START BSD_INIT daif=0x200 cntvctl=0x1
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+	The Regents of the University of California. All rights reserved.
+
+MAC Framework successfully initialized
+using 366 buffer headers and 366 cluster IO buffer headers
+BCM2712 IORTC wait deferred
+mbinit: done [64 MB total pool size, (42/21) split]
+New aio workqueue implementation selected
+DLIL: running SUM16 self-tests ... PASSED
+dlil_init: Waiting for all the create dlil kernel threads to get scheduled at least once.
+dlil_init: All the created dlil kernel threads have been scheduled at least once. Proceeding.
+bsd_autoconf: calling kminit
+IOResources: not registry member at registerService()
+ifnet_attach: All kernel threads created for interface lo0 have been scheduled at least once. Proceeding.
+IOServicePH::kIOMessageSystemCapabilityChange: will 0xf->0xf
+IOServicePH::systemPowerChange to 0x30
+IOServicePH::kIOMessageSystemCapabilityChange: did 0xf->0xf
+cpu_start() cpu: 0
+VZXNU:PLATFORM:READY CPUS=1
+Added memory device md0/rmd0 (01000000/0A000000) at FFFFFE0008008000 for 000000000019C000
+BSD root: md0, major 1, minor 0
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x0), isssd is (0)
+RPI5XNU:RAMROOT:MOUNT NODES=28 BYTES=1687552 READONLY
+Serial keyboard started
+resume_cluster_powerdown_locked>calling sched_update_powered_cores to resume powerdown
+vm: initializing swap
+vm: starting swapout thread
+vm: starting swapfile creation thread
+vm: starting swapfile GC thread
+VM Swap Subsystem is ON
+load_init_program: attempting to load /sbin/launchd
+DARWIN:INIT:READY
+DARWIN:INIT:AGENT_PID=2
+
+DARWIN:AGENT:READY:1
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000000|00000001|HELLO|001c|657865632c73747265616d732c63616e63656c2c73687574646f776e|5d3617f3
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000002|STARTED|0004|00000003|931c5e95
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000003|OUT|0011|44455343454e44414e545f5049443d340a|1072b9b8
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000004|ERR|0013|455343415045445f44455343454e44414e540a|a8f862ef
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000005|CANCELLED|0001|01|02cc0716
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000006|OUT_EOF|0000||e62e3d0d
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000007|ERR_EOF|0000||f9a7a30f
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000001|00000008|EXIT|0005|0109010100|e5fc5411
+DGA1|G|c59daef988384f55a4a8364ec74c6694|00000000|00000009|SHUTDOWN|0000||9d16f30e
+Kext loading now disabled.
+Kext unloading now disabled.
+Kext autounloading now disabled.
+Kernel requests now disabled.
+PMRD: PagingOff all drivers took 0 ms
+PMRD: PagingOff total 2 ms
+syncing disks... Killing all processes 
+
+vfs_unmountall(nonsystem) start
+unmount(1) /dev skipped
+unmount(1) / skipped
+vfs_unmountall(nonsystem) end
+IOServicePH::systemHalt took 0 ms
+Killing all processes 
+
+continuing
+vfs_unmountall(system) start
+unmount(0) /dev
+unmount(0) /
+vfs_unmountall(system) end
+done
+CPU halted
+PMRD: PowerOff all drivers took 0 ms
+PMRD: PowerOff total 9 ms

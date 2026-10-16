@@ -1,0 +1,106 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -3,10 +3,11 @@
+ #define BCM2712_PCIE_PHY_TRANSPORT_H
+ #include <IOKit/IOService.h>
+ #include <IOKit/IOMemoryDescriptor.h>
+-#include "BCM2712PCIeUnusedPolicy.h"
++#include "BCM2712PCIeQoSPolicy.h"
+ extern "C" {
+ #include "../../loader/rpi5/pcie_ubus.h"
+ #include "../../loader/rpi5/pcie_unused.h"
++#include "../../loader/rpi5/pcie_qos.h"
+ #include "../../pexpert/arm/rpi5_pcie_watchdog_api.h"
+ }
+ 
+@@ -27,6 +28,12 @@
+     struct rpi5_pcie_unused_observation unused;
+ };
+ 
++struct bcm2712_qos_observation {
++    struct bcm2712_unused_observation prior;
++    struct rpi5_pcie_profile profile;
++    struct rpi5_pcie_qos_observation qos;
++};
++
+ /* Actual Device mapping/volatile-MMIO implementation for the first three
+  * initial bring-up cores. Not a registered PCI bridge or runtime NIC driver.
+  * Absent from source lists/catalogue; no current boot caller exists.
+@@ -53,11 +60,13 @@
+     IOMemoryMap *maps[3] = {};
+     vm_offset_t registers[3] = {};
+     struct rpi5_pcie_fdt binding = {};
++    struct rpi5_pcie_profile profile = {};
+     struct rpi5_pcie_reset reset = {};
+     struct rpi5_pcie_rescal calibration = {};
+     struct rpi5_pcie_serdes serdes = {};
+     struct rpi5_pcie_ubus ubus = {};
+     struct rpi5_pcie_unused unused = {};
++    struct rpi5_pcie_qos qos = {};
+     unsigned phase = BCM2712_PHY_EMPTY;
+     bool providerOpened = false, singletonHeld = false, claimAttempted = false;
+     unsigned getPhase() const { return __atomic_load_n(&phase, __ATOMIC_ACQUIRE); }
+@@ -103,5 +112,9 @@
+      * Not a check_quiescent provider or RC/windows/link/IRQ/DMA admission.
+      * All existing physical-admission requirements remain mandatory. */
+     bool runPHYUBUSAndWindowCheck(struct bcm2712_unused_observation *);
++    /* Full original-FDT validation at prepare; same owned initial chain,
++     * unused-window inspection and actual FIFO/VDM programming. No RC/link,
++     * endpoint/IRQ/DMA or inherited-domain/recovery authorization. */
++    bool runPHYUBUSWindowAndQoS(struct bcm2712_qos_observation *);
+ };
+ #endif
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -37,6 +37,7 @@
+     serdes.mdio.state = RPI5_PCIE_MDIO_QUARANTINED;
+     ubus.state = RPI5_PCIE_UBUS_QUARANTINED;
+     unused.state = RPI5_PCIE_UNUSED_QUARANTINED;
++    qos.state = RPI5_PCIE_QOS_QUARANTINED;
+     return -1;
+ }
+ bool BCM2712PCIePHYTransport::guard()
+@@ -46,7 +47,8 @@
+     if (!claimAttempted ||
+         !((currentPhase >= BCM2712_PHY_RESETTING && currentPhase <= BCM2712_PHY_CONFIGURING) ||
+           currentPhase == BCM2712_PHY_UBUS_CONFIGURING ||
+-          currentPhase == BCM2712_PHY_UNUSED_INSPECTING) ||
++          currentPhase == BCM2712_PHY_UNUSED_INSPECTING ||
++          currentPhase == BCM2712_PHY_QOS_CONFIGURING) ||
+         __atomic_load_n(&phyOwner, __ATOMIC_ACQUIRE) != this || !providerOpened ||
+         !ownerProvider || !ownerProvider->isOpen(this) || !pe_rpi5_watchdog_check_pcie(this)) {
+         fail();
+@@ -84,7 +86,9 @@
+             __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) return false;
+     ownerThread = current_thread();
+     /* A failed preparation cannot recycle this instance. */
+-    if (!provider || rpi5_fdt_pcie_rp1(fdt, bytes, &binding)) return false;
++    /* Full original options are checked BEFORE taking provider/map ownership.
++     * prepareBoot supplies its private retained/sanitized full firmware tree. */
++    if (!provider || rpi5_pcie_profile_decode(fdt, bytes, &binding, &profile)) return false;
+     BCM2712PCIePHYTransport *expected = nullptr;
+     if (!__atomic_compare_exchange_n(&phyOwner, &expected, this, false,
+             __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) return false;
+@@ -117,7 +121,7 @@
+ int BCM2712PCIePHYTransport::read32(unsigned bank, uint32_t offset, uint32_t *out)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!out || !bcm2712_unused_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
++    if (!out || !bcm2712_qos_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
+     if (!guard()) return -1;
+     __asm__ volatile("dmb osh" ::: "memory");
+     uint32_t value = *reinterpret_cast<volatile uint32_t *>(registers[bank] + offset);
+@@ -129,7 +133,7 @@
+ int BCM2712PCIePHYTransport::write32(unsigned bank, uint32_t offset, uint32_t value)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!bcm2712_unused_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
++    if (!bcm2712_qos_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
+     /* Reset SET/CLEAR must NEVER touch other controllers' bits. */
+     if (bank == BCM2712_PHY_RESET && value != 0x1000) return fail();
+     if (!guard()) return -1;
+@@ -228,3 +232,4 @@
+ #include "BCM2712PCIeUBUS.inc"
+ #include "BCM2712FirmwareFDTTransport.inc"
+ #include "BCM2712PCIeUnused.inc"
++#include "BCM2712PCIeQoS.inc"

@@ -1,0 +1,41 @@
+{
+  "passed": [
+    "typed guest vector requests returned verified results and explicit unsupported-operation status",
+    "real XNU en0 interface and MAC via guest routing sysctl",
+    "guest BPF/UDP DHCP discover/offer/request/ACK and address/default-route setup",
+    "guest-originated DNS A lookup and TCP nonce echo, independently witnessed on host NAT interface",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "independent host Metal execution/returned operands match both fresh guest requests; session teardown",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "error": null,
+  "cli_exit": 0,
+  "host_restoration_observation": "not observable after macOS controlling PTY revocation; native restoration check applies",
+  "cli_sha256": "57623afd87f08b488352a09fd9d0e3898cbe838a501bf74880dcf594cf7b0130",
+  "gpu_seeds": [
+    27877,
+    29689
+  ],
+  "network_fixture": {
+    "events": [
+      {
+        "type": "dns",
+        "guest": "192.168.64.12",
+        "name": "54f040b087ba25bea1e4c94e.darwin.test",
+        "answer": "192.168.64.1"
+      },
+      {
+        "type": "tcp",
+        "guest": "192.168.64.12",
+        "echo": "54f040b087ba25bea1e4c94e"
+      }
+    ],
+    "errors": [],
+    "host_route": "   route to: 192.168.64.12\ndestination: 192.168.64.12\n  interface: bridge100\n      flags: <UP,HOST,DONE,LLINFO,WASCLONED,IFSCOPE,IFREF>\n recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire\n       0         0         0         0         0         0      1500      1200 \n"
+  },
+  "scope": "one real VM PTY trial + guest en0/DHCP/DNS/TCP + typed shared host Metal requests; no Pi evidence"
+}

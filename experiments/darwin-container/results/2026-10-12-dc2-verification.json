@@ -1,0 +1,64 @@
+{
+  "milestone": "DC2",
+  "passed": true,
+  "scope": "Bounded source-built XNU VZGENERIC RAM-root command proof on Apple-silicon Virtualization.framework; no QEMU or Darwin OCI claim",
+  "kernelSHA256": "a8048424c4fb7c223fb3d90bc52f6bc5fe67aa28d6407f431899471a3b2257c9",
+  "ramrootSHA256": "bdb9d228af349178288e1a88fa39620f3ce87f5e4812b11a31c93465b770225d",
+  "signedCLI_SHA256": "fb9f9474bd29028fadc8900c64a520f5f346a398c73beede01a24a89c5dda43c",
+  "vm": {
+    "cpus": 1,
+    "memoryMiB": 512,
+    "kernelArenaMiB": 320,
+    "deadlineSeconds": 20,
+    "networkDevices": 0,
+    "sharedDirectories": 0,
+    "physicalStoragePassthrough": false,
+    "bootDiskReadOnly": true,
+    "rootReadOnly": true,
+    "freshImageAndEFIStatePerTrial": true,
+    "entropyFreshPerBootClaimed": false
+  },
+  "checks": [
+    "actual guestStopped callback and matching host result",
+    "exactly one source-XNU handoff and shell-ready line per capture",
+    "exactly one own-line matching nonce START and numeric EXIT per capture",
+    "CPU halted with no panic(cpu, Nested panic or Assertion failed in either capture",
+    "trial 7 has Darwin version, source-built RAM-root MOTD and timer-ok output",
+    "trial 8 preserves exit 1 and correctly rejects command success",
+    "kernel and RAM-root manifest input hashes match both trials"
+  ],
+  "trials": [
+    {
+      "directory": "2026-10-12-xnu-trial-7",
+      "command": "uname -a && cat /etc/motd && sleep 1 && echo timer-ok",
+      "nonce": "2ab057ca5a2f46deab3340f755fc4678",
+      "commandExitStatus": 0,
+      "cliExitStatus": 0,
+      "commandSucceeded": true,
+      "guestStopped": true,
+      "elapsedSeconds": 1.3750425000034738,
+      "serialSHA256": "5d242b67796d308b7ba33d2025a2726d03a219fffb09c26c63abc3dfb876322c",
+      "resultSHA256": "10400df7b298a4f0a40c2f02b745d5eb56b5985759773e372fcc5d9599e60666"
+    },
+    {
+      "directory": "2026-10-12-xnu-trial-8",
+      "command": "false",
+      "nonce": "d105ee9291264236b560789491d749b9",
+      "commandExitStatus": 1,
+      "cliExitStatus": 1,
+      "commandSucceeded": false,
+      "guestStopped": true,
+      "elapsedSeconds": 0.3577215416589752,
+      "serialSHA256": "e2893d056e814f161b13f93042b9c4b2983958ae095cea64284ab26d6e4be3a8",
+      "resultSHA256": "b2c496455c045595a0a0f9d6ca81d5fd8d96becb4e26f1da614827a6c9acaaae"
+    }
+  ],
+  "limitations": [
+    "bootstrap static shell, not zsh, Apple launchd or LibSystem",
+    "no network, persistent root disk, SMP, full PTY or guest-agent RPC",
+    "fresh random seed is embedded per image build, not generated per reboot",
+    "inherited native_rand seed-clear size mismatch remains uncorrected in this exact kernel",
+    "no stress, long-run stability or production security/isolation qualification",
+    "local downstream changes remain uncommitted and unpushed"
+  ]
+}

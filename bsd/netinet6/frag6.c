@@ -195,7 +195,7 @@ frag6_scrub_context(struct mbuf *m)
 static int
 frag6_restore_context(struct mbuf *m)
 {
-	return (int)m->m_pkthdr.pkt_hdr;
+	return (int)(uintptr_t)m->m_pkthdr.pkt_hdr;
 }
 
 /*

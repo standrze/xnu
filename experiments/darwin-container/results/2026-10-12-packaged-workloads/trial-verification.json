@@ -1,0 +1,27 @@
+{
+  "outcome": "passed",
+  "error": null,
+  "passed": [
+    "write: succeeded, separate streams, complete cleanup and actual guest stop",
+    "restart: succeeded, separate streams, complete cleanup and actual guest stop",
+    "same immutable package and named /data volume restored across fresh VM boots",
+    "nonzero: exited, separate streams, complete cleanup and actual guest stop",
+    "live status and exclusive named-volume collision guard",
+    "independent: succeeded, separate streams, complete cleanup and actual guest stop",
+    "two simultaneous XNU VMs; independent named volume starts its own counter at 1",
+    "cancel: cancelled, separate streams, complete cleanup and actual guest stop",
+    "logs command returns captured application bytes",
+    "fresh entropy in every boot; immutable package inputs unchanged"
+  ],
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/counter-trial-0.3.0",
+  "package_manifest_sha256": "f1dbaba92816b3610d2880560a0ba3025382514fe8f2bbdd22f0889f187bf5d6",
+  "kernel_sha256": "950c413cddeab8bea8748971e40a1b3ace06f66daac06e5ea42cdfb19a393803",
+  "runs": [
+    "write",
+    "restart",
+    "nonzero",
+    "independent",
+    "cancel"
+  ],
+  "scope": "five short actual XNU VM runs; no soak or hostile-tenant security claim"
+}

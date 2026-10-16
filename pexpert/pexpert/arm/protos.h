@@ -37,6 +37,18 @@ void uart_putc_options(char, bool);
 int uart_getc(void);
 
 void pe_init_fiq(void);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+uint32_t pe_rpi5_irq_acknowledge(void);
+void pe_rpi5_irq_complete(uint32_t iar);
+uint32_t pe_rpi5_sgi_local_target(void);
+bool pe_rpi5_sgi_enable_local(void);
+bool pe_rpi5_sgi_send(uint32_t target_mask);
+bool pe_rpi5_watchdog_enable_soak(uint32_t seconds);
+bool pe_rpi5_watchdog_enable_terminal(void);
+bool pe_rpi5_watchdog_terminal_active(void);
+bool pe_rpi5_watchdog_soak_active(void);
+void pe_rpi5_watchdog_timer_tick(bool healthy);
+#endif
 
 #ifdef PRIVATE
 /**

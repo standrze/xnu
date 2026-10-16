@@ -1,0 +1,20 @@
+{
+  "audit": "passed",
+  "commandSucceeded": false,
+  "commands": [
+    {
+      "commandID": 1,
+      "stderr": {
+        "bytes": 524288,
+        "sha256": "33bc8aab40703678c3ebe94d2dd8f2afff285dd901f9234e841e4679f8204fd5"
+      },
+      "stdout": {
+        "bytes": 524288,
+        "sha256": "33bc8aab40703678c3ebe94d2dd8f2afff285dd901f9234e841e4679f8204fd5"
+      }
+    }
+  ],
+  "guestFrames": 4102,
+  "serialSHA256": "d257bb110421439fc34f120eda06e5576796a94c8912a86126b81e0eda93376b",
+  "sessionID": "0e5ebed40d5349f1a398264df4aadaad"
+}

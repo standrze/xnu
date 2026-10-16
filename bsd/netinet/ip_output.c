@@ -115,6 +115,7 @@
 #define DBG_FNC_IP_OUTPUT       NETDBG_CODE(DBG_NETIP, (1 << 8) | 1)
 #define DBG_FNC_IPSEC4_OUTPUT   NETDBG_CODE(DBG_NETIP, (2 << 8) | 1)
 
+#include <netinet/ip6.h>
 #if IPSEC
 #include <netinet6/ipsec.h>
 #include <netkey/key.h>
@@ -357,7 +358,7 @@ ip_output_list(struct mbuf *m0, int packetchain, struct mbuf *opt,
 	} ipobf = { .raw = 0 };
 
 	int interface_mtu = 0;
-	struct pf_rule *__single dn_pf_rule = NULL;
+	struct pf_rule *__single dn_pf_rule __unused = NULL;
 	drop_reason_t drop_reason = DROP_REASON_UNSPECIFIED;
 /*
  * Here we check for restrictions when sending frames.
@@ -1604,8 +1605,10 @@ sendit:
 #endif
 		ipf_unref();
 	}
-skip_ipsec:
 #endif /* IPSEC */
+#if IPSEC || NECP
+skip_ipsec:
+#endif
 
 
 	/* 127/8 must not appear on wire - RFC1122 */

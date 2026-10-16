@@ -55,6 +55,8 @@
 
 #include <sys/cdefs.h>
 #include <sys/param.h>
+#include <sys/kdebug.h>
+#include <sys/kdebug_private.h>
 #include <sys/mbuf.h>
 #include <sys/socket.h>
 #include <sys/sockio.h>
@@ -160,7 +162,7 @@ fq_alloc(classq_pkt_type_t ptype)
 }
 
 void
-fq_destroy(fq_t *fq, classq_pkt_type_t ptype)
+fq_destroy(fq_t *fq, classq_pkt_type_t ptype __unused)
 {
 	VERIFY(!fq->fq_in_dqlist);
 	VERIFY(fq_empty(fq, ptype));
@@ -665,6 +667,7 @@ fq_get_next_tx_time(fq_if_t *fqs, fq_t *fq)
 		}
 		break;
 	}
+#if SKYWALK
 	case QP_PACKET: {
 		struct __kern_packet *p = KPKTQ_FIRST(&fq->fq_kpktq);
 		if (__probable(p != NULL)) {
@@ -672,6 +675,7 @@ fq_get_next_tx_time(fq_if_t *fqs, fq_t *fq)
 		}
 		break;
 	}
+#endif /* SKYWALK */
 	default:
 		VERIFY(0);
 		/* NOTREACHED */
@@ -1163,7 +1167,8 @@ static uint64_t
 codel_control_law(float inv_sqrt, uint64_t t, uint64_t interval)
 {
 	/* Drop becomes more frequeut as drop count increases */
-	uint64_t val = (uint64_t)(inv_sqrt * interval);
+	/* Preserve the upstream single-precision approximation explicitly. */
+	uint64_t val = (uint64_t)(inv_sqrt * (float)interval);
 	uint64_t result = t + val;
 	VERIFY(val > 0 && val <= interval);
 	return result;
@@ -1286,7 +1291,7 @@ fq_codel_dq(void *fqs_p, void *fq_p, pktsched_pkt_t *pkt, uint64_t now)
 				} else if (FQ_IS_ECN_CAPABLE(fq) && pktsched_mark_ecn(pkt) == 0) {
 					fq_cl->fcl_stat.fcl_ce_marked++;
 					status->drop_next =
-					    codel_control_law(fast_inv_sqrt(status->count), status->drop_next, FQ_UPDATE_INTERVAL(fq));
+					    codel_control_law(fast_inv_sqrt((float)status->count), status->drop_next, FQ_UPDATE_INTERVAL(fq));
 					KDBG(AQM_KTRACE_PKT_DROP, fq->fq_flowhash,
 					    status->count, status->drop_next, now);
 					/*
@@ -1307,7 +1312,7 @@ fq_codel_dq(void *fqs_p, void *fq_p, pktsched_pkt_t *pkt, uint64_t now)
 						status->dropping = false;
 					} else {
 						status->drop_next =
-						    codel_control_law(fast_inv_sqrt(status->count), status->drop_next, FQ_UPDATE_INTERVAL(fq));
+						    codel_control_law(fast_inv_sqrt((float)status->count), status->drop_next, FQ_UPDATE_INTERVAL(fq));
 					}
 				}
 				KDBG(AQM_KTRACE_PKT_DROP, fq->fq_flowhash,
@@ -1358,7 +1363,7 @@ fq_codel_dq(void *fqs_p, void *fq_p, pktsched_pkt_t *pkt, uint64_t now)
 			}
 
 			status->drop_next =
-			    codel_control_law(fast_inv_sqrt(status->count), now, FQ_UPDATE_INTERVAL(fq));
+			    codel_control_law(fast_inv_sqrt((float)status->count), now, FQ_UPDATE_INTERVAL(fq));
 			status->lastcnt = status->count;
 
 			KDBG(AQM_KTRACE_PKT_DROP, fq->fq_flowhash,

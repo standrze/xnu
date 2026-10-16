@@ -99,10 +99,12 @@ static struct protosw localsw[] = {
 		.pr_unlock =    unp_unlock,
 		.pr_getlock =   unp_getlock
 	},
+#if NETWORKING
 	{
 		.pr_ctlinput =  raw_ctlinput,
 		.pr_usrreqs =   &raw_usrreqs,
 	},
+#endif
 };
 
 static int local_proto_count = (sizeof(localsw) / sizeof(struct protosw));

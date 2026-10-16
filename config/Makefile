@@ -45,13 +45,37 @@ else
 EXPORT_SOURCE_ARCH_CONFIG_LC := $(CURRENT_ARCH_CONFIG_LC)
 endif
 
+# The SDK platform describes build inputs, not the downstream board's KPI ABI.
+# Pi does not advertise macOS-only exports merely because it uses that SDK.
+ifeq ($(CURRENT_MACHINE_CONFIG),BCM2712)
+EXPORT_SOURCE_PLATFORM := BCM2712
+else
+EXPORT_SOURCE_PLATFORM := $(PLATFORM)
+endif
+
 EXPORTS_FILES := $(foreach symbolset,$(SYMBOL_COMPONENT_LIST),$(symbolset).exports \
 	$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).exports \
-	$(notdir $(wildcard $(SOURCE)/$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).$(PLATFORM).exports))) \
+	$(notdir $(wildcard $(SOURCE)/$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).$(EXPORT_SOURCE_PLATFORM).exports))) \
 	Unused.exports
 EXPORTS_FILES += $(TIGHTBEAM_EXPORTS)
 Private_OTHER_EXPORTS += $(TIGHTBEAM_EXPORTS)
 
+export_path = $(SOURCE)/$(1)
+ifeq ($(CURRENT_MACHINE_CONFIG),BCM2712)
+RPI5_EXPORT_DIR := $(TARGET)/rpi5-exports
+RPI5_EXPORT_POLICY := $(SRCROOT)/tools/rpi5/export_policy.py
+RPI5_EXPORT_CONFIG := $(OBJPATH)/osfmk/$(CURRENT_KERNEL_CONFIG)/Makefile
+RPI5_ECC_CONFIG := $(OBJPATH)/osfmk/$(CURRENT_KERNEL_CONFIG)/config_ecc_logging.h
+# Removing an export input does not make an existing target out of date.
+# Rebuild Pi export metadata when the selection rules themselves change.
+RPI5_EXPORT_RULE_DEPS := $(SOURCE)/Makefile
+export_path = $(if $(filter Private.exports Private.arm64.exports,$(1)),$(RPI5_EXPORT_DIR)/$(1),$(SOURCE)/$(1))
+$(RPI5_EXPORT_DIR)/%.exports: $(SOURCE)/%.exports $(RPI5_EXPORT_POLICY) $(RPI5_EXPORT_CONFIG) $(RPI5_ECC_CONFIG)
+	$(_v)$(MKDIR) $(@D)
+	$(_v)$(PYTHON) $(RPI5_EXPORT_POLICY) --config $(RPI5_EXPORT_CONFIG) --ecc-header $(RPI5_ECC_CONFIG) $< > $@.tmp
+	$(_v)mv $@.tmp $@
+endif
+RESOLVED_EXPORTS_FILES := $(foreach file,$(EXPORTS_FILES),$(call export_path,$(file)))
 
 Kasan_EXPORTS := $(SRCROOT)/config/Kasan_disabled.exports
 Kcov_EXPORTS := $(SRCROOT)/config/Kcov_disabled.exports
@@ -70,12 +94,12 @@ Kasan_EXPORTS := $(SRCROOT)/config/Kasan_enabled.$(KASAN_ARCH_SUFFIX).exports
 endif
 
 define symbol_set_template
-$(1)_EXPORTS := $$(addprefix $$(SOURCE)/,$$(filter $(1)%,$$(EXPORTS_FILES)))
+$(1)_EXPORTS := $$(foreach file,$$(filter $(1)%,$$(EXPORTS_FILES)),$$(call export_path,$$(file)))
 ifneq "$$($(1)_OTHER_EXPORTS)" ""
 $(1)_EXPORTS += $$($(1)_OTHER_EXPORTS)
 endif
 $$(TARGET)/$(1).symbolset: MY_EXPORTS_ARGS := $$(foreach file,$$($(1)_EXPORTS),-export $$(file))
-$$(TARGET)/$(1).symbolset: $$($(1)_EXPORTS) $$(TARGET)/allsymbols $$(KEXT_CREATE_SYMBOL_SET)
+$$(TARGET)/$(1).symbolset: $$($(1)_EXPORTS) $$(TARGET)/allsymbols $$(KEXT_CREATE_SYMBOL_SET) $$(RPI5_EXPORT_RULE_DEPS)
 	@$$(LOG_SYMBOLSET) "$(1)$$(Color0) ($$(ColorLF)$$(CURRENT_ARCH_CONFIG_LC)$$(Color0))"
 	$$(_v)$$(KEXT_CREATE_SYMBOL_SET)			\
 		$$(ARCH_FLAGS_$$(CURRENT_ARCH_CONFIG))	\
@@ -102,9 +126,9 @@ endef
 
 define symbol_set_plist_template
 $(1)_KEXT_PLIST := $$(filter %/$(1).kext/Info.plist,$$(KEXT_PLIST_LIST))
-$$(TARGET)/$(1).symbolset.plist: $$(TARGET)/$$($(1)_KEXT_PLIST) $$($(1)_EXPORTS)
+$$(TARGET)/$(1).symbolset.plist: $$(TARGET)/$$($(1)_KEXT_PLIST) $$($(1)_EXPORTS) $$(RPI5_EXPORT_RULE_DEPS) $$(SOURCE)/generate_symbolset_plist.sh
 	@$$(LOG_SYMBOLSETPLIST) "$(1)$$(Color0) ($$(ColorLF)$$(CURRENT_ARCH_CONFIG_LC)$$(Color0))"
-	$$(_v)$$(SOURCE)/generate_symbolset_plist.sh $$@ $$+ $$(_vstdout)
+	$$(_v)$$(SOURCE)/generate_symbolset_plist.sh $$@ $$(TARGET)/$$($(1)_KEXT_PLIST) $$($(1)_EXPORTS) $$(_vstdout)
 	$$(_v)$$(PLUTIL) -lint -s $$@
 
 SYMBOL_SET_PLIST_BUILD += $$(TARGET)/$(1).symbolset.plist
@@ -123,20 +147,20 @@ build_symbol_set_plists: $(KEXT_PLIST_BUILD) $(OBJPATH)/symbolsets.plist
 $(TARGET)/allsymbols: $(OBJPATH)/$(KERNEL_FILE_NAME)
 	$(_v)$(NM) -gj $< | sort -u > $@
 
-check_all_exports: $(TARGET)/allsymbols $(KEXT_CREATE_SYMBOL_SET)
+check_all_exports: $(TARGET)/allsymbols $(KEXT_CREATE_SYMBOL_SET) $(RESOLVED_EXPORTS_FILES)
 	$(_v)$(KEXT_CREATE_SYMBOL_SET)					\
 		$(ARCH_FLAGS_$(CURRENT_ARCH_CONFIG))			\
 		-import $(TARGET)/allsymbols				\
 		$(foreach symbolset,$(filter-out Private,$(SYMBOL_COMPONENT_LIST)),	\
-			-export $(SOURCE)/$(symbolset).exports		\
-			-export $(SOURCE)/$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).exports)	\
+			-export $(call export_path,$(symbolset).exports)		\
+			-export $(call export_path,$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).exports))	\
 		-output /dev/null $(_vstdout)
 	$(_v)$(KEXT_CREATE_SYMBOL_SET)					\
 		$(ARCH_FLAGS_$(CURRENT_ARCH_CONFIG))			\
 		-import $(TARGET)/allsymbols				\
 		$(foreach symbolset,$(filter-out Unsupported,$(SYMBOL_COMPONENT_LIST)),	\
-			-export $(SOURCE)/$(symbolset).exports		\
-			-export $(SOURCE)/$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).exports)	\
+			-export $(call export_path,$(symbolset).exports)		\
+			-export $(call export_path,$(symbolset).$(EXPORT_SOURCE_ARCH_CONFIG_LC).exports))	\
 		-output /dev/null $(_vstdout)
 
 $(OBJPATH)/$(MD_SUPPORTED_KPI_FILENAME): $(EXPORTS_FILES)
@@ -210,10 +234,10 @@ else
 # We are building XNU as a static library - avoid creating symbol sets
 endif
 
-$(OBJPATH)/all-kpi.exp: $(EXPORTS_FILES)
+$(OBJPATH)/all-kpi.exp: $(RESOLVED_EXPORTS_FILES)
 	$(_v)$(SOURCE)/generate_linker_exports.sh $@ $+ $(Kasan_EXPORTS) $(Kcov_EXPORTS)
 
-$(OBJPATH)/all-alias.exp: $(EXPORTS_FILES)
+$(OBJPATH)/all-alias.exp: $(RESOLVED_EXPORTS_FILES)
 	$(_v)$(SOURCE)/generate_linker_aliases.sh $@ $+ $(Kasan_EXPORTS) $(Kcov_EXPORTS)
 
 do_build_all:: $(OBJPATH)/all-kpi.exp $(OBJPATH)/all-alias.exp

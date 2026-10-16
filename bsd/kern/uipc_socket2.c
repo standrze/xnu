@@ -196,9 +196,11 @@ soisconnected(struct socket *so)
 	 * delay marking socket as connected and do not present the connected
 	 * socket to user just yet.
 	 */
+#if CONTENT_FILTER
 	if (cfil_sock_connected_pending_verdict(so)) {
 		return;
 	}
+#endif
 
 	so->so_state &= ~(SS_ISCONNECTING | SS_ISDISCONNECTING | SS_ISCONFIRMING);
 	so->so_state |= SS_ISCONNECTED;
@@ -1229,7 +1231,8 @@ sbconcat_mbufs(struct sockbuf *sb, struct sockaddr *asa, struct mbuf *m0, struct
 
 	if (asa != NULL) {
 		static_assert(sizeof(asa->sa_len) == sizeof(__uint8_t));
-		if (MLEN <= UINT8_MAX && asa->sa_len > MLEN) {
+		const size_t address_length = asa->sa_len;
+		if (address_length > MLEN) {
 			return NULL;
 		}
 		space += asa->sa_len;

@@ -22,6 +22,7 @@ PRIVATE_DATAFILES = \
 
 PRIVATE_KERNELFILES = \
 	AIC.h \
+	BCM2712.h \
 	apple_arm64_common.h \
 	apple_arm64_cpu.h \
 	apple_arm64_regs.h \

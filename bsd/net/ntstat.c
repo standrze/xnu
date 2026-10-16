@@ -999,9 +999,11 @@ nstat_ifnet_to_flags(
 			flags |= NSTAT_IFNET_IS_ULTRA_CONSTRAINED;
 		}
 	}
+#if SKYWALK
 	if (ifnet_is_low_latency(ifp)) {
 		flags |= NSTAT_IFNET_IS_WIFI | NSTAT_IFNET_IS_LLW;
 	}
+#endif /* SKYWALK */
 	if (IFNET_IS_VPN(ifp)) {
 		flags |= NSTAT_IFNET_IS_VPN;
 	}
@@ -1169,9 +1171,9 @@ static void nstat_init_udp_provider(void);
 static void nstat_init_userland_tcp_provider(void);
 static void nstat_init_userland_udp_provider(void);
 static void nstat_init_userland_quic_provider(void);
-#endif /* SKYWALK */
 static void nstat_init_userland_conn_provider(void);
 static void nstat_init_udp_subflow_provider(void);
+#endif /* SKYWALK */
 static void nstat_init_ifnet_provider(void);
 
 __private_extern__ void
@@ -1187,8 +1189,10 @@ nstat_init(void)
 	nstat_init_userland_udp_provider();
 	nstat_init_userland_quic_provider();
 #endif /* SKYWALK */
+#if SKYWALK
 	nstat_init_userland_conn_provider();
 	nstat_init_udp_subflow_provider();
+#endif /* SKYWALK */
 	nstat_init_ifnet_provider();
 	nstat_client_register();
 }
@@ -7821,8 +7825,8 @@ progress_indicators_for_interface(unsigned int ifindex, uint64_t recentflow_maxd
 	struct inpcb *inp;
 	uint64_t min_recent_start_time;
 	bool update_tcp_indicators = ((transport_protocol_mask & PR_PROTO_TCP) == PR_PROTO_TCP) || (transport_protocol_mask == 0);
-	bool update_quic_indicators = (transport_protocol_mask & PR_PROTO_QUIC) == PR_PROTO_QUIC;
 #if SKYWALK
+	bool update_quic_indicators = (transport_protocol_mask & PR_PROTO_QUIC) == PR_PROTO_QUIC;
 	struct nstat_tu_shadow *shad;
 #endif /* SKYWALK */
 

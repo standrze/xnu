@@ -1564,6 +1564,8 @@ IOCurrentTaskHasStringEntitlement(const char *entitlement, const char *value)
 extern "C" boolean_t
 IOTaskHasStringEntitlement(task_t task, const char *entitlement, const char *value)
 {
+	/* BCM2712 DEVELOPMENT has no AMFI provider yet. Every query below must
+	 * fail closed rather than dereference the absent callback table. */
 	if (task == NULL) {
 		task = current_task();
 	}
@@ -1574,7 +1576,11 @@ IOTaskHasStringEntitlement(task_t task, const char *entitlement, const char *val
 	}
 	proc_t proc = (proc_t)get_bsdtask_info(task);
 
-	if (proc == NULL) {
+	if (proc == NULL
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	    || amfi == NULL
+#endif
+	    ) {
 		return false;
 	}
 
@@ -1617,7 +1623,11 @@ IOTaskHasEntitlement(task_t task, const char *entitlement)
 	}
 	proc_t proc = (proc_t)get_bsdtask_info(task);
 
-	if (proc == NULL) {
+	if (proc == NULL
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	    || amfi == NULL
+#endif
+	    ) {
 		return false;
 	}
 
@@ -1647,7 +1657,11 @@ IOTaskGetIntegerEntitlement(task_t task, const char *entitlement, uint64_t *valu
 	}
 	proc_t proc = (proc_t)get_bsdtask_info(task);
 
-	if (proc == NULL) {
+	if (proc == NULL
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	    || amfi == NULL
+#endif
+	    ) {
 		return false;
 	}
 
@@ -1697,7 +1711,11 @@ IOTaskGetEntitlement(task_t task, const char *entitlement)
 	}
 	proc_t proc = (proc_t)get_bsdtask_info(task);
 
-	if (proc == NULL) {
+	if (proc == NULL
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	    || amfi == NULL
+#endif
+	    ) {
 		return NULL;
 	}
 
@@ -1736,7 +1754,11 @@ IOTaskHasEntitlementAsBooleanOrObject(task_t task, const char *entitlement)
 	}
 	proc_t proc = (proc_t)get_bsdtask_info(task);
 
-	if (proc == NULL) {
+	if (proc == NULL
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	    || amfi == NULL
+#endif
+	    ) {
 		return false;
 	}
 

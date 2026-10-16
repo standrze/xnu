@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/apple-oss-distributions/zsh.git",
+  "tag": "zsh-118",
+  "annotated_tag_object": "535739aaa771881e5ed986366b4fb2d8dfa4fe5c",
+  "commit": "666e91a595af505ef61d5f9b87df7a014a4937c6",
+  "tree": "5b0477ab169cf2055cf00f847a775188222aeacc",
+  "version": "5.9",
+  "checkout": "upstream/apple-zsh",
+  "git_archive_head_sha256": "4dd2b2bc94841fd5bc36ca5c53ad770fd090ddd935b040325939fc98fa1ce2ec",
+  "licence_sha256": "d06fdf3ef9b1ec69d6b9e170b0a9516fbad3523261ff1668bde3bfea6e0ef5f5",
+  "configure_sha256": "32e632ad715646be6f2cb55a77974de33212c9236fb4c7541ac1857eecf18535",
+  "configure_ac_sha256": "12712ff739bf1bafd44e60fda1a0152352f04ec0fd23a091a674ec31bbe12ae7",
+  "scope": "Official Apple source only; detached clean checkout; no guest executable or runtime library copied"
+}

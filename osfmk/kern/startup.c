@@ -120,6 +120,9 @@
 #include <machine/commpage.h>
 #include <machine/machine_routines.h>
 #include <machine/static_if.h>
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_PTHREAD_PROVIDER
+#include <mach/kmod.h>
+#endif
 #include <libkern/version.h>
 #include <pexpert/device_tree.h>
 #include <sys/codesign.h>
@@ -175,6 +178,12 @@ extern void vnguard_policy_init(void);
 
 #include <i386/pmCPU.h>
 static void             kernel_bootstrap_thread(void);
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_CRYPTO_STARTUP
+extern void rpi5_crypto_platform_start(void);
+#endif
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_PTHREAD_PROVIDER
+extern kern_return_t pthread_start(kmod_info_t *, void *);
+#endif
 
 static void             load_context(
 	thread_t        thread);
@@ -797,6 +806,24 @@ kernel_bootstrap_thread(void)
 	vm_kernel_addrhash_salt = early_random();
 	vm_kernel_addrhash_salt_ext = early_random();
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_CRYPTO_STARTUP
+	/* Explicit experimental provider: boot thread and per-CPU services exist,
+	 * but IOKit and EARLY_BOOT consumers have not yet been started. */
+	kprintf("BCM2712 crypto provider registration\n");
+	rpi5_crypto_platform_start();
+	kprintf("BCM2712 crypto and PRNG registered\n");
+#endif
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_PTHREAD_PROVIDER
+	/* pthread_functions is late read-only kernel data. Register the pinned
+	 * source provider before PE_lockdown_iokit() protects that region; BSD
+	 * will call pthread_init() later, after its own prerequisites exist. */
+	if (pthread_start(NULL, NULL) != KERN_SUCCESS) {
+		panic("BCM2712 pthread provider registration failed");
+	}
+	kprintf("BCM2712 pthread provider registered before IOKit lockdown\n");
+#endif
+
 #ifdef  IOKIT
 	kernel_bootstrap_log("PE_init_iokit");
 	PE_init_iokit();
@@ -861,6 +888,9 @@ kernel_bootstrap_thread(void)
 	csm_initialize_provisioning_profiles();
 #endif
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	kernel_bootstrap_log("BCM2712 DEVELOPMENT: trust caches unavailable");
+#else
 	kernel_bootstrap_log("trust_cache_init");
 
 	/* Initialize the runtime for the trust cache interface */
@@ -868,6 +898,7 @@ kernel_bootstrap_thread(void)
 
 	/* Load the static and engineering trust caches */
 	load_static_trust_cache();
+#endif
 
 	kernel_startup_initialize_upto(STARTUP_SUB_LOCKDOWN);
 
@@ -902,7 +933,15 @@ kernel_bootstrap_thread(void)
 
 #ifdef  IOKIT
 	kernel_bootstrap_log("PE_lockdown_iokit");
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	kprintf("BCM2712 START PE_LOCKDOWN daif=0x%llx cntvctl=0x%llx\n",
+	    __builtin_arm_rsr64("DAIF"), __builtin_arm_rsr64("CNTV_CTL_EL0"));
+#endif
 	PE_lockdown_iokit();
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	kprintf("BCM2712 END PE_LOCKDOWN daif=0x%llx cntvctl=0x%llx\n",
+	    __builtin_arm_rsr64("DAIF"), __builtin_arm_rsr64("CNTV_CTL_EL0"));
+#endif
 #endif
 	/*
 	 * max_cpus must be nailed down by the time PE_lockdown_iokit() finishes,
@@ -910,6 +949,12 @@ kernel_bootstrap_thread(void)
 	 */
 	vm_set_restrictions(machine_info.max_cpus);
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && KPERF
+	/* The single-core bring-up does not yet instantiate an IOCPU interrupt
+	 * controller, which normally publishes this count before kperf waits. */
+	ml_set_max_cpus(machine_info.max_cpus);
+	kprintf("BCM2712 MAX_CPUS READY count=%u\n", machine_info.max_cpus);
+#endif
 
 #if KPERF
 	kperf_init_early();
@@ -919,6 +964,10 @@ kernel_bootstrap_thread(void)
 	 *	Start the user bootstrap.
 	 */
 #ifdef  MACH_BSD
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	kprintf("BCM2712 START BSD_INIT daif=0x%llx cntvctl=0x%llx\n",
+	    __builtin_arm_rsr64("DAIF"), __builtin_arm_rsr64("CNTV_CTL_EL0"));
+#endif
 	bsd_init();
 #endif
 

@@ -1,0 +1,78 @@
+{
+  "outcome": "documented-terminal-network-shared-compute-endpoint-achieved-experimental",
+  "scope_basis": "INTERACTIVE-NETWORK-GPU.md numbered acceptance criteria, original three-capability goal, and Apple-source-first policy",
+  "requirements": {
+    "terminal": "actual controlling PTY/ZLE arrows/history, Ctrl-Z/jobs/fg, Ctrl-C 130, SIGWINCH resize, binary bytes and saved-history restart; focused host raw restore/backpressure checks",
+    "network": "actual VZ NAT/XNU en0, original Apple bootp routines and route/ifconfig configuration, original Libinfo/libresolv lookup, independent fresh guest DNS/TCP witness",
+    "gpu": "typed guest C client/relay requests executed on host Metal, independently matched returned vectors and explicit unsupported status; session/quota/bounds checks",
+    "source_policy": "pinned original Apple XNU/zsh/Libc/libplatform/resolver/Libinfo/bootp/network_cmds; project VirtIO transports, static ABI and bounded DHCP/GPU adapters remain labeled",
+    "preservation": "frozen workload 0.1.0 and all nine qualified checkpoints hash-identical; physical Pi outside scope"
+  },
+  "evidence_hash_counts": {
+    "results/2026-10-12-framed-terminal": 26,
+    "results/2026-10-12-apple-libinfo": 127,
+    "results/2026-10-12-apple-ifconfig": 329
+  },
+  "current_qualified_host_source_hashes": 14,
+  "checkpoint_hash_counts": {
+    "terminal-framed": 8,
+    "network": 8,
+    "shared-gpu": 8,
+    "apple-network-gpu": 8,
+    "apple-resolver": 9,
+    "apple-libinfo": 9,
+    "apple-bootp": 10,
+    "apple-route": 11,
+    "apple-ifconfig": 12
+  },
+  "frozen_workload_immutable_hashes": 148,
+  "latest_checkpoint": "userland/build/apple-ifconfig-working-2026-10-12",
+  "byte_identical_carried_files": [
+    "/bin/cat",
+    "/bin/echo",
+    "/bin/gpuctl",
+    "/bin/ls",
+    "/bin/netctl",
+    "/bin/poweroff",
+    "/bin/resolverctl",
+    "/bin/sh",
+    "/bin/sleep",
+    "/bin/uname",
+    "/bin/zsh",
+    "/data/.mountpoint",
+    "/etc/empty",
+    "/etc/motd",
+    "/sbin/init",
+    "/sbin/launchd",
+    "/sbin/poweroff",
+    "/etc/terminfo/64/dumb",
+    "/etc/terminfo/76/vt100"
+  ],
+  "latest_checkpoint_hashes": {
+    "efi.img": "cfd7d139ad409c7c4326dd5f13bbb836ec591204e7a787daecc990b676b58237",
+    "BOOTAA64.EFI": "c666013ade82faab3b934b2d3d350f2258c0aa7ad777e36abdf92358c3ce4683",
+    "kernel.macho": "0501225204ac5711fd409f82e9ff70138d126c002f654bea758827345c023da9",
+    "ramdisk.bin": "b1056d182ee5c22bf334086776fe4b9fdd935a7e83b83436320697de2970cde6",
+    "zsh": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3",
+    "container": "57623afd87f08b488352a09fd9d0e3898cbe838a501bf74880dcf594cf7b0130",
+    "data.raw": "311a2611d78289dfd54d38d1f3ddec9617da85893726bf6f8b83734f9c947d69",
+    "efi-variables-template.bin": "57615bb9d2790baa67d2847f2e5ce5a6ef6de72d0ed9622865357098fb54d587",
+    "resolverctl": "dd21555f0f82c27762343feca7978e20f8129b9fbc7e6d22f4beb4f89eda54be",
+    "dhcpctl": "6d50ed6008e56037357676365ee48a54063228897b266534b42d5b1646ac3361",
+    "route": "c7baaf0b511ed4519aa48493626472136db10487989d740b3475500bbe2b5c6a",
+    "ifconfig": "73bb8b54bd73e1239a6a6e609f02e7df13c271c23db3570202c70bb1b82a202b"
+  },
+  "test_policy": "read-only completion audit of existing evidence; no new VM boot, broad tests or soak",
+  "limits_and_separate_future_work": [
+    "experimental Apple-silicon Virtualization.framework VM, not portable-to-all-hosts or production isolation",
+    "PTY transport/job control achieved; optional compctl and multibyte locales remain absent",
+    "IPv4 fixture-qualified networking; not internet/IPv6 qualification, mDNS/search/cache or full configd/IPConfiguration service",
+    "DHCP acquisition uses original Apple routines with project bounded orchestration; no lease renewal, rebinding or ARP conflict probe",
+    "shared GPU is bounded float32 vector add (16 elements, 1024 requests/session), not arbitrary Metal, a graphics desktop or passthrough",
+    "private EFI/variable entropy not published; repeat seed use and hostile-guest security are not qualified",
+    "historical per-increment reports remain unchanged; their not-full-goal labels are superseded only by this aggregate requirement audit"
+  ],
+  "audit_source_sha256": "225a2034af82382e7f8fd684a87e2509245d194c63c31fc03c34330a3055b3f9",
+  "scope_document_sha256_at_audit": "7c488e9447322f8f0263368072d7aa26374764a39dc456410e2438348279cebc",
+  "terminal_check_log_sha256": "33b912a55721b81c477231c9df2ed6cebd3d530f855962a42f527179f373816d"
+}

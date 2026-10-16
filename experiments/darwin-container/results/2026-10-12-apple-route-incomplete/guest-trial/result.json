@@ -1,0 +1,32 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.8723802083113696,
+  "gpu" : {
+    "completed" : 0,
+    "enabled" : false,
+    "operations" : [
+
+    ],
+    "rejected" : 0,
+    "submitted" : 0
+  },
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-route-trial-1",
+  "serialByteCount" : 14779,
+  "sessionID" : "e4dfb628e8b649f6a4db3acce29513e2",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 2635
+  },
+  "termination" : "guestStopped"
+}

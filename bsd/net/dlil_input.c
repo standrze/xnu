@@ -74,7 +74,9 @@ static void dlil_rxpoll_input_thread_cont(void *, wait_result_t);
 
 static uint32_t dlil_trim_overcomitted_queue_locked(class_queue_t *input_queue, dlil_freeq_t *freeq, struct ifnet_stat_increment_param *stat_delta);
 
+#if IF_BRIDGE
 static inline mbuf_t handle_bridge_early_input(ifnet_t ifp, mbuf_t m, u_int32_t cnt);
+#endif
 /*
  * Publicly visible functions.
  */
@@ -287,11 +289,11 @@ dlil_input_handler(struct ifnet *ifp, struct mbuf *m_head,
 		inp = dlil_main_input_thread;
 	}
 
-#if (DEVELOPMENT || DEBUG)
+#if (DEVELOPMENT || DEBUG) && SKYWALK
 	if (__improbable(net_thread_is_marked(NET_THREAD_SYNC_RX))) {
 		return dlil_input_sync(inp, ifp, m_head, m_tail, s, poll, tp);
 	} else
-#endif /* (DEVELOPMENT || DEBUG) */
+#endif /* (DEVELOPMENT || DEBUG) && SKYWALK */
 	{
 		return inp->dlth_strategy(inp, ifp, m_head, m_tail, s, poll, tp);
 	}
@@ -785,11 +787,13 @@ dlil_input_packet_list_common(struct ifnet *ifp_param, mbuf_ref_t m,
 	    (poll_ival = if_rxpoll_interval_pkts) > 0) {
 		poll_thresh = cnt;
 	}
+#if IF_BRIDGE
 	if (bridge_enable_early_input != 0 &&
 	    ifp != NULL && ifp->if_bridge != NULL) {
 		m = handle_bridge_early_input(ifp, m, cnt);
 		skip_bridge_filter = TRUE;
 	}
+#endif /* IF_BRIDGE */
 	/* Increment LPW receive statistics at once if we have the interface */
 	if (__improbable(io_pm_is_lpw_mode)) {
 		if (ifp != NULL && cnt > 0 && (ifp->if_capabilities & IFCAP_SKYWALK) == 0) {
@@ -1900,6 +1904,7 @@ out:
 	return dropped_pkts;
 }
 
+#if IF_BRIDGE
 static inline mbuf_t
 handle_bridge_early_input(ifnet_t ifp, mbuf_t m, u_int32_t cnt)
 {
@@ -1915,6 +1920,7 @@ handle_bridge_early_input(ifnet_t ifp, mbuf_t m, u_int32_t cnt)
 	lck_mtx_unlock(&ifp->if_flt_lock);
 	return m;
 }
+#endif /* IF_BRIDGE */
 
 /*
  * Check if an mbuf packet is a Wake-on-LAN magic packet.

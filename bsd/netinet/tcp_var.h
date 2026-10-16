@@ -920,7 +920,11 @@ extern int mptcp_enable;
 #define LOOPBACK_INTERFACE(tp) (tp->t_inpcb->inp_boundifp != NULL && \
     (tp->t_inpcb->inp_boundifp->if_flags & IFF_LOOPBACK))
 
+#if MPTCP
 #define TCP_SYN_COOKIE_DISABLED(tp) (TFO_ENABLED(tp) || tp->t_mpflags & TMPF_MPTCP_TRUE || LOOPBACK_INTERFACE(tp))
+#else
+#define TCP_SYN_COOKIE_DISABLED(tp) (TFO_ENABLED(tp) || LOOPBACK_INTERFACE(tp))
+#endif
 
 #define TCP_SYN_COOKIE_FORCE_ENABLED(tp) ((tp->t_flagsext & TF_SYN_COOKIE_FORCE_ENABLED) \
     && !TCP_SYN_COOKIE_DISABLED(tp))
@@ -1039,11 +1043,18 @@ typedef enum {
     (SEQ_LEQ((_seq_), (_tp_)->snd_max) && \
     SEQ_GEQ((_seq_), ((_una_) - TCP_DSACK_MAX_SEND_WINDOW(_tp_))))
 
+#if MPTCP
 #define TCP_RESET_REXMT_STATE(_tp_) do { \
 	(_tp_)->t_rxtshift = 0; \
 	(_tp_)->t_rxtstart = 0; \
 	mptcp_reset_rexmit_state((_tp_)); \
 } while(0);
+#else /* MPTCP */
+#define TCP_RESET_REXMT_STATE(_tp_) do { \
+	(_tp_)->t_rxtshift = 0; \
+	(_tp_)->t_rxtstart = 0; \
+} while(0);
+#endif /* MPTCP */
 
 #define TCP_IF_STATE_CHANGED(tp, probe_if_index)                        \
 	(probe_if_index > 0 && tp->t_inpcb->inp_last_outifp != NULL &&  \

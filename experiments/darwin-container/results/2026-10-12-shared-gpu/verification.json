@@ -1,0 +1,45 @@
+{
+  "outcome": "terminal-network-shared-gpu-smoke-passed-not-full-goal",
+  "proved": [
+    "typed guest vector requests returned verified results and explicit unsupported-operation status",
+    "real XNU en0 interface and MAC via guest routing sysctl",
+    "guest BPF/UDP DHCP discover/offer/request/ACK and address/default-route setup",
+    "guest-originated DNS A lookup and TCP nonce echo, independently witnessed on host NAT interface",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "independent host Metal execution/returned operands match both fresh guest requests; session teardown",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "kernel_sha256": "0501225204ac5711fd409f82e9ff70138d126c002f654bea758827345c023da9",
+  "zsh_sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3",
+  "remaining": [
+    "pinned Apple network configuration/resolver userland integration"
+  ],
+  "limits": [
+    "project bootstrap netctl, not Apple ipconfig/Libresolv",
+    "single fixture DNS A lookup and TCP echo, not general internet or IPv6 qualification",
+    "DHCP bootstrap only, no lease renewal",
+    "not a soak or production isolation"
+  ],
+  "sha256": {
+    "apple-zsh-source.json": "c11d69f14c68bb5ec952a2a32e77cf47a771f60f5f7b04fceaf4d8a9254996f4",
+    "guest-trial/host-terminal.bin": "8015b86c822e70018d1cc6bd35ff3edc9d6260041b5f6af19960787209748363",
+    "guest-trial/preflight.json": "95aadf9c7b62ba3a40d5105ce9c52cd6bf48c2e9acc7b7f47bdcb907f160583a",
+    "guest-trial/result.json": "bc32ee2e5b047287b9467ae292bb010567fe36fb63a0815650e6f3e07184d1d5",
+    "guest-trial/serial.bin": "502fe3839ceff80bcefbded4c944de4b36967eb5ab557c7b83d7f4211cb4747f",
+    "guest-trial/serial.txt": "502fe3839ceff80bcefbded4c944de4b36967eb5ab557c7b83d7f4211cb4747f",
+    "guest-trial/start-requested.json": "0cf02b50f98c2792c36ff8af3d5cefe2ee6f376e8f8c97a47b03763372612eb6",
+    "guest-trial/started.json": "528114543988ba83be17b8c07a440056627ab01b1f552d5f00d0d818f8bf3944",
+    "guest-trial/stopped.json": "818d720b921241c100f9766a1b701dc6b3b5d7c3b9b46f489eeb47c5d4daa814",
+    "guest-trial/terminal-output.bin": "793313da88475fa473c2d832f623e080d59ee97899edc1f0c173443f04f7ff35",
+    "guest-trial/terminal-trial.json": "dcaf79733fe29ea4cee3d5fda809849b9ea4a64fd569724e0f6279b08d3e2606",
+    "kernel-manifest.json": "ced24cb03cb1e42dc36049e5f2e9124939e7ce330f377eb0fe616615497c3040",
+    "loader-manifest.json": "6405dca6a9d5d3bcc71c35bb992743eb3eacf4a56f60779cdcb36b1a2bc5fb9a",
+    "native-net-ring-check.txt": "43db1676f3f588db33d73798af9f1a8fbdb3a12b298180a1ffa6e6d6781417c5",
+    "root-manifest.json": "4939e0c7c1ab9cfe869ece8e31c3b964ae21bb0e408e3f937de32c4928e22320",
+    "zsh-link-manifest.json": "cbfa1c99b1ed49c0a83e04fc0a5b6fe86544b5e4e756e49e1bb29fd664316c38"
+  }
+}

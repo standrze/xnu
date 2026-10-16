@@ -4826,7 +4826,9 @@ IOServicePH::systemPowerChange(uint8_t newState,
 	case kIOServiceSystemStateOffPhase2:
 
 		if (fSystemState == kIOServiceSystemStateAOT) {
+#if CONFIG_SLEEP
 			IOPMNetworkStackWillSleepFromAOT();
+#endif
 		}
 
 		lock();
@@ -5396,7 +5398,13 @@ IOService::publishHiddenMedia(IOService * parent)
 	bool                wasHiding;
 
 	iomediaClass = OSMetaClass::getMetaClassWithName(gIOMediaKey);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* The md0 root has no IOMedia instances in this kernel. Still clear the
+	 * hidden-media state, but only permit a missing class with no parent. */
+	assert(iomediaClass || !parent);
+#else
 	assert(iomediaClass);
+#endif
 
 	LOCKWRITENOTIFY();
 	wasHiding = gIOServiceHideIOMedia;
@@ -5407,7 +5415,7 @@ IOService::publishHiddenMedia(IOService * parent)
 
 	FindRootMediaContext ctx = { .services = NULL, .parent = parent };
 
-	if (wasHiding) {
+	if (wasHiding && iomediaClass) {
 		iomediaClass->applyToInstances(publishHiddenMediaApplier, &ctx);
 	}
 	if (ctx.services) {
@@ -5449,7 +5457,13 @@ IOService::setRootMedia(IOService * root)
 	bool unhide;
 
 	ioblockstoragedriverClass = OSMetaClass::getMetaClassWithName(gIOBlockStorageDriverKey);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* A /chosen RAMDisk root has no IOService or block-storage driver.
+	 * Keep requiring the class if a real media service is supplied. */
+	assert(ioblockstoragedriverClass || !root);
+#else
 	assert(ioblockstoragedriverClass);
+#endif
 
 	while (root) {
 		if (root->metaCast(ioblockstoragedriverClass)) {

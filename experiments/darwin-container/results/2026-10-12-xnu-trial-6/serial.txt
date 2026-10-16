@@ -1,0 +1,428 @@
+VZ:VIRTIO:READY EL1 MMU_OFF GICD=0000000010000000 GICR=0000000010010000
+VZ:XNU:HANDOFF ARGS=0000000072004000 ENTRY=00000000714a5db8 ARENA=0000000070000000 SIZE=0000000014000000
+XDAZPMVCISTBDELHKWabcdefghijRPUNQ100kprintf initialized
+FSerial mode specified: 00000003
+initialize_screen: b=00000000, w=00000000, h=00000000, r=00000000, d=00000000
+initialize_screen: No video - forcing serial mode
+pe_arm_init_interrupts: args: 0xfffffe0007926f80
+pe_arm_map_interrupt_controller: soc_phys:  0x10000000
+pe_arm_map_interrupt_controller: failed to find the interrupt-controller.
+pe_arm_init_debug: failed to find cpu-debug-interface
+VZXNU:GIC:READY TIMER=27 SGI=1
+Darwin Kernel Version 12377.121.6: Sun Oct 11 22:44:15 EDT 2026; stephen:obj[xnu-12377.121.6-dirty]/DEVELOPMENT_ARM64_VZGENERIC
+pmap_startup() init/release time: 482 microsec
+vm_page_bootstrap: 18279 free pages, 2201 wired pages
+VM bootstrap: 73 maps, 256 entries and 64 nodes available
+Enable all vm_debug options with boot-arg vm_debug=1
+Maximum number of VM swap files: 100
+bsd_pageable            : 0xfffffe1000628000 - 0xfffffe1002830000 (34M)
+ipc_kernel_map          : 0xfffffe1002830000 - 0xfffffe1006830000 (64M)
+zones                   : 0xfffffe1006830000 - 0xfffffe3006830000 (128G)
+zone_meta               : 0xfffffe3006830000 - 0xfffffe300e938000 (129M)
+kmem_data_private_range : 0xfffffe300e938000 - 0xfffffe64bd78c000 (210G)
+kmem_ptr_range_0        : 0xfffffe64bd78c000 - 0xfffffe996c5e4000 (210G)
+bufferhdr               : 0xfffffe996c5e4000 - 0xfffffe996c618000 (208K)
+mb                      : 0xfffffe996c618000 - 0xfffffe9970618000 (64M)
+ipc_kernel_copy_map     : 0xfffffe9970618000 - 0xfffffe9970e18000 (8M)
+compressor              : 0xfffffe9970e18000 - 0xfffffe9ab0ea8000 (5G)
+kmem_data_shared_range  : 0xfffffe9ab0ea8000 - 0xfffffecf5fcfc000 (210G)
+gIOKitPageableFixed     : 0xfffffecf5fcfc000 - 0xfffffecfbfcfc000 (1536M)
+kmem_io                 : 0xfffffecfbfcfc000 - 0xfffffecfffcfc000 (1024M)
+vm: "vm_compressor_mode" is 4
+zone_init: map VM    0xfffffe1006830000:0xfffffe14d34fc000 (19G, 19G usable)
+zone_init: map RO    0xfffffe14d34fc000:0xfffffe166cea0000 (6G, 6G usable)
+zone_init: map GEN0  0xfffffe166cea0000:0xfffffe1b39b6c000 (19G, 19G usable)
+zone_init: map GEN1  0xfffffe1b39b6c000:0xfffffe2006838000 (19G, 19G usable)
+zone_init: map GEN2  0xfffffe2006838000:0xfffffe24d3504000 (19G, 19G usable)
+zone_init: map GEN3  0xfffffe24d3504000:0xfffffe29a01d0000 (19G, 19G usable)
+zone_init: map DATA  0xfffffe29a01d0000:0xfffffe3006830000 (25G, 25G usable)
+zone_init: metadata  0xfffffe3006840000:0xfffffe300e840000 (128M)
+zone_init: metabits  0xfffffe300e840000:0xfffffe300e928000 (928K)
+zone_init: extra     0:0 (0B)
+Unable to find vm tag  for btlog
+VM bootstrap done: 71 maps, 235 entries and 60 nodes left
+IOKit IOMD setownership ENABLED
+ATM subsystem is initialized
+standard timeslicing quantum is 10000 us
+standard background quantum is 2500 us
+Scheduler: Default of clutch
+Setting scheduler priority decay band limit 18
+Log queues configured: slot count: 9, per-slot size: 32768, total size: 294912
+Long logs support configured: size: 16384
+Firehose configured: 16 chunks, 8 io pages
+OSLog stream configured: stream: 8192 bytes, cache: 2112 bytes
+OSLog stream verification: 0
+[trap_telemetry] trap_telemetry_init
+mig_table_max_displ = 90 mach_kobj_count = 381
+BANK subsystem is initialized
+debug_log_init: Error!! gPanicBase is still not initialized
+suspend_cluster_powerdown_locked>calling sched_update_powered_cores to suspend powerdown
+debug_log_init: Error!! gPanicBase is still not initialized
+kdp_core zlib memory 0x8000
+Registered coredump handler for kernel
+Serial requested, consistent debug disabled or debug boot arg not present, configuring debugging over serial
+Initializing serial KDP
+BCM2712 crypto provider registration
+BCM2712 crypto and PRNG registered
+BCM2712 pthread provider registered before IOKit lockdown
+iBoot version: 
+iBoot Stage 2 version: 
+"name" not a kext
+"RAMDisk" not a kext
+ulock_initialize>thread_max=2560, ull_hash_buckets=1024
+vm: creating swapout thread
+vm: creating swapfile creation thread
+vm: creating swapfile GC thread
+lockdown_mode: error getting state from nvram
+lockdown_mode: lockdown mode in nvram is off
+BCM2712 START PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 END PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 MAX_CPUS READY count=1
+BCM2712 START BSD_INIT daif=0x200 cntvctl=0x1
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+	The Regents of the University of California. All rights reserved.
+
+MAC Framework successfully initialized
+using 367 buffer headers and 367 cluster IO buffer headers
+BCM2712 IORTC wait deferred
+mbinit: done [64 MB total pool size, (42/21) split]
+New aio workqueue implementation selected
+DLIL: running SUM16 self-tests ... PASSED
+dlil_init: Waiting for all the create dlil kernel threads to get scheduled at least once.
+dlil_init: All the created dlil kernel threads have been scheduled at least once. Proceeding.
+bsd_autoconf: calling kminit
+IOResources: not registry member at registerService()
+ifnet_attach: All kernel threads created for interface lo0 have been scheduled at least once. Proceeding.
+IOServicePH::kIOMessageSystemCapabilityChange: will 0xf->0xf
+IOServicePH::systemPowerChange to 0x30
+IOServicePH::kIOMessageSystemCapabilityChange: did 0xf->0xf
+cpu_start() cpu: 0
+VZXNU:PLATFORM:READY CPUS=1
+Added memory device md0/rmd0 (01000000/0A000000) at FFFFFE0008008000 for 00000000000B4000
+BSD root: md0, major 1, minor 0
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x0), isssd is (0)
+RPI5XNU:RAMROOT:MOUNT NODES=22 BYTES=737280 READONLY
+Serial keyboard started
+resume_cluster_powerdown_locked>calling sched_update_powered_cores to resume powerdown
+vm: initializing swap
+vm: starting swapout thread
+vm: starting swapfile creation thread
+vm: starting swapfile GC thread
+VM Swap Subsystem is ON
+load_init_program: attempting to load /sbin/launchd
+DARWIN:INIT:READY
+DARWIN:INIT:SHELL_PID=2
+
+DARWIN:SHELL:READY
+Type help for commands.
+darwin-vm:/# echo DARWIN:CMD:7653420e4d824c2f829d221a924fa81b:START
+
+DARWIN:CMD:7653420e4d824c2f829d221a924fa81b:START
+darwin-vm:/# uname -a && cat /etc/motd && sleep 1 && echo timer-ok
+echo DARWIN:CMD:7653420e4d824c2f829d221a924fa81b:EXIT:$?
+
+Darwin  12377.121.6 arm64
+Experimental Darwin XNU VM. Source-built bootstrap shell; read-only RAM root.
+timer-ok
+darwin-vm:/# 
+DARWIN:CMD:7653420e4d824c2f829d221a924fa81b:EXIT:0
+darwin-vm:/# poweroff
+
+DARWIN:POWEROFF:REQUEST
+Kext loading now disabled.
+Kext unloading now disabled.
+Kext autounloading now disabled.
+Kernel requests now disabled.
+PMRD: PagingOff all drivers took 0 ms
+PMRD: PagingOff total 3 ms
+syncing disks... Killing all processes pid 1 exited -- exit reason namespace 2 subcode 0xf, description none
+coredump (launchd, pid 1): writing core to /cores/core.1
+coredump (launchd, pid 1): failed to open core dump file /cores/core.1: error 30
+coredump (launchd, pid 1): core dump failed: error 30
+
+Failed to generate core file for pid: 1: error 30, took 0.003 seconds
+panic(cpu 0 caller 0xfffffe00078e5e9c):  initproc failed to start -- exit reason namespace 2 subcode 0xf description: none
+Nested panic detected - entry count: 2 panic_caller: 0xfffffe00078d0b38
+Kernel text exec slide: 0x0000000000000000
+Kernel text exec base: 0x0000000000000000
+Panicked thread: 0xfffffe24d35de878, backtrace: 0xfffffe996c5069b0, tid: 145
+		  lr: 0xfffffe00072d6d68  fp: 0xfffffe996c506a00
+		  lr: 0xfffffe00072d7910  fp: 0xfffffe996c506bb0
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c506bd0
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c506d50
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c506e30
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c506e40
+		  lr: 0xfffffe0007499014  fp: 0xfffffe996c5072c0
+		  lr: 0xfffffe00072d72d4  fp: 0xfffffe996c507340
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c507360
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c5073b0
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c507490
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c5074a0
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c507970
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c507b20
+		  lr: 0xfffffe00078a23e4  fp: 0xfffffe996c507b40
+		  lr: 0xfffffe00078e5e9c  fp: 0xfffffe996c507ba0
+		  lr: 0xfffffe00076a7f60  fp: 0xfffffe996c507ce0
+		  lr: 0xfffffe00076a75b0  fp: 0xfffffe996c507d70
+		  lr: 0xfffffe00076c2d7c  fp: 0xfffffe996c507dc0
+		  lr: 0xfffffe00076c2ff0  fp: 0xfffffe996c507e00
+		  lr: 0xfffffe00072cb38c  fp: 0xfffffe996c507e50
+		  lr: 0xfffffe00074a9a98  fp: 0xfffffe996c507e60
+		  lr: 0xfffffe00074932f0  fp: 0xfffffe996c507e80
+		  lr: 0xfffffe000774f204  fp: 0xfffffe996c507ee0
+		  lr: 0xfffffe00076c5520  fp: 0xfffffe996c507f20
+		  lr: 0xfffffe00074a9c4c  fp: 0x0000000000000000
+Nested panic string:
+Kernel data abort. at pc 0xfffffe0007499014, lr 0xfffffe00072d72d4 (saved state: 0xfffffe996c506e50)
+	  x0:  0xfffffe00070438e6 x1:  0x0000000000000000  x2:  0x0000000000002020  x3:  0x0000000000000000
+	  x4:  0x0000000000002020 x5:  0x0000000000000000  x6:  0x00000000000000e7  x7:  0xfffffe00078e5e9c
+	  x8:  0x0000000000000000 x9:  0x9793f23a193a007d  x10: 0x0000000000000001  x11: 0x0000000000000004
+	  x12: 0x0000000000000005 x13: 0x0000000000000000  x14: 0x0000000000000320  x15: 0x0000000000000000
+	  x16: 0x000000000000000a x17: 0x0000000000000008  x18: 0x0000000000000000  x19: 0x0000000000002020
+	  x20: 0x0000000000000001 x21: 0xfffffe996c5074b0  x22: 0xfffffe00070438e6  x23: 0xfffffe0007908388
+	  x24: 0x0000000000000000 x25: 0x0000000000000000  x26: 0xfffffe00079d32b0  x27: 0xfffffe0007908000
+	  x28: 0xfffffe000792c000 fp:  0xfffffe996c5072c0  lr:  0xfffffe00072d72d4  sp:  0xfffffe996c5071a0
+	  pc:  0xfffffe0007499014 cpsr: 0x224003c4         esr: 0x0000000096000006  far: 0x000000000000000c
+
+<end nested panic string>
+Nested panic detected - entry count: 3 panic_caller: 0xfffffe00078d0b38
+Kernel text exec slide: 0x0000000000000000
+Kernel text exec base: 0x0000000000000000
+Panicked thread: 0xfffffe24d35de878, backtrace: 0xfffffe996c505b50, tid: 145
+		  lr: 0xfffffe00072d6d68  fp: 0xfffffe996c505ba0
+		  lr: 0xfffffe00072d7910  fp: 0xfffffe996c505d50
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c505d70
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c505ef0
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c505fd0
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c505fe0
+		  lr: 0xfffffe00078f8884  fp: 0xfffffe996c506350
+		  lr: 0xfffffe00072d7210  fp: 0xfffffe996c5063d0
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c5063f0
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c506440
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c506520
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c506530
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c506a00
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c506bb0
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c506bd0
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c506d50
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c506e30
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c506e40
+		  lr: 0xfffffe0007499014  fp: 0xfffffe996c5072c0
+		  lr: 0xfffffe00072d72d4  fp: 0xfffffe996c507340
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c507360
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c5073b0
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c507490
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c5074a0
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c507970
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c507b20
+		  lr: 0xfffffe00078a23e4  fp: 0xfffffe996c507b40
+		  lr: 0xfffffe00078e5e9c  fp: 0xfffffe996c507ba0
+		  lr: 0xfffffe00076a7f60  fp: 0xfffffe996c507ce0
+		  lr: 0xfffffe00076a75b0  fp: 0xfffffe996c507d70
+		  lr: 0xfffffe00076c2d7c  fp: 0xfffffe996c507dc0
+		  lr: 0xfffffe00076c2ff0  fp: 0xfffffe996c507e00
+		  lr: 0xfffffe00072cb38c  fp: 0xfffffe996c507e50
+		  lr: 0xfffffe00074a9a98  fp: 0xfffffe996c507e60
+		  lr: 0xfffffe00074932f0  fp: 0xfffffe996c507e80
+		  lr: 0xfffffe000774f204  fp: 0xfffffe996c507ee0
+		  lr: 0xfffffe00076c5520  fp: 0xfffffe996c507f20
+		  lr: 0xfffffe00074a9c4c  fp: 0x0000000000000000
+Nested panic string:
+pe_init.c:725 Assertion failed: panic_info at pc 0xfffffe00078f8884, lr 0xfffffe00078691e8 (saved state: 0xfffffe996c505ff0)
+	  x0:  0x0000000000000000 x1:  0x0000000000000007  x2:  0x0000000000000000  x3:  0xfffffe996c506540
+	  x4:  0x0000000000000000 x5:  0x0000000000000000  x6:  0x00000000000000e7  x7:  0xfffffe00078d0b38
+	  x8:  0xfffffe00072781b0 x9:  0x0000000000000001  x10: 0x0000000000000048  x11: 0x0000000000000004
+	  x12: 0x0000000000000002 x13: 0x0000000000000000  x14: 0xfffffe0007049f2e  x15: 0x0000000000000001
+	  x16: 0x0000000000000000 x17: 0x000000000000000a  x18: 0x0000000000000000  x19: 0xfffffe00079d3000
+	  x20: 0x0000000000000000 x21: 0xfffffe996c506540  x22: 0xfffffe996c506540  x23: 0xfffffe0007908388
+	  x24: 0x0000000000000000 x25: 0xfffffe0007908000  x26: 0xfffffe0007924730  x27: 0xfffffe0007908000
+	  x28: 0xfffffe000792c000 fp:  0xfffffe996c506350  lr:  0xfffffe00078691e8  sp:  0xfffffe996c506340
+	  pc:  0xfffffe00078f8884 cpsr: 0x624003c4         esr: 0x00000000f200bffc  far: 0x000000000000000c
+
+<end nested panic string>
+Nested panic detected - entry count: 4 panic_caller: 0xfffffe00078d0b38
+Kernel text exec slide: 0x0000000000000000
+Kernel text exec base: 0x0000000000000000
+Panicked thread: 0xfffffe24d35de878, backtrace: 0xfffffe996c504cf0, tid: 145
+		  lr: 0xfffffe00072d6d68  fp: 0xfffffe996c504d40
+		  lr: 0xfffffe00072d7910  fp: 0xfffffe996c504ef0
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c504f10
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c505090
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c505170
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c505180
+		  lr: 0xfffffe00078f8884  fp: 0xfffffe996c5054f0
+		  lr: 0xfffffe00072d7210  fp: 0xfffffe996c505570
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c505590
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c5055e0
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c5056c0
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c5056d0
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c505ba0
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c505d50
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c505d70
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c505ef0
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c505fd0
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c505fe0
+		  lr: 0xfffffe00078f8884  fp: 0xfffffe996c506350
+		  lr: 0xfffffe00072d7210  fp: 0xfffffe996c5063d0
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c5063f0
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c506440
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c506520
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c506530
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c506a00
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c506bb0
+		  lr: 0xfffffe00078a2338  fp: 0xfffffe996c506bd0
+		  lr: 0xfffffe00078d0b38  fp: 0xfffffe996c506d50
+		  lr: 0xfffffe00078d1468  fp: 0xfffffe996c506e30
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c506e40
+		  lr: 0xfffffe0007499014  fp: 0xfffffe996c5072c0
+		  lr: 0xfffffe00072d72d4  fp: 0xfffffe996c507340
+		  lr: 0xfffffe000749e7fc  fp: 0xfffffe996c507360
+		  lr: 0xfffffe000749382c  fp: 0xfffffe996c5073b0
+		  lr: 0xfffffe00078d0d74  fp: 0xfffffe996c507490
+		  lr: 0xfffffe00074a9660  fp: 0xfffffe996c5074a0
+		  lr: 0xfffffe00072d6774  fp: 0xfffffe996c507970
+		  lr: 0xfffffe00072d7b28  fp: 0xfffffe996c507b20
+		  lr: 0xfffffe00078a23e4  fp: 0xfffffe996c507b40
+		  lr: 0xfffffe00078e5e9c  fp: 0xfffffe996c507ba0
+		  lr: 0xfffffe00076a7f60  fp: 0xfffffe996c507ce0
+		  lr: 0xfffffe00076a75b0  fp: 0xfffffe996c507d70
+		  lr: 0xfffffe00076c2d7c  fp: 0xfffffe996c507dc0
+		  lr: 0xfffffe00076c2ff0  fp: 0xfffffe996c507e00
+		  lr: 0xfffffe00072cb38c  fp: 0xfffffe996c507e50
+		  lr: 0xfffffe00074a9a98  fp: 0xfffffe996c507e60
+		  lr: 0xfffffe00074932f0  fp: 0xfffffe996c507e80
+		  lr: 0xfffffe000774f204  fp: 0xfffffe996c507ee0
+		  lr: 0xfffffe00076c5520  fp: 0xfffffe996c507f20
+		  lr: 0xfffffe00074a9c4c  fp: 0x0000000000000000
+Nested panic string:
+pe_init.c:725 Assertion failed: panic_info at pc 0xfffffe00078f8884, lr 0xfffffe00078691e8 (saved state: 0xfffffe996c505190)
+	  x0:  0x0000000000000000 x1:  0x0000000000000007  x2:  0x0000000000000000  x3:  0xfffffe996c5056e0
+	  x4:  0x0000000000000000 x5:  0x0000000000000000  x6:  0x00000000000000e7  x7:  0xfffffe00078d0b38
+	  x8:  0xfffffe00072781b0 x9:  0x0000000000000001  x10: 0x0000000000000048  x11: 0x0000000000000004
+	  x12: 0x0000000000000007 x13: 0x0000000000000000  x14: 0xfffffe0007049f2e  x15: 0x0000000000000001
+	  x16: 0x0000000000000000 x17: 0x000000000000000a  x18: 0x0000000000000000  x19: 0xfffffe00079d3000
+	  x20: 0x0000000000000000 x21: 0xfffffe996c5056e0  x22: 0xfffffe996c5056e0  x23: 0xfffffe0007908388
+	  x24: 0x0000000000000000 x25: 0xfffffe0007908000  x26: 0xfffffe0007924730  x27: 0xfffffe0007908000
+	  x28: 0xfffffe000792c000 fp:  0xfffffe996c5054f0  lr:  0xfffffe00078691e8  sp:  0xfffffe996c5054e0
+	  pc:  0xfffffe00078f8884 cpsr: 0x224003c4         esr: 0x00000000f200bffc  far: 0x000000000000000c
+
+<end nested panic string>
+Nested panic count exceeds limit 5, machine will reset or spin
+VZ:VIRTIO:READY EL1 MMU_OFF GICD=0000000010000000 GICR=0000000010010000
+VZ:XNU:HANDOFF ARGS=0000000072004000 ENTRY=00000000714a5db8 ARENA=0000000070000000 SIZE=0000000014000000
+XDAZPMVCISTBDELHKWabcdefghijRPUNQ100kprintf initialized
+FSerial mode specified: 00000003
+initialize_screen: b=00000000, w=00000000, h=00000000, r=00000000, d=00000000
+initialize_screen: No video - forcing serial mode
+pe_arm_init_interrupts: args: 0xfffffe0007926f80
+pe_arm_map_interrupt_controller: soc_phys:  0x10000000
+pe_arm_map_interrupt_controller: failed to find the interrupt-controller.
+pe_arm_init_debug: failed to find cpu-debug-interface
+VZXNU:GIC:READY TIMER=27 SGI=1
+Darwin Kernel Version 12377.121.6: Sun Oct 11 22:44:15 EDT 2026; stephen:obj[xnu-12377.121.6-dirty]/DEVELOPMENT_ARM64_VZGENERIC
+pmap_startup() init/release time: 347 microsec
+vm_page_bootstrap: 18279 free pages, 2201 wired pages
+VM bootstrap: 73 maps, 256 entries and 64 nodes available
+Enable all vm_debug options with boot-arg vm_debug=1
+Maximum number of VM swap files: 100
+bufferhdr               : 0xfffffe1000060000 - 0xfffffe1000094000 (208K)
+ipc_kernel_map          : 0xfffffe1000094000 - 0xfffffe1004094000 (64M)
+zones                   : 0xfffffe1004094000 - 0xfffffe3004094000 (128G)
+kmem_io                 : 0xfffffe3004094000 - 0xfffffe3044094000 (1024M)
+bsd_pageable            : 0xfffffe3044094000 - 0xfffffe304629c000 (34M)
+compressor              : 0xfffffe304629c000 - 0xfffffe318632c000 (5G)
+zone_meta               : 0xfffffe318632c000 - 0xfffffe318e434000 (129M)
+ipc_kernel_copy_map     : 0xfffffe318e434000 - 0xfffffe318ec34000 (8M)
+kmem_data_private_range : 0xfffffe318ec34000 - 0xfffffe663dc74000 (210G)
+mb                      : 0xfffffe663dc74000 - 0xfffffe6641c74000 (64M)
+gIOKitPageableFixed     : 0xfffffe6641c74000 - 0xfffffe66a1c74000 (1536M)
+kmem_data_shared_range  : 0xfffffe66a1c74000 - 0xfffffe9b50cb4000 (210G)
+kmem_ptr_range_0        : 0xfffffe9b50cb4000 - 0xfffffecfffcf8000 (210G)
+vm: "vm_compressor_mode" is 4
+zone_init: map VM    0xfffffe1004094000:0xfffffe14d0d60000 (19G, 19G usable)
+zone_init: map RO    0xfffffe14d0d60000:0xfffffe166a704000 (6G, 6G usable)
+zone_init: map GEN0  0xfffffe166a704000:0xfffffe1b373d0000 (19G, 19G usable)
+zone_init: map GEN1  0xfffffe1b373d0000:0xfffffe200409c000 (19G, 19G usable)
+zone_init: map GEN2  0xfffffe200409c000:0xfffffe24d0d68000 (19G, 19G usable)
+zone_init: map GEN3  0xfffffe24d0d68000:0xfffffe299da34000 (19G, 19G usable)
+zone_init: map DATA  0xfffffe299da34000:0xfffffe3004094000 (25G, 25G usable)
+zone_init: metadata  0xfffffe318633c000:0xfffffe318e33c000 (128M)
+zone_init: metabits  0xfffffe318e33c000:0xfffffe318e424000 (928K)
+zone_init: extra     0:0 (0B)
+Unable to find vm tag  for btlog
+VM bootstrap done: 71 maps, 235 entries and 60 nodes left
+IOKit IOMD setownership ENABLED
+ATM subsystem is initialized
+standard timeslicing quantum is 10000 us
+standard background quantum is 2500 us
+Scheduler: Default of clutch
+Setting scheduler priority decay band limit 18
+Log queues configured: slot count: 9, per-slot size: 32768, total size: 294912
+Long logs support configured: size: 16384
+Firehose configured: 16 chunks, 8 io pages
+OSLog stream configured: stream: 8192 bytes, cache: 2112 bytes
+OSLog stream verification: 0
+[trap_telemetry] trap_telemetry_init
+mig_table_max_displ = 90 mach_kobj_count = 381
+BANK subsystem is initialized
+debug_log_init: Error!! gPanicBase is still not initialized
+suspend_cluster_powerdown_locked>calling sched_update_powered_cores to suspend powerdown
+debug_log_init: Error!! gPanicBase is still not initialized
+kdp_core zlib memory 0x8000
+Registered coredump handler for kernel
+Serial requested, consistent debug disabled or debug boot arg not present, configuring debugging over serial
+Initializing serial KDP
+BCM2712 crypto provider registration
+BCM2712 crypto and PRNG registered
+BCM2712 pthread provider registered before IOKit lockdown
+iBoot version: 
+iBoot Stage 2 version: 
+"name" not a kext
+"RAMDisk" not a kext
+ulock_initialize>thread_max=2560, ull_hash_buckets=1024
+vm: creating swapout thread
+vm: creating swapfile creation thread
+vm: creating swapfile GC thread
+lockdown_mode: error getting state from nvram
+lockdown_mode: lockdown mode in nvram is off
+BCM2712 START PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 END PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 MAX_CPUS READY count=1
+BCM2712 START BSD_INIT daif=0x200 cntvctl=0x1
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+	The Regents of the University of California. All rights reserved.
+
+MAC Framework successfully initialized
+using 367 buffer headers and 367 cluster IO buffer headers
+BCM2712 IORTC wait deferred
+mbinit: done [64 MB total pool size, (42/21) split]
+New aio workqueue implementation selected
+DLIL: running SUM16 self-tests ... PASSED
+dlil_init: Waiting for all the create dlil kernel threads to get scheduled at least once.
+dlil_init: All the created dlil kernel threads have been scheduled at least once. Proceeding.
+bsd_autoconf: calling kminit
+IOResources: not registry member at registerService()
+ifnet_attach: All kernel threads created for interface lo0 have been scheduled at least once. Proceeding.
+IOServicePH::kIOMessageSystemCapabilityChange: will 0xf->0xf
+IOServicePH::systemPowerChange to 0x30
+IOServicePH::kIOMessageSystemCapabilityChange: did 0xf->0xf
+cpu_start() cpu: 0
+VZXNU:PLATFORM:READY CPUS=1
+Added memory device md0/rmd0 (01000000/0A000000) at FFFFFE0008008000 for 00000000000B4000
+BSD root: md0, major 1, minor 0
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x0), isssd is (0)
+RPI5XNU:RAMROOT:MOUNT NODES=22 BYTES=737280 READONLY
+Serial keyboard started
+resume_cluster_powerdown_locked>calling sched_update_powered_cores to resume powerdown
+vm: initializing swap
+vm: starting swapout thread
+vm: starting swapfile creation thread
+vm: starting swapfile GC thread
+VM Swap Subsystem is ON
+load_init_program: attempting to load /sbin/launchd
+DARWIN:INIT:READY
+DARWIN:INIT:SHELL_PID=2
+
+DARWIN:SHELL:READY
+Type help for commands.
+darwin-vm:/# 

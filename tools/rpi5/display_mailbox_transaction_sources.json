@@ -1,0 +1,35 @@
+{
+  "format": "rpi5-display-mailbox-transaction-primary-v1",
+  "hardware_observed": false,
+  "source_code_imported": false,
+  "sources": [
+    {
+      "path": "build/rpi5/display-mailbox-transaction-primary-2a8d45e-20261013/arm_control.h",
+      "bytes": 21888,
+      "sha256": "bf3b5432e3b731a413a3eb0fae4051510dcae00f4d2592ce7ab8e36eeaadae58",
+      "commit": "2a8d45ec0883e3cbdce920855b3461ac77308a5f",
+      "url": "https://github.com/raspberrypi/linux/blob/2a8d45ec0883e3cbdce920855b3461ac77308a5f/arch/arm/mach-bcm2708/include/mach/arm_control.h",
+      "facts": "Broadcom-origin header: mailbox0 POL at RX+0x10 explicitly none-pop read; RX normal read, TX opposite FIFO, EMPTY bit30, FULL bit31. Historical base addresses are NOT used."
+    },
+    {
+      "path": "build/rpi5/display-mailbox-dma-primary-80d4218-20261013/drivers/mailbox/bcm2835-mailbox.c",
+      "bytes": 5732,
+      "sha256": "5bf38b7233da48644976feb787d8a08078570829ea5c81790db67c669f383657",
+      "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/mailbox/bcm2835-mailbox.c",
+      "facts": "brcm,bcm2835-mbox compatible retains RX0, POL0x10, RX status0x18, TX0x20, TX status0x38. Linux's all-message draining IRQ handler is NOT reused."
+    },
+    {
+      "path": "build/rpi5/display-mailbox-dma-primary-80d4218-20261013/arch/arm64/boot/dts/broadcom/bcm2712.dtsi",
+      "bytes": 17534,
+      "sha256": "528db3391562b79470028ca60fa86e710a27258d52caca407c4d11248ac9ce88",
+      "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/bcm2712.dtsi",
+      "facts": "BCM2712 mailbox uses brcm,bcm2835-mbox; actual current-boot address graph must come from separately checked FDT, not this source tree."
+    }
+  ],
+  "official_register_table": "https://github.com/raspberrypi/firmware/wiki/Mailboxes",
+  "readonly_tag_authority": "tools/rpi5/display_mailbox_get_sources.json",
+  "fresh_fdt_dma_authority_limits": "tools/rpi5/display_mailbox_fdt_sources.json",
+  "scope": "Pure callback-driven transaction only. No MMIO/cache/ARM adapter, framebuffer allocation, format, PA conversion, mapping or ownership is implemented. Future real adapter must establish exclusive current-boot mailbox ownership and linked buffer/cache authority independently."
+}

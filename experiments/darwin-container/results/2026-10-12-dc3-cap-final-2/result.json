@@ -1,0 +1,53 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "outputLimit" : true,
+        "processID" : 3,
+        "stderrByteCount" : 524288,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 524288,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true,
+        "terminationSignal" : 15
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 2,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 17.99716345834895,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-cap-3",
+  "serialByteCount" : 2423912,
+  "sessionID" : "5749680adb7a4c8a854dc7a6f4cc2e8a",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

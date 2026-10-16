@@ -1689,9 +1689,11 @@ tcp_update_window(struct tcpcb *tp, int thflags, struct tcphdr * th,
 			tp->max_sndwnd = tp->snd_wnd;
 		}
 
+#if MPTCP
 		if (tp->t_inpcb->inp_socket->so_flags & SOF_MP_SUBFLOW) {
 			mptcp_update_window_wakeup(tp);
 		}
+#endif /* MPTCP */
 		return true;
 	}
 	return false;
@@ -2288,7 +2290,11 @@ tcp_create_server_socket(struct tcp_inp *tpi, struct socket **so2,
 	    head_intcoproc_allowed, head_external_port,
 	    head_noconstrained, head_management_allowed,
 	    head_ultra_constrained_allowed;
+#if CONTENT_FILTER
 	boolean_t check_cfil = cfil_filter_present();
+#else
+	boolean_t check_cfil = false;
+#endif /* CONTENT_FILTER */
 
 	/* Get listener's bound-to-interface, if any */
 	// TODO check that oinp is same as inp set in tcp_input
@@ -3656,9 +3662,11 @@ syn_cookie_valid:
 	if (TCPS_HAVEESTABLISHED(tp->t_state)) {
 		tcp_keepalive_reset(tp);
 
+#if MPTCP
 		if (tp->t_mpsub) {
 			mptcp_reset_keepalive(tp);
 		}
+#endif /* MPTCP */
 	}
 
 	/*
@@ -4014,7 +4022,9 @@ syn_cookie_valid:
 			}
 
 			if (sbappendstream_rcvdemux(so, m)) {
+#if MPTCP
 				mptcp_handle_input(so);
+#endif /* MPTCP */
 				read_wakeup = 1;
 			}
 			th = &saved_tcphdr;
@@ -4758,11 +4768,13 @@ close:
 			close_it = TRUE;
 		}
 
+#if MPTCP
 		if ((so->so_flags & SOF_MP_SUBFLOW) && (mptetoso(tptomptp(tp)->mpt_mpte)->so_state & SS_NOFDREF) &&
 		    tp->t_state > TCPS_CLOSE_WAIT) {
 			TCP_LOG_DROP_PCB(TCP_LOG_HDR, th, tp, false, "SOF_MP_SUBFLOW SS_NOFDREF");
 			close_it = TRUE;
 		}
+#endif /* MPTCP */
 
 		if ((so->so_flags & SOF_DEFUNCT) && tp->t_state > TCPS_FIN_WAIT_1) {
 			TCP_LOG_DROP_PCB(TCP_LOG_HDR, th, tp, false, "SOF_DEFUNCT");
@@ -6155,6 +6167,7 @@ dodata:
 			}
 		}
 	} else {
+#if MPTCP
 		if ((so->so_flags & SOF_MP_SUBFLOW) && tlen == 0 &&
 		    (m->m_pkthdr.pkt_flags & PKTF_MPTCP_DFIN) &&
 		    (m->m_pkthdr.pkt_flags & PKTF_MPTCP)) {
@@ -6166,7 +6179,9 @@ dodata:
 			m->m_pkthdr.mp_rlen = 0;
 			mptcp_input(tptomptp(tp)->mpt_mpte, m);
 			tp->t_flags |= TF_ACKNOW;
-		} else {
+		} else
+#endif /* MPTCP */
+		{
 			m_freem(m);
 		}
 		thflags &= ~TH_FIN;
@@ -6267,9 +6282,11 @@ dodata:
 			break;
 		}
 	}
+#if MPTCP
 	if (read_wakeup) {
 		mptcp_handle_input(so);
 	}
+#endif /* MPTCP */
 
 	/*
 	 * Return any desired output.
@@ -6426,7 +6443,9 @@ tcp_dooptions(struct tcpcb *tp, u_char *cp0 __counted_by(cnt0), int cnt0, struct
 	u_short mss = 0;
 	uint8_t opt, optlen;
 	u_char *cp = cp0;
+#if MPTCP
 	u_char * const cpend = cp0 + cnt0;
+#endif /* MPTCP */
 	int cnt = cnt0;
 
 	for (; cnt > 0; cnt -= optlen, cp += optlen) {

@@ -1,0 +1,169 @@
+--- a/core/rpi5_hfs_builtin.h
++++ b/core/rpi5_hfs_builtin.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: BSD-2-Clause */
++#ifndef RPI5_HFS_BUILTIN_H
++#define RPI5_HFS_BUILTIN_H
++
++#include <libkern/OSAtomic.h>
++#include <pexpert/pexpert.h>
++
++/* Separate from the SD-only diagnostic: no automatic mount or disk writes. */
++static inline bool
++rpi5_hfs_start_allowed(void)
++{
++	int enabled = 0;
++	return PE_parse_boot_argn("bcm2712_hfs", &enabled, sizeof(enabled)) &&
++	    enabled == 1;
++}
++
++#endif
+--- a/core/hfs_iokit.cpp
++++ b/core/hfs_iokit.cpp
+@@ -46,6 +46,10 @@
+ #include "hfs_dbg.h"
+ #include "hfs_cnode.h"
+ 
++#if RPI5_HFS_BUILTIN
++#include "rpi5_hfs_builtin.h"
++#endif
++
+ #define NANOSECONDS_IN_SECOND 1000000000ULL
+ 
+ #ifndef panic_on_assert
+@@ -65,6 +69,10 @@
+ 	bool start(IOService *provider) override;
+ 	void stop(IOService *provider) override;
+ 
++#if RPI5_HFS_BUILTIN
++	bool terminate(IOOptionBits = 0) override { return false; }
++	bool requestTerminate(IOService *, IOOptionBits) override { return false; }
++#endif
+ protected:
+ 	vfstable_t vfs_handle;
+ };
+@@ -80,9 +88,20 @@
+ 
+ bool com_apple_filesystems_hfs::start(IOService *provider)
+ {
++#if RPI5_HFS_BUILTIN
++	if (!rpi5_hfs_start_allowed())
++		return false;
++#endif
+ 	if (!super::start(provider))
+ 		return false;
+ 
++#if RPI5_HFS_BUILTIN
++	/* Permanent globals must never be initialized twice, even after failure. */
++	static volatile UInt32 claimed;
++	if (!OSCompareAndSwap(0, 1, &claimed))
++		return false;
++	vfs_handle = NULL;
++#endif
+ #ifndef panic_on_assert
+ 	panic_on_assert = PE_i_can_has_kernel_configuration() & kPEICanHasAssertions;
+ #endif
+@@ -110,6 +129,12 @@
+ 					  | VFS_TBLNATIVEXATTR)
+ 	};
+ 
++#if RPI5_HFS_BUILTIN
++	/* vfs_fsadd publishes a mountable filesystem: prepare its zones first.
++	 * Encodings are already initialized through IOResourceMatch ordering. */
++	hfs_init_zones();
++#endif
++
+ 	int ret = vfs_fsadd(&vfe, &vfs_handle);
+ 
+ 	if (ret) {
+@@ -120,7 +145,7 @@
+ 	}
+ 
++#if !RPI5_HFS_BUILTIN
+ 	hfs_init_zones();
+ 	
+-#if !RPI5_HFS_BUILTIN
+ 	hfs_sysctl_register();
+ #endif /* Already registered by XNU permanent early SYSCTL startup. */
+@@ -140,6 +165,10 @@
+ 		}
+ 	}
+ 
++#if RPI5_HFS_BUILTIN
++	printf("RPI5XNU:HFS:REGISTERED\n");
++	IOService::publishResource("RPI5HFSRegistered", kOSBooleanTrue);
++#endif
+ 	return true;
+ }
+ 
+@@ -147,12 +176,12 @@
+ void com_apple_filesystems_hfs::stop(IOService *provider)
+ {
++#if !RPI5_HFS_BUILTIN
+ 	if (vfs_handle) {
+ 		vfs_fsremove(vfs_handle);
+-#if !RPI5_HFS_BUILTIN
+ 		hfs_sysctl_unregister();
+-#endif
+ 		vfs_handle = NULL;
+ 	}
++#endif /* Permanent VFS, zones and SYSCTL nodes are not unloadable. */
+ 
+ 	super::stop(provider);
+ }
+--- a/hfs_encodings/hfs_encodings_kext.cpp
++++ b/hfs_encodings/hfs_encodings_kext.cpp
+@@ -37,6 +37,10 @@
+ 
+ #include "hfs_encodings_internal.h"
+ 
++#if RPI5_HFS_BUILTIN
++#include "../core/rpi5_hfs_builtin.h"
++#endif
++
+ class com_apple_filesystems_hfs_encodings : public IOService {
+     OSDeclareDefaultStructors(com_apple_filesystems_hfs_encodings)
+ 
+@@ -46,6 +50,10 @@
+ 
+ 	bool start(IOService *provider) override;
+ 	void stop(IOService *provider) override;
++#if RPI5_HFS_BUILTIN
++	bool terminate(IOOptionBits = 0) override { return false; }
++	bool requestTerminate(IOService *, IOOptionBits) override { return false; }
++#endif
+ };
+ 
+ #define super IOService
+@@ -53,16 +61,31 @@
+ 
+ bool com_apple_filesystems_hfs_encodings::start(IOService *provider)
+ {
++#if RPI5_HFS_BUILTIN
++	if (!rpi5_hfs_start_allowed())
++		return false;
++#endif
+ 	if (!super::start(provider))
+ 		return false;
+ 
++#if RPI5_HFS_BUILTIN
++	static volatile UInt32 claimed;
++	if (!OSCompareAndSwap(0, 1, &claimed))
++		return false;
++#endif
+ 	hfs_converterinit();
+ 
++#if RPI5_HFS_BUILTIN
++	printf("RPI5XNU:HFS:ENCODINGS_READY\n");
++	IOService::publishResource("RPI5HFSEncodingsReady", kOSBooleanTrue);
++#endif
+ 	return true;
+ }
+ 
+ void com_apple_filesystems_hfs_encodings::stop(IOService * provider)
+ {
++#if !RPI5_HFS_BUILTIN
+ 	hfs_converterdone();
++#endif /* Converter locks/list remain valid for the permanent built-in VFS. */
+ 	super::stop(provider);
+ }

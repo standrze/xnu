@@ -763,16 +763,16 @@ caller, (uint64_t)VM_KERNEL_ADDRPERM(socket), log_msg, policy_id, skip_policy_id
     if (NECP_DATA_TRACE_ON(debug)) { \
     char laddr_str[MAX_IPv6_STR_LEN]; \
     char raddr_str[MAX_IPv6_STR_LEN]; \
-    NECPDATATRACELOG(LOG_ERR, "DATA-TRACE <%s>: %s - fam %d proto %d port <local %d/%d remote %d/%d> <local %s remote %s> <drop-all order %d> <BoundInterface %d> <socket policy id %d socket skip id %d> <mbuf %X len %d %d>", \
-	        caller, log_msg, local_addr.sin.sin_family, protocol, ntohs(local_addr.sin.sin_port), ntohs(local_addr.sin6.sin6_port), ntohs(remote_addr.sin.sin_port), ntohs(remote_addr.sin6.sin6_port), necp_get_address_string(&local_addr, laddr_str), necp_get_address_string(&remote_addr, raddr_str), necp_drop_all_order, bound_interface_index, socket_policy_id, socket_skip_policy_id, (unsigned int)packet, ip->ip_len, ntohs(ip->ip_len)); \
+    NECPDATATRACELOG(LOG_ERR, "DATA-TRACE <%s>: %s - fam %d proto %d port <local %d/%d remote %d/%d> <local %s remote %s> <drop-all order %d> <BoundInterface %d> <socket policy id %d socket skip id %d> <mbuf %llx len %d %d>", \
+	        caller, log_msg, local_addr.sin.sin_family, protocol, ntohs(local_addr.sin.sin_port), ntohs(local_addr.sin6.sin6_port), ntohs(remote_addr.sin.sin_port), ntohs(remote_addr.sin6.sin6_port), necp_get_address_string(&local_addr, laddr_str), necp_get_address_string(&remote_addr, raddr_str), necp_drop_all_order, bound_interface_index, socket_policy_id, socket_skip_policy_id, (uint64_t)VM_KERNEL_ADDRPERM(packet), ip->ip_len, ntohs(ip->ip_len)); \
     }
 
 #define NECP_DATA_TRACE_LOG_IP6(debug, caller, log_msg) \
     if (NECP_DATA_TRACE_ON(debug)) { \
     char laddr_str[MAX_IPv6_STR_LEN]; \
     char raddr_str[MAX_IPv6_STR_LEN]; \
-    NECPDATATRACELOG(LOG_ERR, "DATA-TRACE <%s>: %s - fam %d proto %d port <local %d/%d remote %d/%d> <local %s remote %s> <drop-all order %d> <BoundInterface %d> <socket policy id %d socket skip id %d> <mbuf %X len %d %d %d>", \
-caller, log_msg, local_addr.sin.sin_family, protocol, ntohs(local_addr.sin.sin_port), ntohs(local_addr.sin6.sin6_port), ntohs(remote_addr.sin.sin_port), ntohs(remote_addr.sin6.sin6_port), necp_get_address_string(&local_addr, laddr_str), necp_get_address_string(&remote_addr, raddr_str), necp_drop_all_order, bound_interface_index, socket_policy_id, socket_skip_policy_id, (unsigned int)packet, ip6->ip6_plen, ntohs(ip6->ip6_plen), packet ? packet->m_pkthdr.len : 0); \
+    NECPDATATRACELOG(LOG_ERR, "DATA-TRACE <%s>: %s - fam %d proto %d port <local %d/%d remote %d/%d> <local %s remote %s> <drop-all order %d> <BoundInterface %d> <socket policy id %d socket skip id %d> <mbuf %llx len %d %d %d>", \
+caller, log_msg, local_addr.sin.sin_family, protocol, ntohs(local_addr.sin.sin_port), ntohs(local_addr.sin6.sin6_port), ntohs(remote_addr.sin.sin_port), ntohs(remote_addr.sin6.sin6_port), necp_get_address_string(&local_addr, laddr_str), necp_get_address_string(&remote_addr, raddr_str), necp_drop_all_order, bound_interface_index, socket_policy_id, socket_skip_policy_id, (uint64_t)VM_KERNEL_ADDRPERM(packet), ip6->ip6_plen, ntohs(ip6->ip6_plen), packet ? packet->m_pkthdr.len : 0); \
     }
 
 #define NECP_DATA_TRACE_LOG_IP_RESULT(debug, caller, log_msg) \
@@ -13662,6 +13662,7 @@ necp_socket_get_effective_mtu(struct inpcb *inp, u_int32_t current_mtu)
 
 			if (tunnel_interface != NULL) {
 				u_int32_t direct_tunnel_mtu = tunnel_interface->if_mtu;
+#if IPSEC
 				u_int32_t delegate_tunnel_mtu = (tunnel_interface->if_delegated.ifp != NULL) ? tunnel_interface->if_delegated.ifp->if_mtu : 0;
 				const char ipsec_prefix[] = "ipsec";
 				if (delegate_tunnel_mtu != 0 &&
@@ -13679,7 +13680,9 @@ necp_socket_get_effective_mtu(struct inpcb *inp, u_int32_t current_mtu)
 						// Otherwise return direct
 						return direct_tunnel_mtu;
 					}
-				} else {
+				} else
+#endif /* IPSEC */
+				{
 					// For non-ipsec interfaces, just return the tunnel MTU
 					return direct_tunnel_mtu;
 				}

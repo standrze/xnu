@@ -1,0 +1,13 @@
+{
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 47.03056662500603,
+  "error" : "guest exceeded the 45-second deadline",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/darwin-vz-xnu-trial-1",
+  "serialByteCount" : 177,
+  "sessionID" : "00e990325e1a41a4a8e7677d0c44853d",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "timedOut"
+}

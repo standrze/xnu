@@ -495,7 +495,7 @@ STUB(vsock_put_message);
  */
 void mbuf_drain(boolean_t);
 void
-mbuf_drain(boolean_t)
+mbuf_drain(boolean_t drain __unused)
 {
 	return;
 }

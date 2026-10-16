@@ -1,0 +1,54 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004hprint -r -- READBACK_BEGIN; /bin/cat /data/framed-note; print -r -- READBACK_END; fc -ln -20[?2004l
+READBACK_BEGIN
+FRAME_SAVED
+READBACK_END
+print -r -- PTY_JOB_INTERRUPT:$?; print -r -- PTY_HISTORY_OK >> /data/pty-note; exit
+print -r -- ZLE_EDIT
+[[ -o monitor ]] && print -r -- PTY_MONITOR_ON; /bin/sleep 20
+jobs
+fg
+print -r -- PTY_JOB_STATUS:$?
+print -r -- ZLE_HISTORY_RECALL
+print -r -- ZLE_HISTORY_RECALL
+print -r -- ZLE_SAVED >> /data/pty-note; exit
+[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUMNS
+print -r -- ZLE_EDIT
+print -r -- FRAME_HISTORY_RECALL
+print -r -- FRAME_HISTORY_RECALL
+print -r -- JOB_STARTED; /bin/sleep 20
+jobs
+fg
+print -r -- JOB_STATUS:$?
+TRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"
+print -r -- FRAME_SAVED >> /data/framed-note; exit
+#                                                                                                                       darwin-zsh# [?2004h[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLU<TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUM                                                          NS[?2004l
+TERMINAL_TTY_JOB_OK
+SIZE_INITIAL:35:120
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- ZLE_EITDIT[?2004l
+ZLE_EDIT
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STARTED; /bin/sleep 20[?2004l
+JOB_STARTED
+^Z
+zsh: suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hjobs[?2004l
+[1]  + suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hfg[?2004l
+[1]  + continued  /bin/sleep 20
+^C
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STATUS:$?[?2004l
+JOB_STATUS:130
+#                                                                                                                       darwin-zsh# [?2004hTRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED[?2004l
+RESIZE_ARMED
+#                                                                                                                       darwin-zsh# [?2004hdarwin-zsh# SIZE_CHANGED:47:132
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"[?2004l
+€ÿBYTE_ROUNDTRIP:€ÿ:END#                                                                                                                                   darwin-zsh# [?2004hprint -r -- FRAME_SAVED >> /data/framed-note; exit[?2004l

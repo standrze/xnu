@@ -1,0 +1,38 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "exitStatus" : 0,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 171,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 257,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : true,
+  "elapsedSeconds" : 0.7435419999819715,
+  "guestStopped" : true,
+  "outputDirectory" : "\/Users\/stephen\/Documents\/ChatGPT\/xnu\/experiments\/darwin-container\/workload-state\/package-nat-check\/runs\/nat-smoke\/session",
+  "serialByteCount" : 9250,
+  "sessionID" : "6ec0a98552894d59883c743440abca25",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

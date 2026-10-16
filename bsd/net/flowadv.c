@@ -197,11 +197,13 @@ flowadv_thread_cont(int err)
 
 			if (fce->fce_event_type == FCE_EVENT_TYPE_CONGESTION_EXPERIENCED) {
 				switch (fce->fce_flowsrc_type) {
+#if SKYWALK
 				case FLOWSRC_CHANNEL:
 					kern_channel_flowadv_report_congestion_event(fce,
 					    fce->fce_congestion_cnt, fce->l4s_ce_cnt,
 					    fce->fce_pkts_since_last_report);
 					break;
+#endif /* SKYWALK */
 				case FLOWSRC_INPCB:
 				case FLOWSRC_IFNET:
 				case FLOWSRC_PF:

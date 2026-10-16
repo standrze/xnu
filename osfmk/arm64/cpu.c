@@ -55,6 +55,7 @@
 #include <vm/vm_map.h>
 #include <pexpert/arm/protos.h>
 #include <pexpert/device_tree.h>
+#include <pexpert/arm64/boot.h>
 #include <sys/kdebug.h>
 #include <arm/machine_routines.h>
 #include <machine/atomic.h>
@@ -875,6 +876,96 @@ cpu_data_register(cpu_data_t *cpu_data_ptr)
 	CpuDataEntries[cpu].cpu_data_vaddr = cpu_data_ptr;
 	CpuDataEntries[cpu].cpu_data_paddr = (void *)ml_vtophys((vm_offset_t)cpu_data_ptr);
 }
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && !CONFIG_SPTM
+/*
+ * The PSCI trampoline enters LowResetVectorBase with translation disabled.
+ * Its reset lookup reads ResetHandlerData, then the physical CPU-data entry
+ * and cpu_data_t. The caller must finish cpu_start()'s per-CPU setup first
+ * and serialize this publication with any subsequent CPU_ON operation.
+ */
+bool
+rpi5_publish_secondary_handoff(int cpu, vm_offset_t *entry_paddr,
+    vm_offset_t *reset_vector_paddr)
+{
+	extern char rpi5_secondary_trampoline;
+	extern char rpi5_secondary_trampoline_end;
+	extern boot_args const_boot_args;
+	extern uint8_t bootstrap_pagetables[BOOTSTRAP_TABLE_SIZE];
+	extern uint8_t rpi5_boot_uart_tables[2 * ARM_PGBYTES];
+	cpu_data_t *target;
+	vm_offset_t trampoline_paddr;
+	vm_offset_t trampoline_size;
+	vm_offset_t vector_paddr;
+	vm_offset_t entries_paddr;
+	vm_offset_t target_paddr;
+	vm_offset_t vector_size;
+	uint64_t bootstrap_root0;
+	uint64_t bootstrap_root1;
+
+	if (entry_paddr == NULL || reset_vector_paddr == NULL) {
+		return false;
+	}
+	*entry_paddr = 0;
+	*reset_vector_paddr = 0;
+	if (cpu < 0 || cpu >= MAX_CPUS || cpu == cpu_number()) {
+		return false;
+	}
+	target = CpuDataEntries[cpu].cpu_data_vaddr;
+	if (target == NULL || CpuDataEntries[cpu].cpu_data_paddr == NULL ||
+	    target->cpu_number != cpu || target->cpu_reset_handler != start_cpu_paddr ||
+	    start_cpu_paddr == 0) {
+		return false;
+	}
+	trampoline_paddr = ml_static_vtop((vm_offset_t)&rpi5_secondary_trampoline);
+	trampoline_size = (vm_offset_t)&rpi5_secondary_trampoline_end -
+	    (vm_offset_t)&rpi5_secondary_trampoline;
+	vector_paddr = ml_static_vtop((vm_offset_t)&LowResetVectorBase);
+	vector_size = (vm_offset_t)&LowResetVectorEnd - (vm_offset_t)&LowResetVectorBase;
+	entries_paddr = ml_static_vtop((vm_offset_t)CpuDataEntries);
+	target_paddr = ml_vtophys((vm_offset_t)target);
+	if (trampoline_paddr == 0 || trampoline_size == 0 ||
+	    trampoline_size > 0x1000 ||
+	    ml_static_vtop((vm_offset_t)&rpi5_secondary_trampoline_end - 1) !=
+	    trampoline_paddr + trampoline_size - 1 ||
+	    vector_paddr == 0 || (vector_paddr & 0xfff) != 0 ||
+	    vector_size == 0 || vector_size > 0x1000 ||
+	    entries_paddr == 0 || target_paddr == 0 || cpu_ttep == 0 ||
+	    target_paddr != (vm_offset_t)CpuDataEntries[cpu].cpu_data_paddr ||
+	    ResetHandlerData.assist_reset_handler != 0 ||
+	    ResetHandlerData.cpu_data_entries != entries_paddr) {
+		return false;
+	}
+
+	flush_dcache((vm_offset_t)target, sizeof(*target), FALSE);
+	flush_dcache((vm_offset_t)&CpuDataEntries[cpu], sizeof(CpuDataEntries[cpu]), FALSE);
+	flush_dcache((vm_offset_t)&ResetHandlerData, sizeof(ResetHandlerData), FALSE);
+	flush_dcache((vm_offset_t)&const_boot_args, sizeof(const_boot_args), FALSE);
+	/* This CPU enters with M/C/I off and reads the bootstrap TTBR0 root and
+	 * cpu_ttep before enabling translation. Publish both table trees and the
+	 * TTBR1 physical pointer to PoC, not merely the reset-vector data. */
+	flush_dcache((vm_offset_t)bootstrap_pagetables,
+	    sizeof(bootstrap_pagetables), FALSE);
+	flush_dcache((vm_offset_t)rpi5_boot_uart_tables,
+	    sizeof(rpi5_boot_uart_tables), FALSE);
+	flush_dcache((vm_offset_t)&cpu_ttep, sizeof(cpu_ttep), FALSE);
+	flush_dcache((vm_offset_t)&rpi5_secondary_trampoline, (unsigned)trampoline_size, FALSE);
+	flush_dcache((vm_offset_t)&LowResetVectorBase, (unsigned)vector_size, FALSE);
+	__builtin_arm_dsb(DSB_SY);
+	__builtin_memcpy(&bootstrap_root0, bootstrap_pagetables,
+	    sizeof(bootstrap_root0));
+	__builtin_memcpy(&bootstrap_root1, bootstrap_pagetables + sizeof(bootstrap_root0),
+	    sizeof(bootstrap_root1));
+	kprintf("RPI5XNU:CPU_ON:TABLES TTBR0=0x%llx ROOT0=0x%llx ROOT1=0x%llx TTBR1=0x%llx\n",
+	    (unsigned long long)ml_static_vtop((vm_offset_t)bootstrap_pagetables),
+	    (unsigned long long)bootstrap_root0,
+	    (unsigned long long)bootstrap_root1,
+	    (unsigned long long)cpu_ttep);
+	*entry_paddr = trampoline_paddr;
+	*reset_vector_paddr = vector_paddr;
+	return true;
+}
+#endif /* ARM64_BOARD_CONFIG_BCM2712 && DEVELOPMENT */
 
 #if defined(KERNEL_INTEGRITY_CTRR)
 /* Hibernation needs to reset this state, so data and text are in the hib segment;

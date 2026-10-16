@@ -1,0 +1,34 @@
+{
+  "passed": [
+    "original Apple bootp options/match/BPF/checksum and IPv4 routines configured en0; project route ACK confirmed",
+    "DHCP-provided DNS address persisted in real resolver configuration",
+    "original Apple ifconfig registered modules, changed/read back en0 MTU 1400, restored/read back 1500 and displayed leased IPv4",
+    "original Apple route delete/add/get replaced and inspected the actual guest default route",
+    "fresh guest DNS and resolved TCP exchange after Apple-source DHCP, independently witnessed on host",
+    "normal zsh exit and clean guest shutdown"
+  ],
+  "error": null,
+  "cli_exit": 0,
+  "cli_sha256": "57623afd87f08b488352a09fd9d0e3898cbe838a501bf74880dcf594cf7b0130",
+  "apple_route": true,
+  "apple_ifconfig": true,
+  "network_fixture": {
+    "events": [
+      {
+        "type": "dns",
+        "guest": "192.168.64.18",
+        "name": "a9ec03ff457ee3d3603ca96b.darwin.test",
+        "answer": "192.168.64.1"
+      },
+      {
+        "type": "tcp",
+        "guest": "192.168.64.18",
+        "echo": "a9ec03ff457ee3d3603ca96b"
+      }
+    ],
+    "errors": [],
+    "host_route": "   route to: 192.168.64.18\ndestination: 192.168.64.18\n  interface: bridge100\n      flags: <UP,HOST,DONE,LLINFO,WASCLONED,IFSCOPE,IFREF>\n recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire\n       0         0         0         0         0         0      1500      1200 \n",
+    "token": "a9ec03ff457ee3d3603ca96b"
+  },
+  "scope": "one bounded Apple-bootp VM configuration/integration trial; no repeated PTY/GPU proof; no Pi evidence"
+}

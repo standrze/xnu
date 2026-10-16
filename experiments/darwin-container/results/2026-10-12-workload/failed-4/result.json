@@ -1,0 +1,38 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "error" : "agent protocol: guest stopped before complete framed shutdown",
+    "handshakeCompleted" : false,
+    "protocolValid" : false,
+    "protocolVersion" : 1,
+    "readyObserved" : false,
+    "shutdownAcknowledged" : false
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.07353970833355561,
+  "error" : "VM start failed: Error Domain=VZErrorDomain Code=2 \"The storage device attachment is invalid.\" UserInfo={NSLocalizedFailure=Invalid virtual machine configuration., NSLocalizedFailureReason=The storage device attachment is invalid.}",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/darwin-workload-package-1",
+  "serialByteCount" : 0,
+  "sessionID" : "bfe5b76eb16f40d280d417581fa5816b",
+  "shellReadyObserved" : false,
+  "started" : false,
+  "termination" : "failed"
+}

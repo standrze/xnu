@@ -151,9 +151,11 @@ sotoxsocket_n(struct socket *so, struct xsocket_n *xso)
 	if (so->so_flow_db != NULL) {
 		xso->xso_filter_flags |= XSOFF_FLOW_DB;
 	}
+#if CONTENT_FILTER
 	if (so->so_cfil != NULL) {
 		xso->xso_filter_flags |= XSOFF_CFIL;
 	}
+#endif /* CONTENT_FILTER */
 	if (so->so_fd_pcb != NULL) {
 		xso->xso_filter_flags |= XSOFF_FLOW_DIV;
 	}

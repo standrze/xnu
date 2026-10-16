@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Pinned Apple-source static zsh runtime, with labeled project startup and ABI adaptations",
+  "status": "selected Libc, libplatform and LP64 scalable allocator objects compiled; guest execution is verified separately",
+  "sources": [
+    {
+      "name": "Libc-static-stdio-stdlib",
+      "repository": "https://github.com/apple-oss-distributions/Libc",
+      "tag": "Libc-167",
+      "commit": "630404129b7029c30def14e0a5150c4b93d7458c",
+      "archiveURL": "https://codeload.github.com/apple-oss-distributions/Libc/tar.gz/refs/tags/Libc-167",
+      "archiveSHA256": "abb1bc021fbe61622148fad98b5ef955e5f7bf56c804895a14cac6b4132d183b",
+      "localPath": "upstream/Libc-Libc-167",
+      "modified": false,
+      "buildAdaptations": "generated copies only, exact source and generated hashes in build/apple-runtime/manifest.json"
+    },
+    {
+      "name": "Libc-LP64-allocator-and-rune",
+      "repository": "https://github.com/apple-oss-distributions/Libc",
+      "tag": "Libc-391",
+      "commit": "9d83841c70ded05606ce76f9dde9137c32c04f76",
+      "archiveURL": "https://codeload.github.com/apple-oss-distributions/Libc/tar.gz/refs/tags/Libc-391",
+      "archiveSHA256": "5f013d2324038bc01d1428ceea82a84ad44cfe6854515c689da021cd39fd9319",
+      "localPath": "upstream/Libc-Libc-391",
+      "modified": false,
+      "buildAdaptations": "allocator page constants adapted to 16KB guest and private lock header supplied by project"
+    },
+    {
+      "name": "Libc",
+      "repository": "https://github.com/apple-oss-distributions/Libc",
+      "tag": "Libc-1752.120.2",
+      "commit": "4e34d0559e3a1b081afeb8604d9e204a1f31321d",
+      "archiveURL": "https://codeload.github.com/apple-oss-distributions/Libc/tar.gz/refs/tags/Libc-1752.120.2",
+      "archiveSHA256": "b7b6c6d185ef59187c392824ef464a0ebdb6b962d1574abbb93d3aa15e20d826",
+      "localPath": "upstream/apple-Libc-1752.120.2",
+      "modified": false
+    },
+    {
+      "name": "libplatform",
+      "repository": "https://github.com/apple-oss-distributions/libplatform",
+      "tag": "libplatform-375.120.2",
+      "commit": "b7ed7cf5cf7dd12b98672435db2225a860f199d8",
+      "archiveURL": "https://codeload.github.com/apple-oss-distributions/libplatform/tar.gz/refs/tags/libplatform-375.120.2",
+      "archiveSHA256": "c0962595da8899cf54445698fd71bddc2118edb8ce8e3d6e11a29ef96ad754bc",
+      "localPath": "upstream/apple-libplatform-375.120.2",
+      "modified": false
+    },
+    {
+      "name": "libmalloc",
+      "repository": "https://github.com/apple-oss-distributions/libmalloc",
+      "tag": "libmalloc-812.100.31",
+      "commit": "c49dafa25f1efe8607701ae6014a663ad2ee437f",
+      "archiveURL": "https://codeload.github.com/apple-oss-distributions/libmalloc/tar.gz/refs/tags/libmalloc-812.100.31",
+      "archiveSHA256": "a2966b7790c9dc7b66af22160070b9f7faa9aceb8eb1f89b36cbeb82811d5fff",
+      "localPath": "upstream/apple-libmalloc-812.100.31",
+      "modified": false
+    }
+  ],
+  "existingSourceReferences": {
+    "zsh": "upstream/apple-zsh, zsh-118, commit 666e91a595af505ef61d5f9b87df7a014a4937c6; owned by zsh workstream",
+    "libsyscall": "../../../libsyscall in the existing XNU source tree; no new download",
+    "libpthread": "../../../tools/rpi5/gate2-pthread.lock.json; cached original archive build/rpi5-xcode27/libpthread-539.100.4.tar.gz; kernel-adapted provider is not a userland library"
+  },
+  "leafBuild": {
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "sdk": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+    "target": "arm64-apple-macosx13.0",
+    "compileFlags": ["-include", "machine/limits.h", "-Os", "-ffreestanding", "-fno-builtin", "-fno-stack-protector", "-fno-common", "-Wall", "-Wextra", "-Werror", "-c"],
+    "archiveCommand": "ZERO_AR_DATE=1 xcrun ar -rcs build/apple-libc-leaf/libapple-libc-leaf.a build/apple-libc-leaf/*.o",
+    "hostRuntimeLinked": false,
+    "sourceSHA256": {
+      "string/FreeBSD/strspn.c": "fec177301ac58b56e48013bfad11360a18237bc1142545734f0ff2d909b658ef",
+      "string/FreeBSD/strcspn.c": "b4da555c7bdb5cd69f6daae988b07dee19e9976c3c4528afb8e29d60a541aa4d",
+      "string/FreeBSD/strpbrk.c": "e9c7702d315546fd8503c4665f74587ffe420e442e2bdaca6163069ed0c81662",
+      "string/FreeBSD/strsep.c": "ad2dd24bd9506cab7a6dbac57467425ee9b202d0507c6bcad524f8b6831ebb44",
+      "string/FreeBSD/strrchr.c": "33969f23287b6a024ba1f85acc86ef59c1804a0495be7e360587b747b686dd95",
+      "string/FreeBSD/strdup.c": "a76c8f5c0deefba9a14fbb21a64fe111bf6d553a7f51185b01a32121de40f62b",
+      "string/FreeBSD/strndup.c": "b0c547568388abedc0e10cc264957a908d603be2152c9fddada637a21b0205a9",
+      "stdlib/FreeBSD/abs.c": "ec5bd1c0938f9da31a9b947c01a24ebf6fb58a596c2882a5eabd1b8c42abf6f3",
+      "stdlib/FreeBSD/bsearch.c": "1445a0bed376657786e3d18cc7f616358f07bbcbe5bebb1b395aa1499a9911b4"
+    },
+    "outputSHA256": {
+      "abs.o": "4c15d5ff6dc87777dc455317d769e0f641dc014f9253d55ccfe015645b0d6494",
+      "bsearch.o": "843bbfa54b10ac93e05dba6e230c01765250771af7411256164e5ab4f9561121",
+      "strcspn.o": "f81ec02aee617150c798541f2034feb260239c968541ed298140d9beec883a01",
+      "strdup.o": "58ae2512c24e303aecee6ed0d3a8c74776408af2b50cd7ce8cf3b9e52cf00a64",
+      "strndup.o": "5fdea0a5fd9b4bf4ab08fe96ad3503997dd0a6284733861e1fccdb77be51c0df",
+      "strpbrk.o": "61531dd699d064fae8b992e59a5b7c5ecd3da922455f3b580084a7fd950301ff",
+      "strrchr.o": "01dc22aea227ef885d925e76f0412d56fb435e03bc4dcc8cae6ce2ac0b4c8278",
+      "strsep.o": "7952be711930fd96f104a81bfaf8d8e5e60f974411a2d67801d4f8fc2d825c35",
+      "strspn.o": "a32bda9992ec1e9255297e1e7a53222941a40aec326a061e735e4002abc77393",
+      "libapple-libc-leaf.a": "3a4be64367ef9db5471acbcf8555958e0c8c0ca8f24eed158170cac34c685546"
+    },
+    "definedSymbols": ["_abs", "_bsearch", "_bsearch_b", "_strcspn", "_strdup", "_strndup", "_strpbrk", "_strrchr", "_strsep", "_strspn"],
+    "undefinedSymbols": ["_malloc", "_memcpy", "_strlen"],
+    "executed": false,
+    "linkedIntoGuest": false
+  }
+}

@@ -142,6 +142,9 @@
 #include <net/iptap.h>                  /* for iptap_init() */
 #include <sys/socketvar.h>              /* for socketinit() */
 #include <sys/protosw.h>                /* for domaininit() */
+#if SOCKETS
+#include <kern/uipc_domain.h>           /* for net_update_uptime() */
+#endif
 #include <kern/sched_prim.h>            /* for thread_wakeup() */
 #include <net/if_ether.h>               /* for ether_family_init() */
 #include <net/if_gif.h>                 /* for gif_init() */
@@ -154,11 +157,15 @@
 #include <net/network_agent.h>          /* for netagent_init() */
 #include <net/packet_mangler.h>         /* for pkt_mnglr_init() */
 #include <net/if_utun.h>                /* for utun_register_control() */
+#if IPSEC
 #include <netinet6/ipsec.h>             /* for ipsec_init() */
+#endif
 #include <net/if_redirect.h>            /* for if_redirect_init() */
 #include <net/netsrc.h>                 /* for netsrc_init() */
 #include <net/ntstat.h>                 /* for nstat_init() */
+#if MPTCP
 #include <netinet/mptcp_var.h>          /* for mptcp_control_register() */
+#endif
 #include <net/nwk_wq.h>                 /* for nwk_wq_init */
 #include <net/restricted_in_port.h>     /* for restricted_in_port_init() */
 #include <net/remote_vif.h>             /* for rvi_init() */
@@ -202,6 +209,20 @@
 
 #if CONFIG_XNUPOST
 #include <tests/xnupost.h>
+#endif
+
+#if CONFIG_XNUPOST && defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+#include <machine/atomic.h>
+
+static _Atomic uint32_t rpi5_xnupost_status;
+uint32_t rpi5_gate3_xnupost_status(void);
+void rpi5_gate3_start_qualification(void);
+
+uint32_t
+rpi5_gate3_xnupost_status(void)
+{
+	return os_atomic_load(&rpi5_xnupost_status, acquire);
+}
 #endif
 
 void * get_user_regs(thread_t);         /* XXX kludge for <machine/thread.h> */
@@ -498,7 +519,11 @@ bsd_init(void)
 	check_for_failure_injection(XNU_STAGE_BSD_INIT_START);
 #endif
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#define DEBUG_BSDINIT 1
+#else
 #define DEBUG_BSDINIT 0
+#endif
 
 #if DEBUG_BSDINIT
 #define bsd_init_kprintf(x, ...) kprintf("bsd_init: " x, ## __VA_ARGS__)
@@ -717,7 +742,9 @@ bsd_init(void)
 	/* Initialize mbuf's. */
 	bsd_init_kprintf("calling mbinit\n");
 	mbinit();
+#if NETWORKING
 	restricted_in_port_init();
+#endif
 #endif /* SOCKETS */
 
 	/*
@@ -763,7 +790,9 @@ bsd_init(void)
 	socketinit();
 	bsd_init_kprintf("calling domaininit\n");
 	domaininit();
+#if NETWORKING
 	iptap_init();
+#endif
 #if FLOW_DIVERT
 	flow_divert_init();
 #endif  /* FLOW_DIVERT */
@@ -1096,17 +1125,62 @@ bsdinit_task(void)
 	vm_init_before_launchd();
 
 #if CONFIG_XNUPOST
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	int gate3_xnupost_suite = 0;
+	bool gate3_xnupost_selected =
+	    PE_parse_boot_argn("bcm2712_gate3_xnupost_suite", &gate3_xnupost_suite,
+	    sizeof(gate3_xnupost_suite)) && gate3_xnupost_suite == 1;
+	if (gate3_xnupost_selected) {
+		os_atomic_store(&rpi5_xnupost_status, 1, release);
+	}
+	uint64_t gate3_xnupost_begin = gate3_xnupost_selected ?
+	    __builtin_arm_rsr64("CNTVCT_EL0") : 0;
+#endif
 	int result = bsd_list_tests();
 	result = bsd_do_post();
 	if (result != 0) {
 		panic("bsd_do_post: Tests failed with result = 0x%08x", result);
 	}
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	if (gate3_xnupost_selected) {
+		uint32_t selected = 0, passed = 0;
+		struct xnupost_test *lists[] = { kernel_post_tests, bsd_post_tests };
+		uint32_t counts[] = { kernel_post_tests_count, bsd_post_tests_count };
+		for (unsigned int list = 0; list < 2; list++) {
+			for (uint32_t index = 0; index < counts[list]; index++) {
+				struct xnupost_test *test = &lists[list][index];
+				if (test->xt_config & XT_CONFIG_IGNORE) {
+					continue;
+				}
+				selected++;
+				if (test->xt_test_actions == XT_ACTION_PASSED) {
+					passed++;
+				}
+			}
+		}
+		kprintf("RPI5XNU:XNUPOST:%s SELECTED=%u PASSED=%u\n",
+		    selected > 0 && selected == passed ? "PASS" : "FAIL",
+		    selected, passed);
+		kprintf("RPI5XNU:XNUPOST:TIMING TICKS=%llu FREQ=%llu\n",
+		    __builtin_arm_rsr64("CNTVCT_EL0") - gate3_xnupost_begin,
+		    __builtin_arm_rsr64("CNTFRQ_EL0"));
+		os_atomic_store(&rpi5_xnupost_status,
+		    selected > 0 && selected == passed ? 2 : 3, release);
+	}
+#endif
 #endif
 
 	bsd_init_kprintf("bsd_do_post - done");
 
 	load_init_program(p);
 	lock_trace = 1;
+#if CONFIG_XNUPOST && defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	int gate3_qualify = 0;
+	if (PE_parse_boot_argn("bcm2712_gate3_qualify", &gate3_qualify,
+	    sizeof(gate3_qualify)) && gate3_qualify == 1) {
+		rpi5_gate3_start_qualification();
+	}
+#endif
 }
 
 kern_return_t

@@ -32,6 +32,10 @@
 #if MOCKFS
 
 #include <sys/kernel_types.h>
+#include <miscfs/mockfs/mockfs_paging_policy.h>
+#if MOCKFS_RPI5_RAMROOT
+#include <miscfs/mockfs/rpi5_ramroot_format.h>
+#endif
 
 /*
  * Types for the filesystem nodes; for the moment, these will effectively serve as unique
@@ -46,7 +50,10 @@
 enum mockfs_fsnode_type {
 	MOCKFS_ROOT,
 	MOCKFS_DEV,
-	MOCKFS_FILE
+	MOCKFS_FILE,
+#if MOCKFS_RPI5_RAMROOT
+	MOCKFS_DIR
+#endif
 };
 
 /*
@@ -66,6 +73,12 @@ struct mockfs_fsnode {
 	                                /* TODO: Replace child_a/child_b with something more flexible */
 	struct mockfs_fsnode * child_a; /* TEMPORARY */
 	struct mockfs_fsnode * child_b; /* TEMPORARY */
+#if MOCKFS_RPI5_RAMROOT
+	uint64_t data_offset; /* Archive file extent, zero for legacy raw image. */
+	uint32_t fileid;
+	uint32_t mode;
+	char name[RPI5_RFS_NAME];
+#endif
 };
 
 typedef struct mockfs_fsnode * mockfs_fsnode_t;

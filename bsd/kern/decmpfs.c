@@ -29,7 +29,13 @@
 
 /* We need these symbols even though compression is turned off */
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* Do not advertise callable APIs at address zero on the downstream Pi target.
+ * An accidental consumer must fail linking until a real provider is selected. */
+#define UNUSED_SYMBOL(x)
+#else
 #define UNUSED_SYMBOL(x)        asm(".global _" #x "\n.set _" #x ", 0\n");
+#endif
 
 UNUSED_SYMBOL(register_decmpfs_decompressor)
 UNUSED_SYMBOL(unregister_decmpfs_decompressor)

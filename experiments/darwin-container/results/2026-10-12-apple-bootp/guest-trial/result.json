@@ -1,0 +1,32 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.9333559583465103,
+  "gpu" : {
+    "completed" : 0,
+    "enabled" : false,
+    "operations" : [
+
+    ],
+    "rejected" : 0,
+    "submitted" : 0
+  },
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-bootp-trial-1",
+  "serialByteCount" : 12585,
+  "sessionID" : "a7a47c58a21f46139139d15ce8c81b42",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 1826
+  },
+  "termination" : "guestStopped"
+}

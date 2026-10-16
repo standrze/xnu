@@ -1,0 +1,46 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -12,6 +12,7 @@
+ #include "../../loader/rpi5/pcie_clock.h"
+ #include "../../pexpert/arm/rpi5_pcie_watchdog_api.h"
+ #include "../../pexpert/arm/rpi5_pcie_irq_api.h"
++#include "../../pexpert/arm/rpi5_pcie_fw_api.h"
+ }
+ 
+ struct bcm2712_phy_observation {
+@@ -20,6 +21,7 @@
+     struct rpi5_pcie_rescal_observation calibration;
+     struct rpi5_pcie_serdes_observation serdes;
+     struct rpi5_pcie_irq_observation irq;
++    struct rpi5_fw_observation firmware;
+ };
+ 
+ struct bcm2712_ubus_observation {
+@@ -119,6 +121,8 @@
+     unsigned getPhase() const { return __atomic_load_n(&phase, __ATOMIC_ACQUIRE); }
+     bool irqClaimed = false, claimingIRQ = false;
+     bool claimControllerIRQ(struct rpi5_pcie_irq_observation *);
++    bool fwClaimed = false, claimingFW = false;
++    bool claimControllerFirmware(struct rpi5_fw_observation *);
+     void setPhase(unsigned value) { __atomic_store_n(&phase, value, __ATOMIC_RELEASE); }
+     bool onOwnerThread() const;
+     bool guard();
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -252,6 +252,7 @@
+     struct bcm2712_phy_observation result = {};
+     if (!pe_rpi5_watchdog_claim_pcie(this, &result.watchdog)) { fail(); return false; }
+     if (controllerMode && !claimControllerIRQ(&result.irq)) { fail(); return false; }
++    if (controllerMode && !claimControllerFirmware(&result.firmware)) { fail(); return false; }
+     struct rpi5_pcie_reset_io resetIO = {this, binding.bridge_reset_regs.start,
+         binding.bridge_reset_regs.end - binding.bridge_reset_regs.start,
+         resetStatus, resetAssert, resetRelease, order, delayUS};
+@@ -274,7 +275,7 @@
+     *out = result;
+     return true;
+ }
+-#include "BCM2712PCIeIRQTransport.inc"
++#include "BCM2712PCIeFWTransport.inc"
+ #include "BCM2712PCIeUBUS.inc"
+ #include "BCM2712FirmwareFDTTransport.inc"
+ #include "BCM2712PCIeUnused.inc"

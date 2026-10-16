@@ -11087,6 +11087,7 @@ OSKext::consumeDeferredKextCollection(kc_kind_t type)
 #pragma mark Profile-Guided-Optimization Support
 #endif
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 // #include <InstrProfiling.h>
 extern "C" {
 uint64_t __llvm_profile_get_size_for_buffer_internal(
@@ -11212,6 +11213,7 @@ OSKextPgoMetadataSize(OSKext *kext)
 	OSKextPgoMetadataPutAll(kext, fakeuuid, NULL, &position, 0, NULL);
 	return position;
 }
+#endif /* !ARM64_BOARD_CONFIG_BCM2712 */
 
 int
 OSKextGrabPgoDataLocked(OSKext *kext,
@@ -11221,6 +11223,17 @@ OSKextGrabPgoDataLocked(OSKext *kext,
     char *pBuffer,
     uint64_t bufferSize)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* This DEVELOPMENT target has no profiling serializer runtime. Do not
+	 * manufacture a successful empty profile or call an unverified ABI. */
+	(void)kext;
+	(void)metadata;
+	(void)instance_uuid;
+	(void)pSize;
+	(void)pBuffer;
+	(void)bufferSize;
+	return ENOTSUP;
+#else
 	int err = 0;
 
 	kernel_section_t *sect_prf_data = NULL;
@@ -11312,6 +11325,7 @@ OSKextGrabPgoDataLocked(OSKext *kext,
 
 out:
 	return err;
+#endif /* ARM64_BOARD_CONFIG_BCM2712 */
 }
 
 

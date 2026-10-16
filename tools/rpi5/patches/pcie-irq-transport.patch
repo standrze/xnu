@@ -1,0 +1,90 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -11,6 +11,7 @@
+ #include "../../loader/rpi5/pcie_qos.h"
+ #include "../../loader/rpi5/pcie_clock.h"
+ #include "../../pexpert/arm/rpi5_pcie_watchdog_api.h"
++#include "../../pexpert/arm/rpi5_pcie_irq_api.h"
+ }
+ 
+ struct bcm2712_phy_observation {
+@@ -18,6 +19,7 @@
+     struct rpi5_pcie_reset_observation reset;
+     struct rpi5_pcie_rescal_observation calibration;
+     struct rpi5_pcie_serdes_observation serdes;
++    struct rpi5_pcie_irq_observation irq;
+ };
+ 
+ struct bcm2712_ubus_observation {
+@@ -43,9 +45,16 @@
+ struct bcm2712_controller_admission {
+     /* Zero means CURRENT independently verified physical/lifecycle admission.
+      * Same retained provider; callback must stay valid until autonomous reset.
++     * PRECLAIM verifies prerequisites for the bounded PM/IRQ handoff, NOT an
++     * IRQ lease already held. Firmware cooperation, safe current delivery,
++     * inherited domains and endpoint/DMA safety remain independent duties.
++     * INITIALIZING callbacks occur only AFTER the single PM claim and actual
++     * selective NS IRQ claim. Transport freshly checks IRQ before/after each
++     * callback; this never proves secure/source/endpoint/DMA quiescence.
++     * Do not claim ownership from a cached permission bit or NS RAZ/WI zero.
+      * Non-reentrant, separately bounded, no cached registry permission bit.
+      * Every phase retains accessible inherited power/clocks/shared RESCAL,
+-     * exclusive controller/mapping, interrupt masking, endpoint/DMA quiescence
++     * exclusive controller/mapping, phase-specific IRQ safety, endpoint/DMA quiescence
+      * and fault-contained recovery. HELD_RESET additionally requires asserted
+      * PERST/link down and unused windows disabled. RELEASED allows training/
+      * link up, retaining unused-window/IRQ/DMA safety; never require link down.
+@@ -108,6 +117,8 @@
+     unsigned phase = BCM2712_PHY_EMPTY;
+     bool providerOpened = false, singletonHeld = false, claimAttempted = false;
+     unsigned getPhase() const { return __atomic_load_n(&phase, __ATOMIC_ACQUIRE); }
++    bool irqClaimed = false, claimingIRQ = false;
++    bool claimControllerIRQ(struct rpi5_pcie_irq_observation *);
+     void setPhase(unsigned value) { __atomic_store_n(&phase, value, __ATOMIC_RELEASE); }
+     bool onOwnerThread() const;
+     bool guard();
+@@ -161,6 +172,10 @@
+      * Missing genuine external provider checks REFUSE activation. No concrete
+      * lifecycle implementation/boot caller/personality is supplied here. Not
+      * endpoint enumeration, BAR mapping, IRQ routing or bus mastering/DMA. */
++    /* IRQ handoff failure is TERMINAL with local interrupts left disabled.
++     * Admitted boot code must park for autonomous reset, not resume/sleep or
++     * attempt rollback. On successful claim the XNU API restores exactly the
++     * caller's prior standard interrupt state; later guards freshly recheck. */
+     bool runController(const struct bcm2712_controller_admission *,
+         struct bcm2712_controller_observation *);
+ };
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -41,6 +41,7 @@
+     link.state = RPI5_PCIE_LINK_QUARANTINED;
+     return -1;
+ }
++#if !RPI5_PCIE_IRQ_TRANSPORT
+ bool BCM2712PCIePHYTransport::guard()
+ {
+     if (!onOwnerThread()) return false; /* Foreign caller cannot mutate owner state. */
+@@ -72,6 +73,7 @@
+     }
+     return true;
+ }
++#endif
+ bool BCM2712PCIePHYTransport::mapBanks()
+ {
+     const struct rpi5_range banks[3] = {binding.bridge_regs, binding.rescal_regs, binding.bridge_reset_regs};
+@@ -249,6 +251,7 @@
+     setPhase(BCM2712_PHY_RESETTING);
+     struct bcm2712_phy_observation result = {};
+     if (!pe_rpi5_watchdog_claim_pcie(this, &result.watchdog)) { fail(); return false; }
++    if (controllerMode && !claimControllerIRQ(&result.irq)) { fail(); return false; }
+     struct rpi5_pcie_reset_io resetIO = {this, binding.bridge_reset_regs.start,
+         binding.bridge_reset_regs.end - binding.bridge_reset_regs.start,
+         resetStatus, resetAssert, resetRelease, order, delayUS};
+@@ -271,6 +274,7 @@
+     *out = result;
+     return true;
+ }
++#include "BCM2712PCIeIRQTransport.inc"
+ #include "BCM2712PCIeUBUS.inc"
+ #include "BCM2712FirmwareFDTTransport.inc"
+ #include "BCM2712PCIeUnused.inc"

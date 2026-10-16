@@ -953,7 +953,7 @@ void
 tcp_respond(struct tcpcb *tp, void *ipgen __sized_by(ipgen_size), size_t ipgen_size __unused,
     struct tcphdr *th, struct mbuf *m, tcp_seq ack, tcp_seq seq, uint32_t rcv_win, uint16_t flags,
     struct tcpopt *peer_to, uint16_t mss, uint8_t rcv_scale, uint32_t ts_offset,
-    struct tcp_respond_args *tra, bool send_syncookie)
+    struct tcp_respond_args *tra, bool send_syncookie __unused)
 {
 	uint16_t tlen;
 	uint8_t optlen = 0;
@@ -3094,8 +3094,9 @@ tcp_drop_syn_sent(struct inpcb *inp, int errno)
  * MTU should be adjusted to consider ESP encapsulation overhead.
  */
 uint32_t
-tcp_get_effective_mtu(struct rtentry *rt, uint32_t current_mtu)
+tcp_get_effective_mtu(struct rtentry *rt __unused, uint32_t current_mtu)
 {
+#if IPSEC
 	ifnet_t ifp = NULL;
 	ifnet_t delegated_ifp = NULL;
 	ifnet_t outgoing_ifp = NULL;
@@ -3136,6 +3137,10 @@ tcp_get_effective_mtu(struct rtentry *rt, uint32_t current_mtu)
 	}
 
 	return min_mtu;
+#else /* IPSEC */
+	/* No ESP tunnel exists to reduce the route's current MTU. */
+	return current_mtu;
+#endif /* IPSEC */
 }
 
 /*
@@ -3524,8 +3529,11 @@ tcp_lock(struct socket *so, int refcount, void *lr)
 {
 	lr_ref_t lr_saved = TCP_INIT_LR_SAVED(lr);
 
+#if MPTCP
 retry:
+#endif
 	if (so->so_pcb != NULL) {
+#if MPTCP
 		if (so->so_flags & SOF_MP_SUBFLOW) {
 			struct mptcb *mp_tp = tptomptp(sototcpcb(so));
 			struct socket *mp_so = mptetoso(mp_tp->mpt_mpte);
@@ -3540,9 +3548,12 @@ retry:
 				socket_unlock(mp_so, refcount);
 				goto retry;
 			}
-		} else {
+		} else
+#endif /* MPTCP */
+		{
 			lck_mtx_lock(&((struct inpcb *)so->so_pcb)->inpcb_mtx);
 
+#if MPTCP
 			if (so->so_flags & SOF_MP_SUBFLOW) {
 				/*
 				 * While waiting for the lock, we might have
@@ -3551,6 +3562,7 @@ retry:
 				lck_mtx_unlock(&((struct inpcb *)so->so_pcb)->inpcb_mtx);
 				goto retry;
 			}
+#endif /* MPTCP */
 		}
 	} else {
 		panic("tcp_lock: so=%p NO PCB! lr=%p lrh= %s",
@@ -3602,6 +3614,7 @@ tcp_unlock(struct socket *so, int refcount, void *lr)
 		so->unlock_lr[so->next_unlock_lr] = lr_saved;
 		so->next_unlock_lr = (so->next_unlock_lr + 1) % SO_LCKDBG_MAX;
 
+#if MPTCP
 		if (so->so_flags & SOF_MP_SUBFLOW) {
 			struct mptcb *mp_tp = tptomptp(sototcpcb(so));
 			struct socket *mp_so = mptetoso(mp_tp->mpt_mpte);
@@ -3609,7 +3622,9 @@ tcp_unlock(struct socket *so, int refcount, void *lr)
 			socket_lock_assert_owned(mp_so);
 
 			socket_unlock(mp_so, refcount);
-		} else {
+		} else
+#endif /* MPTCP */
+		{
 			LCK_MTX_ASSERT(&((struct inpcb *)so->so_pcb)->inpcb_mtx,
 			    LCK_MTX_ASSERT_OWNED);
 			lck_mtx_unlock(&((struct inpcb *)so->so_pcb)->inpcb_mtx);
@@ -3619,7 +3634,7 @@ tcp_unlock(struct socket *so, int refcount, void *lr)
 }
 
 lck_mtx_t *
-tcp_getlock(struct socket *so, int flags)
+tcp_getlock(struct socket *so, int flags __unused)
 {
 	struct inpcb *inp = sotoinpcb(so);
 
@@ -3629,12 +3644,15 @@ tcp_getlock(struct socket *so, int flags)
 			    so, so->so_usecount, solockhistory_nr(so));
 		}
 
+#if MPTCP
 		if (so->so_flags & SOF_MP_SUBFLOW) {
 			struct mptcb *mp_tp = tptomptp(sototcpcb(so));
 			struct socket *mp_so = mptetoso(mp_tp->mpt_mpte);
 
 			return mp_so->so_proto->pr_getlock(mp_so, flags);
-		} else {
+		} else
+#endif /* MPTCP */
+		{
 			return &inp->inpcb_mtx;
 		}
 	} else {
@@ -3683,12 +3701,14 @@ tcp_sbspace(struct tcpcb *tp)
 	int32_t space;
 	int32_t pending = 0;
 
+#if MPTCP
 	if (so->so_flags & SOF_MP_SUBFLOW) {
 		/* We still need to grow TCP's buffer to have a BDP-estimate */
 		tcp_sbrcv_grow_rwin(tp, sb);
 
 		return mptcp_sbspace(tptomptp(tp));
 	}
+#endif /* MPTCP */
 
 	tcp_sbrcv_grow_rwin(tp, sb);
 

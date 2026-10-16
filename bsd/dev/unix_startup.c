@@ -52,7 +52,9 @@
 #include <pexpert/pexpert.h>
 #include <sys/socketvar.h>
 #include <pexpert/pexpert.h>
+#if NETWORKING
 #include <netinet/tcp_var.h>
+#endif
 
 extern uint32_t kern_maxvnodes;
 #if CONFIG_MBUF_MCACHE
@@ -326,6 +328,7 @@ bsd_scale_setup(int scale)
 			maxfilesperproc = maxfiles / 2;
 			desiredvnodes = maxfiles;
 			vnodes_sized = 1;
+#if NETWORKING
 			tcp_tfo_backlog = 100 * scale;
 			if (scale > 4) {
 				/* clip somaxconn at 32G level */
@@ -339,6 +342,7 @@ bsd_scale_setup(int scale)
 				somaxconn = 512 * scale;
 				tcp_tcbhashsize = 4 * 1024 * scale;
 			}
+#endif
 		}
 	}
 

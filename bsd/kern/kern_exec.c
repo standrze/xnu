@@ -187,7 +187,9 @@
 
 #include "kern_exec_internal.h"
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <CodeSignature/Entitlements.h>
+#endif
 
 #include <mach/exclaves.h>
 
@@ -1058,6 +1060,7 @@ binary_match(cpu_type_t mask, cpu_type_t req_cpu,
  * 1. We can mark the task at a certain security level once it's been created
  * 2. We can propagate which entitlements are present to the apple array
  */
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 static inline void
 encode_HR_entitlement(const char *entitlement, hardened_browser_flags_t mask,
     const struct image_params *imgp, load_result_t *load_result)
@@ -1066,6 +1069,7 @@ encode_HR_entitlement(const char *entitlement, hardened_browser_flags_t mask,
 		load_result->hardened_browser |= mask;
 	}
 }
+#endif
 
 /*
  * If the passed in executable's vnode should use the RSR
@@ -1787,10 +1791,16 @@ imgact_setup_runtime_mitigations(struct image_params *imgp, __unused load_result
 	 * before we start using load_result->hardened_browser further down
 	 */
 	load_result->hardened_browser = 0;
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 	encode_HR_entitlement(kCSWebBrowserHostEntitlement, BrowserHostEntitlementMask, imgp, load_result);
 	encode_HR_entitlement(kCSWebBrowserGPUEntitlement, BrowserGPUEntitlementMask, imgp, load_result);
 	encode_HR_entitlement(kCSWebBrowserNetworkEntitlement, BrowserNetworkEntitlementMask, imgp, load_result);
 	encode_HR_entitlement(kCSWebBrowserWebContentEntitlement, BrowserWebContentEntitlementMask, imgp, load_result);
+#else
+	/* No Apple browser entitlement provider in the DEVELOPMENT Pi image.
+	 * Do not claim any browser role or its associated platform restrictions.
+	 */
+#endif
 
 	if (load_result->hardened_browser) {
 		task_set_platform_restrictions_version(new_task, 1);

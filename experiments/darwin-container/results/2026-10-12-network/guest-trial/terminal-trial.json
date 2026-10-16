@@ -1,0 +1,35 @@
+{
+  "passed": [
+    "real XNU en0 interface and MAC via guest routing sysctl",
+    "guest BPF/UDP DHCP discover/offer/request/ACK and address/default-route setup",
+    "guest-originated DNS A lookup and TCP nonce echo, independently witnessed on host NAT interface",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "error": null,
+  "cli_exit": 0,
+  "host_restoration_observation": "not observable after macOS controlling PTY revocation; native restoration check applies",
+  "cli_sha256": "777341de75d37b9540e66a4055926b9d3e47ac23b9dbd1c706c5e8439713f119",
+  "network_fixture": {
+    "events": [
+      {
+        "type": "dns",
+        "guest": "192.168.64.11",
+        "name": "fc62b6e5996854edc13b822e.darwin.test",
+        "answer": "192.168.64.1"
+      },
+      {
+        "type": "tcp",
+        "guest": "192.168.64.11",
+        "echo": "fc62b6e5996854edc13b822e"
+      }
+    ],
+    "errors": [],
+    "host_route": "   route to: 192.168.64.11\ndestination: 192.168.64.11\n  interface: bridge100\n      flags: <UP,HOST,DONE,LLINFO,WASCLONED,IFSCOPE,IFREF>\n recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire\n       0         0         0         0         0         0      1500      1200 \n"
+  },
+  "scope": "one real VM PTY trial with guest en0/DHCP/DNS/TCP diagnostics; no GPU or Pi evidence"
+}

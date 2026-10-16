@@ -1,0 +1,27 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 1.109010500018485,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-network-trial-15",
+  "serialByteCount" : 18606,
+  "sessionID" : "3e400d22873c48afb2c4fe050fd59d37",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ],
+      [
+        47,
+        132
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 3680
+  },
+  "termination" : "guestStopped"
+}

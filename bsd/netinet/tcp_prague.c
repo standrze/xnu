@@ -110,7 +110,7 @@ cubic_target(struct tcpcb *tp, uint32_t srtt)
 			 * Wmax again after reduction due to loss.
 			 */
 
-			K = ((float)(tp->t_ccstate->cubic_W_max - tp->snd_cwnd)) / cubic_c_factor / tp->t_maxseg;
+			K = ((float)(tp->t_ccstate->cubic_W_max - tp->snd_cwnd)) / cubic_c_factor / (float)tp->t_maxseg;
 			K = cbrtf(K);
 			tp->t_ccstate->cubic_K = K * TCP_RETRANSHZ; /* in milliseconds */
 			tp->t_ccstate->cubic_origin_point = tp->t_ccstate->cubic_W_max;
@@ -130,8 +130,8 @@ cubic_target(struct tcpcb *tp, uint32_t srtt)
 	uint32_t elapsed_time = timer_diff(tcp_globals_now(globals), 0, tp->t_ccstate->cubic_epoch_start, 0);
 	elapsed_time += srtt;
 
-	float var = (elapsed_time - tp->t_ccstate->cubic_K) / TCP_RETRANSHZ;
-	var = var * var * var * cubic_c_factor * tp->t_maxseg;
+	float var = ((float)elapsed_time - tp->t_ccstate->cubic_K) / TCP_RETRANSHZ;
+	var = var * var * var * cubic_c_factor * (float)tp->t_maxseg;
 
 	int32_t cwnd = (int32_t)((float)tp->t_ccstate->cubic_origin_point + var);
 	uint32_t w_cubic_next = cwnd > 0 ? (uint32_t)cwnd : 0;
@@ -179,7 +179,7 @@ reno_friendly_win(struct tcpcb *tp, struct tcphdr *th)
 			alpha_aimd = 1;
 		}
 
-		tp->t_ccstate->reno_cwnd += (uint32_t)(tp->t_maxseg * alpha_aimd);
+		tp->t_ccstate->reno_cwnd += (uint32_t)((float)tp->t_maxseg * alpha_aimd);
 	}
 
 	return tp->t_ccstate->reno_cwnd;
@@ -304,7 +304,7 @@ tcp_prague_pre_fr(struct tcpcb *tp)
 	}
 
 	/* Calculate congestion window by multiplying with beta factor */
-	win = (uint32_t)(win * cubic_beta);
+	win = (uint32_t)((float)win * cubic_beta);
 	win = tcp_round_to(win, tp->t_maxseg);
 	if (win < 2 * tp->t_maxseg) {
 		win =  2 * tp->t_maxseg;

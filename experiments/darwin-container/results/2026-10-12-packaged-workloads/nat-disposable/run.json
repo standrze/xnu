@@ -1,0 +1,29 @@
+{
+  "name": "nat-smoke",
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/networked-counter-0.3.0",
+  "package_manifest_sha256": "336e8aa6413e618dda5e3654e7495b9ea7feb7be3a4dc18f86838d8061f27dfa",
+  "workload": "networked-counter",
+  "version": "1.0.0",
+  "state": "succeeded",
+  "volume": null,
+  "network": "nat",
+  "resources": {
+    "cpus": 1,
+    "memory_mib": 512,
+    "timeout_seconds": 30
+  },
+  "directory": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/workload-state/package-nat-check/runs/nat-smoke",
+  "data_disk": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/workload-state/package-nat-check/runs/nat-smoke/data.raw",
+  "started_at": "2026-10-12T22:50:08.275065+00:00",
+  "guest_stopped": true,
+  "managed_completion_verified": true,
+  "native_exit_code": 0,
+  "exit_status": 0,
+  "termination_signal": null,
+  "cancel_requested": false,
+  "cancel_accepted": null,
+  "termination": "guestStopped",
+  "error": null,
+  "runner_exit_code": 0,
+  "finished_at": "2026-10-12T22:50:09.964785+00:00"
+}

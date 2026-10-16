@@ -1,0 +1,11 @@
+{
+  "format": "darwin-workload-spec-1",
+  "name": "apple-userland",
+  "version": "1.0.0",
+  "entrypoint": ["/bin/zsh", "-f", "/app/demo.zsh"],
+  "env": {"LC_ALL": "C"},
+  "cwd": "/data",
+  "files": [{"source": "demo.zsh", "path": "/app/demo.zsh"}],
+  "network": "none",
+  "resources": {"cpus": 1, "memory_mib": 512, "timeout_seconds": 30}
+}

@@ -123,6 +123,7 @@
 #include <netinet/udp_var.h>
 #include <netinet/bootp.h>
 
+#include <netinet/ip_flowid.h>
 #if DUMMYNET
 #include <netinet/ip_dummynet.h>
 #endif /* DUMMYNET */
@@ -829,6 +830,7 @@ ip_input_second_pass_loop_tbl(pktchain_elm_t *__counted_by(PKTTBL_SZ) tbl, struc
 	}
 }
 
+#if DUMMYNET
 static void
 ip_input_cpout_args(struct ip_fw_in_args *args, struct ip_fw_args *args1,
     boolean_t *done_init)
@@ -845,6 +847,7 @@ ip_input_cpin_args(struct ip_fw_args *args1, struct ip_fw_in_args *args)
 {
 	args->fwai_pf_rule = args1->fwa_pf_rule;
 }
+#endif /* DUMMYNET */
 
 typedef enum {
 	IPINPUT_DOCHAIN = 0,
@@ -977,7 +980,7 @@ ip_input_adjust(struct mbuf *m, struct ip *ip, struct ifnet *inifp)
  * queue for doing operations that have same outcome for all packets of a flow.
  */
 static ipinput_chain_ret_t
-ip_input_first_pass(struct mbuf *m, struct ip_fw_in_args *args, struct mbuf **modm)
+ip_input_first_pass(struct mbuf *m, struct ip_fw_in_args *args __unused, struct mbuf **modm)
 {
 	struct ip       *__single ip;
 	ifnet_ref_t     inifp;

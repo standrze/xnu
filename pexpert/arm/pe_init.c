@@ -678,10 +678,13 @@ uint32_t
 PE_get_offset_into_panic_region(char *location)
 {
 	assert(gPanicBase != 0);
-	assert(location >= (char *) gPanicBase);
-	assert((unsigned int)(location - gPanicBase) < gPanicSize);
+	/* Raspberry Pi port, 2026-09-04: subtract byte addresses before narrowing. */
+	assert((uintptr_t)location >= gPanicBase);
+	uintptr_t offset = (uintptr_t)location - gPanicBase;
+	assert(offset < gPanicSize);
+	assert(offset <= UINT32_MAX);
 
-	return (uint32_t)(uintptr_t)(location - gPanicBase);
+	return (uint32_t)offset;
 }
 
 void

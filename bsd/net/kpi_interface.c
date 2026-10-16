@@ -62,6 +62,7 @@
 #include <sys/proc.h>
 #include <sys/sysctl.h>
 #include <sys/mbuf.h>
+#include <netinet/ip.h>
 #include <netinet/ip_var.h>
 #include <netinet/udp.h>
 #include <netinet/udp_var.h>
@@ -3197,7 +3198,9 @@ errno_t
 ifnet_get_local_ports_extended(ifnet_t ifp, protocol_family_t protocol,
     u_int32_t flags, u_int8_t bitfield[IP_PORTRANGE_BITFIELD_LEN])
 {
+#if SKYWALK
 	ifnet_ref_t parent_ifp = NULL;
+#endif /* SKYWALK */
 
 	if (bitfield == NULL) {
 		return EINVAL;
@@ -3217,12 +3220,14 @@ ifnet_get_local_ports_extended(ifnet_t ifp, protocol_family_t protocol,
 
 	ifnet_get_local_ports_extended_inner(ifp, protocol, flags, bitfield);
 
+#if SKYWALK
 	/* get local ports for parent interface */
 	if (ifp != NULL && ifnet_get_delegate_parent(ifp, &parent_ifp) == 0) {
 		ifnet_get_local_ports_extended_inner(parent_ifp, protocol,
 		    flags, bitfield);
 		ifnet_release_delegate_parent(ifp);
 	}
+#endif /* SKYWALK */
 
 	if (if_ports_used_verbose > 0) {
 		ifnet_log_local_ports_info(ifp, protocol, flags, bitfield);
@@ -3464,8 +3469,10 @@ ifnet_get_keepalive_offload_frames(ifnet_t ifp,
 	}
 
 	/* First collect IPsec related keep-alive frames */
+#if IPSEC
 	*used_frames_count = key_fill_offload_frames_for_savs(ifp,
 	    frames_array, frames_array_count, frame_data_offset);
+#endif /* IPSEC */
 
 	/* Keep-alive offload not required for TCP/UDP on CLAT interface */
 	if (IS_INTF_CLAT46(ifp)) {
@@ -3841,8 +3848,10 @@ errno_t
 ifnet_get_rx_steering_rules(ifnet_t interface,
     struct ifnet_rx_steering_rule *__counted_by(buffer_count) rules_buffer, uint32_t buffer_count, uint32_t *count_out)
 {
+#if SKYWALK
 	struct nx_flowswitch *fsw;
 	errno_t error;
+#endif /* SKYWALK */
 
 	if (__improbable(interface == NULL || count_out == NULL)) {
 		return EINVAL;
@@ -3854,6 +3863,7 @@ ifnet_get_rx_steering_rules(ifnet_t interface,
 
 	*count_out = 0;
 
+#if SKYWALK
 	if (!ifnet_get_ioref(interface)) {
 		return ENXIO;
 	}
@@ -3869,4 +3879,7 @@ ifnet_get_rx_steering_rules(ifnet_t interface,
 done:
 	ifnet_decr_iorefcnt(interface);
 	return error;
+#else /* SKYWALK */
+	return ENOTSUP;
+#endif /* SKYWALK */
 }

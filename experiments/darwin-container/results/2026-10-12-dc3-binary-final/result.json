@@ -1,0 +1,55 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "exitStatus" : 0,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 256,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 256,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 2,
+        "exitStatus" : 0,
+        "outputLimit" : false,
+        "processID" : 5,
+        "stderrByteCount" : 0,
+        "stderrEOF" : true,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 44,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : true
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : true,
+  "elapsedSeconds" : 0.29980304167838767,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-binary-2",
+  "serialByteCount" : 9038,
+  "sessionID" : "c994f71562324e83829f5d26cb82a081",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

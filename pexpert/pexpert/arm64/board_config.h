@@ -5,6 +5,11 @@
 #ifndef _PEXPERT_ARM_BOARD_CONFIG_H
 #define _PEXPERT_ARM_BOARD_CONFIG_H
 
+/* Raspberry Pi downstream modification, 2026-09-04. */
+#ifdef ARM64_BOARD_CONFIG_BCM2712
+#include <pexpert/arm64/BCM2712.h>
+#endif
+
 #ifdef XNU_KERNEL_PRIVATE
 /**
  * The board_config headers are exported and included in other projects (e.g.,

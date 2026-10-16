@@ -381,12 +381,12 @@ rip6_output(
 	struct ip6_out_args ip6oa;
 	int flags = IPV6_OUTARGS;
 	struct sockaddr_in6 tmp;
+	uint32_t sifscope = IFSCOPE_NONE, difscope = IFSCOPE_NONE;
 #if CONTENT_FILTER
 	struct m_tag *cfil_tag = NULL;
 	bool cfil_faddr_use = false;
 	uint32_t cfil_so_state_change_cnt = 0;
 	uint32_t cfil_so_options = 0;
-	uint32_t sifscope = IFSCOPE_NONE, difscope = IFSCOPE_NONE;
 	struct sockaddr *__single cfil_faddr = NULL;
 	struct sockaddr_in6 *__single cfil_sin6 = NULL;
 #endif

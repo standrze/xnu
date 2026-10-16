@@ -1,0 +1,38 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "exitStatus" : 127,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 20,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.28058320833952166,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-direct-exec-1",
+  "serialByteCount" : 7389,
+  "sessionID" : "ebf91e6e59f04dc88af89bbd10fb6f8c",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

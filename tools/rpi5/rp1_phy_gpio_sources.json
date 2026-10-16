@@ -1,0 +1,13 @@
+{
+  "format": "rp1-phy-gpio32-primary-v1",
+  "linux_commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "source_code_imported": false,
+  "sources": [
+    {"path":"build/rpi5/gem-phy-prereq-primary-80d4218-20261014/bcm2712-rpi-5-b.dts","bytes":15551,"sha256":"b90fe894f860fac4f99f6be31d7d696bab8c2a5871b2ac1a25a29c3386ba59d3","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts"},
+    {"path":"build/rpi5/gem-phy-prereq-primary-80d4218-20261014/pinctrl-rp1.c","bytes":44346,"sha256":"23a522bacf2dbbcfe723ac90cc1c13b5226d8995f086e293647e2fc15d6d56be","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/pinctrl/pinctrl-rp1.c"},
+    {"path":"build/rpi5/gem-phy-prereq-primary-80d4218-20261014/rp1-peripherals.pdf","bytes":3513008,"sha256":"87fb7b24e8d9add075b849d095a107827610c0409ea194785af624c1ea986c3d","url":"https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf"},
+    {"path":"build/rpi5/gem-capability-primary-80d4218-20261013/rp1.dtsi","bytes":37929,"sha256":"e8c537ab4f2a9b1a62ec8284c45085a3767d2316b0ad921a1d9f5fcfdfbda45a","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/rp1.dtsi"},
+    {"path":"build/rpi5/gem-capability-primary-80d4218-20261013/macb_main.c","bytes":172018,"sha256":"ec5a8df6096d3a4541e7a17821ef81264ce230aa5676afe276af3aed26cbee87","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb_main.c"}
+  ],
+  "scope": "Read-only fresh-FDT-bound GPIO32 observer. Bank1 offsets and GPIO/RIO/PAD semantics come from the pinned driver, whose generic pin accessor applies them to GPIO32. Public RP1 PDF marks IO_BANK1/2 internal; its bank0 status table is a supporting raw-register reference, not independent bank1 ownership or electrical proof. No GPIO writes, reset pulse, MDIO commands, power/refclock measurement, packet/DMA/IRQ claim. Linux toggles this board-declared active-low reset for5ms before its PHY probe; our missing standalone reset setup is a plausible prerequisite, not a proven cause of the preserved all-FFFF trial."
+}

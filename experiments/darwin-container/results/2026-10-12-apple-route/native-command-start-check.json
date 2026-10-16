@@ -1,0 +1,24 @@
+{
+  "compile_command": [
+    "xcrun",
+    "clang",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=address,undefined",
+    "-g",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/network_command_start.c",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/network_command_start_test.c",
+    "-o",
+    "experiments/darwin-container/results/2026-10-12-apple-route/network-command-start-test",
+    "-Dpthread_key_create=darwin_test_pthread_key_create",
+    "-Dpthread_setspecific=darwin_test_pthread_setspecific",
+    "-Dpthread_getspecific=darwin_test_pthread_getspecific",
+    "-Dpthread_key_delete=darwin_test_pthread_key_delete",
+    "-D_NSGetArgv=darwin_test__NSGetArgv"
+  ],
+  "exit": 0,
+  "stdout": "NETWORK_COMMAND_START_OK argv key-storage capacity delete reuse\n",
+  "stderr": "",
+  "scope": "ASan/UBSan host project ABI/bounds check only, not guest network proof"
+}

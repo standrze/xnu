@@ -1,0 +1,101 @@
+{
+  "agentRAMRootSHA256": "42804e015930e1af5b0e6ba1341813a754dbe5351b893c4efcc4104f8ad7e342",
+  "binaries": {
+    "signedAPIHarness": "4177372ac04485a72515385b488fe7dd6928783e25c06bbdf7b58d72e2c55749",
+    "signedCLI": "b2051236314120c2ce4bbebaed694c714d3ae3d0fd07a8096538ddad56298f24"
+  },
+  "kernelSHA256": "b3a0d9f49e2af4bfe28ac716111b05a030d1c8fb273c1e4ffe103e2a36582d53",
+  "legacyShellRegression": "passed",
+  "limitations": [
+    "no PTY or managed stdin",
+    "no OCI, networking or writable root",
+    "bootstrap shell/agent, not Apple zsh or LibSystem",
+    "per-image seed and inherited seed-clear defect remain unhardened",
+    "focused tests and bounded VM trials, not production/security qualification"
+  ],
+  "managedTrials": [
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": true,
+      "directory": "results/2026-10-12-dc3-binary-final",
+      "elapsedSeconds": 0.29980304167838767,
+      "payloadSHA256": "84e3c934e75846e042d7f01358cc67e507b50549f37ce3b620beb671cdfa6e48",
+      "scenario": "binary-final",
+      "sessionID": "c994f71562324e83829f5d26cb82a081",
+      "termination": "guestStopped"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-exit-one-final",
+      "elapsedSeconds": 0.2677637083106674,
+      "payloadSHA256": "014eb96fe22d70c4f34262f69b2266522e09728b5fd5efaef64573379e1c89ee",
+      "scenario": "exit-one-final",
+      "sessionID": "bf28b47189b244f49ac08edde1f32b30",
+      "termination": "guestStopped"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-direct-exec-final",
+      "elapsedSeconds": 0.28058320833952166,
+      "payloadSHA256": "fb922406ce1962988658be3d9dc1ca710433b317bf247be6c39d7df43a5a58e3",
+      "scenario": "direct-exec-final",
+      "sessionID": "ebf91e6e59f04dc88af89bbd10fb6f8c",
+      "termination": "guestStopped"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-api-cancel-final",
+      "elapsedSeconds": 2.3896031666663475,
+      "payloadSHA256": "6c8290dea6e5263da679f1c2d1f4671da9fbb0da3d6e1e875d4276993a3c0351",
+      "scenario": "api-cancel-final",
+      "sessionID": "c59daef988384f55a4a8364ec74c6694",
+      "termination": "interrupted"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": true,
+      "directory": "results/2026-10-12-dc3-orphan-final",
+      "elapsedSeconds": 1.4284125416597817,
+      "payloadSHA256": "8a891596cf68e29fd2408d88185027ff39ce918ec5f1d3599bb069ac7a34c637",
+      "scenario": "orphan-final",
+      "sessionID": "7c8beabc426349efa3425e9c949b8da8",
+      "termination": "guestStopped"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-timeout-final",
+      "elapsedSeconds": 2.0890153750078753,
+      "payloadSHA256": "ef84817148ab6bba1dcb3317f180527e224979213ca6e7a42db39351cf597f6d",
+      "scenario": "timeout-final",
+      "sessionID": "9f96b56250d84400b88f8669b7683c71",
+      "termination": "timedOut"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-cap-final-1",
+      "elapsedSeconds": 17.02721666666912,
+      "payloadSHA256": "b8a647d2c31e0db562a17ec102e1c60b08fb0bafb74e21b3d38661e2e50791be",
+      "scenario": "cap-final-1",
+      "sessionID": "0e5ebed40d5349f1a398264df4aadaad",
+      "termination": "guestStopped"
+    },
+    {
+      "actualGuestStopped": true,
+      "commandSucceeded": false,
+      "directory": "results/2026-10-12-dc3-cap-final-2",
+      "elapsedSeconds": 17.99716345834895,
+      "payloadSHA256": "219a026ef5c3ac69d0e672846cbe30c724d4fbc237f58646266a9bffc818ccda",
+      "scenario": "cap-final-2",
+      "sessionID": "5749680adb7a4c8a854dc7a6f4cc2e8a",
+      "termination": "guestStopped"
+    }
+  ],
+  "noAgentFailureControl": "bounded host-stop fallback; no agent readiness, input or success",
+  "outcome": "DC3 narrow managed-command matrix passed",
+  "verifiedDateUTC": "2026-10-12"
+}

@@ -1,3 +1,23 @@
+# Raspberry Pi 5 port
+
+This downstream fork boots experimental XNU on an 8-GB Raspberry Pi 5 and has
+physical-board evidence of a polling serial PID 1 console. It is not yet a
+general-purpose Darwin shell or distribution; formal Gate 3 qualification
+remains open. The [fork/exec/wait trial](docs/rpi5/PROCESS-TRIAL.md) now passes
+on the physical board, including exec arguments, fresh BSS, exit status and
+parent memory isolation. The [read-only multi-file RAM root](docs/rpi5/RAMROOT-TRIAL.md)
+also passes physical file IO and separate-file exec checks. The actual
+[static shell and utilities](docs/rpi5/SHELL-TRIAL.md) now pass twelve checks
+on the physical Pi, including external programs, pipelines and scripts.
+Two independently recorded cold boots also pass all twelve checks. The
+experimental serial-shell milestone is complete; root storage is read-only,
+networking/SSH are absent, and the development watchdog window is one hour.
+See the [revised implementation plan](docs/rpi5/PLAN.md),
+[build instructions](tools/rpi5/README.md), and
+[runtime dependency inventory](docs/rpi5/DEPENDENCIES.md).
+
+The original upstream introduction follows.
+
 # What is XNU?
 
 XNU kernel is part of the Darwin operating system for use in macOS and iOS operating systems. XNU is an acronym for X is Not Unix.

@@ -1,0 +1,32 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 1.2607669999997597,
+  "gpu" : {
+    "completed" : 0,
+    "enabled" : false,
+    "operations" : [
+
+    ],
+    "rejected" : 0,
+    "submitted" : 0
+  },
+  "guestStopped" : true,
+  "outputDirectory" : "\/Users\/stephen\/Documents\/ChatGPT\/xnu\/experiments\/darwin-container\/userland\/build\/workspace-trial-2\/workspaces\/verification\/runs\/20261012T203602Z-79f7ac816e40\/session",
+  "serialByteCount" : 14672,
+  "sessionID" : "3de410fcb8cb4946b2f2911ed4ac4c67",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 2407
+  },
+  "termination" : "guestStopped"
+}

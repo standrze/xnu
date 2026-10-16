@@ -73,6 +73,10 @@ mockfs_fsnode_create(mount_t mp, uint8_t type, mockfs_fsnode_t * fsnpp)
 		break;
 	case MOCKFS_DEV:
 		break;
+#if MOCKFS_RPI5_RAMROOT
+	case MOCKFS_DIR:
+		break;
+#endif
 	case MOCKFS_FILE:
 		/*
 		 * For a regular file, size is meaningful, but it will always be equal to the
@@ -85,7 +89,8 @@ mockfs_fsnode_create(mount_t mp, uint8_t type, mockfs_fsnode_t * fsnpp)
 		goto done;
 	}
 
-	*fsnpp = kalloc_type(mockfs_fsnode_t, Z_WAITOK | Z_ZERO | Z_NOFAIL);
+	/* mockfs_fsnode_t is a pointer typedef; allocate the complete node. */
+	*fsnpp = kalloc_type(struct mockfs_fsnode, Z_WAITOK | Z_ZERO | Z_NOFAIL);
 	(*fsnpp)->size = new_size;
 	(*fsnpp)->type = type;
 	(*fsnpp)->mnt = mp;
@@ -112,7 +117,8 @@ mockfs_fsnode_destroy(mockfs_fsnode_t fsnp)
 	 * We will not destroy a root node that is actively pointed to by the mount structure; the
 	 *   mount must drop the reference to the mockfs tree before we can deallocate it.
 	 */
-	if (!fsnp || (((mockfs_mount_t)fsnp->mnt->mnt_data)->mockfs_root == fsnp)) {
+	if (!fsnp || (fsnp->mnt->mnt_data &&
+	    ((mockfs_mount_t)fsnp->mnt->mnt_data)->mockfs_root == fsnp)) {
 		rvalue = EINVAL;
 		goto done;
 	}
@@ -154,7 +160,7 @@ mockfs_fsnode_destroy(mockfs_fsnode_t fsnp)
 		}
 	}
 
-	kfree_type(mockfs_fsnode_t, fsnp);
+	kfree_type(struct mockfs_fsnode, fsnp);
 done:
 	return rvalue;
 }

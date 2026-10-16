@@ -1,0 +1,13 @@
+b62bd9799058337b78f4118a09c0c2a8e95ed590a2d16dd4ebd485150061cd4f  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Package.swift
+8910df2003bc43cd1c908eb7724c462c58102f0ef79723a2a91a9c50a3b9492c  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/EFIProbe/ProbeCommand.swift
+83deb1e14301e75386a7819a5907741b61e8b961ca6b56450435c04866e3cc05  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/EFIProbe/VMRunner.swift
+0e979d34fb5beaa51929f04915dc2380254a1983f022a8c12bd4d52de84ad7ae  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/EFIProbe/main.swift
+71d36a79bb3a8e411b04b5dc20bdc5ace5fdac8349ace253953b71f797e22478  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/ProbeSupport/ProbeDiagnostics.swift
+890508985691b9227627afcce7d660e6afbaa3a249b29d3930f1f63d97ad3d84  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/ProbeSupport/ProbeDisk.swift
+fcdaa50fbab7249b9238f067ada4f3762b96829428735a7980b728341c4fa7f3  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/Sources/ProbeSupport/ProbeReport.swift
+9626278f23e330e30b5476da3a92ca446505943792bbfd30cbdef3606383a430  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/guest/diagnostics.h
+1e033713a54d5df278fdda5e2972657f91cc595be73b813ea64d6d0fba3b5bfd  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/guest/efi_abi.h
+cf3aba2fdb03a81e9c404e4e3693c38332abe2f9200767d65739c0e5583d1210  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/guest/probe.c
+5c1c6753b84cc1a1349de2a465074f166b5a47bade536b231683c22f53072259  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/virtualization.entitlements
+9e805519e57441e2665e7eb7e51a7cebb4c93657d4ebee2db81317b3e1ee9b4f  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/script/build_and_run.sh
+633a231448696d723e4920156c68d3e512520b5800f13519f26c3af389783031  /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/efi-probe/script/run_prepared.sh

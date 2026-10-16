@@ -445,7 +445,7 @@ soflow_db_remove_entry(struct soflow_db *db, struct soflow_hash_entry *hash_entr
 		return;
 	}
 
-#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO)
+#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO) && SKYWALK
 	if (hash_entry->soflow_nstat_context != NULL) {
 		SOFLOW_LOG(LOG_INFO, db->soflow_db_so, hash_entry->soflow_debug, "<Close nstat> - context %lX", (unsigned long)hash_entry->soflow_nstat_context);
 		nstat_provider_stats_close(hash_entry->soflow_nstat_context);
@@ -924,7 +924,7 @@ soflow_entry_update_local(struct soflow_db *db, struct soflow_hash_entry *entry,
 	return;
 }
 
-#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO)
+#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO) && SKYWALK
 static u_int32_t
 ifnet_to_flags(struct ifnet *ifp, struct socket *so)
 {
@@ -1246,7 +1246,7 @@ soflow_get_flow(struct socket *so, struct sockaddr *local, struct sockaddr *remo
 
 	// Only report flow to NSTAT if unconnected UDP
 	if (!soflow_nstat_disable && SOFLOW_IS_UDP(so) && !(so->so_state & (SS_ISCONNECTED | SS_ISCONNECTING))) {
-#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO)
+#if defined(NSTAT_EXTENSION_FILTER_DOMAIN_INFO) && SKYWALK
 		// Take refcount of entry before handing it to nstat. Abort if fail.
 		if (os_ref_retain_try(&hash_entry->soflow_ref_count) == false) {
 			return NULL;

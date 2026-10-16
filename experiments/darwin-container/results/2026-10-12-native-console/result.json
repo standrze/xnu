@@ -1,0 +1,12 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.1197867916780524,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-vz-console-trial-1",
+  "serialByteCount" : 113,
+  "sessionID" : "1ecdda548874429ca36dd7d8a0ab916d",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

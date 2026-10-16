@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/raspberrypi/arm-trusted-firmware.git",
+  "revision": "332b62e0443b004287d2cfc032a70bba6fb86f35",
+  "platform": "rpi5",
+  "local_source": "build/rpi5/tfa-candidate",
+  "status": "BL31 build succeeded; board execution not yet verified",
+  "planned_options": {
+    "DEBUG": "1",
+    "RPI3_DIRECT_LINUX_BOOT": "1",
+    "RPI3_RUNTIME_UART": "-1"
+  }
+}

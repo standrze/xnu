@@ -1,0 +1,7 @@
+{
+  "nonce" : "567fce812c484fed95301a2966a48f8f",
+  "payload_sha256" : "0b859e7a5011a34ee1d2ac447f31e300387b7d9b020bd28beb14d4f3c2a2e5d8",
+  "prepared_disk_sha256" : "377bc9fc97e763ede7d00cb4d2feac8dc5ae40ea2c29aaa8db9865856a82aa64",
+  "scope" : "uefi-payload-only-not-xnu",
+  "status" : "prepared-not-booted"
+}

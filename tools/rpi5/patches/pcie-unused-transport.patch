@@ -1,0 +1,95 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -3,9 +3,10 @@
+ #define BCM2712_PCIE_PHY_TRANSPORT_H
+ #include <IOKit/IOService.h>
+ #include <IOKit/IOMemoryDescriptor.h>
+-#include "BCM2712PCIeUBUSPolicy.h"
++#include "BCM2712PCIeUnusedPolicy.h"
+ extern "C" {
+ #include "../../loader/rpi5/pcie_ubus.h"
++#include "../../loader/rpi5/pcie_unused.h"
+ #include "../../pexpert/arm/rpi5_pcie_watchdog_api.h"
+ }
+ 
+@@ -21,6 +22,11 @@
+     struct rpi5_pcie_ubus_observation ubus;
+ };
+ 
++struct bcm2712_unused_observation {
++    struct bcm2712_ubus_observation ubus;
++    struct rpi5_pcie_unused_observation unused;
++};
++
+ /* Actual Device mapping/volatile-MMIO implementation for the first three
+  * initial bring-up cores. Not a registered PCI bridge or runtime NIC driver.
+  * Absent from source lists/catalogue; no current boot caller exists.
+@@ -51,6 +57,7 @@
+     struct rpi5_pcie_rescal calibration = {};
+     struct rpi5_pcie_serdes serdes = {};
+     struct rpi5_pcie_ubus ubus = {};
++    struct rpi5_pcie_unused unused = {};
+     unsigned phase = BCM2712_PHY_EMPTY;
+     bool providerOpened = false, singletonHeld = false, claimAttempted = false;
+     unsigned getPhase() const { return __atomic_load_n(&phase, __ATOMIC_ACQUIRE); }
+@@ -73,6 +80,7 @@
+     static int order(void *);
+     static int nowUS(void *, uint64_t *);
+     static int delayUS(void *, uint32_t);
++    static int unusedOwner(void *);
+ protected:
+     void free() override;
+ public:
+@@ -91,5 +99,9 @@
+      * All original physical-admission preconditions remain mandatory.
+      * No RC/windows/PERST release/config/BAR/IRQ/DMA authorization. */
+     bool runPHYAndUBUS(struct bcm2712_ubus_observation *);
++    /* Same real sessions/single claim; READ-ONLY unused-window prerequisite.
++     * Not a check_quiescent provider or RC/windows/link/IRQ/DMA admission.
++     * All existing physical-admission requirements remain mandatory. */
++    bool runPHYUBUSAndWindowCheck(struct bcm2712_unused_observation *);
+ };
+ #endif
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -36,6 +36,7 @@
+     serdes.state = RPI5_PCIE_SERDES_QUARANTINED;
+     serdes.mdio.state = RPI5_PCIE_MDIO_QUARANTINED;
+     ubus.state = RPI5_PCIE_UBUS_QUARANTINED;
++    unused.state = RPI5_PCIE_UNUSED_QUARANTINED;
+     return -1;
+ }
+ bool BCM2712PCIePHYTransport::guard()
+@@ -44,7 +45,8 @@
+     unsigned currentPhase = getPhase();
+     if (!claimAttempted ||
+         !((currentPhase >= BCM2712_PHY_RESETTING && currentPhase <= BCM2712_PHY_CONFIGURING) ||
+-          currentPhase == BCM2712_PHY_UBUS_CONFIGURING) ||
++          currentPhase == BCM2712_PHY_UBUS_CONFIGURING ||
++          currentPhase == BCM2712_PHY_UNUSED_INSPECTING) ||
+         __atomic_load_n(&phyOwner, __ATOMIC_ACQUIRE) != this || !providerOpened ||
+         !ownerProvider || !ownerProvider->isOpen(this) || !pe_rpi5_watchdog_check_pcie(this)) {
+         fail();
+@@ -115,7 +117,7 @@
+ int BCM2712PCIePHYTransport::read32(unsigned bank, uint32_t offset, uint32_t *out)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!out || !bcm2712_ubus_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
++    if (!out || !bcm2712_unused_access_allowed(getPhase(), bank, offset, 4, 0)) return fail();
+     if (!guard()) return -1;
+     __asm__ volatile("dmb osh" ::: "memory");
+     uint32_t value = *reinterpret_cast<volatile uint32_t *>(registers[bank] + offset);
+@@ -127,7 +129,7 @@
+ int BCM2712PCIePHYTransport::write32(unsigned bank, uint32_t offset, uint32_t value)
+ {
+     if (!onOwnerThread()) return -1;
+-    if (!bcm2712_ubus_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
++    if (!bcm2712_unused_access_allowed(getPhase(), bank, offset, 4, 1)) return fail();
+     /* Reset SET/CLEAR must NEVER touch other controllers' bits. */
+     if (bank == BCM2712_PHY_RESET && value != 0x1000) return fail();
+     if (!guard()) return -1;
+@@ -225,3 +227,4 @@
+ }
+ #include "BCM2712PCIeUBUS.inc"
+ #include "BCM2712FirmwareFDTTransport.inc"
++#include "BCM2712PCIeUnused.inc"

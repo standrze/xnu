@@ -58,7 +58,9 @@ static int sysctl_hwcksum_dbg_mode SYSCTL_HANDLER_ARGS;
 static int sysctl_hwcksum_dbg_partial_rxoff_forced SYSCTL_HANDLER_ARGS;
 static int sysctl_hwcksum_dbg_partial_rxoff_adj SYSCTL_HANDLER_ARGS;
 static int sysctl_tx_chain_len_stats SYSCTL_HANDLER_ARGS;
+#if SKYWALK
 static int if_enable_fsw_transport_netagent_sysctl SYSCTL_HANDLER_ARGS;
+#endif
 
 #if TEST_INPUT_THREAD_TERMINATION
 static int sysctl_input_thread_termination_spin SYSCTL_HANDLER_ARGS;
@@ -66,7 +68,9 @@ static int sysctl_input_thread_termination_spin SYSCTL_HANDLER_ARGS;
 
 #if (DEVELOPMENT || DEBUG)
 static int sysctl_get_kao_frames SYSCTL_HANDLER_ARGS;
+#if SKYWALK
 static int if_attach_nx_sysctl SYSCTL_HANDLER_ARGS;
+#endif
 #endif /* DEVELOPMENT | DEBUG */
 
 
@@ -371,16 +375,20 @@ static int sysctl_get_kao_frames SYSCTL_HANDLER_ARGS;
 SYSCTL_NODE(_net_link_generic_system, OID_AUTO, get_kao_frames,
     CTLFLAG_RD | CTLFLAG_LOCKED, sysctl_get_kao_frames, "");
 
+#if SKYWALK
 SYSCTL_PROC(_net_link_generic_system, OID_AUTO, if_attach_nx,
     CTLTYPE_INT | CTLFLAG_RW | CTLFLAG_LOCKED,
     0, 0, &if_attach_nx_sysctl, "IU", "attach nexus");
+#endif
 
 #endif /* DEVELOPMENT || DEBUG */
 
+#if SKYWALK
 SYSCTL_PROC(_net_link_generic_system, OID_AUTO, enable_netagent,
     CTLTYPE_INT | CTLFLAG_RW | CTLFLAG_LOCKED,
     0, 0, &if_enable_fsw_transport_netagent_sysctl, "IU",
     "enable flowswitch netagent");
+#endif
 
 #define DEFAULT_IF_LINK_HEURISTIC \
     (IF_LINK_HEURISTICS_CELLULAR | IF_LINK_HEURISTICS_LINK_CONGESTED)
@@ -871,6 +879,7 @@ done:
 	return error;
 }
 
+#if SKYWALK
 static int
 if_attach_nx_sysctl SYSCTL_HANDLER_ARGS
 {
@@ -891,9 +900,11 @@ if_attach_nx_sysctl SYSCTL_HANDLER_ARGS
 	}
 	return 0;
 }
+#endif /* SKYWALK */
 
 #endif /* DEVELOPMENT || DEBUG */
 
+#if SKYWALK
 static int
 if_enable_fsw_transport_netagent_sysctl SYSCTL_HANDLER_ARGS
 {
@@ -924,3 +935,4 @@ if_enable_fsw_transport_netagent_sysctl SYSCTL_HANDLER_ARGS
 	}
 	return error;
 }
+#endif /* SKYWALK */

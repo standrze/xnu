@@ -1619,6 +1619,7 @@ shared_region_map_and_slide_setup(
 		}
 
 		bool in_trust_cache = false;
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 		TrustCacheQueryToken_t qt;
 		if (query_trust_cache(kTCQueryTypeAll, cdhash, &qt) == KERN_SUCCESS) {
 			TCType_t tc_type = kTCTypeInvalid;
@@ -1628,6 +1629,7 @@ shared_region_map_and_slide_setup(
 			    tc_type == kTCTypeStatic ||
 			    tc_type == kTCTypeEngineering));
 		}
+#endif /* No trust-cache provider on BCM2712 DEVELOPMENT. */
 		if (!in_trust_cache) {
 			SHARED_REGION_TRACE_ERROR(
 				("shared_region: %p [%d(%s)] map(%p:'%s'): "

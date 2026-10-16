@@ -41,8 +41,14 @@
 #define VFP_STATE_TEST_N_REGS                   8
 #define VFP_STATE_TEST_N_ITER                   100
 #define VFP_STATE_TEST_DELAY_USEC               10000
-#define VFP_STATE_TEST_RMODE_STRIDE_SHIFT       20
-#define VFP_STATE_TEST_RMODE_STRIDE_MAX         16
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* A76 AArch64 FPCR.Stride[21:20] may read as zero; use architected RMode. */
+#define VFP_STATE_TEST_CONTROL_SHIFT            22
+#define VFP_STATE_TEST_CONTROL_VALUES           4
+#else
+#define VFP_STATE_TEST_CONTROL_SHIFT            20
+#define VFP_STATE_TEST_CONTROL_VALUES           16
+#endif
 
 extern kern_return_t vfp_state_test(void);
 
@@ -121,6 +127,9 @@ vfp_state_test_thread_routine(void *args, __unused wait_result_t wr)
                                    "memory", "d8", "d9", "d10", "d11", "d12", "d13", "d14", "d15");
 
 	asm volatile ("mrs	%0, fpcr" : "=r"(fp_control_expected));
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	fp_control_expected &= ~(UINT64_C(3) << VFP_STATE_TEST_CONTROL_SHIFT);
+#endif
 	fp_control_expected |= vfp_state_test_args->fp_control_mask;
 	asm volatile ("msr	fpcr, %0" : : "r"(fp_control_expected));
 
@@ -175,7 +184,8 @@ vfp_state_test(void)
 	for (int i = 0; i < VFP_STATE_TEST_N_THREADS; i++) {
 		vfp_state_test_args[i].start_barrier = &start_barrier;
 		vfp_state_test_args[i].end_barrier = &end_barrier;
-		vfp_state_test_args[i].fp_control_mask = (i % VFP_STATE_TEST_RMODE_STRIDE_MAX) << VFP_STATE_TEST_RMODE_STRIDE_SHIFT;
+		vfp_state_test_args[i].fp_control_mask =
+		    (i % VFP_STATE_TEST_CONTROL_VALUES) << VFP_STATE_TEST_CONTROL_SHIFT;
 		read_random(&vfp_state_test_args[i].vfp_reg_rand, sizeof(uint64_t));
 
 		retval = kernel_thread_start((thread_continue_t)vfp_state_test_thread_routine,

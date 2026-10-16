@@ -331,6 +331,11 @@ typedef _STRUCT_ARM_LEGACY_DEBUG_STATE arm_debug_state_t;
 #define HAS_MASK_SAVED_STATE_CPSR       1
 #endif /* CONFIG_DTRACE */
 
+#if CONFIG_XNUPOST && !CONFIG_DTRACE
+/* PAN tests also adjust CPSR when DTrace is absent. */
+#define HAS_MASK_SAVED_STATE_CPSR       1
+#endif
+
 #if CONFIG_KDP_INTERACTIVE_DEBUGGING
 #define HAS_SET_SAVED_STATE_CPSR        1
 #endif /* CONFIG_KDP_INTERACTIVE_DEBUGGING */

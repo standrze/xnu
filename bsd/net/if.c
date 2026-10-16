@@ -7299,6 +7299,7 @@ ifnet_get_low_power_wake(ifnet_t ifp, boolean_t *on)
 uint32_t
 if_get_driver_hwassist(struct ifnet *ifp)
 {
+#if SKYWALK
 	if (NA(ifp) == NULL) {
 		/* When if_na is not attached yet, just use if_hwassist, which at this
 		 * time stil only contains the assist flags that are actually supported
@@ -7308,4 +7309,7 @@ if_get_driver_hwassist(struct ifnet *ifp)
 	} else {
 		return NA(ifp)->nifna_netif->nif_hwassist;
 	}
+#else /* SKYWALK */
+	return ifp->if_hwassist;
+#endif /* SKYWALK */
 }

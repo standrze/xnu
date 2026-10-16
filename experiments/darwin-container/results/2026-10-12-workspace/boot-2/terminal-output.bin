@@ -1,0 +1,10 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004hprint -r -- WS_READY:$DARWIN_NETWORK_STATUS:$ZSH_VERSION:$PWD:$HOME[?2004l
+WS_READY:ready:5.9:/data:/data
+#                                                                                                                       darwin-zsh# [?2004h[[ $(</data/workspace-proof) == b420ee0ce9612f3c5905f584 && $(</data/.zsh_history) == *HISTORY_b420ee0ce96<5905f584 && $(</data/.zsh_history) == *HISTORY_b420ee0ce961                                                          2f3c5905f584* ]]; print -r -- WS_RESTORED:$?[?2004l
+WS_RESTORED:0
+#                                                                                                                       darwin-zsh# [?2004hexit[?2004l

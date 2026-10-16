@@ -1052,7 +1052,7 @@ IOPolledFileFlush(IOPolledFileIOVars * vars)
 IOReturn
 IOPolledFileRead(IOPolledFileIOVars * vars,
     uint8_t * bytes, IOByteCount size,
-    IOPolledFileCryptVars * cryptvars)
+    IOPolledFileCryptVars * cryptvars __unused)
 {
 	IOReturn    err = kIOReturnSuccess;
 	IOByteCount copy;
@@ -1105,7 +1105,9 @@ IOPolledFileRead(IOPolledFileIOVars * vars,
 			}
 
 			uint32_t length;
+#if CRYPTO
 			uint32_t lastReadLength = vars->lastRead;
+#endif
 			uint64_t offset = (vars->position
 			    - vars->extentPosition + vars->currentExtent->start);
 			if (vars->extentRemaining <= vars->bufferSize) {

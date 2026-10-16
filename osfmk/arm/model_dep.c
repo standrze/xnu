@@ -219,7 +219,7 @@ do_print_backtrace_internal(pmap_t pmap, vm_offset_t topfp, const char *cur_mark
 	addr64_t        lr = 0;
 	addr64_t        fp = topfp;
 	addr64_t        fp_for_ppn = 0;
-	ppnum_t         ppn = (ppnum_t)NULL;
+	ppnum_t         ppn = 0;
 	vm_offset_t     raddrs[FP_MAX_NUM_TO_EVALUATE] = { 0 };
 	bool            dump_kernel_stack = (fp >= VM_MIN_KERNEL_ADDRESS);
 
@@ -241,7 +241,7 @@ do_print_backtrace_internal(pmap_t pmap, vm_offset_t topfp, const char *cur_mark
 			ppn = pmap_find_phys(pmap, fp + FP_LR_OFFSET);
 			fp_for_ppn = fp + (is_64_bit ? FP_LR_OFFSET64 : FP_LR_OFFSET);
 		}
-		if (ppn != (ppnum_t)NULL) {
+		if (ppn != 0) {
 			if (is_64_bit) {
 				lr = ml_phys_read_double_64(((((vm_offset_t)ppn) << PAGE_SHIFT)) | ((fp + FP_LR_OFFSET64) & PAGE_MASK));
 #if defined(HAS_APPLE_PAC)
@@ -263,7 +263,7 @@ do_print_backtrace_internal(pmap_t pmap, vm_offset_t topfp, const char *cur_mark
 			ppn = pmap_find_phys(pmap, fp);
 			fp_for_ppn = fp;
 		}
-		if (ppn != (ppnum_t)NULL) {
+		if (ppn != 0) {
 			if (is_64_bit) {
 				fp = ml_phys_read_double_64(((((vm_offset_t)ppn) << PAGE_SHIFT)) | (fp & PAGE_MASK));
 #if defined(HAS_APPLE_PAC)
@@ -982,7 +982,7 @@ SavePanicInfo(
 	 * panic CRC so that iBoot can hopefully find *something* useful in the panic region.
 	 */
 	if (PanicInfoSaved && (debug_buf_base >= (char*)gPanicBase) && (debug_buf_base < (char*)gPanicBase + gPanicSize)) {
-		unsigned int pi_size = (unsigned int)(debug_buf_ptr - gPanicBase);
+		unsigned int pi_size = (unsigned int)((uintptr_t)debug_buf_ptr - gPanicBase);
 		PE_update_panic_crc((unsigned char*)gPanicBase, &pi_size);
 		PE_sync_panic_buffers(); // extra precaution; panic path likely isn't reliable if we're here
 	}
@@ -1014,7 +1014,7 @@ paniclog_flush()
 {
 	unsigned int panicbuf_length = 0;
 
-	panicbuf_length = (unsigned int)(debug_buf_ptr - gPanicBase);
+	panicbuf_length = (unsigned int)((uintptr_t)debug_buf_ptr - gPanicBase);
 	if (!debug_buf_ptr || !panicbuf_length) {
 		return;
 	}

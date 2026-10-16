@@ -180,7 +180,9 @@ dlil_if_acquire(uint32_t family, const void *uniqueid __sized_by(uniqueid_len),
 	lck_rw_init(&ifp1->if_link_status_lock, &ifnet_lock_group,
 	    &ifnet_lock_attr);
 	ifp1->if_link_status = NULL;
+#if SKYWALK
 	lck_mtx_init(&ifp1->if_delegate_lock, &ifnet_lock_group, &ifnet_lock_attr);
+#endif /* SKYWALK */
 
 	/* for send data paths */
 	lck_mtx_init(&ifp1->if_start_lock, &ifnet_snd_lock_group,

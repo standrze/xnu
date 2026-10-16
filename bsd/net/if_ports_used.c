@@ -3067,6 +3067,7 @@ check_wake_mbuf(ifnet_t ifp, protocol_family_t protocol_family, mbuf_ref_t m)
 	return ipproto == mark_wake_packet_ipproto;
 }
 
+#if SKYWALK
 bool
 check_wake_pkt(ifnet_t ifp __unused, struct __kern_packet *pkt)
 {
@@ -3113,5 +3114,6 @@ check_wake_pkt(ifnet_t ifp __unused, struct __kern_packet *pkt)
 	}
 	return pkt->pkt_flow_ip_proto == mark_wake_packet_ipproto;
 }
+#endif /* SKYWALK */
 
 #endif /* (DEBUG | DEVELOPMENT) */

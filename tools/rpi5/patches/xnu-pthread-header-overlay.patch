@@ -1,0 +1,42 @@
+diff --git a/sys/pthread_internal.h b/sys/pthread_internal.h
+index 42e23d81..a152b573 100644
+--- a/sys/pthread_internal.h
++++ b/sys/pthread_internal.h
+@@ -31,14 +31,33 @@
+ 
+ #include <sys/user.h>
+ #include <kern/thread_call.h>
++#include <sys/queue.h>
++#include <kern/thread.h>
+ 
+ struct ksyn_waitq_element {
++	TAILQ_ENTRY(ksyn_waitq_element) kwe_list;
++	void *kwe_kwqqueue;
++	thread_t kwe_thread;
++	uint16_t kwe_state;
++	uint16_t kwe_flags;
++	uint32_t kwe_lockseq;
++	uint32_t kwe_count;
++	uint32_t kwe_psynchretval;
++};
+ #if __LP64__
+-	char opaque[48];
+-#else
+-	char opaque[32];
++/* The 539 source's uthread pointer is derived from its retained thread. */
++_Static_assert(sizeof(struct ksyn_waitq_element) == 48,
++    "adapted wait element must fit current XNU's 48-byte ABI slot");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_list) == 0, "kwe_list ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_kwqqueue) == 16, "kwe_kwqqueue ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_thread) == 24, "kwe_thread ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_state) == 32, "kwe_state ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_flags) == 34, "kwe_flags ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_lockseq) == 36, "kwe_lockseq ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_count) == 40, "kwe_count ABI");
++_Static_assert(__builtin_offsetof(struct ksyn_waitq_element, kwe_psynchretval) == 44, "kwe_psynchretval ABI");
+ #endif
+-};
++#define RPI_PTHREAD_STRUCT_DEFINED 1
+ 
+ void workq_mark_exiting(struct proc *);
+ void workq_exit(struct proc *);

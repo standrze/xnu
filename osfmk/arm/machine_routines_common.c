@@ -51,7 +51,9 @@
 #include <machine/monotonic.h>
 #include <pexpert/pexpert.h>
 #include <pexpert/device_tree.h>
+#if defined(APPLE_ARM64_ARCH_FAMILY)
 #include <pexpert/arm64/apple_arm64_cpu.h>
+#endif
 
 #include <mach/machine.h>
 #include <mach/machine/sdt.h>

@@ -1,0 +1,24 @@
+{
+  "outcome": "passed",
+  "scope": "two managed commands in the actual XNU guest, not storage qualification",
+  "firstCommandExit": 0,
+  "secondCommandExit": 7,
+  "cliExit": 7,
+  "stdoutAndStderrSeparate": true,
+  "guestStopped": true,
+  "sha256": {
+    "command-1-stderr.bin": "0b7849fe287fbefd65eddb45ccfc432b60ccd57d300811c2cac687938608c7a6",
+    "command-1-stdout.bin": "dfe7ddd20be1e2772791cb5c3bf253e1afd385f8524d7d23d04e747b5f252cd9",
+    "command-2-stderr.bin": "70bf9bfd03503f4dd780bbc09cb1e30641735ecb1837c277c8a2f373e0b6a533",
+    "command-2-stdout.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "loader-manifest.json": "d2626443f28317dc40f26c5cee4915cc58e2d513e0137b392a2c11299a104b34",
+    "preflight.json": "ae5e7e182a8b55696ff61c72afccd771ffbaef802a8b2566bc38ff53e8145fdb",
+    "result.json": "183d19d841e55c681f167be6fdb5418140425f86be727edbcfb904eb2b0ba342",
+    "root-manifest.json": "86b62907e77dd941337c77eedf47899ff253e04e978fdd26aa8c73e11e65df5f",
+    "serial.bin": "e5a766bb1d5b7e14ad8a1a15df78226be98594e02e2b278723d18dde091fe1db",
+    "serial.txt": "e5a766bb1d5b7e14ad8a1a15df78226be98594e02e2b278723d18dde091fe1db",
+    "start-requested.json": "e467b2c994a0bfeb29499e7513ffc773835cd464f4ffdf2a1097f8f69c13f19b",
+    "started.json": "ca26be543b6ad583293afba589efa2b59a2ba27d3c0fbc24bc383c16278b8a4c",
+    "stopped.json": "fd513e8fe7054720b1717ea3bbaa7493490d021414e3b8f3c211fca88442298c"
+  }
+}

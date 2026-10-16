@@ -1,0 +1,40 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAccepted" : true,
+        "cancellationAcknowledged" : true,
+        "cancellationRequested" : true,
+        "cancelled" : true,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 19,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 17,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true,
+        "terminationSignal" : 15
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 2.3021660833328497,
+  "error" : "managed command cancellation requested after 1 seconds",
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-cancel-escape-1",
+  "serialByteCount" : 7585,
+  "sessionID" : "25e526aedec843598040fe8090620c6c",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "interrupted"
+}

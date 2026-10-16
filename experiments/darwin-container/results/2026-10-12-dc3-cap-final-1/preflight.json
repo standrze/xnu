@@ -1,0 +1,68 @@
+{
+  "bootProven" : false,
+  "checks" : [
+    {
+      "id" : "host.arm64",
+      "message" : "The initial Darwin guest target requires an Apple silicon Mac.",
+      "status" : "passed"
+    },
+    {
+      "id" : "host.virtualization",
+      "message" : "Virtualization.framework reports support: true. This does not check launch entitlements.",
+      "status" : "passed"
+    },
+    {
+      "id" : "resources.cpus",
+      "message" : "Requested 1 CPUs; host range is 1...64.",
+      "status" : "passed"
+    },
+    {
+      "id" : "resources.memory",
+      "message" : "Requested 536870912 bytes; must be MiB-aligned and within 4194304...68719476736.",
+      "status" : "passed"
+    },
+    {
+      "id" : "input.bootDisk",
+      "message" : "Readable disk with a boot-sector signature; ARM64 EFI loader contents have not been verified.",
+      "status" : "passed"
+    },
+    {
+      "id" : "input.variableStore",
+      "message" : "Existing readable variable-store file; preflight does not create, reset, or edit it.",
+      "status" : "passed"
+    },
+    {
+      "id" : "input.distinctFiles",
+      "message" : "Boot disk and variable store paths are distinct.",
+      "status" : "passed"
+    },
+    {
+      "id" : "vz.configuration",
+      "message" : "EFI\/generic-platform configuration validated. No VM was started; EFI loader presence and XNU boot remain unverified.",
+      "status" : "passed"
+    },
+    {
+      "id" : "guest.execution",
+      "message" : "No guest execution, command, agent handshake, or shutdown has been demonstrated by this preflight.",
+      "status" : "notChecked"
+    }
+  ],
+  "configurationValid" : true,
+  "host" : {
+    "appleSilicon" : true,
+    "maximumCPUCount" : 64,
+    "maximumMemorySize" : 68719476736,
+    "minimumCPUCount" : 1,
+    "minimumMemorySize" : 4194304,
+    "virtualizationSupported" : true
+  },
+  "unsupportedFeatures" : [
+    "Linux OCI execution",
+    "guest-agent RPC",
+    "networking",
+    "shared directories",
+    "Rosetta",
+    "nested virtualization",
+    "writable root disk"
+  ]
+}

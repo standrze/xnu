@@ -1,0 +1,47 @@
+{
+  "format": "rpi5-apple-usb-source-audit-v1",
+  "recorded_at": "2026-10-14",
+  "sources": [
+    {
+      "name": "IOUSBFamily",
+      "release": "IOUSBFamily-630.4.5",
+      "commit": "1398331b04a6bb9ea9b9f76248b8b584811ebcd0",
+      "url": "https://github.com/apple-oss-distributions/IOUSBFamily/archive/1398331b04a6bb9ea9b9f76248b8b584811ebcd0.tar.gz",
+      "sha256": "b52832395171ca499f824ce1b5e82edc32e4f7e1ebe79975e8f16acb79275a22",
+      "license_file": "APPLE_LICENSE",
+      "decision": "reference-only-incomplete-release",
+      "usable_reference_files": [
+        "AppleUSBXHCI/Headers/XHCI.h",
+        "AppleUSBXHCI/Classes/AppleUSBXHCI_AsyncQueues.cpp",
+        "AppleUSBXHCI/Classes/AppleUSBXHCI_IsocQueues.cpp",
+        "IOUSBFamily/Headers/USB.h",
+        "IOUSBFamily/Headers/USBSpec.h"
+      ],
+      "critical_zero_byte_files": [
+        "AppleUSBXHCI/Classes/AppleUSBXHCIUIM.cpp",
+        "AppleUSBXHCI/Classes/AppleUSBXHCI_RootHub.cpp",
+        "AppleUSBXHCI/Classes/AppleUSBXHCI_PwrMgmt.cpp",
+        "AppleUSBXHCI/Headers/AppleUSBXHCIUIM.h",
+        "AppleUSBHub/Classes/AppleUSBHub.cpp",
+        "IOUSBFamily/Classes/IOUSBController.cpp",
+        "IOUSBFamily/Classes/IOUSBDevice.cpp",
+        "IOUSBHIDDriver/Classes/IOUSBHIDDriver.cpp"
+      ]
+    },
+    {
+      "name": "IOHIDFamily",
+      "release": "IOHIDFamily-2238.120.5",
+      "commit": "e31e90a24c27ad6cbe981650d12a1a4124065b03",
+      "url": "https://github.com/apple-oss-distributions/IOHIDFamily/archive/e31e90a24c27ad6cbe981650d12a1a4124065b03.tar.gz",
+      "sha256": "4baad8d6312a2a47f9c9d91e048076f7f623f5bba308f4fa41b0e289a8839cf8",
+      "decision": "candidate-after-bootstrap-console",
+      "usable_reference_files": [
+        "IOHIDFamily/IOHIDKeyboard.cpp",
+        "IOHIDFamily/IOHIDDevice.cpp",
+        "IOHIDSystem/IOHIKeyboard.cpp",
+        "IOHIDSystem/IOHIKeyboardMapper.cpp"
+      ],
+      "note": "The BCM2712 configuration currently selects NO_KERNEL_HID. Full IOHID publication is a later gate; the first zsh keyboard uses a bounded boot-protocol console bridge."
+    }
+  ]
+}

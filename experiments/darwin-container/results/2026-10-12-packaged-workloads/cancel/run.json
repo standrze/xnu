@@ -1,0 +1,29 @@
+{
+  "name": "cancel",
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/counter-trial-0.3.0",
+  "package_manifest_sha256": "f1dbaba92816b3610d2880560a0ba3025382514fe8f2bbdd22f0889f187bf5d6",
+  "workload": "counter-trial",
+  "version": "1.0.0",
+  "state": "cancelled",
+  "volume": "persist",
+  "network": "none",
+  "resources": {
+    "cpus": 1,
+    "memory_mib": 512,
+    "timeout_seconds": 30
+  },
+  "directory": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/packaged-workload-trial-2/state/runs/cancel",
+  "data_disk": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/packaged-workload-trial-2/state/volumes/persist/data.raw",
+  "started_at": "2026-10-12T22:47:48.972300+00:00",
+  "guest_stopped": true,
+  "managed_completion_verified": true,
+  "native_exit_code": 1,
+  "exit_status": null,
+  "termination_signal": 15,
+  "cancel_requested": true,
+  "cancel_accepted": true,
+  "termination": "interrupted",
+  "error": "host received signal 2",
+  "runner_exit_code": 130,
+  "finished_at": "2026-10-12T22:47:50.741930+00:00"
+}

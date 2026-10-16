@@ -733,8 +733,10 @@ domaininit(void)
 	 * means that domains added after this point won't get their
 	 * dom_rtattach() called on rt_tables[].
 	 */
+#if NETWORKING
 	attach_domain(&inetdomain_s);
 	attach_domain(&inet6domain_s);
+#endif
 #if MULTIPATH
 	attach_domain(&mpdomain_s);
 #endif /* MULTIPATH */
@@ -743,9 +745,13 @@ domaininit(void)
 #if IPSEC
 	attach_domain(&keydomain_s);
 #endif /* IPSEC */
+#if NETWORKING
 	attach_domain(&ndrvdomain_s);
+#endif
 	attach_domain(&vsockdomain_s);
+#if NETWORKING
 	attach_domain(&routedomain_s);  /* must be last domain */
+#endif
 
 	/*
 	 * Now ask them all to init (XXX including the routing domain,

@@ -328,9 +328,25 @@ read_frandom(void * buffer, u_int numBytes)
 	read_erandom(buffer, numBytes);
 }
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+static bool
+rpi5_prng_provider_complete(const struct cckprng_ctx *ctx, const struct cckprng_funcs *funcs)
+{
+	/* init is the legacy entry point; XNU uses init_with_getentropy here. */
+	return ctx != NULL && funcs != NULL && funcs->init_with_getentropy != NULL &&
+	       funcs->initgen != NULL && funcs->reseed != NULL &&
+	       funcs->refresh != NULL && funcs->generate != NULL;
+}
+#endif
+
 void
 register_and_init_prng(struct cckprng_ctx *ctx, const struct cckprng_funcs *funcs)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (!rpi5_prng_provider_complete(ctx, funcs)) {
+		panic("BCM2712: incomplete kernel PRNG provider");
+	}
+#endif
 	assert3s(cpu_number(), ==, boot_cpu_id);
 	assert(!prng_ready);
 
@@ -370,6 +386,11 @@ random_cpu_init(int cpu)
 __mockable void
 read_random(void * buffer, u_int numbytes)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (!prng_ready) {
+		panic("BCM2712: read_random before kernel PRNG registration");
+	}
+#endif
 	prng_funcs.refresh(prng_ctx);
 	read_random_generate(buffer, numbytes);
 }

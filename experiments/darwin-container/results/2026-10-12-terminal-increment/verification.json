@@ -1,0 +1,40 @@
+{
+  "outcome": "incremental-terminal-trial-passed-not-full-goal",
+  "proved_in_guest": [
+    "real controlling PTY",
+    "Apple-source static ZLE arrow editing",
+    "history recall",
+    "job suspension/listing/foreground resume",
+    "Ctrl-C exit 130",
+    "normal unmount and stop"
+  ],
+  "host_only": [
+    "raw-mode restoration and pipe handling",
+    "explicit VirtIO NAT attachment configuration",
+    "real Metal vector calculation; not connected to guest"
+  ],
+  "remaining": [
+    "dynamic window sizing/SIGWINCH",
+    "byte-preserving terminal transport",
+    "guest VirtIO NIC driver and IP/DNS/TCP proof",
+    "guest GPU bridge/client and returned Metal result"
+  ],
+  "zsh_sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3",
+  "kernel_sha256": "60e4f5fa3c8025fe88f3a42ac5bb5b7331035943a78aba005df76d7949795e76",
+  "sha256": {
+    "apple-zsh-source.json": "c11d69f14c68bb5ec952a2a32e77cf47a771f60f5f7b04fceaf4d8a9254996f4",
+    "darwin-metal-host-check.log": "29d9094ef4629e8912bb5fde7855224bcd7de0d850e4ef8a2d0ce6cced7bf8f2",
+    "darwin-network-config-tests.log": "ddbfa3e6800c295fc647431298b590e2e9a94ad2b89fa6dd96c27bea4f4ef121",
+    "darwin-terminal-host-tests-3.log": "caca767726c528146ce2403173c209ec90c92834bc375fe417448ac452944881",
+    "loader-manifest.json": "095f1e55fbaa31869a4592d1f4404c987f727188dc3fc0a7a9269d85cec3dd96",
+    "preflight.json": "95aadf9c7b62ba3a40d5105ce9c52cd6bf48c2e9acc7b7f47bdcb907f160583a",
+    "result.json": "f6967e9a31685a2bbd27aaeb5e9e2d39e02ebda0187dc4d3668100ea1a5b3a8a",
+    "root-manifest.json": "b1319fd252d65ca3673e54e1f3bfba4a7484a28c8ab82a6075e01501efa68213",
+    "serial.bin": "ddcde4db4532fb4f4ff1c5a7221c3d11b255d028c42c80313475fcdc09993cac",
+    "serial.txt": "ddcde4db4532fb4f4ff1c5a7221c3d11b255d028c42c80313475fcdc09993cac",
+    "start-requested.json": "9d0eee1993d49579cf213cae995ec0ccc7d6b203037a21ddce19eb06db5c868b",
+    "started.json": "1735e44aa40df2edaeaa26b57669224af9d44af4b72235dce5ecb80b0c2b7b9b",
+    "stopped.json": "5879e4c0b68b3ca26b2590aeac93fce4c9a7be2645e00c677bb7b3d58f1f427f",
+    "zsh-link-manifest.json": "cbfa1c99b1ed49c0a83e04fc0a5b6fe86544b5e4e756e49e1bb29fd664316c38"
+  }
+}

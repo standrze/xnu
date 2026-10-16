@@ -15,10 +15,18 @@ amfi_interface_register(const amfi_t *mfi)
 }
 
 void
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+__attribute__((noreturn))
+#endif
 amfi_core_entitlements_register(const CEKernelAPI_t *implementation)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	(void)implementation;
+	panic("CoreEntitlements V2 is unsupported on BCM2712 DEVELOPMENT");
+#else
 	if (libCoreEntitlements) {
 		panic("libCoreEntitlements interface already set");
 	}
 	libCoreEntitlements = implementation;
+#endif
 }

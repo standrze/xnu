@@ -1,0 +1,31 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/stephen/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/stephen/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/stephen/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'containerization': failed storing manifest for 'containerization' in cache: attempt to write a readonly database
+[1/1] Compiling plugin Swift-DocC Preview
+[2/2] Compiling plugin Swift-DocC
+[3/3] Compiling plugin SwiftProtobufPlugin
+[4/4] Compiling plugin generate-grpc-code-from-protos
+[5/5] Compiling plugin GRPCProtobufGenerator
+[6/6] Compiling plugin GenerateManual
+[7/7] Compiling plugin GenerateDoccReference
+Building for debugging...
+[7/14] Write sources
+[8/14] Write swift-version--58304C5D6DBC2206.txt
+[10/12] Emitting module ContainerizationDarwinTests
+[11/12] Compiling ContainerizationDarwinTests DarwinHostTerminalTests.swift
+[11/13] Write Objects.LinkFileList
+[12/13] Linking containerizationPackageTests
+Build complete! (3.30s)
+warning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite DarwinHostTerminalTests started.
+◇ Test rawModeForwardsControlBytesAndRestoresTerminal() started.
+◇ Test pipedInputDoesNotAcquireTerminalModeOrChangeFlags() started.
+✔ Test pipedInputDoesNotAcquireTerminalModeOrChangeFlags() passed after 0.001 seconds.
+✔ Test rawModeForwardsControlBytesAndRestoresTerminal() passed after 0.001 seconds.
+✔ Suite DarwinHostTerminalTests passed after 0.001 seconds.
+✔ Test run with 2 tests in 1 suite passed after 0.001 seconds.

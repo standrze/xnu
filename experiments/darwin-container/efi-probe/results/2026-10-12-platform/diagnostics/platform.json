@@ -1,0 +1,324 @@
+{
+  "acpi_tables" : [
+    {
+      "length" : 68,
+      "oem_id" : "APPLE ",
+      "raw_file" : "XSDT-0.bin",
+      "revision" : 1,
+      "signature" : "XSDT"
+    },
+    {
+      "arm_boot_architecture" : "0x0000000000000003",
+      "length" : 276,
+      "oem_id" : "APPLE ",
+      "psci_compliant" : true,
+      "psci_use_hvc" : true,
+      "raw_file" : "FACP-1.bin",
+      "revision" : 6,
+      "signature" : "FACP"
+    },
+    {
+      "length" : 830,
+      "oem_id" : "APPLE ",
+      "raw_file" : "DSDT-65536.bin",
+      "revision" : 2,
+      "signature" : "DSDT"
+    },
+    {
+      "counter_control_base" : "0xffffffffffffffff",
+      "length" : 104,
+      "nonsecure_el1_flags" : "0x0000000000000000",
+      "nonsecure_el1_gsiv" : 30,
+      "nonsecure_el2_gsiv" : 26,
+      "oem_id" : "APPLE ",
+      "raw_file" : "GTDT-2.bin",
+      "revision" : 3,
+      "secure_el1_gsiv" : 0,
+      "signature" : "GTDT",
+      "virtual_timer_flags" : "0x0000000000000000",
+      "virtual_timer_gsiv" : 27
+    },
+    {
+      "entries" : [
+        {
+          "cpu_interface_base" : "0x0000000000000000",
+          "cpu_interface_number" : 0,
+          "flags" : "0x0000000000000001",
+          "gicr_base" : "0x0000000000000000",
+          "length" : 80,
+          "mpidr" : "0x0000000000000000",
+          "type" : 11
+        },
+        {
+          "distributor_base" : "0x0000000010000000",
+          "length" : 24,
+          "type" : 12,
+          "version" : 3
+        },
+        {
+          "length" : 24,
+          "type" : 13
+        },
+        {
+          "length" : 16,
+          "redistributor_base" : "0x0000000010010000",
+          "redistributor_length" : "0x0000000000020000",
+          "type" : 14
+        }
+      ],
+      "length" : 188,
+      "oem_id" : "APPLE ",
+      "raw_file" : "APIC-3.bin",
+      "revision" : 5,
+      "signature" : "APIC"
+    },
+    {
+      "length" : 60,
+      "oem_id" : "APPLE ",
+      "raw_file" : "MCFG-4.bin",
+      "regions" : [
+        {
+          "base" : "0x0000000040000000",
+          "end_bus" : 255,
+          "segment" : 0,
+          "start_bus" : 0
+        }
+      ],
+      "revision" : 1,
+      "signature" : "MCFG"
+    }
+  ],
+  "efi_memory_map" : [
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 98304,
+      "physical_start" : "0x0000000070000000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 32,
+      "physical_start" : "0x0000000088000000",
+      "type" : 4,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 25777,
+      "physical_start" : "0x0000000088020000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 86,
+      "physical_start" : "0x000000008e4d1000",
+      "type" : 1,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 73,
+      "physical_start" : "0x000000008e527000",
+      "type" : 3,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000008",
+      "pages" : 192,
+      "physical_start" : "0x000000008e570000",
+      "type" : 6,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000008",
+      "pages" : 208,
+      "physical_start" : "0x000000008e630000",
+      "type" : 5,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 2430,
+      "physical_start" : "0x000000008e700000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 2178,
+      "physical_start" : "0x000000008f07e000",
+      "type" : 4,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 1,
+      "physical_start" : "0x000000008f900000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 511,
+      "physical_start" : "0x000000008f901000",
+      "type" : 3,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000008",
+      "pages" : 144,
+      "physical_start" : "0x000000008fb00000",
+      "type" : 5,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 32,
+      "physical_start" : "0x000000008fb90000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000008",
+      "pages" : 48,
+      "physical_start" : "0x000000008fbb0000",
+      "type" : 6,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 16,
+      "physical_start" : "0x000000008fbe0000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 16,
+      "physical_start" : "0x000000008fbf0000",
+      "type" : 9,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 23,
+      "physical_start" : "0x000000008fc00000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 4,
+      "physical_start" : "0x000000008fc17000",
+      "type" : 0,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 991,
+      "physical_start" : "0x000000008fc1b000",
+      "type" : 4,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 1,
+      "physical_start" : "0x000000008fffa000",
+      "type" : 7,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x0000000000000008",
+      "pages" : 5,
+      "physical_start" : "0x000000008fffb000",
+      "type" : 4,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000001",
+      "pages" : 32,
+      "physical_start" : "0x0000000001000000",
+      "type" : 11,
+      "virtual_start" : "0x0000000000000000"
+    },
+    {
+      "attributes" : "0x8000000000000001",
+      "pages" : 1,
+      "physical_start" : "0x0000000020050000",
+      "type" : 11,
+      "virtual_start" : "0x0000000000000000"
+    }
+  ],
+  "nonce" : "567fce812c484fed95301a2966a48f8f",
+  "pci_devices" : [
+    {
+      "bars_raw" : [
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000"
+      ],
+      "bus" : 0,
+      "class_code" : "0x0000000000060000",
+      "command" : "0x0000000000000010",
+      "device" : 0,
+      "device_id" : "0x0000000000001a05",
+      "function" : 0,
+      "interrupt_line" : 255,
+      "interrupt_pin" : 0,
+      "raw_file" : "pci-0.bin",
+      "segment" : 0,
+      "vendor_id" : "0x000000000000106b"
+    },
+    {
+      "bars_raw" : [
+        "0x0000000000010004",
+        "0x0000000000000001",
+        "0x0000000050000000",
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000"
+      ],
+      "bus" : 0,
+      "class_code" : "0x0000000000078000",
+      "command" : "0x0000000000000016",
+      "device" : 5,
+      "device_id" : "0x0000000000001043",
+      "function" : 0,
+      "interrupt_line" : 255,
+      "interrupt_pin" : 1,
+      "raw_file" : "pci-1.bin",
+      "segment" : 0,
+      "vendor_id" : "0x0000000000001af4"
+    },
+    {
+      "bars_raw" : [
+        "0x0000000000000004",
+        "0x0000000000000001",
+        "0x0000000050001000",
+        "0x0000000000000000",
+        "0x0000000000000000",
+        "0x0000000000000000"
+      ],
+      "bus" : 0,
+      "class_code" : "0x0000000000018000",
+      "command" : "0x0000000000000016",
+      "device" : 6,
+      "device_id" : "0x0000000000001042",
+      "function" : 0,
+      "interrupt_line" : 255,
+      "interrupt_pin" : 1,
+      "raw_file" : "pci-2.bin",
+      "segment" : 0,
+      "vendor_id" : "0x0000000000001af4"
+    }
+  ],
+  "scope" : "uefi-platform-inventory-not-xnu",
+  "serial_device_paths" : [
+
+  ]
+}

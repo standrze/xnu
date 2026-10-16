@@ -417,7 +417,7 @@ sendsig(
 #endif
 	} else {
 		sendsig_fill_uctx32(&user_frame.uf32.uctx, oonstack, mask, sp, (user32_size_t)stack_size,
-		    (user32_addr_t)&((struct user_sigframe32*)sp)->mctx);
+		    (user32_addr_t)(uintptr_t)&((struct user_sigframe32*)sp)->mctx);
 	}
 
 	/*
@@ -642,7 +642,7 @@ sendsig(
 		}
 
 		if (sendsig_set_thread_state32(&ts.ts32.ss,
-		    CAST_DOWN_EXPLICIT(user32_addr_t, catcher), infostyle, sig, (user32_addr_t)&((struct user_sigframe32*)sp)->sinfo,
+		    CAST_DOWN_EXPLICIT(user32_addr_t, catcher), infostyle, sig, (user32_addr_t)(uintptr_t)&((struct user_sigframe32*)sp)->sinfo,
 		    CAST_DOWN_EXPLICIT(user32_addr_t, trampact), CAST_DOWN_EXPLICIT(user32_addr_t, sp), th_act) != KERN_SUCCESS) {
 			goto bad;
 		}

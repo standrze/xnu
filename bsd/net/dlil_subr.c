@@ -591,9 +591,13 @@ if_free_protolist(u_int32_t *list)
 }
 
 boolean_t
-dlil_is_native_netif_nexus(ifnet_t ifp)
+dlil_is_native_netif_nexus(ifnet_t ifp __unused)
 {
+#if SKYWALK
 	return (ifp->if_eflags & IFEF_SKYWALK_NATIVE) && ifp->if_na != NULL;
+#else /* SKYWALK */
+	return FALSE;
+#endif /* SKYWALK */
 }
 
 

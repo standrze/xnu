@@ -10312,6 +10312,7 @@ zone_early_mem_init(vm_size_t size)
  */
 static bool any_zone_test_running = FALSE;
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 static uintptr_t *
 zone_copy_allocations(zone_t z, uintptr_t *elems, zone_pva_t page_index)
 {
@@ -10351,10 +10352,19 @@ zone_copy_allocations(zone_t z, uintptr_t *elems, zone_pva_t page_index)
 	}
 	return elems;
 }
+#endif
 
 kern_return_t
 zone_leaks(const char * zoneName, uint32_t nameLen, leak_site_proc proc)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* The public-source Pi target has no reachability scanner provider.
+	 * Report unsupported, never a successful scan with zero leaks. */
+	(void)zoneName;
+	(void)nameLen;
+	(void)proc;
+	return KERN_NOT_SUPPORTED;
+#else
 	zone_t        zone = NULL;
 	uintptr_t *   array;
 	uintptr_t *   next;
@@ -10430,6 +10440,7 @@ zone_leaks(const char * zoneName, uint32_t nameLen, leak_site_proc proc)
 
 	kfree_type(vm_offset_t, maxElems, array);
 	return KERN_SUCCESS;
+#endif /* ARM64_BOARD_CONFIG_BCM2712 */
 }
 
 static int

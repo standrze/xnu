@@ -31,10 +31,13 @@
 #include <sys/ubc.h>
 #include <sys/mount_internal.h>
 #include <sys/vnode_internal.h>
+#include <sys/dirent.h>
+#include <sys/fcntl.h>
 #include <vfs/vfs_support.h>
 
 #include <libkern/libkern.h>
 #include <kern/debug.h>
+#include <limits.h>
 
 /*
  * VOPFUNC macro; why do we have so many distinct definitions of this?
@@ -52,6 +55,76 @@ int mockfs_strategy(struct vnop_strategy_args * ap);
 int mockfs_pagein(struct vnop_pagein_args * ap);
 int mockfs_reclaim(__unused struct vnop_reclaim_args * ap);
 int mockfs_blockmap(struct vnop_blockmap_args * ap);
+
+#if MOCKFS_RPI5_RAMROOT
+static int
+mockfs_ramroot_open(struct vnop_open_args *ap)
+{
+	mockfs_mount_t data = (mockfs_mount_t)ap->a_vp->v_mount->mnt_data;
+	if (!data->ramroot_count) { return err_open(ap); }
+	return (ap->a_mode & FWRITE) ? EROFS : 0;
+}
+
+static int
+mockfs_ramroot_close(struct vnop_close_args *ap)
+{
+	mockfs_mount_t data = (mockfs_mount_t)ap->a_vp->v_mount->mnt_data;
+	return data->ramroot_count ? 0 : err_close(ap);
+}
+
+static int
+mockfs_ramroot_readdir(struct vnop_readdir_args *ap)
+{
+	mockfs_fsnode_t directory = ap->a_vp->v_data;
+	mockfs_mount_t data = (mockfs_mount_t)directory->mnt->mnt_data;
+	struct uio *uio = ap->a_uio;
+	off_t position = 0, requested = uio_offset(uio);
+	int emitted = 0, error = 0;
+	if (!data->ramroot_count) { return err_readdir(ap); }
+	if (ap->a_vp->v_type != VDIR) { return ENOTDIR; }
+	if (requested < 0 || (ap->a_flags & (VNODE_READDIR_EXTENDED | VNODE_READDIR_REQSEEKOFF))) { return EINVAL; }
+	if (ap->a_eofflag) { *ap->a_eofflag = 0; }
+	if (ap->a_numdirent) { *ap->a_numdirent = 0; }
+	uint32_t i;
+	for (i = 0; i < data->ramroot_count + 2; i++) {
+		mockfs_fsnode_t node;
+		const char *name;
+		if (i == 0) { node = directory; name = "."; }
+		else if (i == 1) { node = directory->parent ? directory->parent : directory; name = ".."; }
+		else {
+			node = data->ramroot_nodes[i - 2];
+			if (node->parent != directory) { continue; }
+			name = node->name;
+		}
+		struct dirent entry;
+		bzero(&entry, sizeof(entry));
+		entry.d_fileno = node->fileid;
+		entry.d_type = node->type == MOCKFS_FILE ? DT_REG : DT_DIR;
+		entry.d_namlen = (uint8_t)strlen(name); /* Validated at most 63 bytes. */
+		entry.d_reclen = (uint16_t)((sizeof(entry) - sizeof(entry.d_name)) +
+		    ((entry.d_namlen + 1 + 3) & ~3));
+		strlcpy(entry.d_name, name, sizeof(entry.d_name));
+		if (position < requested) {
+			position += entry.d_reclen;
+			if (position > requested) { return EINVAL; }
+			continue;
+		}
+		if (uio_resid(uio) < entry.d_reclen) {
+			if (!emitted) { error = EINVAL; }
+			break;
+		}
+		error = uiomove((caddr_t)&entry, entry.d_reclen, uio);
+		if (error) { break; }
+		position += entry.d_reclen;
+		emitted++;
+	}
+	if (requested > position) { return EINVAL; }
+	uio_setoffset(uio, position);
+	if (ap->a_numdirent) { *ap->a_numdirent = emitted; }
+	if (ap->a_eofflag && i == data->ramroot_count + 2) { *ap->a_eofflag = 1; }
+	return error;
+}
+#endif
 
 /*
  * struct vnop_lookup_args {
@@ -102,6 +175,29 @@ mockfs_lookup(struct vnop_lookup_args * ap)
 	op = cnp->cn_nameiop;
 	fsnode = (mockfs_fsnode_t) dvp->v_data;
 	target_fsnode = NULL;
+
+#if MOCKFS_RPI5_RAMROOT
+	mockfs_mount_t data = (mockfs_mount_t)fsnode->mnt->mnt_data;
+	if (data->ramroot_count) {
+		*vpp = NULL;
+		if (op != LOOKUP) { return EROFS; }
+		if (dvp->v_type != VDIR) { return ENOTDIR; }
+		if (cnp->cn_namelen == 1 && cnp->cn_nameptr[0] == '.') { target_fsnode = fsnode; }
+		else if (cnp->cn_namelen == 2 && !memcmp(cnp->cn_nameptr, "..", 2)) {
+			target_fsnode = fsnode->parent ? fsnode->parent : fsnode;
+		} else {
+			for (uint32_t i = 1; i < data->ramroot_count; i++) {
+				mockfs_fsnode_t node = data->ramroot_nodes[i];
+				if (node->parent == fsnode && strlen(node->name) == (size_t)cnp->cn_namelen &&
+				    !memcmp(node->name, cnp->cn_nameptr, cnp->cn_namelen)) {
+					target_fsnode = node;
+					break;
+				}
+			}
+		}
+		return target_fsnode ? mockfs_fsnode_vnode(target_fsnode, vpp) : ENOENT;
+	}
+#endif
 
 	if ((op == LOOKUP) && (fsnode->type == MOCKFS_ROOT)) {
 		/*
@@ -173,6 +269,26 @@ mockfs_getattr(struct vnop_getattr_args * ap)
 	vp = ap->a_vp;
 	fsnode = (mockfs_fsnode_t)vp->v_data;
 	vap = ap->a_vap;
+#if MOCKFS_RPI5_RAMROOT
+	if (((mockfs_mount_t)fsnode->mnt->mnt_data)->ramroot_count) {
+		/* Preserve va_active: VFS requested attributes, not a zeroed request. */
+		VATTR_RETURN(vap, va_type, vp->v_type);
+		VATTR_RETURN(vap, va_mode, (mode_t)fsnode->mode);
+		VATTR_RETURN(vap, va_uid, 0);
+		VATTR_RETURN(vap, va_gid, 0);
+		VATTR_RETURN(vap, va_nlink, vp->v_type == VDIR ? 2 : 1);
+		VATTR_RETURN(vap, va_fileid, fsnode->fileid);
+		VATTR_RETURN(vap, va_parentid, fsnode->parent ? fsnode->parent->fileid : fsnode->fileid);
+		VATTR_RETURN(vap, va_fsid, (uint32_t)fsnode->mnt->mnt_vfsstat.f_fsid.val[0]);
+		VATTR_RETURN(vap, va_total_size, fsnode->size);
+		VATTR_RETURN(vap, va_data_size, fsnode->size);
+		uint64_t allocated = (fsnode->size + RPI5_RFS_PAGE - 1) & ~(uint64_t)(RPI5_RFS_PAGE - 1);
+		VATTR_RETURN(vap, va_total_alloc, allocated);
+		VATTR_RETURN(vap, va_data_alloc, allocated);
+		VATTR_RETURN(vap, va_iosize, RPI5_RFS_PAGE);
+		return 0;
+	}
+#endif
 	bzero(vap, sizeof(*vap));
 	VATTR_RETURN(vap, va_nlink, 1); /* Simply assert that someone has at least one link to us */
 	VATTR_RETURN(vap, va_mode, VREAD | VWRITE | VEXEC);
@@ -334,7 +450,10 @@ mockfs_pagein(struct vnop_pagein_args * ap)
 		panic("mockfs_pagein called for a memory-backed device");
 	}
 
-	return cluster_pagein(ap->a_vp, ap->a_pl, ap->a_pl_offset, ap->a_f_offset, ap->a_size, fsnode->size, ap->a_flags);
+	if (ap->a_size > INT_MAX) {
+		panic("mockfs_pagein size exceeds cluster_pagein's int contract");
+	}
+	return cluster_pagein(ap->a_vp, ap->a_pl, ap->a_pl_offset, ap->a_f_offset, (int)ap->a_size, fsnode->size, ap->a_flags);
 }
 
 /*
@@ -378,6 +497,18 @@ mockfs_blockmap(struct vnop_blockmap_args * ap)
 	fsnode = (mockfs_fsnode_t) vp->v_data;
 	blksize = vp->v_mount->mnt_devblocksize;
 
+#if MOCKFS_RPI5_RAMROOT
+	if (((mockfs_mount_t)fsnode->mnt->mnt_data)->ramroot_count) {
+		uint64_t allocated = (fsnode->size + RPI5_RFS_PAGE - 1) & ~(uint64_t)(RPI5_RFS_PAGE - 1);
+		if (vp->v_type != VREG) { return ENOTSUP; }
+		if ((ap->a_flags & VNODE_WRITE) || foffset < 0 || !blksize ||
+		    (uint64_t)foffset >= allocated || (uint64_t)foffset % blksize) { return EINVAL; }
+		if (bpn) { *bpn = (daddr64_t)((fsnode->data_offset + (uint64_t)foffset) / blksize); }
+		if (run) { *run = (size_t)(allocated - (uint64_t)foffset); }
+		return 0;
+	}
+#endif
+
 	/*
 	 * If we represent a memory backed device, we should be pointing directly to the backing store; all IO should
 	 *   be satisfied from the UBC, and any called to blockmap (inidicating an attempted IO to the backing store)
@@ -408,12 +539,20 @@ mockfs_blockmap(struct vnop_blockmap_args * ap)
 
 int(**mockfs_vnodeop_p)(void *);
 const struct vnodeopv_entry_desc mockfs_vnodeop_entries[] = {
-	{ .opve_op = &vnop_default_desc, .opve_impl = (VOPFUNC) vn_default_error }, /* default */
+	{ .opve_op = &vnop_default_desc, .opve_impl = (VOPFUNC)(void (*)(void)) vn_default_error }, /* default */
 	{ .opve_op = &vnop_lookup_desc, .opve_impl = (VOPFUNC) mockfs_lookup }, /* lookup */
 	{ .opve_op = &vnop_create_desc, .opve_impl = (VOPFUNC) err_create },/* create */
+#if MOCKFS_RPI5_RAMROOT
+	{ .opve_op = &vnop_open_desc, .opve_impl = (VOPFUNC) mockfs_ramroot_open },
+#else
 	{ .opve_op = &vnop_open_desc, .opve_impl = (VOPFUNC) err_open }, /* open */
+#endif
 	{ .opve_op = &vnop_mknod_desc, .opve_impl = (VOPFUNC) err_mknod }, /* mknod */
+#if MOCKFS_RPI5_RAMROOT
+	{ .opve_op = &vnop_close_desc, .opve_impl = (VOPFUNC) mockfs_ramroot_close },
+#else
 	{ .opve_op = &vnop_close_desc, .opve_impl = (VOPFUNC) err_close }, /* close */
+#endif
 	{ .opve_op = &vnop_access_desc, .opve_impl = (VOPFUNC) err_access }, /* access */
 	{ .opve_op = &vnop_getattr_desc, .opve_impl = (VOPFUNC) mockfs_getattr }, /* getattr */
 	{ .opve_op = &vnop_setattr_desc, .opve_impl = (VOPFUNC) err_setattr }, /* setattr */
@@ -429,7 +568,11 @@ const struct vnodeopv_entry_desc mockfs_vnodeop_entries[] = {
 	{ .opve_op = &vnop_mkdir_desc, .opve_impl = (VOPFUNC) err_mkdir }, /* mkdir */
 	{ .opve_op = &vnop_rmdir_desc, .opve_impl = (VOPFUNC) err_rmdir }, /* rmdir */
 	{ .opve_op = &vnop_symlink_desc, .opve_impl = (VOPFUNC) err_symlink }, /* symlink */
+#if MOCKFS_RPI5_RAMROOT
+	{ .opve_op = &vnop_readdir_desc, .opve_impl = (VOPFUNC) mockfs_ramroot_readdir },
+#else
 	{ .opve_op = &vnop_readdir_desc, .opve_impl = (VOPFUNC) err_readdir }, /* readdir */
+#endif
 	{ .opve_op = &vnop_readlink_desc, .opve_impl = (VOPFUNC) err_readlink }, /* readlink */
 	{ .opve_op = &vnop_inactive_desc, .opve_impl = (VOPFUNC) err_inactive }, /* inactive */
 	{ .opve_op = &vnop_reclaim_desc, .opve_impl = (VOPFUNC) mockfs_reclaim }, /* reclaim */

@@ -89,6 +89,8 @@
 #include <sys/stat.h>
 #include <sys/vm.h>
 #include <sys/uio_internal.h>
+#include <dev/memdev_range.h>
+#include <limits.h>
 #include <libkern/libkern.h>
 
 #include <vm/pmap.h>
@@ -213,6 +215,7 @@ mdevrw(dev_t dev, struct uio *uio, __unused int ioflag)
 	int                     devid;
 	enum uio_seg            saveflag;
 	int                     count;
+	uint64_t                available;
 
 	devid = minor(dev);                                                                     /* Get minor device number */
 
@@ -228,6 +231,10 @@ mdevrw(dev_t dev, struct uio *uio, __unused int ioflag)
 	if (uio_resid(uio) < 0) {
 		return EINVAL;
 	}
+	if (!memdev_available_bytes((uint64_t)uio->uio_offset,
+	    memdev_size_bytes(mdev[devid].mdSize), &available)) {
+		return 0;
+	}
 	mdata = ((addr64_t)mdev[devid].mdBase << 12) + uio->uio_offset; /* Point to the area in "file" */
 
 	saveflag = uio->uio_segflg;                                                     /* Remember what the request is */
@@ -242,11 +249,8 @@ mdevrw(dev_t dev, struct uio *uio, __unused int ioflag)
 		}
 	}
 
-	if (uio->uio_offset > (mdev[devid].mdSize << 12)) {
-		count = 0;
-	} else {
-		count = imin(uio_resid(uio), (mdev[devid].mdSize << 12) - uio->uio_offset);
-	}
+	count = (int)MIN((uint64_t)INT_MAX,
+	    MIN((uint64_t)uio_resid(uio), available));
 
 	status = uiomove64(mdata, count, uio);     /* Move the data */
 	uio->uio_segflg = saveflag;                                                     /* Restore the flag */
@@ -258,7 +262,8 @@ static void
 mdevstrategy(struct buf *bp)
 {
 	unsigned int left, lop, csize;
-	vm_offset_t vaddr, blkoff;
+	vm_offset_t vaddr;
+	uint64_t blkoff, disk_bytes, available;
 	int devid;
 	addr64_t paddr, fvaddr;
 	ppnum_t pp;
@@ -273,23 +278,31 @@ mdevstrategy(struct buf *bp)
 
 	buf_setresid(bp, buf_count(bp));                                                /* Set byte count */
 
-	blkoff = buf_blkno(bp) * mdev[devid].mdSecsize;         /* Get offset into file */
+	disk_bytes = memdev_size_bytes(mdev[devid].mdSize);
+	if (buf_blkno(bp) < 0 || !memdev_block_offset((uint64_t)buf_blkno(bp),
+	    (uint32_t)mdev[devid].mdSecsize, &blkoff)) {
+		buf_seterror(bp, EINVAL);
+		buf_biodone(bp);
+		return;
+	}
 
 /*
  *	Note that reading past end is an error, but reading at end is an EOF.  For these
  *	we just return with resid == count.
  */
 
-	if (blkoff >= (mdev[devid].mdSize << 12)) {                     /* Are they trying to read/write at/after end? */
-		if (blkoff != (mdev[devid].mdSize << 12)) {              /* Are we trying to read after EOF? */
-			buf_seterror(bp, EINVAL);                                               /* Yeah, this is an error */
-		}
+	if (!memdev_available_bytes(blkoff, disk_bytes, &available)) {
+		buf_seterror(bp, EINVAL);
+		buf_biodone(bp);
+		return;
+	}
+	if (available == 0) {                     /* At EOF, return with full residual count. */
 		buf_biodone(bp);                                                                /* Return */
 		return;
 	}
 
-	if ((blkoff + buf_count(bp)) > (mdev[devid].mdSize << 12)) {            /* Will this read go past end? */
-		buf_setcount(bp, (uint32_t)((mdev[devid].mdSize << 12) - blkoff));  /* Yes, trim to max */
+	if (buf_count(bp) > available) {            /* Trim without overflowing offset + count. */
+		buf_setcount(bp, (uint32_t)available);
 	}
 	/*
 	 * make sure the buffer's data area is
@@ -420,8 +433,8 @@ mdevioctl(dev_t dev, u_long cmd, caddr_t data, __unused int flag,
 		if (is_char) {
 			return ENODEV;                                        /* We can only do this for a block */
 		}
-		if (*f < DEV_BSIZE) {
-			return EINVAL;                                /* Too short? */
+		if (*f < DEV_BSIZE || *f > INT_MAX) {
+			return EINVAL;                                /* Invalid signed block size? */
 		}
 		mdev[devid].mdSecsize = *f;                                             /* set the new block size */
 		break;
@@ -434,7 +447,8 @@ mdevioctl(dev_t dev, u_long cmd, caddr_t data, __unused int flag,
 		if (!(mdev[devid].mdFlags & mdInited)) {
 			return ENXIO;
 		}
-		*o = ((mdev[devid].mdSize << 12) + mdev[devid].mdSecsize - 1) / mdev[devid].mdSecsize;
+		*o = (memdev_size_bytes(mdev[devid].mdSize) +
+		    mdev[devid].mdSecsize - 1) / mdev[devid].mdSecsize;
 		break;
 
 	/*
@@ -746,6 +760,8 @@ mdevremoveall(void)
 int
 mdevgetrange(int devid, uint64_t *base, uint64_t *size)
 {
+	uint64_t checked_base, checked_size;
+
 	assert(base);
 	assert(size);
 
@@ -759,11 +775,18 @@ mdevgetrange(int devid, uint64_t *base, uint64_t *size)
 		return -1;
 	}
 
-	*base = mdev[devid].mdBase << 12;
-	*size = mdev[devid].mdSize << 12;
+	if (mdev[devid].mdBase > (UINT64_MAX >> 12)) {
+		return -1;
+	}
+	checked_base = mdev[devid].mdBase << 12;
+	checked_size = memdev_size_bytes(mdev[devid].mdSize);
 
 	/* make sure (base, size) is a valid range and will not overflow */
-	assert(*size < (UINT64_MAX - *base));
+	if (checked_size > UINT64_MAX - checked_base) {
+		return -1;
+	}
+	*base = checked_base;
+	*size = checked_size;
 
 	return 0;
 }

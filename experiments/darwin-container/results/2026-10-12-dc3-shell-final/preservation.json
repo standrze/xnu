@@ -1,0 +1,15 @@
+{
+  "expectedCLIStatus": 0,
+  "files": {
+    "loader-manifest.json": "560b9d853163370c559c9404bd2c7af4615fac6c9d26c4d65c52fc9e6958e768",
+    "preflight.json": "ae5e7e182a8b55696ff61c72afccd771ffbaef802a8b2566bc38ff53e8145fdb",
+    "result.json": "5121d4d2dc51feab4fb7a36d8b8c64971c227b702fee25fc3ca0262be3726658",
+    "serial.bin": "d7cc8ed4577b369b886d793ea3b51404ae882a34cbc428f36767d5a97934e943",
+    "serial.txt": "d7cc8ed4577b369b886d793ea3b51404ae882a34cbc428f36767d5a97934e943",
+    "start-requested.json": "ee3b8992c543df5aa4330bd2c9afbf2bae3dea701951b0e42f598de0d0c72f49",
+    "started.json": "57cc17697876ed60cf0224348119809f50d7dbbb536c0fb894b1fa691dd2d3a0",
+    "stopped.json": "bdd0a3ba2f363d79c464add11d4ff44febac55ebda71f457db0b5870a0cfe679"
+  },
+  "qualification": "shell regression",
+  "sessionID": "29ccae2ddd3b462b81ce8a672c6ab68f"
+}

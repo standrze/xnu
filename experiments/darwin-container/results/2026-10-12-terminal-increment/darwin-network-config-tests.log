@@ -1,0 +1,66 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/stephen/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/stephen/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/stephen/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'containerization': failed storing manifest for 'containerization' in cache: attempt to write a readonly database
+warning: 'swift-argument-parser': failed storing manifest for 'swift-argument-parser' in cache: attempt to write a readonly database
+warning: 'grpc-swift-protobuf': failed storing manifest for 'grpc-swift-protobuf' in cache: attempt to write a readonly database
+warning: 'grpc-swift-nio-transport': failed storing manifest for 'grpc-swift-nio-transport' in cache: attempt to write a readonly database
+warning: 'swift-system': failed storing manifest for 'swift-system' in cache: attempt to write a readonly database
+warning: 'grpc-swift-2': failed storing manifest for 'grpc-swift-2' in cache: attempt to write a readonly database
+warning: 'swift-log': failed storing manifest for 'swift-log' in cache: attempt to write a readonly database
+warning: 'async-http-client': failed storing manifest for 'async-http-client' in cache: attempt to write a readonly database
+warning: 'swift-nio-ssl': failed storing manifest for 'swift-nio-ssl' in cache: attempt to write a readonly database
+warning: 'swift-collections': failed storing manifest for 'swift-collections' in cache: attempt to write a readonly database
+warning: 'swift-protobuf': failed storing manifest for 'swift-protobuf' in cache: attempt to write a readonly database
+warning: 'swift-nio': failed storing manifest for 'swift-nio' in cache: attempt to write a readonly database
+warning: 'zstd': failed storing manifest for 'zstd' in cache: attempt to write a readonly database
+warning: 'swift-certificates': failed storing manifest for 'swift-certificates' in cache: attempt to write a readonly database
+warning: 'swift-crypto': failed storing manifest for 'swift-crypto' in cache: attempt to write a readonly database
+warning: 'swift-docc-plugin': failed storing manifest for 'swift-docc-plugin' in cache: attempt to write a readonly database
+warning: 'swift-docc-symbolkit': failed storing manifest for 'swift-docc-symbolkit' in cache: attempt to write a readonly database
+warning: 'swift-service-context': failed storing manifest for 'swift-service-context' in cache: attempt to write a readonly database
+warning: 'swift-atomics': failed storing manifest for 'swift-atomics' in cache: attempt to write a readonly database
+warning: 'swift-distributed-tracing': failed storing manifest for 'swift-distributed-tracing' in cache: attempt to write a readonly database
+warning: 'swift-algorithms': failed storing manifest for 'swift-algorithms' in cache: attempt to write a readonly database
+warning: 'swift-nio-transport-services': failed storing manifest for 'swift-nio-transport-services' in cache: attempt to write a readonly database
+warning: 'swift-nio-http2': failed storing manifest for 'swift-nio-http2' in cache: attempt to write a readonly database
+warning: 'swift-nio-extras': failed storing manifest for 'swift-nio-extras' in cache: attempt to write a readonly database
+warning: 'swift-configuration': failed storing manifest for 'swift-configuration' in cache: attempt to write a readonly database
+warning: 'swift-service-lifecycle': failed storing manifest for 'swift-service-lifecycle' in cache: attempt to write a readonly database
+warning: 'swift-async-algorithms': failed storing manifest for 'swift-async-algorithms' in cache: attempt to write a readonly database
+warning: 'swift-numerics': failed storing manifest for 'swift-numerics' in cache: attempt to write a readonly database
+warning: 'swift-http-types': failed storing manifest for 'swift-http-types' in cache: attempt to write a readonly database
+warning: 'swift-http-structured-headers': failed storing manifest for 'swift-http-structured-headers' in cache: attempt to write a readonly database
+warning: 'swift-asn1': failed storing manifest for 'swift-asn1' in cache: attempt to write a readonly database
+[0/1] Planning build
+[1/1] Compiling plugin Swift-DocC Preview
+[2/2] Compiling plugin Swift-DocC
+[3/3] Compiling plugin SwiftProtobufPlugin
+[4/4] Compiling plugin generate-grpc-code-from-protos
+[5/5] Compiling plugin GRPCProtobufGenerator
+[6/6] Compiling plugin GenerateManual
+[7/7] Compiling plugin GenerateDoccReference
+Building for debugging...
+[7/17] Write swift-version--58304C5D6DBC2206.txt
+[8/16] Write sources
+[11/16] Compiling ContainerizationDarwin DarwinGuestSession.swift
+[12/16] Emitting module ContainerizationDarwin
+[13/16] Compiling ContainerizationDarwin DarwinGuestConfiguration+Virtualization.swift
+[14/16] Compiling ContainerizationDarwin DarwinGuestConfiguration.swift
+[15/17] Compiling ContainerizationDarwin DarwinGuestPreflight.swift
+[16/20] Compiling ContainerizationDarwinTests DarwinGuestPreflightTests.swift
+[17/20] Emitting module ContainerizationDarwinTests
+[18/20] Compiling ContainerizationDarwinTests DarwinNetworkConfigurationTests.swift
+[18/20] Write Objects.LinkFileList
+[19/20] Linking containerizationPackageTests
+Build complete! (13.75s)
+warning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite DarwinNetworkConfigurationTests started.
+◇ Test natAttachmentIsExplicitWithoutStartingOrClaimingGuestNetworking() started.
+✔ Test natAttachmentIsExplicitWithoutStartingOrClaimingGuestNetworking() passed after 0.001 seconds.
+✔ Suite DarwinNetworkConfigurationTests passed after 0.001 seconds.
+✔ Test run with 1 test in 1 suite passed after 0.001 seconds.

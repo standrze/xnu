@@ -71,7 +71,9 @@
 
 #include <IOKit/IOBSD.h>
 
+#if defined(APPLE_ARM64_ARCH_FAMILY)
 #include <pexpert/arm64/apple_arm64_cpu.h>
+#endif
 #include <pexpert/pexpert.h>
 
 // fixme: rdar://114299113 tracks resolving the supportlib issue with hwtrace features

@@ -33,6 +33,8 @@
 #include <sys/random.h>
 #include <sys/kernel_types.h>
 #include <sys/sysctl.h>
+#include <sys/kdebug.h>
+#include <sys/kdebug_private.h>
 
 #include <kern/zalloc.h>
 
@@ -80,7 +82,9 @@ SYSCTL_STRING(_net_classq_scheduler, OID_AUTO, available_models, CTLFLAG_RD | CT
     IFNET_SCHED_MODEL_LIST, 0, "");
 #undef X
 
+#if SKYWALK
 static int ifclassq_configure_sysctl SYSCTL_HANDLER_ARGS;
+#endif
 #endif /* DEBUG || DEVELOPMENT */
 
 static KALLOC_TYPE_DEFINE(ifcq_zone, struct ifclassq, NET_KT_DEFAULT);
@@ -137,7 +141,7 @@ ifclassq_setup(struct ifclassq *ifq, struct ifnet *ifp, uint32_t sflags)
 		}
 	}
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 	static_assert(sizeof(struct skoid) == sizeof(ifcq_oid_t));
 	static_assert(offsetof(struct skoid, sko_oid_list) == offsetof(ifcq_oid_t, ifcq_oid_list));
 	static_assert(offsetof(struct skoid, sko_oid) == offsetof(ifcq_oid_t, ifcq_oid));
@@ -214,7 +218,7 @@ ifclassq_teardown(struct ifclassq *ifq)
 	bzero(&ifq->ifcq_dropcnt, sizeof(ifq->ifcq_dropcnt));
 	ifq->ifcq_flags |= IFCQF_DESTROYED;
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 	struct skoid *ifcq_skoid = (struct skoid *)&ifq->ifcq_oid;
 	skoid_destroy(ifcq_skoid);
 #endif /* (DEBUG || DEVELOPMENT) */
@@ -485,6 +489,7 @@ ifclassq_dequeue(struct ifclassq *ifq, mbuf_svc_class_t sc,
     classq_pkt_t *tail, u_int32_t *cnt, u_int32_t *len, u_int8_t grp_idx)
 {
 	boolean_t drvmgt = sc != MBUF_SC_UNSPEC;
+#if SKYWALK
 	struct ifnet *ifp = ifq->ifcq_ifp;
 
 	if (__improbable(ifp->if_na_ops != NULL &&
@@ -502,6 +507,7 @@ ifclassq_dequeue(struct ifclassq *ifq, mbuf_svc_class_t sc,
 		return ifp->if_na_ops->ni_dequeue(ifp->if_na, sc, pkt_limit,
 		           byte_limit, head, tail, cnt, len, drvmgt, err);
 	}
+#endif /* SKYWALK */
 	return ifclassq_dequeue_common_default(ifq, sc,
 	           pkt_limit, byte_limit, head, tail, cnt, len, drvmgt, grp_idx);
 }
@@ -964,7 +970,7 @@ ifclassq_tbr_get(struct ifclassq *ifcq, u_int32_t *sched_type, u_int64_t *tbr_bw
 	IFCQ_UNLOCK(ifcq);
 }
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 static int
 ifclassq_configure_sysctl SYSCTL_HANDLER_ARGS
 {

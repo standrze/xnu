@@ -135,7 +135,9 @@
 #include <netinet/tcp_fsm.h>
 #include <netinet/tcp_seq.h>
 #include <netinet/tcp_timer.h>
+#if NETWORKING
 #include <netinet/tcp_var.h>
+#endif
 #include <netinet/tcpip.h>
 /* for wait queue based select */
 #include <kern/waitq.h>

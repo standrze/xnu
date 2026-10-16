@@ -1,0 +1,9 @@
+PACKAGE_ZSH:5.9
+PERSISTED_FILE
+PERSISTED_SCRIPT
+SAVED_HISTORY
+print -r -- RESTORED_FILE:$(< /data/note)
+/bin/zsh -f /data/demo.zsh
+fc -l 1
+print -r -- INTERACTIVE_HISTORY_MARKER
+exit

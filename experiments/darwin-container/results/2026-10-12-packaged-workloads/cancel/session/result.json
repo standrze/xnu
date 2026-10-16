@@ -1,0 +1,40 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAccepted" : true,
+        "cancellationAcknowledged" : true,
+        "cancellationRequested" : true,
+        "cancelled" : true,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 171,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 90,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true,
+        "terminationSignal" : 15
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 1.5978648333402816,
+  "error" : "host received signal 2",
+  "guestStopped" : true,
+  "outputDirectory" : "\/Users\/stephen\/Documents\/ChatGPT\/xnu\/experiments\/darwin-container\/userland\/build\/packaged-workload-trial-2\/state\/runs\/cancel\/session",
+  "serialByteCount" : 8769,
+  "sessionID" : "d8305fda1ab24331b591d6beb806340c",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "interrupted"
+}

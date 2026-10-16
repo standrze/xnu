@@ -41,6 +41,10 @@
 #include <machine/atomic.h>
 #include <arm64/proc_reg.h>
 #include <arm64/lowglobals.h>
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <arm64/rpi5_gem_physmap_accounting.h>
+#include <arm64/rpi5_gem_physmap_bounds.h>
+#endif
 #include <arm/cpu_data_internal.h>
 #include <arm/misc_protos.h>
 #include <pexpert/arm64/boot.h>
@@ -84,6 +88,14 @@ extern vm_offset_t physmap_vtop;
  * the bootstrap page tables.
  */
 SECURITY_READ_ONLY_LATE(uint8_t) bootstrap_pagetables[BOOTSTRAP_TABLE_SIZE] __attribute__((aligned(ARM_PGBYTES)));
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* Dedicated L2/L3 storage for a single early UART10 Device page. Never
+ * borrowed from the RAM bootstrap allocator. Retained kernel storage. */
+SECURITY_READ_ONLY_LATE(uint8_t) rpi5_boot_uart_tables[2 * ARM_PGBYTES]
+    __attribute__((aligned(ARM_PGBYTES)));
+SECURITY_READ_ONLY_LATE(static uint64_t) rpi5_boot_uart_root[ARM_PGBYTES / sizeof(uint64_t)]
+    __attribute__((aligned(ARM_PGBYTES)));
+#endif
 
 /*
  * Denotes the end of xnu.
@@ -343,6 +355,21 @@ SECURITY_READ_ONLY_LATE(pmap_paddr_t)    real_avail_end;
 SECURITY_READ_ONLY_LATE(unsigned long)   real_phys_size;
 SECURITY_READ_ONLY_LATE(vm_map_address_t) physmap_base = (vm_map_address_t)0;
 SECURITY_READ_ONLY_LATE(vm_map_address_t) physmap_end = (vm_map_address_t)0;
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && \
+    defined(RPI5_GEM_PAGE_GRANULAR_PHYSMAP) && RPI5_GEM_PAGE_GRANULAR_PHYSMAP
+SECURITY_READ_ONLY_LATE(static struct rpi5_gem_physmap_accounting) rpi5_gem_physmap_stats;
+
+int
+rpi5_gem_physmap_accounting(struct rpi5_gem_physmap_accounting *out)
+{
+	if (out == NULL || rpi5_gem_physmap_stats.enabled != 1) {
+		return -1;
+	}
+	*out = rpi5_gem_physmap_stats;
+	return 0;
+}
+#endif
 
 /**
  * First physical address freely available to xnu.
@@ -1629,15 +1656,58 @@ arm_vm_physmap_init(boot_args *args)
 	ptov_table_entry temp_ptov_table[PTOV_TABLE_SIZE];
 	bzero(temp_ptov_table, sizeof(temp_ptov_table));
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && \
+    defined(RPI5_GEM_PAGE_GRANULAR_PHYSMAP) && RPI5_GEM_PAGE_GRANULAR_PHYSMAP
+	/* A managed page whose cache mode changes must not retain a conflicting
+	 * block-mapped physical-aperture alias.  This opt-in makes every physmap
+	 * region which can be returned to the VM page granular; proc_reg.h then
+	 * enables the existing pmap physical-aperture PTE update.  Keep the two
+	 * changes coupled: either half by itself violates the alias invariant. */
+	const unsigned physmap_granule = 0;
+	const pmap_paddr_t rpi5_table_start = avail_start;
+	const vm_size_t rpi5_first_bytes = round_page(segLOWEST - gVirtBase);
+	const vm_size_t rpi5_rest_bytes = round_page(real_avail_end - args->topOfKernelData);
+	const vm_size_t rpi5_mapped_bytes = rpi5_first_bytes + rpi5_rest_bytes;
+	/* With block mappings disabled the two physical-aperture destinations are
+	 * contiguous at physmap_base, irrespective of their original KVA. */
+	const uint64_t rpi5_leaf_pages = rpi5_gem_table_span_pages(
+		physmap_base, rpi5_mapped_bytes, ARM_TT_L2_SIZE);
+	const vm_offset_t rpi5_direct_start = end_kern;
+	const vm_offset_t rpi5_direct_end = phystokv(args->topOfKernelData);
+	const uint32_t rpi5_edge_pages = rpi5_gem_partial_edge_pages(
+		rpi5_direct_start, rpi5_direct_end, ARM_TT_L2_SIZE);
+	/* init_ptpages() has already allocated one L2 table for each 64-GiB
+	 * physmap root span.  Report that hierarchy separately: those pages are
+	 * outside the measured delta and exist in default builds as well. */
+	const uint32_t rpi5_upper_pages = (uint32_t)rpi5_gem_table_span_pages(
+		physmap_base, real_phys_size, ARM_TT_L1_SIZE);
+#else
+	const unsigned physmap_granule = ARM64_GRANULE_ALLOW_BLOCK | ARM64_GRANULE_ALLOW_HINT;
+#endif
+
 	// Will be handed back to VM layer through ml_static_mfree() in arm_vm_prot_finalize()
 	arm_vm_physmap_slide(temp_ptov_table, gVirtBase, segLOWEST - gVirtBase, AP_RWNA,
-	    ARM64_GRANULE_ALLOW_BLOCK | ARM64_GRANULE_ALLOW_HINT);
+	    physmap_granule);
 
 	arm_vm_page_granular_RWNX(end_kern, phystokv(args->topOfKernelData) - end_kern,
 	    ARM64_GRANULE_ALLOW_BLOCK | ARM64_GRANULE_ALLOW_HINT); /* Device Tree (if not locked down), RAM Disk (if present), bootArgs */
 
 	arm_vm_physmap_slide(temp_ptov_table, (args->topOfKernelData - gPhysBase + gVirtBase),
-	    real_avail_end - args->topOfKernelData, AP_RWNA, ARM64_GRANULE_ALLOW_BLOCK | ARM64_GRANULE_ALLOW_HINT); // rest of physmem
+	    real_avail_end - args->topOfKernelData, AP_RWNA, physmap_granule); // rest of physmem
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && \
+    defined(RPI5_GEM_PAGE_GRANULAR_PHYSMAP) && RPI5_GEM_PAGE_GRANULAR_PHYSMAP
+	rpi5_gem_physmap_stats.table_start = rpi5_table_start;
+	rpi5_gem_physmap_stats.table_end = avail_start;
+	rpi5_gem_physmap_stats.table_bytes = avail_start - rpi5_table_start;
+	rpi5_gem_physmap_stats.mapped_bytes = rpi5_mapped_bytes;
+	rpi5_gem_physmap_stats.table_pages = (uint32_t)((avail_start - rpi5_table_start) / ARM_PGBYTES);
+	rpi5_gem_physmap_stats.maximum_pages = (uint32_t)rpi5_leaf_pages + rpi5_edge_pages;
+	rpi5_gem_physmap_stats.edge_pages = rpi5_edge_pages;
+	rpi5_gem_physmap_stats.preallocated_upper_pages = rpi5_upper_pages;
+	rpi5_gem_physmap_stats.page_bytes = ARM_PGBYTES;
+	rpi5_gem_physmap_stats.enabled = 1;
+#endif
 
 	assert((temp_ptov_table[ptov_index - 1].va + temp_ptov_table[ptov_index - 1].len) <= physmap_end);
 
@@ -1807,9 +1877,17 @@ init_ptpages(tt_entry_t *tt, vm_map_address_t start, vm_map_address_t end, bool 
 #define ARM64_PHYSMAP_SLIDE_RANGE (1ULL << 30) // 1 GB
 #define ARM64_PHYSMAP_SLIDE_MASK  (ARM64_PHYSMAP_SLIDE_RANGE - 1)
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <arm64/rpi5_boot_uart.h>
+#define RPI5_VM_MARK(stage) ((void)rpi5_boot_uart_mark_at(0x107d001000ull, stage))
+#else
+#define RPI5_VM_MARK(stage) ((void)0)
+#endif
+
 void
 arm_vm_init(uint64_t memory_size, boot_args * args)
 {
+	RPI5_VM_MARK('a');
 	vm_map_address_t va_l1, va_l1_end;
 	tt_entry_t       *cpu_l1_tte;
 	vm_map_address_t va_l2, va_l2_end;
@@ -1866,6 +1944,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	assert(physmap_slide < ARM64_PHYSMAP_SLIDE_RANGE);
 
 	physmap_base += physmap_slide;
+	RPI5_VM_MARK('b');
 
 #if XNU_MONITOR
 	physmap_base = ROUND_TWIG(physmap_base);
@@ -1922,7 +2001,8 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	size_t l1_entries = 1 + ((bytes_mapped + ARM_TT_L1_SIZE - 1) / ARM_TT_L1_SIZE);
 	/* 1 L1 each for V=P and KVA, plus 1 page for each L2 */
 	size_t pages_used = 2 * (l1_entries + 1);
-	if (pages_used > BOOTSTRAP_TABLE_SIZE) {
+	/* BOOTSTRAP_TABLE_SIZE is bytes; pages_used counts ARM granules. */
+	if (pages_used > BOOTSTRAP_TABLE_SIZE / ARM_PGBYTES) {
 		panic("BOOTSTRAP_TABLE_SIZE too small for memory config");
 	}
 #endif
@@ -1939,6 +2019,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	 * to trampoline to KVA. this requires only 3 pages to stay resident.
 	 */
 	first_avail_phys = avail_start = args->topOfKernelData;
+	RPI5_VM_MARK('c');
 
 #if defined(KERNEL_INTEGRITY_KTRR) || defined(KERNEL_INTEGRITY_CTRR) || defined(KERNEL_INTEGRITY_PV_CTRR)
 	arm_replace_identity_map();
@@ -1955,6 +2036,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	cpu_tte = (tt_entry_t *)alloc_ptpage(TRUE);
 	cpu_ttep = kvtophys((vm_offset_t)cpu_tte);
 	bzero(cpu_tte, ARM_PGBYTES);
+	RPI5_VM_MARK('d');
 	avail_end = gPhysBase + mem_size;
 	assert(!(avail_end & PAGE_MASK));
 
@@ -1972,6 +2054,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	 *   the so called physical aperture should be statically mapped
 	 */
 	init_ptpages(cpu_tte, gVirtBase, dynamic_memory_begin, TRUE, ARM_TTE_TABLE_AP(ARM_TTE_TABLE_AP_USER_NA));
+	RPI5_VM_MARK('e');
 
 #if defined(ARM_LARGE_MEMORY)
 	/*
@@ -1991,6 +2074,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	/*
 	 * Now retrieve addresses for various segments from kernel mach-o header
 	 */
+	RPI5_VM_MARK('f');
 	segPRELINKTEXTB  = (vm_offset_t) getsegdatafromheader(&_mh_execute_header, "__PRELINK_TEXT", &segSizePRELINKTEXT);
 	segPLKDATACONSTB = (vm_offset_t) getsegdatafromheader(&_mh_execute_header, "__PLK_DATA_CONST", &segSizePLKDATACONST);
 	segPLKTEXTEXECB  = (vm_offset_t) getsegdatafromheader(&_mh_execute_header, "__PLK_TEXT_EXEC", &segSizePLKTEXTEXEC);
@@ -2088,6 +2172,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	end_kern = round_page(segHIGHESTKC ? segHIGHESTKC : getlastkerneladdr()); /* Force end to next page */
 
 	vm_set_page_size();
+	RPI5_VM_MARK('g');
 
 	vm_kernel_base = segTEXTB;
 	vm_kernel_top = (vm_offset_t) &last_kernel_symbol;
@@ -2122,6 +2207,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	vm_prelink_edata = segPRELINKDATAB + segSizePRELINKDATA;
 
 	arm_vm_prot_init(args);
+	RPI5_VM_MARK('h');
 
 	/*
 	 * Initialize the page tables for the low globals:
@@ -2162,17 +2248,37 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 #endif /* KASAN */
 
 	arm_vm_physmap_init(args);
+	RPI5_VM_MARK('i');
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Capture physical addresses while bootstrap conversion is still valid. */
+	pmap_paddr_t rpi5_uart_root_pa = kvtophys((vm_offset_t)rpi5_boot_uart_root);
+	if (!rpi5_boot_uart_root_init(rpi5_boot_uart_root,
+	    kvtophys((vm_offset_t)rpi5_boot_uart_tables))) {
+		panic("BCM2712: invalid temporary UART root");
+	}
+#endif
 	set_mmu_ttb_alternate(cpu_ttep & TTBR_BADDR_MASK);
+	RPI5_VM_MARK('j');
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 	ml_enable_monitor();
+#endif /* The Pi DEVELOPMENT configuration has no Apple monitor. */
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Drop every low RAM mapping; retain only the EL1-only diagnostic UART.
+	 * Normal invalid TTBR0 is restored before this function returns. */
+	set_mmu_ttb(rpi5_uart_root_pa & TTBR_BADDR_MASK);
+#else
 	set_mmu_ttb(invalid_ttep & TTBR_BADDR_MASK);
+#endif
 
 	flush_mmu_tlb();
+	RPI5_VM_MARK('k');
 	kva_active = TRUE;
 	// global table pointers may need to be different due to physical aperture remapping
 	cpu_tte = (tt_entry_t*)(phystokv(cpu_ttep));
 	invalid_tte = (tt_entry_t*)(phystokv(invalid_ttep));
+	RPI5_VM_MARK('l');
 
 	// From here on out, we're off the bootstrap translation tables.
 
@@ -2238,6 +2344,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	}
 
 	dynamic_memory_begin = ROUND_TWIG(dynamic_memory_begin);
+	RPI5_VM_MARK('m');
 #if (defined(KERNEL_INTEGRITY_CTRR) || defined(KERNEL_INTEGRITY_PV_CTRR)) && defined(CONFIG_XNUPOST)
 	// reserve a 32MB region without permission overrides to use later for a CTRR unit test
 	{
@@ -2266,6 +2373,7 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 #endif
 #endif
 	pmap_bootstrap(dynamic_memory_begin);
+	RPI5_VM_MARK('n');
 
 	disable_preemption();
 
@@ -2390,7 +2498,14 @@ arm_vm_init(uint64_t memory_size, boot_args * args)
 	pmap_static_allocations_done();
 #endif
 	first_avail = avail_start;
+	RPI5_VM_MARK('o');
 	patch_low_glo_static_region(args->topOfKernelData, avail_start - args->topOfKernelData);
+	RPI5_VM_MARK('z');
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Diagnostic mapping lifetime ends before preemption can resume. */
+	set_mmu_ttb(invalid_ttep & TTBR_BADDR_MASK);
+	flush_mmu_tlb();
+#endif
 	enable_preemption();
 }
 

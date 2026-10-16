@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-12",
+  "outcome": "passed",
+  "scope": "interactive source-built Apple zsh on XNU VZ VM; not Raspberry Pi deployment or complete DC4",
+  "source": {
+    "repository": "https://github.com/apple-oss-distributions/zsh",
+    "tag": "zsh-118",
+    "commit": "666e91a595af505ef61d5f9b87df7a014a4937c6",
+    "version": "5.9"
+  },
+  "observedOutput": [
+    "APPLE_ZSH:5.9",
+    "BUILTINS:zsh:42",
+    "Darwin  12377.121.6 arm64",
+    "PROMPT_RETURNED"
+  ],
+  "promptReturned": true,
+  "guestStopped": true,
+  "elapsedSeconds": 15.196788166678743,
+  "staticLinkInspection": "passed: no dynamic loader/library commands, undefined imports or unresolved relocations",
+  "sha256": {
+    "zsh": "78d947f6a08e26ceebbf275a7e15479aabbc61645ac407c546b1a82e74b437e5",
+    "ramroot": "9c15abc1254963a9681eadf7fa0924cb0a1cd0425565210ac3b32e07f47c95ec",
+    "kernel": "b3a0d9f49e2af4bfe28ac716111b05a030d1c8fb273c1e4ffe103e2a36582d53",
+    "efiDisk": "58134645ef98107ac65c29858a076ca137775a5d792def48706125bb35a7b434",
+    "serial.bin": "587041d4426ebaa39129d5c488686958bdd4e7067de44bb5e6fce393291a0fff"
+  },
+  "workingCapsule": "../../userland/build/zsh-working-2026-10-12",
+  "launchAndProvenance": "../../userland/ZSH-TRIAL.md",
+  "validation": "necessary source builds/link inspection, two failed startup trials with one targeted diagnostic/repair, then one successful interactive smoke; no soak or broad suite",
+  "limitations": [
+    "line-buffered serial input, not a full PTY",
+    "read-only root; no network or persistent history",
+    "core shell without ZLE/completion or Unicode/multibyte locale support",
+    "project startup/syscall/own-task VM glue and bootstrap utilities are explicitly downstream",
+    "per-image entropy repeats on image reuse; inherited seed-clear issue not fixed",
+    "interactive runner does not use bootstrap shell readiness/nonce markers"
+  ]
+}

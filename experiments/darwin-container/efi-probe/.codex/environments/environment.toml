@@ -1,0 +1,6 @@
+version = 1
+
+[[actions]]
+name = "Build EFI probe (no VM start)"
+icon = "tool"
+command = "/bin/bash script/build_and_run.sh --build-only"

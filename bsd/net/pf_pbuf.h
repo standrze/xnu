@@ -90,6 +90,12 @@ void            pbuf_init_memory(pbuf_t *, const struct pbuf_memory *,
 void            pbuf_destroy(pbuf_t *);
 void            pbuf_sync(pbuf_t *);
 
+/* Shared mbuf metadata helpers, independent of PF rule processing. */
+__private_extern__ struct pf_mtag *pf_find_mtag(struct mbuf *);
+__private_extern__ struct pf_fragment_tag *pf_find_fragment_tag(struct mbuf *);
+__private_extern__ struct pf_fragment_tag *pf_copy_fragment_tag(struct mbuf *,
+    struct pf_fragment_tag *, int);
+
 struct mbuf     *pbuf_to_mbuf(pbuf_t *, boolean_t);
 struct mbuf     *pbuf_clone_to_mbuf(pbuf_t *);
 

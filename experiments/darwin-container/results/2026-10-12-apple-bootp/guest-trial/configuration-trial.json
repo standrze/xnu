@@ -1,0 +1,30 @@
+{
+  "passed": [
+    "original Apple bootp options/match/BPF/checksum and IPv4 routines configured en0; project route ACK confirmed",
+    "DHCP-provided DNS address persisted in real resolver configuration",
+    "fresh guest DNS and resolved TCP exchange after Apple-source DHCP, independently witnessed on host",
+    "normal zsh exit and clean guest shutdown"
+  ],
+  "error": null,
+  "cli_exit": 0,
+  "cli_sha256": "57623afd87f08b488352a09fd9d0e3898cbe838a501bf74880dcf594cf7b0130",
+  "network_fixture": {
+    "events": [
+      {
+        "type": "dns",
+        "guest": "192.168.64.16",
+        "name": "eb9dfc4a3bf53927dc76c4c2.darwin.test",
+        "answer": "192.168.64.1"
+      },
+      {
+        "type": "tcp",
+        "guest": "192.168.64.16",
+        "echo": "eb9dfc4a3bf53927dc76c4c2"
+      }
+    ],
+    "errors": [],
+    "host_route": "   route to: 192.168.64.16\ndestination: 192.168.64.16\n  interface: bridge100\n      flags: <UP,HOST,DONE,LLINFO,WASCLONED,IFSCOPE,IFREF>\n recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire\n       0         0         0         0         0         0      1500      1200 \n",
+    "token": "eb9dfc4a3bf53927dc76c4c2"
+  },
+  "scope": "one bounded Apple-bootp VM configuration/integration trial; no repeated PTY/GPU proof; no Pi evidence"
+}

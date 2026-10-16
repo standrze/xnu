@@ -1,0 +1,76 @@
+{
+  "repository": "https://github.com/apple-oss-distributions/ncurses",
+  "tag": "ncurses-79",
+  "commit": "1d2f7b26157890a542d967be0d1236e7a97f8f5b",
+  "tree": "9972716808036ba1deade6d2e8d9cce01e472a21",
+  "configuration_requested": [
+    "/bin/sh",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-ncurses/ncurses/configure",
+    "--without-shared",
+    "--without-debug",
+    "--without-ada",
+    "--without-cxx",
+    "--without-cxx-binding",
+    "--without-tests",
+    "--without-manpages",
+    "--without-curses-h",
+    "--without-dlsym",
+    "--disable-widec",
+    "--disable-ext-colors",
+    "--disable-largefile",
+    "--disable-home-terminfo",
+    "--disable-root-environ",
+    "--without-pthread",
+    "--enable-termcap",
+    "--disable-db-install",
+    "--with-termlib",
+    "--with-default-terminfo-dir=/usr/share/terminfo",
+    "CC=clang",
+    "CFLAGS=-Os -ffreestanding -fno-builtin -fno-stack-protector -D_FORTIFY_SOURCE=0"
+  ],
+  "configuration_log_sha256": "3890d0038d2689bdc47852fde8e974718174ea101ff7d92b4251c4dea37d0581",
+  "implementation_source_modified": false,
+  "commands": [
+    [
+      "make",
+      "-C",
+      "include"
+    ],
+    [
+      "make",
+      "-j4",
+      "libs"
+    ],
+    [
+      "make",
+      "-C",
+      "progs",
+      "-j4",
+      "tic",
+      "infocmp"
+    ],
+    [
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-terminal-1/progs/tic",
+      "-e",
+      "dumb,vt100",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-terminal-1/terminfo",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-ncurses/ncurses/misc/terminfo.src"
+    ]
+  ],
+  "generated_header_adaptation": "Remove @@ABIDECLS@@ dylib-ABI marker; disable incorrect SCREEN-extended printf annotation",
+  "archives": {
+    "lib/libform.a": "468afa68f635da002de5ebdbbbc241709ce949271b90c7a2afd8723aea47a812",
+    "lib/libmenu.a": "25debde7287960ffe64f8249d4dc1564571e348559d0344efcac548735473133",
+    "lib/libncurses.a": "859a731a6d03be43cc1aefb800ffe05334b66a79b0493d0f79ec1732ec3d0679",
+    "lib/libpanel.a": "6475f9f7b0d3cb3c924fc65d7bd5ce06f84c42b97723544c48715bfec9ec961f",
+    "lib/libtinfo.a": "290acdd9994f6516870166098932e59b4a1d3f6502d9c2b9bd88c821858e5f80"
+  },
+  "guest_terminfo": {
+    "terminfo/64/dumb": "123c85a2812a517d967db5f31660db0e6aded4a0b95ed943c5ab435368e7a25c",
+    "terminfo/76/vt100": "e785b2336ef3cf0a5200007a28b8cce226bcb2b8d37025a64e4b0a90f5e311ee",
+    "terminfo/76/vt100-am": "e785b2336ef3cf0a5200007a28b8cce226bcb2b8d37025a64e4b0a90f5e311ee"
+  },
+  "terminfo_source_sha256": "65b97422563b1905277a0aec5d8b889c28a670cd6a38a326bbacb87400adeb61",
+  "scope": "Source-built arm64 static archives. No tests or guest boot. Host tools are not guest runtime."
+}

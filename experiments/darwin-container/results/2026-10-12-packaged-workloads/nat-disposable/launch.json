@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/networked-counter-0.3.0/container",
+    "darwin",
+    "run",
+    "--managed-agent",
+    "--agent-command",
+    "/bin/zsh -f /app/entry.zsh",
+    "--boot-disk",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/workload-state/package-nat-check/runs/nat-smoke/boot.img",
+    "--data-disk",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/workload-state/package-nat-check/runs/nat-smoke/data.raw",
+    "--output-dir",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/workload-state/package-nat-check/runs/nat-smoke/session",
+    "--cpus",
+    "1",
+    "--memory-mib",
+    "512",
+    "--timeout-seconds",
+    "30",
+    "--network-nat"
+  ],
+  "boot_sha256": "987e3f8a4343c390e2aaa839f4ccdf89db56b6434d15959fe3eabc33f624f157",
+  "entropy": "fresh host os.urandom(256); seed bytes not logged",
+  "package_manifest_sha256": "336e8aa6413e618dda5e3654e7495b9ea7feb7be3a4dc18f86838d8061f27dfa"
+}

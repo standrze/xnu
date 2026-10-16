@@ -357,7 +357,12 @@ extern unsigned long            gVirtBase, gPhysBase, gPhysSize;
  */
 #include <stdint.h>
 extern uint64_t                 gDramBase, gDramSize;
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+extern unsigned rpi5_physical_memory_type(uint64_t start, uint64_t end);
+#define is_dram_addr(addr) (rpi5_physical_memory_type((uint64_t)(addr), (uint64_t)(addr) + 1) == 1)
+#else
 #define is_dram_addr(addr)      (((uint64_t)(addr) - gDramBase) < gDramSize)
+#endif
 
 #endif /* MACH_KERNEL_PRIVATE */
 

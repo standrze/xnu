@@ -1,0 +1,45 @@
+--- a/BCM2712PCIePHYTransport.h
++++ b/BCM2712PCIePHYTransport.h
+@@ -43,6 +43,7 @@
+ private:
+     IOService *ownerProvider = nullptr;
+     void *ownerThread = nullptr;
++    OSData *firmwareFDT = nullptr;
+     IOMemoryMap *maps[3] = {};
+     vm_offset_t registers[3] = {};
+     struct rpi5_pcie_fdt binding = {};
+@@ -80,6 +81,9 @@
+      * instance only; no hardware register read/write or PM claim at prepare.
+      * Caller's normal release cleans up only PRE-claim preparation failures. */
+     bool prepare(IOService *, const void *fdt, size_t bytes);
++    /* Strict preparation from the retained boot FDT's private sanitized copy.
++     * Does not activate hardware or prove power/clock/recovery admission. */
++    bool prepareBoot(IOService *);
+     /* One watchdog claim, reset44 -> shared RESCAL -> fixed 54-MHz SerDes.
+      * Independent output is committed only after every stage/guard passes.
+      * Success is PHY sequence only, NOT link training or RP1 discovery. */
+--- a/BCM2712PCIePHYTransport.cpp
++++ b/BCM2712PCIePHYTransport.cpp
+@@ -5,6 +5,9 @@
+ #if !RPI5_PCIE_UBUS_DIAGNOSTIC
+ #error "PCIe UBUS continuation requires its separate diagnostic build"
+ #endif
++#if !RPI5_FIRMWARE_FDT_HANDOFF
++#error "Boot-FDT transport preparation requires its separate diagnostic build"
++#endif
+ #include "BCM2712PCIePHYTransport.h"
+ #include <IOKit/IOLib.h>
+ #include <machine/machine_routines.h>
+@@ -97,6 +100,7 @@
+     assert(!claimAttempted);
+     for (unsigned i = 0; i < 3; i++) if (maps[i]) maps[i]->release();
+     if (providerOpened) ownerProvider->close(this);
++    if (firmwareFDT) firmwareFDT->release();
+     if (ownerProvider) ownerProvider->release();
+     if (singletonHeld) {
+         BCM2712PCIePHYTransport *expected = this;
+@@ -221,3 +225,4 @@
+     return true;
+ }
+ #include "BCM2712PCIeUBUS.inc"
++#include "BCM2712FirmwareFDTTransport.inc"

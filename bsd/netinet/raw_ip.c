@@ -448,7 +448,11 @@ rip_output(
 			}
 			return EISCONN;
 		}
+#if CONTENT_FILTER
 		dst = cfil_faddr_use ? cfil_dst : inp->inp_faddr.s_addr;
+#else
+		dst = inp->inp_faddr.s_addr;
+#endif /* CONTENT_FILTER */
 	} else {
 		if (dst == INADDR_ANY) {
 			if (m != NULL) {

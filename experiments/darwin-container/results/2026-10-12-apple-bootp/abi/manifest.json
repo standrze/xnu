@@ -1,0 +1,825 @@
+{
+  "archive": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/libdarwin-static-abi.a",
+  "sha256": "4ce05a13bddfdc79f3db74393420f2c2b7b5eee0b9ac75ae561ace7be37c4684",
+  "commands": [
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-E",
+      "-P",
+      "-x",
+      "assembler-with-cpp",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/syscalls.S"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "-x",
+      "assembler",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/0-preprocessed.s",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/0-syscalls.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-E",
+      "-P",
+      "-x",
+      "assembler-with-cpp",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/custom.s"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "-x",
+      "assembler",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/1-preprocessed.s",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/1-custom.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/errno.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/2-errno.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-E",
+      "-P",
+      "-x",
+      "assembler-with-cpp",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/__gettimeofday.s"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "-x",
+      "assembler",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/3-preprocessed.s",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/3-__gettimeofday.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/kill.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/4-kill.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-D__SIGSUSPEND=__sigsuspend_nocancel",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/sigsuspend-base.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/5-sigsuspend-base.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/unix03/mmap.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/6-mmap.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/unix03/munmap.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/7-munmap.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-E",
+      "-P",
+      "-x",
+      "assembler-with-cpp",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/arm64/setjmp.s"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "-x",
+      "assembler",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/8-preprocessed.s",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/8-setjmp.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/generic/sigaction.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/9-sigaction.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-D__OS_INTERNAL_H__",
+      "-DOS_NOEXPORT=extern __attribute__((visibility(\"hidden\")))",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/generic/sigtramp.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/10-sigtramp.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-Libc-1752.120.2/sys/sigaction.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/11-sigaction.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-E",
+      "-P",
+      "-x",
+      "assembler-with-cpp",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_entry.S"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "-x",
+      "assembler",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/12-preprocessed.s",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/12-darwin_entry.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-Libc-1752.120.2/gen/dirfd.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/13-dirfd.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_static.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/14-darwin_static.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_vm.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/15-darwin_vm.o"
+    ],
+    [
+      "xcrun",
+      "clang",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-isysroot",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/include",
+      "-I",
+      "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom",
+      "-Os",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-D_FORTIFY_SOURCE=0",
+      "-c",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_sleep.c",
+      "-o",
+      "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/16-darwin_sleep.o"
+    ]
+  ],
+  "inputs": {
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-bootp-4/abi/syscalls.S": "a0f9c76a399d6629faed0554fa96d46a88331652ab63e2520e218b068794d76f",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/custom.s": "a83773b47258a6e1ed1243f44aa393490add5dab3144fe0cdc6586242197189b",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/errno.c": "49d3e1f7f46875b559bfcc2d932ca28923bac8bdceaabc7728b5377034c0c044",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/custom/__gettimeofday.s": "839a33d8fc79b76eb9aeca2e1b8495a20fab919afb1dccf7ca6535943a0d0426",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/kill.c": "1a95b05b5ee79d46ecadc37ec13023d9dd669b6ff2ac70a615d49fea7716ce79",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/sigsuspend-base.c": "58c5c9f29df28d2cec78b40972497e9790c8abfa0dac5787dbf7772bc834f57c",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/unix03/mmap.c": "10827860bea83b885b63bade1b4e8fb5a4aebf0f4bb056b8813b4f49a3eb0977",
+    "/Users/stephen/Documents/ChatGPT/xnu/libsyscall/wrappers/unix03/munmap.c": "39a111e3b2f3b048fb93ae84c377cdaa3a0b7cd5aa21fbb2cb4b0aa169ee8961",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/arm64/setjmp.s": "54683aeac0bf94238f447197144df1554f1b50591bc090eb70f1fe30fbea0e65",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/generic/sigaction.c": "66006f14e147d2455d611b91941657ca143fbbc69709a1c4fefdc15a70cf61a0",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-libplatform-375.120.2/src/setjmp/generic/sigtramp.c": "fa0634638fc033e789b1c2a9e57a00415c1bae7ad876c8a49dd68ebeeeffff35",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-Libc-1752.120.2/sys/sigaction.c": "7834ddc70a2535c7d1df3be14a9316eccb653d8a92da50296ca25a9b6ea506e5",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_entry.S": "2a85de533c37765e49d78c2f86d9c11beef6361fb9a5620d9871ecef12f563fd",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/upstream/apple-Libc-1752.120.2/gen/dirfd.c": "f2dc0623972db1cade756e6d57a3a28b69446f2bb227b80c2e982ae74faf229d",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_static.c": "7ba722a09d451c83e76773c4cb1e5f7566702089e4182ee311f0e15fa30d2547",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_vm.c": "48f0371e1b08bce1278c4fb90f7771447a737a3a751f72c9070937bf4dda17f8",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/darwin_sleep.c": "e21facf5c4fbac9516293d8b982fd5ac64f51451ff6ca5e9ed76b0fb8fba7c0e"
+  },
+  "syscalls": {
+    "_exit": [
+      "exit",
+      1
+    ],
+    "read": [
+      "read",
+      3
+    ],
+    "write": [
+      "write",
+      3
+    ],
+    "darwin_open": [
+      "open",
+      3
+    ],
+    "close": [
+      "close",
+      1
+    ],
+    "wait4": [
+      "wait4",
+      4
+    ],
+    "link": [
+      "link",
+      2
+    ],
+    "unlink": [
+      "unlink",
+      1
+    ],
+    "chdir": [
+      "chdir",
+      1
+    ],
+    "fchdir": [
+      "fchdir",
+      1
+    ],
+    "chmod": [
+      "chmod",
+      2
+    ],
+    "chown": [
+      "chown",
+      3
+    ],
+    "getpid": [
+      "getpid",
+      0
+    ],
+    "getppid": [
+      "getppid",
+      0
+    ],
+    "getuid": [
+      "getuid",
+      0
+    ],
+    "geteuid": [
+      "geteuid",
+      0
+    ],
+    "getgid": [
+      "getgid",
+      0
+    ],
+    "getegid": [
+      "getegid",
+      0
+    ],
+    "access": [
+      "access",
+      2
+    ],
+    "__kill": [
+      "kill",
+      3
+    ],
+    "setuid": [
+      "setuid",
+      1
+    ],
+    "setgid": [
+      "setgid",
+      1
+    ],
+    "getpgrp": [
+      "getpgrp",
+      0
+    ],
+    "setpgid": [
+      "setpgid",
+      2
+    ],
+    "dup": [
+      "dup",
+      1
+    ],
+    "dup2": [
+      "dup2",
+      2
+    ],
+    "umask": [
+      "umask",
+      1
+    ],
+    "darwin_ioctl": [
+      "ioctl",
+      3
+    ],
+    "darwin_fcntl": [
+      "fcntl",
+      3
+    ],
+    "execve": [
+      "execve",
+      3
+    ],
+    "readlink": [
+      "readlink",
+      3
+    ],
+    "symlink": [
+      "symlink",
+      2
+    ],
+    "rename": [
+      "rename",
+      2
+    ],
+    "lseek": [
+      "lseek",
+      3
+    ],
+    "fchmod": [
+      "fchmod",
+      2
+    ],
+    "fchown": [
+      "fchown",
+      3
+    ],
+    "select": [
+      "select",
+      5
+    ],
+    "getrusage": [
+      "getrusage",
+      2
+    ],
+    "getrlimit": [
+      "getrlimit",
+      2
+    ],
+    "setrlimit": [
+      "setrlimit",
+      2
+    ],
+    "setreuid": [
+      "setreuid",
+      2
+    ],
+    "setregid": [
+      "setregid",
+      2
+    ],
+    "seteuid": [
+      "seteuid",
+      1
+    ],
+    "setegid": [
+      "setegid",
+      1
+    ],
+    "sigprocmask": [
+      "sigprocmask",
+      3
+    ],
+    "__sigsuspend_nocancel": [
+      "sigsuspend",
+      1
+    ],
+    "__sigaction": [
+      "sigaction",
+      3
+    ],
+    "__sigreturn": [
+      "sigreturn",
+      3
+    ],
+    "__sigaltstack": [
+      "sigaltstack",
+      2
+    ],
+    "__mmap": [
+      "mmap",
+      6
+    ],
+    "__munmap": [
+      "munmap",
+      2
+    ],
+    "mprotect": [
+      "mprotect",
+      3
+    ],
+    "sysctl": [
+      "sysctl",
+      6
+    ],
+    "getdirentries64": [
+      "getdirentries64",
+      4
+    ],
+    "apple_getdirentries64": [
+      "getdirentries64",
+      4
+    ],
+    "stat": [
+      "stat64",
+      2
+    ],
+    "fstat": [
+      "fstat64",
+      2
+    ],
+    "lstat": [
+      "lstat64",
+      2
+    ],
+    "fstatfs": [
+      "fstatfs64",
+      2
+    ],
+    "issetugid": [
+      "issetugid",
+      0
+    ],
+    "getentropy": [
+      "getentropy",
+      2
+    ],
+    "csops": [
+      "csops",
+      4
+    ],
+    "setitimer": [
+      "setitimer",
+      3
+    ],
+    "getitimer": [
+      "getitimer",
+      2
+    ],
+    "getpriority": [
+      "getpriority",
+      2
+    ],
+    "setpriority": [
+      "setpriority",
+      3
+    ],
+    "getdtablesize": [
+      "getdtablesize",
+      0
+    ],
+    "getgroups": [
+      "getgroups",
+      2
+    ],
+    "socket": [
+      "socket",
+      3
+    ],
+    "connect": [
+      "connect",
+      3
+    ],
+    "bind": [
+      "bind",
+      3
+    ],
+    "setsockopt": [
+      "setsockopt",
+      5
+    ],
+    "getsockopt": [
+      "getsockopt",
+      5
+    ],
+    "getpeername": [
+      "getpeername",
+      3
+    ],
+    "sendto": [
+      "sendto",
+      6
+    ],
+    "recvfrom": [
+      "recvfrom",
+      6
+    ],
+    "recvmsg": [
+      "recvmsg",
+      3
+    ],
+    "writev": [
+      "writev",
+      3
+    ],
+    "pselect": [
+      "pselect",
+      6
+    ]
+  },
+  "network": true,
+  "scope": "source-build only; no guest execution; static single-thread ABI glue"
+}

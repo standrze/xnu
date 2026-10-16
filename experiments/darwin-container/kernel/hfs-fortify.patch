@@ -1,0 +1,26 @@
+--- a/core/hfs_catalog.c
++++ b/core/hfs_catalog.c
+@@ -1628 +1628,2 @@
+-		bcopy(&attrp->ca_finderinfo[0], &dir->userInfo, 32);
++		bcopy(&attrp->ca_finderinfo[0], &dir->userInfo, sizeof(dir->userInfo));
++		bcopy(&attrp->ca_finderinfo[16], &dir->finderInfo, sizeof(dir->finderInfo));
+@@ -1695 +1696,2 @@
+-		bcopy(&attrp->ca_finderinfo[0], &file->userInfo, 32);
++		bcopy(&attrp->ca_finderinfo[0], &file->userInfo, sizeof(file->userInfo));
++		bcopy(&attrp->ca_finderinfo[16], &file->finderInfo, sizeof(file->finderInfo));
+@@ -3751 +3753,2 @@
+-		bcopy(attrp->ca_finderinfo, &crp->hfsPlusFolder.userInfo, 32);
++		bcopy(attrp->ca_finderinfo, &crp->hfsPlusFolder.userInfo, sizeof(crp->hfsPlusFolder.userInfo));
++		bcopy(attrp->ca_finderinfo + 16, &crp->hfsPlusFolder.finderInfo, sizeof(crp->hfsPlusFolder.finderInfo));
+@@ -3767 +3770,2 @@
+-		bcopy(attrp->ca_finderinfo, &crp->hfsPlusFile.userInfo, 32);
++		bcopy(attrp->ca_finderinfo, &crp->hfsPlusFile.userInfo, sizeof(crp->hfsPlusFile.userInfo));
++		bcopy(attrp->ca_finderinfo + 16, &crp->hfsPlusFile.finderInfo, sizeof(crp->hfsPlusFile.finderInfo));
+@@ -3775 +3779,2 @@
+-		bzero(&crp->hfsPlusFile.dataFork, 2*sizeof(HFSPlusForkData));
++		bzero(&crp->hfsPlusFile.dataFork, sizeof(crp->hfsPlusFile.dataFork));
++		bzero(&crp->hfsPlusFile.resourceFork, sizeof(crp->hfsPlusFile.resourceFork));
+@@ -3954 +3959,2 @@
+-	bcopy(&crp->userInfo, attrp->ca_finderinfo, 32);
++	bcopy(&crp->userInfo, attrp->ca_finderinfo, sizeof(crp->userInfo));
++	bcopy(&crp->finderInfo, attrp->ca_finderinfo + 16, sizeof(crp->finderInfo));

@@ -42,7 +42,8 @@ vnode_pager_get_object_vnode(
 	uintptr_t * vnodeaddr,
 	uint32_t * vid);
 
-#if CONFIG_CODE_DECRYPTION
+/* vm_apple_protect.c is a standard source even without code decryption. */
+struct pager_crypt_info;
 extern memory_object_t apple_protect_pager_setup(
 	vm_object_t             backing_object,
 	vm_object_offset_t      backing_offset,
@@ -51,7 +52,6 @@ extern memory_object_t apple_protect_pager_setup(
 	vm_object_offset_t      crypto_start,
 	vm_object_offset_t      crypto_end,
 	boolean_t               cache_pager);
-#endif /* CONFIG_CODE_DECRYPTION */
 
 extern memory_object_t shared_region_pager_setup(
 	vm_object_t             backing_object,

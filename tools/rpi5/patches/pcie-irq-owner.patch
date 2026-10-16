@@ -1,0 +1,13 @@
+--- a/pe_fiq.c
++++ b/pe_fiq.c
+@@ -439,6 +439,10 @@
+ #include <pexpert/arm/rpi5_pcie_watchdog_owner.inc>
+ #endif
+ 
++#if RPI5_PCIE_IRQ_MASK
++#include <pexpert/arm/rpi5_pcie_irq_owner.inc>
++#endif
++
+ #line 433
+ uint32_t
+ pe_rpi5_irq_acknowledge(void)

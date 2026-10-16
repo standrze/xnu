@@ -377,7 +377,18 @@ is_IOCPU_disabled(void)
 static bool
 is_IOCPU_disabled(void)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	/* BCM2712 uses the legacy IOCPU path only during opt-in SMP bring-up. */
+	int register_secondaries = 0;
+	int register_boot_cpu = 0;
+	bool all = PE_parse_boot_argn("bcm2712_register_secondaries",
+	    &register_secondaries, sizeof(register_secondaries)) && register_secondaries == 1;
+	bool boot = PE_parse_boot_argn("bcm2712_register_boot_cpu",
+	    &register_boot_cpu, sizeof(register_boot_cpu)) && register_boot_cpu == 1;
+	return !(all || boot);
+#else
 	return true;
+#endif
 }
 #endif /* !USE_APPLEARMSMP */
 

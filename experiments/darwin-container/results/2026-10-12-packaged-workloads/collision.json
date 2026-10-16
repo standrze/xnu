@@ -1,0 +1,18 @@
+{
+  "name": "collision",
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/counter-trial-0.3.0",
+  "package_manifest_sha256": "f1dbaba92816b3610d2880560a0ba3025382514fe8f2bbdd22f0889f187bf5d6",
+  "workload": "counter-trial",
+  "version": "1.0.0",
+  "state": "failed",
+  "volume": "persist",
+  "network": "none",
+  "resources": {
+    "cpus": 1,
+    "memory_mib": 512,
+    "timeout_seconds": 30
+  },
+  "directory": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/packaged-workload-trial-2/state/runs/collision",
+  "error": "volume persist is already attached to another workload",
+  "runner_exit_code": 1
+}

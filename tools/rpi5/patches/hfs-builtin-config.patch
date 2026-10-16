@@ -1,0 +1,164 @@
+--- a/core/hfs_iokit.h
++++ b/core/hfs_iokit.h
+@@ -30,7 +30,10 @@
+ #define hfs_iokit_h
+ 
+ #include <sys/cdefs.h>
++/* BCM2712 ordinary HFS: key services exist only in protected builds. */
++#if CONFIG_PROTECT
+ #include <AppleKeyStore/AppleKeyStoreFSServices.h>
++#endif
+ 
+ __BEGIN_DECLS
+ 
+@@ -42,6 +45,7 @@
+ 									void *arg);
+ kern_return_t hfs_get_platform_serial_number(char *serial_number_str,
+ 											 uint32_t len);
++#if CONFIG_PROTECT
+ int hfs_unwrap_key(aks_cred_t access, const aks_wrapped_key_t wrapped_key_in,
+ 				   aks_raw_key_t key_out);
+ int hfs_rewrap_key(aks_cred_t access, cp_key_class_t dp_class,
+@@ -51,6 +55,7 @@
+ 				aks_raw_key_t key_out, aks_wrapped_key_t wrapped_key_out);
+ int hfs_backup_key(aks_cred_t access, const aks_wrapped_key_t wrapped_key_in,
+ 				   aks_wrapped_key_t wrapped_key_out);
++#endif
+ 
+ __END_DECLS
+ 
+--- a/core/hfs_iokit.cpp
++++ b/core/hfs_iokit.cpp
+@@ -39,6 +39,7 @@
+ #include <IOKit/IOBSD.h>
+ #include <IOKit/IOKitKeys.h>
+ #include <IOKit/IOPlatformExpert.h>
++#include <libkern/sysctl.h>
+ 
+ #include "hfs_iokit.h"
+ #include "hfs.h"
+@@ -125,7 +126,11 @@
+ 	uint32_t num_cpus;
+ 	size_t sz = sizeof(num_cpus);
+ 
++#if RPI5_HFS_BUILTIN
++	if (kernel_sysctlbyname("hw.physicalcpu", &num_cpus, &sz, NULL, 0) == 0) {
++#else
+ 	if (sysctlbyname("hw.physicalcpu", &num_cpus,  &sz, NULL, 0) == 0) {
++#endif
+ 		if ((2 * num_cpus) > MAX_CACHED_ORIGINS_DEFAULT) {
+ 			_hfs_max_origins = 2 * num_cpus;
+ 			_hfs_max_file_origins = 2 * num_cpus;
+@@ -252,6 +257,7 @@
+ 	return KERN_SUCCESS;
+ }
+ 
++#if CONFIG_PROTECT
+ // Interface with AKS
+ 
+ static aks_file_system_key_services_t *
+@@ -308,3 +314,4 @@
+ 		return ENXIO;
+ 	return ks->backup_key(access, wrapped_key_in, wrapped_key_out);
+ }
++#endif /* CONFIG_PROTECT: no fake key service on BCM2712 */
+--- a/core/kext-config.h
++++ b/core/kext-config.h
+@@ -52,7 +52,13 @@
+ 
+ #else // OS X
+ 
++#if RPI5_HFS_BUILTIN
++/* Use the real kernel policy, not a conflicting external-kext default. */
++#include <quota.h>
++#define CONFIG_PROTECT 0
++#else
+ #define QUOTA 1
++#endif
+ #define NAMEDSTREAMS 1
+ #define CONFIG_HFS_DIRLINK 1
+ #define CONFIG_SEARCHFS 1
+--- a/core/hfs_vfsutils.c
++++ b/core/hfs_vfsutils.c
+@@ -140,6 +140,13 @@
+ 		return (EINVAL);
+ 	}
+ 
++#if RPI5_HFS_BUILTIN && !CONFIG_PROTECT
++	/* Reject protected media before mount-time metadata or journal changes. */
++	if (SWAP_BE32(vhp->attributes) & kHFSContentProtectionMask) {
++		return ENOTSUP;
++	}
++#endif
++
+ 	/* Block size must be at least 512 and a power of 2 */
+ 	blockSize = SWAP_BE32(vhp->blockSize);
+ 	if (blockSize < 512 || !powerof2(blockSize)) {
+--- a/core/hfs_vfsops.c
++++ b/core/hfs_vfsops.c
+@@ -189,6 +189,12 @@
+ 	int retval = E_NONE;
+ 	u_int32_t cmdflags;
+ 
++#if RPI5_HFS_BUILTIN && !CONFIG_PROTECT
++	if (vfs_flags(mp) & MNT_CPROTECT) {
++		return ENOTSUP;
++	}
++#endif
++
+ 	if (data && (retval = copyin(data, (caddr_t)&args, sizeof(args)))) {
+ 		if (HFS_MOUNT_DEBUG) {
+ 			printf("hfs_mount: copyin returned %d for fs\n", retval);
+@@ -515,7 +521,9 @@
+ #if	TARGET_OS_OSX 
+ 		// increment kext retain count
+ 		OSIncrementAtomic(&hfs_active_mounts);
++#if !RPI5_HFS_BUILTIN
+ 		OSKextRetainKextWithLoadTag(OSKextGetCurrentLoadTag());
++#endif /* Built-in filesystem has no independently unloadable kmod. */
+ 		if (hfs_active_mounts <= 0 && panic_on_assert)
+ 			panic("hfs_mount: error - kext resource count is non-positive: %d but at least one active mount\n", hfs_active_mounts);
+ #endif
+@@ -2102,7 +2110,9 @@
+ 	// decrement kext retain count
+ #if	TARGET_OS_OSX
+ 	OSDecrementAtomic(&hfs_active_mounts);
++#if !RPI5_HFS_BUILTIN
+ 	OSKextReleaseKextWithLoadTag(OSKextGetCurrentLoadTag());
++#endif
+ #endif
+ 
+ #if HFS_LEAK_DEBUG && TARGET_OS_OSX
+--- a/core/hfs_search.c
++++ b/core/hfs_search.c
+@@ -590,7 +590,7 @@
+ 		hfs_unlock(VTOC(vp));
+ 
+ #if CONFIG_MACF
+-		if (vp->v_type == VDIR) {
++		if (vnode_vtype(vp) == VDIR) {
+ 			myErr = mac_vnode_check_readdir(ctx, vp);
+ 		} else {
+ 			myErr = mac_vnode_check_stat(ctx, NOCRED, vp);
+--- a/core/hfs_journal.c
++++ b/core/hfs_journal.c
+@@ -51,6 +51,7 @@
+ #include <sys/kdebug.h>
+ #include <sys/kpi_private.h>
+ #include <sys/sysctl.h>
++#include <libkern/sysctl.h>
+ #include <sys/systm.h>
+ #include <miscfs/specfs/specdev.h>
+ #include <libkern/OSAtomic.h>	/* OSAddAtomic */
+@@ -1563,7 +1564,11 @@
+ 	if (def_tbuffer_size == 0) {
+ 		uint64_t memsize = 0;
+ 		size_t l = sizeof(memsize);
++#if RPI5_HFS_BUILTIN
++		kernel_sysctlbyname("hw.memsize", &memsize, &l, NULL, 0);
++#else
+ 		sysctlbyname("hw.memsize", &memsize, &l, NULL, 0);
++#endif
+ 
+ 		if (memsize < (256*1024*1024)) {
+ 			def_tbuffer_size = DEFAULT_TRANSACTION_BUFFER_SIZE;

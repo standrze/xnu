@@ -2612,9 +2612,11 @@ tcp_ctloutput(struct socket *so, struct sockopt *sopt)
 				tp->t_adaptive_rtimo = 0;
 				tcp_keepalive_reset(tp);
 
+#if MPTCP
 				if (tp->t_mpsub) {
 					mptcp_reset_keepalive(tp);
 				}
+#endif /* MPTCP */
 			} else {
 				tp->t_adaptive_rtimo = (uint8_t)optval;
 			}

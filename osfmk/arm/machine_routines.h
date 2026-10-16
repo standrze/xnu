@@ -159,7 +159,20 @@ typedef void (*time_base_enable_t)(cpu_id_t cpu_id, boolean_t enable);
 
 #if defined(PEXPERT_KERNEL_PRIVATE) || defined(MACH_KERNEL_PRIVATE)
 /* Type for the Processor Cache Dispatch function */
-typedef void (*cache_dispatch_t)(cpu_id_t cpu_id, unsigned int select, unsigned int param0, unsigned int param1);
+/* Raspberry Pi port, 2026-09-04: callback arguments carry physical addresses
+ * and output pointers. Preserve the legacy ABI on existing Apple platforms. */
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+typedef uintptr_t cache_dispatch_arg_t;
+#else
+typedef unsigned int cache_dispatch_arg_t;
+#endif
+typedef void (*cache_dispatch_t)(cpu_id_t cpu_id, unsigned int select, cache_dispatch_arg_t param0, cache_dispatch_arg_t param1);
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+/* Raw PSCI CPU_ON64 status. The caller owns affinity validation and physical
+ * reset-handoff publication before the SMC. */
+extern uint64_t rpi5_psci_cpu_on(uint64_t affinity, uint64_t entry_pa, uint64_t context_id);
+#endif
 
 typedef uint32_t (*get_decrementer_t)(void);
 typedef void (*set_decrementer_t)(uint32_t);

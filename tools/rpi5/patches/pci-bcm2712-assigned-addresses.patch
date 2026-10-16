@@ -1,0 +1,34 @@
+--- a/IOPCIConfigurator.cpp
++++ b/IOPCIConfigurator.cpp
+@@ -23,6 +23,9 @@
+ #include <IOKit/IOPlatformExpert.h>
+ #include <IOKit/pci/IOPCIPrivate.h>
+ #include <IOKit/pci/IOPCIConfigurator.h>
++#if defined(RPI5_PCI_CPU_TRANSLATED_RESOURCES)
++#include <BCM2712PCIAssignedRange.h>
++#endif
+ #if ACPI_SUPPORT
+ #include <IOKit/acpi/IOACPIPlatformDevice.h>
+ #endif
+@@ -779,6 +782,9 @@
+             break;
+         }
+ 
++#if defined(RPI5_PCI_CPU_TRANSLATED_RESOURCES)
++        regData.physHi = bcm2712_pci_range_space(regData.physHi, range);
++#endif
+         regData.physMid  = 0;
+         regData.physLo   = 0;
+         regData.lengthHi = (range->size >> 32ULL);
+@@ -787,7 +793,11 @@
+         if (i <= kIOPCIRangeExpansionROM)
+         {
+             regData.physHi.s.registerNum = barRegisters[i];
++#if defined(RPI5_PCI_CPU_TRANSLATED_RESOURCES)
++            if (bcm2712_pci_range_assigned(range))
++#else
+             if (range->start)
++#endif
+             {
+ 				IOPCIPhysicalAddress assignedData;
+ 				assignedData = regData;

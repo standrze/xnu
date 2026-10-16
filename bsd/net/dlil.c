@@ -3255,10 +3255,12 @@ ifnet_enqueue_chain(struct ifnet *ifp, struct ifclassq *ifcq,
 
 		while (1) {
 			switch (head->cp_ptype) {
+#if SKYWALK
 			case QP_PACKET:
 				cpkt.cp_kpkt->pkt_pflags &= ~PKT_F_TS_VALID;
 				cpkt_next.cp_kpkt = cpkt.cp_kpkt->pkt_nextpkt;
 				break;
+#endif /* SKYWALK */
 			case QP_MBUF:
 				cpkt.cp_mbuf->m_pkthdr.pkt_flags &= ~PKTF_TS_VALID;
 				cpkt_next.cp_mbuf = cpkt.cp_mbuf->m_nextpkt;
@@ -3273,7 +3275,11 @@ ifnet_enqueue_chain(struct ifnet *ifp, struct ifclassq *ifcq,
 			error = netem_enqueue(ifp->if_output_netem, &cpkt, &drop);
 			*pdrop = drop ? TRUE : FALSE;
 
+#if SKYWALK
 			if (cpkt_next.cp_kpkt == NULL) {
+#else /* SKYWALK */
+			if (cpkt_next.cp_mbuf == NULL) {
+#endif /* SKYWALK */
 				break;
 			}
 			cpkt = cpkt_next;
@@ -4550,7 +4556,7 @@ ioref_done:
 }
 
 static void
-dlil_handle_proto_attach(ifnet_t ifp, protocol_family_t protocol)
+dlil_handle_proto_attach(ifnet_t ifp, protocol_family_t protocol __unused)
 {
 	/*
 	 * A protocol has been attached, mark the interface up.
@@ -5738,8 +5744,10 @@ ifnet_detach_final(struct ifnet *ifp)
 		kfree_data_sized_by(ifp->if_agentids, ifp->if_agentcount);
 	}
 
+#if SKYWALK
 	bzero(&ifp->if_nx_netif, sizeof(ifp->if_nx_netif));
 	bzero(&ifp->if_nx_flowswitch, sizeof(ifp->if_nx_flowswitch));
+#endif /* SKYWALK */
 
 	/* Unplumb all protocols */
 	for (i = 0; i < PROTO_HASH_SLOTS; i++) {

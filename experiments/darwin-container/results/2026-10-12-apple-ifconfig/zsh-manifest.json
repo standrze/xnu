@@ -1,0 +1,56 @@
+{
+  "command": [
+    "xcrun",
+    "ld",
+    "-arch",
+    "arm64",
+    "-platform_version",
+    "macos",
+    "26.0",
+    "27.0",
+    "-static",
+    "-e",
+    "_start",
+    "-dead_strip",
+    "-no_adhoc_codesign",
+    "-no_uuid",
+    "-alias",
+    "_fopen",
+    "_fopen$DARWIN_EXTSN",
+    "-map",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-terminal-static-1/link.map",
+    "-o",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-terminal-static-1/zsh",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/darwin-abi-diagnostic-2/libdarwin-static-abi.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-terminal-1/libapple-zsh-core.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-posix/libapple-posix.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-libc-leaf/libapple-libc-leaf.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/lib/libtinfo.a",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-math-1/libapple-math.a"
+  ],
+  "exit": 0,
+  "archives": {
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/darwin-abi-diagnostic-2/libdarwin-static-abi.a": "3fb14dc9e03b5335b73eb0525f61fae65669da2ba46d740715b93add74130c3d",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-terminal-1/libapple-zsh-core.a": "13174640d2822d8406e4cb64f242b587fe5aa9a26acc04918357c0f4c44568c8",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a": "bdde2c3a6ac9d32a42122196fc8c96f7a947c22379487ed820b948d77c82d6d5",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-posix/libapple-posix.a": "ea3c839783d4e9f20b3a2104885524f8d09dc036a8d4cfd4513feb45a1db58ea",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-libc-leaf/libapple-libc-leaf.a": "3a4be64367ef9db5471acbcf8555958e0c8c0ca8f24eed158170cac34c685546",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/lib/libtinfo.a": "290acdd9994f6516870166098932e59b4a1d3f6502d9c2b9bd88c821858e5f80",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-math-1/libapple-math.a": "8d911794f146696af3dee958802f4d3c148f12ddf9ac32a9e9a6bfdc63de1954"
+  },
+  "host_runtime_linked": false,
+  "guest_executed": false,
+  "symbol_adaptations": {
+    "fopen$DARWIN_EXTSN": "Apple Libc-167 fopen; basic guest modes only, not all modern extensions"
+  },
+  "executable": {
+    "cpu_subtype": 0,
+    "entry_pc": 4294971604,
+    "mach_o_size": 951400,
+    "ramdisk_size": 966656,
+    "segments": 4,
+    "sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3"
+  },
+  "sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3"
+}

@@ -4418,7 +4418,9 @@ soshutdownlock(struct socket *so, int how)
 
 	error = soshutdownlock_final(so, how);
 
+#if CONTENT_FILTER
 done:
+#endif
 	return error;
 }
 
@@ -5483,6 +5485,7 @@ sosetoptlock(struct socket *so, struct sockopt *sopt, int dolock)
 
 		case SO_MARK_CELLFALLBACK_UUID:
 		{
+#if SKYWALK
 			struct so_mark_cellfallback_uuid_args args;
 
 			error = sooptcopyin(sopt, &args, sizeof(args),
@@ -5492,6 +5495,9 @@ sosetoptlock(struct socket *so, struct sockopt *sopt, int dolock)
 			}
 			error = nstat_userland_mark_rnf_override(args.flow_uuid,
 			    args.flow_cellfallback);
+#else
+			error = ENOPROTOOPT;
+#endif
 			break;
 		}
 
@@ -6146,9 +6152,12 @@ integer:
 		case SO_NECP_CLIENTUUID: {
 			uuid_t *ncu;
 
+#if MPTCP
 			if (SOCK_DOM(so) == PF_MULTIPATH) {
 				ncu = &mpsotomppcb(so)->necp_client_uuid;
-			} else if (SOCK_DOM(so) == PF_INET || SOCK_DOM(so) == PF_INET6) {
+			} else
+#endif /* MPTCP */
+			if (SOCK_DOM(so) == PF_INET || SOCK_DOM(so) == PF_INET6) {
 				ncu = &sotoinpcb(so)->necp_client_uuid;
 			} else {
 				error = EINVAL;
@@ -7885,9 +7894,11 @@ so_set_restrictions(struct socket *so, uint32_t vals)
 		}
 	}
 
+#if MPTCP
 	if (SOCK_DOM(so) == PF_MULTIPATH) {
 		mptcp_set_restrictions(so);
 	}
+#endif
 
 	return 0;
 }

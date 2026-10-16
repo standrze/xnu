@@ -1,0 +1,38 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "error" : "agent protocol: guest stopped before complete framed shutdown",
+    "handshakeCompleted" : false,
+    "protocolValid" : false,
+    "protocolVersion" : 1,
+    "readyObserved" : false,
+    "shutdownAcknowledged" : false
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 6.120311999984551,
+  "error" : "guest exceeded the 1-second deadline",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-no-agent-1",
+  "serialByteCount" : 6158,
+  "sessionID" : "f4e895beb6724ef6ab7fa7be9f24cef2",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "timedOut"
+}

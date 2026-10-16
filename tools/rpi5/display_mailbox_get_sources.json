@@ -1,0 +1,31 @@
+{
+  "format": "rpi5-display-get-primary-references-v1",
+  "repository": "https://github.com/raspberrypi/linux",
+  "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "preserved_source_directory": "build/rpi5/display-get-primary-80d4218-20261013",
+  "preserved_receipt_sha256": "6f17e951adc97265c6d0c2515fb62e731c7c708fbe32a2bbdaf8624812888ff4",
+  "sources": [
+    {
+      "path": "include/soc/bcm2835/raspberrypi-firmware.h",
+      "sha256": "4eef64f4ba698648299ea30978df83cc211728d6b7aba9fd1a04df627208e07e",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/include/soc/bcm2835/raspberrypi-firmware.h",
+      "facts": "GET_NUM_DISPLAYS=0x40013, GET_DISPLAY_SETTINGS=0x40014, payload=64"
+    },
+    {
+      "path": "drivers/video/fbdev/bcm2708_fb.c",
+      "sha256": "ecdfa03f27085b49b5abdb6dcb6c13127613bb443d82819b1a0f1ae781c372c7",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/video/fbdev/bcm2708_fb.c",
+      "facts": "Probe sends display index directly in GET_DISPLAY_SETTINGS; native unsigned-long structure is not used as a wire decoder"
+    },
+    {
+      "path": "drivers/firmware/raspberrypi.c",
+      "sha256": "df915d2a2c74ac24c684b108930e4fcc37ae0daeac858c50c9961a278d5463cb",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/firmware/raspberrypi.c",
+      "facts": "Property request framing and response global status; aligned coherent DMA buffer and barriers are transport prerequisites, not implemented by this helper"
+    }
+  ],
+  "hardware_support_observed": false,
+  "source_digests_verified_when_researched": true,
+  "offline_tests_refetch_sources": false,
+  "raw_response_is_allocation_or_mapping_authority": false
+}

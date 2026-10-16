@@ -1,0 +1,40 @@
+{
+  "format": "rpi5-gem-ring-stage-primary-v1",
+  "source_code_imported": false,
+  "physical_dma_proven": false,
+  "linux_commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "apple_checkout_commit": "ac9718fb1af618d5ce8678d0dc6e8a58f252216f",
+  "scope": "Actual CPU-owned 64 TX plus 64 RX ring construction/readback with conservative 256-byte prefetch tails. Linux's minimum ring policy is64; RP1 config does not set BD_RD_PREFETCH, so the tail is conservative padding using its DCFG10 formula, not claimed Linux RP1 behavior. No queue MMIO or DMA activation. Apple interfaces document the required future live mapping/cache provider; they are not implemented or replaced by this core.",
+  "sources": [
+    {
+      "path": "build/rpi5/gem-capability-primary-80d4218-20261013/macb.h",
+      "bytes": 51692,
+      "sha256": "ec4394d8c2daf984517441d079e8ca61af986de007e822f094f5b051b90461e7",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb.h"
+    },
+    {
+      "path": "build/rpi5/gem-capability-primary-80d4218-20261013/macb_main.c",
+      "bytes": 172018,
+      "sha256": "ec5a8df6096d3a4541e7a17821ef81264ce230aa5676afe276af3aed26cbee87",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb_main.c"
+    },
+    {
+      "path": "iokit/IOKit/IODMACommand.h",
+      "bytes": 37801,
+      "sha256": "14cf81900488a4a11e676fc846e5ecf5fc915bbbfe67fcd9cd0ec3a551999e71",
+      "url": "https://github.com/apple-oss-distributions/xnu/blob/ac9718fb1af618d5ce8678d0dc6e8a58f252216f/iokit/IOKit/IODMACommand.h"
+    },
+    {
+      "path": "iokit/IOKit/IOBufferMemoryDescriptor.h",
+      "bytes": 17778,
+      "sha256": "737c9b410709bf3a5ffb38ddc7000aeb8b908bb2581f98c3c90d7bacd19c1f18",
+      "url": "https://github.com/apple-oss-distributions/xnu/blob/ac9718fb1af618d5ce8678d0dc6e8a58f252216f/iokit/IOKit/IOBufferMemoryDescriptor.h"
+    },
+    {
+      "path": "iokit/Kernel/rpi5_gem_dma.h",
+      "bytes": 3935,
+      "sha256": "257901a97f896378c717445dfc3fd3f81d608964bd092394c5f1474cd6a37c2b",
+      "origin": "Existing project independently authored 64-bit descriptor layout, unchanged"
+    }
+  ]
+}

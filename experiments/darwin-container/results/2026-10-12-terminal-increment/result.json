@@ -1,0 +1,12 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 41.0987470416585,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-pty-zle-trial-1",
+  "serialByteCount" : 8688,
+  "sessionID" : "e54e5e134e8a4d73876ba5da2d1071e9",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

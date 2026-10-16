@@ -1,0 +1,32 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.848723583330866,
+  "gpu" : {
+    "completed" : 0,
+    "enabled" : false,
+    "operations" : [
+
+    ],
+    "rejected" : 0,
+    "submitted" : 0
+  },
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-ifconfig-trial-1",
+  "serialByteCount" : 16933,
+  "sessionID" : "1a641167e2554044a72f0a09e63a24d3",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 3459
+  },
+  "termination" : "guestStopped"
+}

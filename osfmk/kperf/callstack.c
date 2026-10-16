@@ -836,15 +836,15 @@ chudxnu_thread_get_callstack64_internal(
 			 * necessary.
 			 */
 
-			if ((uint32_t)fp == 0 || ((uint32_t)fp & 0x3) != 0) {
+			if (fp == NULL || ((uintptr_t)fp & 0x3) != 0) {
 				/* frame pointer is invalid - stop backtracing */
 				pc = 0ULL;
 				break;
 			}
 
 			if (kernel) {
-				if (((uint32_t)fp > kernStackMax) ||
-				    ((uint32_t)fp < kernStackMin)) {
+				if (((uintptr_t)fp > kernStackMax) ||
+				    ((uintptr_t)fp < kernStackMin)) {
 					kr = KERN_FAILURE;
 				} else {
 					kr = chudxnu_kern_read(&frame,
@@ -862,7 +862,7 @@ chudxnu_thread_get_callstack64_internal(
 			} else {
 				kr = chudxnu_task_read(task,
 				    &frame32,
-				    (((uint64_t)(uint32_t)fp) & 0x00000000FFFFFFFFULL),
+				    (((uint64_t)(uintptr_t)fp) & 0x00000000FFFFFFFFULL),
 				    sizeof(frame32));
 				if (kr == KERN_SUCCESS) {
 					pc = (uint64_t)frame32[1];

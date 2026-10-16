@@ -1,0 +1,20 @@
+# Darwin container downstream configuration, 2026-10-12.
+# Derived from the source-only ARM64 port and Apple's master conventions.
+# Original notices: MASTER.arm64 and repository APPLE_LICENSE.
+# KERNEL_BASE = [ arm64 medium msgb_large config_requires_u32_munging nos_arm_pmap ]
+# KERNEL_DEV = [ KERNEL_BASE development mach_assert proc_ref_debug ]
+# BSD_BASE = [ mach_bsd psynch config_proc_uuid_policy config_coredump ]
+# NETWORK_BASE = [ inet necp traffic_mgt ]
+# FILESYS_BASE = [ devfs mockfs fifo namedstreams config_fse ]
+# IOKIT_BASE = [ iokit iokitcpp no_kernel_hid ]
+# LIBKERN_BASE = [ libkerncpp config_blocks crypto crypto_sha2 config_img4 zlib ]
+# PERF_DBG_BASE = [ mach_kdp config_serial_kdp kdp_interactive_debugging kperf ]
+# MACH_BASE = [ mach importance_inheritance config_atm config_coalitions config_iosched config_telemetry config_service_port_info ]
+# SCHED_BASE = [ config_sched_timeshare_core config_sched_deferred_ast config_clutch ]
+# VM_BASE = [ vm_pressure_events memorystatus config_deferred_reclaim zleaks ]
+# SECURITY_BASE = [ config_macf ]
+# DEVELOPMENT = [ KERNEL_DEV BSD_BASE NETWORK_BASE FILESYS_BASE IOKIT_BASE LIBKERN_BASE PERF_DBG_BASE MACH_BASE SCHED_BASE VM_BASE SECURITY_BASE ]
+machine "arm64" # <arm64>
+makeoptions OSFMK_MACHINE = "arm64" # <mach>
+options CONFIG_MACH_APPROXIMATE_TIME
+options CONFIG_VZGENERIC_BRINGUP

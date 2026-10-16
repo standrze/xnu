@@ -1,0 +1,3 @@
+#!/bin/sh
+# SPDX-License-Identifier: BSD-2-Clause
+exec /usr/bin/xcrun clang --target=aarch64-none-elf "$@"

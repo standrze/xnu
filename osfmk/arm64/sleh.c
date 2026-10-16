@@ -29,6 +29,7 @@
 #include <arm/caches_internal.h>
 #include <arm/cpu_data.h>
 #include <arm/cpu_data_internal.h>
+#include <arm/cpu_internal.h>
 #include <arm/misc_protos.h>
 #include <arm/thread.h>
 #include <arm/rtclock.h>
@@ -44,6 +45,8 @@
 #include <kern/socd_client.h>
 #include <kern/task.h>
 #include <kern/thread.h>
+#include <kern/thread_call.h>
+#include <kern/clock.h>
 #include <kern/zalloc_internal.h>
 #include <mach/exception.h>
 #include <mach/arm/traps.h>
@@ -54,10 +57,197 @@
 #include <machine/limits.h>
 #include <machine/machine_cpc.h>
 
+
 #include <pexpert/arm/protos.h>
+#if defined(APPLE_ARM64_ARCH_FAMILY)
 #include <pexpert/arm64/apple_arm64_cpu.h>
+#endif
 #include <pexpert/arm64/apple_arm64_regs.h>
 #include <pexpert/arm64/board_config.h>
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+extern _Atomic uint64_t ml_cpu_up_processors;
+static _Atomic uint32_t rpi5_gate3_ipi_acks[4];
+static _Atomic uint32_t rpi5_gate3_payload_seq[4];
+static _Atomic uint32_t rpi5_gate3_payload_errors[4];
+static uint64_t rpi5_gate3_payload[4];
+static uint64_t rpi5_gate3_response[4];
+static _Atomic bool rpi5_gate3_soak_enabled;
+static _Atomic bool rpi5_terminal_watchdog_enabled;
+static thread_call_t rpi5_terminal_watchdog_call;
+static thread_call_t rpi5_gate3_soak_call;
+static uint32_t rpi5_gate3_soak_sends[4];
+static uint32_t rpi5_gate3_soak_acks[4];
+static uint64_t rpi5_gate3_soak_progress[4];
+static uint64_t rpi5_gate3_soak_call_last_report;
+static bool rpi5_gate3_soak_initial_pass;
+
+static void rpi5_gate3_soak_callout(thread_call_param_t, thread_call_param_t);
+
+static void
+rpi5_terminal_watchdog_callout(thread_call_param_t first, thread_call_param_t second)
+{
+	(void)first;
+	(void)second;
+	if (!pe_rpi5_watchdog_terminal_active()) {
+		return;
+	}
+	pe_rpi5_watchdog_timer_tick(true);
+	uint64_t deadline;
+	clock_interval_to_deadline(1, NSEC_PER_SEC, &deadline);
+	thread_call_enter_delayed(rpi5_terminal_watchdog_call, deadline);
+}
+
+bool
+rpi5_terminal_watchdog_start(void)
+{
+	if (os_atomic_load(&rpi5_terminal_watchdog_enabled, acquire) ||
+	    os_atomic_load(&rpi5_gate3_soak_enabled, acquire)) {
+		return false;
+	}
+	rpi5_terminal_watchdog_call = thread_call_allocate_with_priority(
+	    rpi5_terminal_watchdog_callout, NULL, THREAD_CALL_PRIORITY_HIGH);
+	if (rpi5_terminal_watchdog_call == NULL) {
+		return false;
+	}
+	if (!pe_rpi5_watchdog_enable_terminal()) {
+		thread_call_free(rpi5_terminal_watchdog_call);
+		rpi5_terminal_watchdog_call = NULL;
+		return false;
+	}
+	os_atomic_store(&rpi5_terminal_watchdog_enabled, true, release);
+	uint64_t deadline;
+	clock_interval_to_deadline(1, NSEC_PER_SEC, &deadline);
+	thread_call_enter_delayed(rpi5_terminal_watchdog_call, deadline);
+	return true;
+}
+
+bool
+rpi5_gate3_enable_soak(uint32_t seconds)
+{
+	if (os_atomic_load(&rpi5_gate3_soak_enabled, acquire) ||
+	    os_atomic_load(&rpi5_terminal_watchdog_enabled, acquire)) {
+		return false;
+	}
+	rpi5_gate3_soak_call = thread_call_allocate_with_priority(
+	    rpi5_gate3_soak_callout, NULL, THREAD_CALL_PRIORITY_HIGH);
+	if (rpi5_gate3_soak_call == NULL) {
+		return false;
+	}
+	if (!pe_rpi5_watchdog_enable_soak(seconds)) {
+		thread_call_free(rpi5_gate3_soak_call);
+		rpi5_gate3_soak_call = NULL;
+		return false;
+	}
+	for (unsigned int cpu = 1; cpu < 4; cpu++) {
+		rpi5_gate3_soak_sends[cpu] = os_atomic_load(&rpi5_gate3_payload_seq[cpu], acquire);
+		rpi5_gate3_soak_acks[cpu] = os_atomic_load(&rpi5_gate3_ipi_acks[cpu], acquire);
+		/* The first delayed callout has not observed an ACK yet. Start its
+		 * liveness window at arm time, not at zero. */
+		rpi5_gate3_soak_progress[cpu] = __builtin_arm_rsr64("CNTVCT_EL0");
+	}
+	os_atomic_store(&rpi5_gate3_soak_enabled, true, release);
+	uint64_t deadline;
+	clock_interval_to_deadline(1, NSEC_PER_SEC, &deadline);
+	thread_call_enter_delayed(rpi5_gate3_soak_call, deadline);
+	return true;
+}
+
+static uint64_t
+rpi5_gate3_payload_value(unsigned int cpu, uint32_t seq)
+{
+	return UINT64_C(0xa519d43c6b02e7f8) ^
+	    ((uint64_t)cpu << 48) ^ ((uint64_t)seq * UINT64_C(0x9e3779b97f4a7c15));
+}
+
+static void
+rpi5_gate3_ipi_test_vector(void)
+{
+	unsigned int cpu = getCpuDatap()->cpu_number;
+	if (cpu > 0 && cpu < 4) {
+		uint32_t seq = os_atomic_load(&rpi5_gate3_payload_seq[cpu], acquire);
+		uint64_t observed = rpi5_gate3_payload[cpu];
+		if (seq == 0 || observed != rpi5_gate3_payload_value(cpu, seq)) {
+			os_atomic_inc(&rpi5_gate3_payload_errors[cpu], relaxed);
+		}
+		rpi5_gate3_response[cpu] = observed ^ UINT64_C(0x72c8e14a9b35d60f);
+		os_atomic_inc(&rpi5_gate3_ipi_acks[cpu], release);
+	}
+}
+
+static void
+rpi5_gate3_soak_callout(thread_call_param_t param0 __unused,
+    thread_call_param_t param1 __unused)
+{
+	uint64_t now = __builtin_arm_rsr64("CNTVCT_EL0");
+	uint64_t frequency = __builtin_arm_rsr64("CNTFRQ_EL0");
+	uint64_t online = os_atomic_load(&ml_cpu_up_processors, acquire);
+	bool healthy = (online & UINT64_C(0xf)) == UINT64_C(0xf) &&
+	    frequency != 0 && frequency <= UINT64_MAX / 60U;
+	bool all_acked = healthy;
+	for (unsigned int cpu = 1; cpu < 4; cpu++) {
+		uint32_t acks = os_atomic_load(&rpi5_gate3_ipi_acks[cpu], acquire);
+		if (acks > rpi5_gate3_soak_acks[cpu]) {
+			uint64_t expected = rpi5_gate3_payload_value(cpu, acks) ^
+			    UINT64_C(0x72c8e14a9b35d60f);
+			if (acks > rpi5_gate3_soak_sends[cpu] ||
+			    rpi5_gate3_response[cpu] != expected) {
+				os_atomic_inc(&rpi5_gate3_payload_errors[cpu], relaxed);
+			}
+			rpi5_gate3_soak_acks[cpu] = acks;
+			rpi5_gate3_soak_progress[cpu] = now;
+		}
+		if (acks >= rpi5_gate3_soak_sends[cpu] &&
+		    rpi5_gate3_soak_sends[cpu] < UINT32_MAX - 1U &&
+		    (online & (UINT64_C(1) << cpu))) {
+			uint32_t next = rpi5_gate3_soak_sends[cpu] + 1U;
+			rpi5_gate3_payload[cpu] = rpi5_gate3_payload_value(cpu, next);
+			os_atomic_store(&rpi5_gate3_payload_seq[cpu], next, release);
+			cpu_signal_set_test_vector(rpi5_gate3_ipi_test_vector);
+			kern_return_t result = cpu_signal(cpu_datap(cpu), SIGPtest,
+			    NULL, NULL);
+			if (result == KERN_SUCCESS) {
+				rpi5_gate3_soak_sends[cpu] = next;
+			} else {
+				kprintf("RPI5XNU:SOAK:IPI_SEND_FAIL CPU=%u KR=%d\n", cpu, result);
+			}
+		}
+		if (acks < 64U) {
+			all_acked = false;
+		}
+		uint64_t progress = rpi5_gate3_soak_progress[cpu];
+		if (progress == 0 || now < progress ||
+		    now - progress > frequency * 10U ||
+		    os_atomic_load(&rpi5_gate3_payload_errors[cpu], acquire) != 0) {
+			healthy = false;
+		}
+	}
+	if (all_acked && !rpi5_gate3_soak_initial_pass) {
+		rpi5_gate3_soak_initial_pass = true;
+		kprintf("RPI5XNU:IPI_STRESS:PASS CPUS=1-3 ACKS=%u,%u,%u\n",
+		    rpi5_gate3_soak_acks[1], rpi5_gate3_soak_acks[2],
+		    rpi5_gate3_soak_acks[3]);
+		kprintf("RPI5XNU:CACHE_VIS:%s ROUNDS=64 ERRORS=%u\n",
+		    healthy ? "PASS" : "FAIL",
+		    os_atomic_load(&rpi5_gate3_payload_errors[1], acquire) +
+		    os_atomic_load(&rpi5_gate3_payload_errors[2], acquire) +
+		    os_atomic_load(&rpi5_gate3_payload_errors[3], acquire));
+	}
+	if (healthy && (rpi5_gate3_soak_call_last_report == 0 ||
+	    now - rpi5_gate3_soak_call_last_report >= frequency * 60U)) {
+		rpi5_gate3_soak_call_last_report = now;
+		kprintf("RPI5XNU:SOAK:HEARTBEAT ACKS=%u,%u,%u\n",
+		    rpi5_gate3_soak_acks[1], rpi5_gate3_soak_acks[2],
+		    rpi5_gate3_soak_acks[3]);
+	}
+	pe_rpi5_watchdog_timer_tick(healthy);
+	if (pe_rpi5_watchdog_soak_active()) {
+		uint64_t deadline;
+		clock_interval_to_deadline(1, NSEC_PER_SEC, &deadline);
+		thread_call_enter_delayed(rpi5_gate3_soak_call, deadline);
+	}
+}
+#endif
 
 #include <vm/vm_page.h>
 #include <vm/pmap.h>
@@ -281,6 +471,9 @@ extern void arm64_thread_exception_return(void) __dead2;
 void cpu_signal_handler(void);
 extern unsigned int gFastIPI;
 #endif /* defined(HAS_IPI) */
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && !defined(HAS_IPI)
+void cpu_signal_handler(void);
+#endif
 
 static arm_saved_state64_t *original_faulting_state = NULL;
 
@@ -2071,6 +2264,19 @@ handle_user_abort(arm_saved_state_t *state, uint64_t esr, vm_offset_t fault_addr
 	}
 #endif
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	/* Gate 3 registration can change early exception behavior. Preserve the
+	 * first unhandled EL0 faults on serial before BSD turns one into SIGBUS. */
+	static unsigned rpi5_unhandled_user_abort_reports;
+	if (rpi5_unhandled_user_abort_reports < 8) {
+		rpi5_unhandled_user_abort_reports++;
+		kprintf("RPI5XNU:USER_ABORT_UNHANDLED PC=0x%llx FAR=0x%llx ESR=0x%llx FSC=0x%x CODE=0x%llx SYSCALLS=%u\n",
+		    (unsigned long long)get_saved_state_pc(state),
+		    (unsigned long long)fault_addr, (unsigned long long)esr,
+		    fault_code, (unsigned long long)codes[0], thread->syscalls_unix);
+	}
+#endif
+
 	codes[1] = fault_addr;
 #if __has_feature(ptrauth_calls)
 	bool is_data_abort = (ESR_EC(esr) == ESR_EC_DABORT_EL0);
@@ -3003,6 +3209,9 @@ void
 sleh_irq(arm_saved_state_t *state)
 {
 	cpu_data_t * cdp __unused             = getCpuDatap();
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	uint32_t rpi5_iar;
+#endif
 #if MACH_ASSERT
 	int preemption_level = sleh_get_preemption_level();
 #endif
@@ -3010,7 +3219,183 @@ sleh_irq(arm_saved_state_t *state)
 
 	sleh_interrupt_handler_prologue(state, DBG_INTR_TYPE_OTHER);
 
-#if USE_APPLEARMSMP
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_iar = pe_rpi5_irq_acknowledge();
+	if ((rpi5_iar & 0x3ffU) == 27U) {
+		if (!ml_get_timer_pending()) {
+			panic("BCM2712: timer IRQ 27 without virtual timer pending");
+		}
+		cdp->cpu_decrementer = -1;
+		ml_interrupt_masked_debug_start(rtclock_intr, DBG_INTR_TYPE_TIMER);
+		rtclock_intr(TRUE);
+		ml_interrupt_masked_debug_end();
+		pe_rpi5_irq_complete(rpi5_iar);
+		bool rpi5_watchdog_healthy = true;
+#if DEVELOPMENT
+		/* Report from the boot CPU after secondaries publish online bits.
+		 * This avoids relying on two concurrent writers to the diagnostic UART. */
+		if (cdp->cpu_number == 0 &&
+		    !os_atomic_load(&rpi5_gate3_soak_enabled, acquire) &&
+		    !os_atomic_load(&rpi5_terminal_watchdog_enabled, acquire)) {
+			static uint64_t rpi5_reported_online;
+			static uint64_t rpi5_gate3_ipi_reported;
+			static uint32_t rpi5_gate3_ipi_sends[4];
+			static uint32_t rpi5_gate3_ipi_verified[4];
+			static uint32_t rpi5_gate3_ipi_wait_ticks;
+			static bool rpi5_gate3_ipi_finished;
+			static bool rpi5_gate3_initial_pass_reported;
+			static uint32_t rpi5_gate3_soak_last_acks[4];
+			static uint64_t rpi5_gate3_soak_last_progress[4];
+			static uint64_t rpi5_gate3_soak_last_report;
+			static bool rpi5_gate3_soak_state_reported;
+			bool soak = os_atomic_load(&rpi5_gate3_soak_enabled, acquire);
+			uint64_t now = __builtin_arm_rsr64("CNTVCT_EL0");
+			uint64_t frequency = __builtin_arm_rsr64("CNTFRQ_EL0");
+			uint64_t online = os_atomic_load(&ml_cpu_up_processors, acquire);
+			if ((online & UINT64_C(0xe)) != (rpi5_reported_online & UINT64_C(0xe))) {
+				rpi5_reported_online = online;
+				kprintf("RPI5XNU:CPU_ON:ONLINE_MASK=0x%llx\n",
+				    (unsigned long long)online);
+			}
+			bool four_cores = (online & UINT64_C(0xf)) == UINT64_C(0xf);
+			uint32_t target = soak ? UINT32_MAX : four_cores ? 64U : 1U;
+			bool all_acked = four_cores;
+			for (unsigned int cpu = 1; cpu < 4; cpu++) {
+				uint64_t bit = UINT64_C(1) << cpu;
+				uint32_t acks = os_atomic_load(&rpi5_gate3_ipi_acks[cpu], acquire);
+				if (acks > rpi5_gate3_ipi_verified[cpu]) {
+					uint64_t expected = rpi5_gate3_payload_value(cpu, acks) ^
+					    UINT64_C(0x72c8e14a9b35d60f);
+					if (acks > rpi5_gate3_ipi_sends[cpu] ||
+					    rpi5_gate3_response[cpu] != expected) {
+						os_atomic_inc(&rpi5_gate3_payload_errors[cpu], relaxed);
+					}
+					rpi5_gate3_ipi_verified[cpu] = acks;
+				}
+				if ((online & bit) && !rpi5_gate3_ipi_finished &&
+				    rpi5_gate3_ipi_sends[cpu] < target &&
+				    acks >= rpi5_gate3_ipi_sends[cpu]) {
+					uint32_t next = rpi5_gate3_ipi_sends[cpu] + 1;
+					rpi5_gate3_payload[cpu] = rpi5_gate3_payload_value(cpu, next);
+					os_atomic_store(&rpi5_gate3_payload_seq[cpu], next, release);
+					cpu_signal_set_test_vector(rpi5_gate3_ipi_test_vector);
+					kern_return_t result = cpu_signal(cpu_datap(cpu), SIGPtest,
+					    NULL, NULL);
+					if (result == KERN_SUCCESS) {
+						rpi5_gate3_ipi_sends[cpu]++;
+					}
+					if (rpi5_gate3_ipi_sends[cpu] <= 1) {
+						kprintf("RPI5XNU:IPI:SEND CPU=%u KR=%d\n", cpu, result);
+					}
+				}
+				acks = os_atomic_load(&rpi5_gate3_ipi_acks[cpu], acquire);
+				if (soak && acks > rpi5_gate3_soak_last_acks[cpu]) {
+					rpi5_gate3_soak_last_acks[cpu] = acks;
+					rpi5_gate3_soak_last_progress[cpu] = now;
+				}
+				if (!(rpi5_gate3_ipi_reported & bit) && acks != 0) {
+					rpi5_gate3_ipi_reported |= bit;
+					kprintf("RPI5XNU:IPI:ACK CPU=%u COUNT=%u\n", cpu, acks);
+				}
+				/* An ACK may arrive after the response-validation load above.
+				 * Do not emit the one-shot cache result until all 64 responses
+				 * have actually been checked. */
+				if (four_cores && (acks < 64U ||
+				    rpi5_gate3_ipi_verified[cpu] < 64U)) {
+					all_acked = false;
+				}
+			}
+			if (four_cores && !rpi5_gate3_initial_pass_reported &&
+			    !rpi5_gate3_ipi_finished) {
+				if (all_acked) {
+					rpi5_gate3_initial_pass_reported = true;
+					rpi5_gate3_ipi_finished = !soak;
+					kprintf("RPI5XNU:IPI_STRESS:PASS CPUS=1-3 ACKS=%u,%u,%u\n",
+					    os_atomic_load(&rpi5_gate3_ipi_acks[1], acquire),
+					    os_atomic_load(&rpi5_gate3_ipi_acks[2], acquire),
+					    os_atomic_load(&rpi5_gate3_ipi_acks[3], acquire));
+					uint32_t errors = os_atomic_load(&rpi5_gate3_payload_errors[1], acquire) +
+					    os_atomic_load(&rpi5_gate3_payload_errors[2], acquire) +
+					    os_atomic_load(&rpi5_gate3_payload_errors[3], acquire);
+					kprintf("RPI5XNU:CACHE_VIS:%s ROUNDS=64 ERRORS=%u\n",
+					    errors == 0 && rpi5_gate3_ipi_verified[1] >= 64 &&
+					    rpi5_gate3_ipi_verified[2] >= 64 &&
+					    rpi5_gate3_ipi_verified[3] >= 64 ? "PASS" : "FAIL", errors);
+				} else if (++rpi5_gate3_ipi_wait_ticks >= 2000) {
+					rpi5_gate3_ipi_finished = true;
+					kprintf("RPI5XNU:IPI_STRESS:FAIL SENDS=%u,%u,%u ACKS=%u,%u,%u\n",
+					    rpi5_gate3_ipi_sends[1], rpi5_gate3_ipi_sends[2],
+					    rpi5_gate3_ipi_sends[3],
+					    os_atomic_load(&rpi5_gate3_ipi_acks[1], acquire),
+					    os_atomic_load(&rpi5_gate3_ipi_acks[2], acquire),
+					    os_atomic_load(&rpi5_gate3_ipi_acks[3], acquire));
+				}
+			}
+			if (soak) {
+				rpi5_watchdog_healthy = four_cores && frequency != 0 &&
+				    frequency <= UINT64_MAX / 10U && !rpi5_gate3_ipi_finished;
+				for (unsigned int cpu = 1; cpu < 4; cpu++) {
+					uint64_t progress = rpi5_gate3_soak_last_progress[cpu];
+					if (progress == 0 || now < progress ||
+					    now - progress > frequency * 10U ||
+					    os_atomic_load(&rpi5_gate3_payload_errors[cpu], acquire) != 0) {
+						rpi5_watchdog_healthy = false;
+					}
+				}
+				if (!rpi5_gate3_soak_state_reported &&
+				    rpi5_gate3_soak_last_report != 0 &&
+				    frequency <= UINT64_MAX / 5U &&
+				    now >= rpi5_gate3_soak_last_report &&
+				    now - rpi5_gate3_soak_last_report >= frequency * 5U) {
+					rpi5_gate3_soak_state_reported = true;
+					kprintf("RPI5XNU:SOAK:STATE HEALTHY=%u ONLINE=0x%llx FINISHED=%u SENDS=%u,%u,%u ACKS=%u,%u,%u ERRORS=%u,%u,%u\n",
+					    rpi5_watchdog_healthy, (unsigned long long)online,
+					    rpi5_gate3_ipi_finished, rpi5_gate3_ipi_sends[1],
+					    rpi5_gate3_ipi_sends[2], rpi5_gate3_ipi_sends[3],
+					    rpi5_gate3_soak_last_acks[1], rpi5_gate3_soak_last_acks[2],
+					    rpi5_gate3_soak_last_acks[3],
+					    os_atomic_load(&rpi5_gate3_payload_errors[1], acquire),
+					    os_atomic_load(&rpi5_gate3_payload_errors[2], acquire),
+					    os_atomic_load(&rpi5_gate3_payload_errors[3], acquire));
+				}
+				if (rpi5_watchdog_healthy &&
+				    frequency <= UINT64_MAX / 60U &&
+				    (rpi5_gate3_soak_last_report == 0 ||
+				    (now >= rpi5_gate3_soak_last_report &&
+				    now - rpi5_gate3_soak_last_report >= frequency * 60U))) {
+					rpi5_gate3_soak_last_report = now;
+					kprintf("RPI5XNU:SOAK:HEARTBEAT ACKS=%u,%u,%u\n",
+					    rpi5_gate3_soak_last_acks[1],
+					    rpi5_gate3_soak_last_acks[2],
+					    rpi5_gate3_soak_last_acks[3]);
+				}
+			}
+		}
+#endif
+		if (cdp->cpu_number == 0 &&
+		    !os_atomic_load(&rpi5_gate3_soak_enabled, acquire)) {
+			pe_rpi5_watchdog_timer_tick(rpi5_watchdog_healthy);
+		}
+		static uint32_t rpi5_timer_irq_count;
+		if (rpi5_timer_irq_count < 100) {
+			rpi5_timer_irq_count++;
+			if (rpi5_timer_irq_count == 1 || rpi5_timer_irq_count == 10 ||
+			    rpi5_timer_irq_count == 100) {
+				uint64_t ctl = __builtin_arm_rsr64("CNTV_CTL_EL0");
+				uint64_t tval = __builtin_arm_rsr64("CNTV_TVAL_EL0");
+				kprintf("BCM2712 timer PPI27 count %u ctl=0x%llx tval=0x%llx\n",
+				    rpi5_timer_irq_count, ctl, tval);
+			}
+		}
+	} else if ((rpi5_iar & 0x3ffU) == 1U) {
+		/* GICC_IAR acknowledged this SGI. Finish it before processing the
+		 * shared signal bits, so a later SGI cannot be lost at the boundary. */
+		pe_rpi5_irq_complete(rpi5_iar);
+		cpu_signal_handler();
+	} else if ((rpi5_iar & 0x3ffU) != 1023U) {
+		panic("BCM2712: unexpected IRQ %u", rpi5_iar & 0x3ffU);
+	}
+#elif USE_APPLEARMSMP
 	PE_handle_ext_interrupt();
 #else
 	/* Run the registered interrupt handler. */

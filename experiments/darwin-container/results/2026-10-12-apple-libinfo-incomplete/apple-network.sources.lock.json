@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "repository": "https://github.com/apple-oss-distributions/libresolv",
+  "tag": "libresolv-96",
+  "commit": "e48cd914edc1cb14f8289b8e2dfdaac360481cd2",
+  "localPath": "upstream/apple-libresolv-96",
+  "selectedSources": ["ns_name.c", "ns_parse.c", "ns_netint.c", "res_comp.c"],
+  "upstreamModified": false,
+  "scope": "DNS wire name/record parsing only; not full res_nquery/configd/mDNSResponder integration",
+  "adaptations": ["__FBSDID removed by compile-time macro for Apple SDK", "single-threaded process-local errno ABI glue", "unused upstream functions stripped, no host libSystem or libresolv linkage"],
+  "license": "retain original per-file ISC/BSD notices and upstream APPLE_LICENSE"
+}

@@ -28,6 +28,9 @@
 
 #include <sys/types.h>
 #include <sys/param.h>
+#include <net/dlil.h>
+#include <sys/kdebug.h>
+#include <sys/kdebug_private.h>
 #include <kern/zalloc.h>
 #include <net/ethernet.h>
 #include <net/if_var.h>
@@ -43,7 +46,9 @@
 #include <kern/thread.h>
 #include <kern/sched_prim.h>
 
+#if SKYWALK
 #include <skywalk/core/skywalk_var.h>
+#endif /* SKYWALK */
 
 #define FQ_CODEL_DEFAULT_QUANTUM 1500
 
@@ -652,7 +657,7 @@ fq_if_destroy(fq_if_t *fqs)
 
 	fqs->fqs_ifq = NULL;
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 	struct skoid *fqs_skoid = (struct skoid *)&fqs->fqs_oid;
 	skoid_destroy(fqs_skoid);
 #endif /* (DEBUG || DEVELOPMENT) */
@@ -1083,8 +1088,10 @@ fq_if_schedule_pacemaker(fq_if_t *fqs, uint64_t now, uint64_t next_tx_time)
 	ASSERT(fqs->fqs_pacemaker_tcall != NULL);
 	ASSERT(now < next_tx_time);
 
+#if SKYWALK
 	DTRACE_SKYWALK2(pacemaker__schedule, struct ifnet*, fqs->fqs_ifq->ifcq_ifp,
 	    uint64_t, next_tx_time - now);
+#endif /* SKYWALK */
 	KDBG(AQM_KTRACE_TX_PACEMAKER, fqs->fqs_ifq->ifcq_ifp->if_index, now,
 	    next_tx_time, next_tx_time - now);
 
@@ -1928,7 +1935,7 @@ fq_if_request(struct ifclassq *ifq, cqrq_t rq, void *arg)
 	return err;
 }
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 static int
 fq_if_configure_target_sysctl SYSCTL_HANDLER_ARGS
 {
@@ -1988,7 +1995,7 @@ fq_if_setup_common(struct ifclassq *ifq, u_int32_t flags,
 		err = ifclassq_attach(ifq, PKTSCHEDT_FQ_CODEL_NEW, fqs);
 	}
 
-#if (DEBUG || DEVELOPMENT)
+#if (DEBUG || DEVELOPMENT) && SKYWALK
 	struct ifnet *ifp = ifq->ifcq_ifp;
 	struct skoid *fqs_skoid = (struct skoid *)&fqs->fqs_oid;
 	skoid_create(fqs_skoid,
@@ -2360,9 +2367,11 @@ fq_if_add_fcentry(fq_if_t *fqs, pktsched_pkt_t *pkt, uint8_t flowsrc,
 		    fq->fq_bytes, fq->fq_min_qdelay);
 	}
 
+#if SKYWALK
 	if (fce != NULL && fce->fce_flowsrc_type == FLOWSRC_CHANNEL) {
 		kern_channel_flowadv_set(fce);
 	}
+#endif /* SKYWALK */
 
 	return (fce != NULL) ? TRUE : FALSE;
 }

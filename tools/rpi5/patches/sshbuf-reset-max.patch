@@ -1,0 +1,27 @@
+--- a/sshbuf.c
++++ b/sshbuf.c
+@@ -196,6 +196,7 @@
+ sshbuf_reset(struct sshbuf *buf)
+ {
+ 	u_char *d;
++	size_t reset_alloc;
+ 
+ 	if (buf->readonly || buf->refcount > 1) {
+ 		/* Nonsensical. Just make buffer appear empty */
+@@ -206,11 +207,13 @@
+ 	if (sshbuf_check_sanity(buf) != 0)
+ 		return;
+ 	buf->off = buf->size = 0;
+-	if (buf->alloc != SSHBUF_SIZE_INIT) {
+-		if ((d = recallocarray(buf->d, buf->alloc, SSHBUF_SIZE_INIT,
++	/* Pi port correction: reset must preserve alloc <= retained max_size. */
++	reset_alloc = MIN(buf->max_size, SSHBUF_SIZE_INIT);
++	if (buf->alloc != reset_alloc) {
++		if ((d = recallocarray(buf->d, buf->alloc, reset_alloc,
+ 		    1)) != NULL) {
+ 			buf->cd = buf->d = d;
+-			buf->alloc = SSHBUF_SIZE_INIT;
++			buf->alloc = reset_alloc;
+ 		}
+ 	}
+ 	explicit_bzero(buf->d, buf->alloc);

@@ -1,0 +1,39 @@
+{
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.4.2",
+  "manifest_sha256": "72befa1cb90f9ae920b4a454be582e64015d95f5035931b25695ab197368667c",
+  "script_sha256": "6162763b4dbfdccc9c326d600f5e23e3eb1d30b516886312719e4bd7d02a5a90",
+  "runs": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/results/2026-10-12-apple-utilities-trial-4/workspaces/apple-userland/runs/20261012T231926Z-c40c8bcca92f",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/results/2026-10-12-apple-utilities-trial-4/workspaces/apple-userland/runs/20261012T231929Z-fdb77eedefc8"
+  ],
+  "passed": [
+    "basename: actual guest command exercised",
+    "cat: actual guest command exercised",
+    "chmod: actual guest command exercised",
+    "comm: actual guest command exercised",
+    "cp: actual guest command exercised",
+    "dirname: actual guest command exercised",
+    "echo: actual guest command exercised",
+    "fold: actual guest command exercised",
+    "head: actual guest command exercised",
+    "ln: actual guest command exercised",
+    "ls: actual guest command exercised",
+    "mkdir: actual guest command exercised",
+    "printenv: actual guest command exercised",
+    "pwd: actual guest command exercised",
+    "rev: actual guest command exercised",
+    "rm: actual guest command exercised",
+    "rmdir: actual guest command exercised",
+    "sleep: actual guest command exercised",
+    "tee: actual guest command exercised",
+    "touch: actual guest command exercised",
+    "uname: actual guest command exercised",
+    "uniq: actual guest command exercised",
+    "wc: actual guest command exercised",
+    "boot 1: clean guest shutdown",
+    "source-built cat read saved data after clean workspace restart",
+    "boot 2: clean guest shutdown"
+  ],
+  "error": null,
+  "scope": "two short actual XNU workspace boots; utility examples and clean persistence; no soak or full option suite"
+}

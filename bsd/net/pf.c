@@ -11009,11 +11009,6 @@ pf_find_mtag_pbuf(pbuf_t *pbuf)
 	return pbuf->pb_pftag;
 }
 
-struct pf_mtag *
-pf_find_mtag(struct mbuf *m)
-{
-	return m_pftag(m);
-}
 
 struct pf_mtag *
 pf_get_mtag(struct mbuf *m)
@@ -11027,37 +11022,7 @@ pf_get_mtag_pbuf(pbuf_t *pbuf)
 	return pf_find_mtag_pbuf(pbuf);
 }
 
-struct pf_fragment_tag *
-pf_copy_fragment_tag(struct mbuf *m, struct pf_fragment_tag *ftag, int how)
-{
-	struct m_tag *__single tag;
-	struct pf_mtag *__single pftag = pf_find_mtag(m);
 
-	tag = m_tag_create(KERNEL_MODULE_TAG_ID, KERNEL_TAG_TYPE_PF_REASS,
-	    sizeof(*ftag), how, m);
-	if (tag == NULL) {
-		return NULL;
-	}
-	m_tag_prepend(m, tag);
-	bcopy(ftag, tag->m_tag_data, sizeof(*ftag));
-	pftag->pftag_flags |= PF_TAG_REASSEMBLED;
-	return (struct pf_fragment_tag *)tag->m_tag_data;
-}
-
-struct pf_fragment_tag *
-pf_find_fragment_tag(struct mbuf *m)
-{
-	struct m_tag *tag;
-	struct pf_fragment_tag *ftag = NULL;
-	struct pf_mtag *pftag = pf_find_mtag(m);
-
-	tag = m_tag_locate(m, KERNEL_MODULE_TAG_ID, KERNEL_TAG_TYPE_PF_REASS);
-	VERIFY((tag == NULL) || (pftag->pftag_flags & PF_TAG_REASSEMBLED));
-	if (tag != NULL) {
-		ftag = (struct pf_fragment_tag *)tag->m_tag_data;
-	}
-	return ftag;
-}
 
 struct pf_fragment_tag *
 pf_find_fragment_tag_pbuf(pbuf_t *pbuf)

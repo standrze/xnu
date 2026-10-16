@@ -4992,7 +4992,7 @@ dropboth:
 		if (uap->arg) {
 			/* extract 32 bits of flags from userland */
 			param_ptr = (caddr_t) uap->arg;
-			param = (uint32_t) param_ptr;
+			param = (uint32_t) uap->arg;
 		} else {
 			/* If no argument is specified, error out */
 			error = EINVAL;

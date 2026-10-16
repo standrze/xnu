@@ -98,6 +98,7 @@
 #include <sys/event.h>
 
 #include <sys/poll.h>
+#include <pexpert/pexpert.h>
 
 #include <sys/socket.h>
 #include <sys/socketvar.h>

@@ -83,7 +83,7 @@ flush_dcache(
 		}
 		FlushPoC_DcacheRegion(vaddr, (unsigned)count);
 		if (paddr && (cpu_data_ptr->cpu_cache_dispatch != NULL)) {
-			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanFlushRegion, (unsigned int) paddr, (unsigned)count);
+			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanFlushRegion, (cache_dispatch_arg_t) paddr, (cache_dispatch_arg_t)count);
 		}
 		addr += count;
 		length -= count;
@@ -117,7 +117,7 @@ clean_dcache(
 		}
 		CleanPoC_DcacheRegion(vaddr, (unsigned)count);
 		if (paddr && (cpu_data_ptr->cpu_cache_dispatch != NULL)) {
-			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanRegion, (unsigned int) paddr, (unsigned)count);
+			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanRegion, (cache_dispatch_arg_t) paddr, (cache_dispatch_arg_t)count);
 		}
 		addr += count;
 		length -= count;
@@ -180,7 +180,7 @@ dcache_incoherent_io_flush64(
 			FlushPoC_DcacheRegion(vaddr, (unsigned)count);
 			if (isphysmem(paddr)) {
 				if (cpu_data_ptr->cpu_cache_dispatch != NULL) {
-					cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanFlushRegion, (unsigned int) paddr, (unsigned)count);
+					cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanFlushRegion, (cache_dispatch_arg_t) paddr, (cache_dispatch_arg_t)count);
 				}
 			} else {
 				pmap_unmap_cpu_windows_copy(index);
@@ -239,7 +239,7 @@ dcache_incoherent_io_store64(
 			CleanPoC_DcacheRegion(vaddr, (unsigned)count);
 			if (isphysmem(paddr)) {
 				if (cpu_data_ptr->cpu_cache_dispatch != NULL) {
-					cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanRegion, (unsigned int) paddr, (unsigned)count);
+					cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheCleanRegion, (cache_dispatch_arg_t) paddr, (cache_dispatch_arg_t)count);
 				}
 			} else {
 				pmap_unmap_cpu_windows_copy(index);
@@ -283,7 +283,7 @@ platform_cache_init(
 		cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheControl, CacheControlEnable, 0x0UL);
 
 		if (cpuid_cache_info->c_l2size == 0x0) {
-			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheConfig, CacheConfigSize, (unsigned int)&cache_size);
+			cpu_data_ptr->cpu_cache_dispatch(cpu_data_ptr->cpu_id, CacheConfig, CacheConfigSize, (cache_dispatch_arg_t)&cache_size);
 			cpuid_cache_info->c_l2size = cache_size;
 		}
 	}

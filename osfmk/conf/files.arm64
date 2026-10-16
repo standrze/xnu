@@ -52,6 +52,9 @@ osfmk/arm64/dbgwrap.c		standard
 osfmk/arm/arm_timer.c		standard
 osfmk/arm/arm_init.c	optional config_pmap_ppl
 osfmk/arm64/arm_vm_init.c	optional config_pmap_ppl
+# Pi uses the public legacy ARM bootstrap without enabling a PPL monitor.
+osfmk/arm/arm_init.c optional config_rpi5_bringup
+osfmk/arm64/arm_vm_init.c optional config_rpi5_bringup
 osfmk/arm64/arm64_hypercall.c	standard
 osfmk/arm/io_map.c		standard
 osfmk/arm64/loose_ends.c	standard
@@ -63,6 +66,7 @@ osfmk/arm64/gxf_exceptions.s	optional nos_arm_asm
 osfmk/arm64/lowmem_vectors.c	standard
 osfmk/arm64/sleh.c			standard
 osfmk/arm64/start.s	optional nos_arm_asm config_pmap_ppl
+osfmk/arm64/start.s optional config_rpi5_bringup
 osfmk/arm64/pinst.s	optional nos_arm_asm
 osfmk/arm64/cswitch.s	optional nos_arm_asm
 osfmk/arm/machine_cpuid.c	standard
@@ -120,6 +124,24 @@ osfmk/arm64/vm_mte_compress.c   standard
 osfmk/arm64/sme.c		standard
 osfmk/arm64/static_if.c	standard
 osfmk/arm64/corecrypto/sha256_compress_arm64.s	standard
+# Select available public low-level sources without Apple's absent AMCC files.
+osfmk/arm64/caches_asm.s optional config_rpi5_bringup
+osfmk/arm64/locore.s optional config_rpi5_bringup
+osfmk/arm64/iofilter_asm.s optional config_rpi5_bringup
+osfmk/arm64/iofilter.c optional config_rpi5_bringup
+osfmk/arm64/gxf_exceptions.s optional config_rpi5_bringup
+osfmk/arm64/pinst.s optional config_rpi5_bringup
+osfmk/arm64/cswitch.s optional config_rpi5_bringup
+osfmk/arm64/machine_routines_asm.s optional config_rpi5_bringup
+osfmk/arm/machine_routines_apple.c optional config_rpi5_bringup
+osfmk/arm64/pcb.c optional config_rpi5_bringup
+osfmk/arm64/rpi5_stack_probe.s optional config_rpi5_bringup
+osfmk/arm64/rpi5_secondary_trampoline.s optional config_rpi5_bringup
+osfmk/arm64/rpi5_psci.s optional config_rpi5_bringup
+osfmk/arm64/rpi5_tlb_test.c optional config_rpi5_bringup
+osfmk/arm64/rpi5_user_tlb_test.c optional config_rpi5_bringup
+osfmk/arm64/rpi5_concurrency_test.c optional config_rpi5_bringup
+osfmk/arm64/rpi5_gate3_qualification.c optional config_rpi5_bringup
 osfmk/arm64/x86_64_compat.c	standard
 
 osfmk/arm/counter.c	standard

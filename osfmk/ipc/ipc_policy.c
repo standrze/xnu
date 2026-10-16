@@ -2093,7 +2093,7 @@ _ipc_triage_telemetry_mode_policy_violation(
 	ipc_sec_policy_config_t* policy_config,
 	ipc_space_t maybe_space,
 	ipc_sec_policy_in_flight_violation_info_t* in_flight_info,
-	ipc_port_t maybe_ca_violating_port,
+	ipc_port_t maybe_ca_violating_port __unused,
 	int maybe_ca_aux_data
 	)
 {

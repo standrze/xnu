@@ -626,12 +626,16 @@ static boolean_t
 tcp_garbage_collect(struct inpcb *inp, int istimewait)
 {
 	boolean_t active = FALSE;
-	struct socket *so, *mp_so = NULL;
+	struct socket *so;
+#if MPTCP
+	struct socket *mp_so = NULL;
+#endif
 	struct tcpcb *tp;
 
 	so = inp->inp_socket;
 	tp = intotcpcb(inp);
 
+#if MPTCP
 	if (so->so_flags & SOF_MP_SUBFLOW) {
 		mp_so = mptetoso(tptomptp(tp)->mpt_mpte);
 		if (!socket_try_lock(mp_so)) {
@@ -653,6 +657,7 @@ tcp_garbage_collect(struct inpcb *inp, int istimewait)
 		mp_so->so_usecount++;
 		tptomptp(tp)->mpt_mpte->mpte_mppcb->mpp_inside++;
 	}
+#endif /* MPTCP */
 
 	/*
 	 * Skip if still in use or busy; it would have been more efficient
@@ -752,6 +757,7 @@ tcp_garbage_collect(struct inpcb *inp, int istimewait)
 			}
 		}
 
+#if MPTCP
 		if (mp_so) {
 			mptcp_subflow_del(tptomptp(tp)->mpt_mpte, tp->t_mpsub);
 
@@ -759,6 +765,7 @@ tcp_garbage_collect(struct inpcb *inp, int istimewait)
 			socket_unlock(mp_so, 1);
 			mp_so = NULL;
 		}
+#endif /* MPTCP */
 
 		in_pcbdispose(inp);
 		active = FALSE;
@@ -769,9 +776,11 @@ tcp_garbage_collect(struct inpcb *inp, int istimewait)
 	active = TRUE;
 
 out:
+#if MPTCP
 	if (mp_so) {
 		socket_unlock(mp_so, 1);
 	}
+#endif /* MPTCP */
 
 	return active;
 }
@@ -2826,9 +2835,11 @@ tcp_disable_read_probe(struct tcpcb *tp)
 	    tp->t_rtimo_probes > 0)) {
 		tcp_keepalive_reset(tp);
 
+#if MPTCP
 		if (tp->t_mpsub) {
 			mptcp_reset_keepalive(tp);
 		}
+#endif /* MPTCP */
 	}
 }
 

@@ -454,11 +454,13 @@ struct mptcb {
 #define MPCE_RECV_DATA_FIN      0x4
 
 /* mptcb manipulation */
+#if MPTCP
 static inline struct mptcb *
 tptomptp(struct tcpcb *tp)
 {
 	return tp->t_mptcb;
 }
+#endif /* MPTCP */
 
 /*
  * MPTCP control block and state structures are allocated along with

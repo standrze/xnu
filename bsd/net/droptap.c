@@ -83,9 +83,11 @@ errno_t droptap_add_proto(ifnet_t, protocol_family_t,
 errno_t droptap_del_proto(ifnet_t, protocol_family_t);
 errno_t droptap_tap_callback(ifnet_t, u_int32_t, bpf_tap_mode);
 void droptap_detach(ifnet_t);
+#if SKYWALK
 static void droptap_bpf_tap_packet(kern_packet_t, uint32_t,
     struct droptap_header *, uint32_t, struct ifnet *, pid_t,
     const char *, pid_t, const char *, uint8_t, uint32_t);
+#endif /* SKYWALK */
 static void droptap_bpf_tap_mbuf(struct mbuf *, uint16_t,
     struct droptap_header *, struct ifnet *);
 
@@ -233,6 +235,7 @@ droptap_detach(ifnet_t ifp)
 	(void) ifnet_release(ifp);
 }
 
+#if SKYWALK
 void
 droptap_input_packet(kern_packet_t pkt, drop_reason_t reason,
     const char *funcname, uint16_t linenum, uint16_t flags, struct ifnet *ifp,
@@ -348,6 +351,8 @@ droptap_bpf_tap_packet(kern_packet_t pkt, uint32_t flags,
 	}
 	lck_rw_done(&droptap_lck_rw);
 }
+
+#endif /* SKYWALK */
 
 void
 droptap_input_mbuf(struct mbuf *m, drop_reason_t reason, const char *funcname,

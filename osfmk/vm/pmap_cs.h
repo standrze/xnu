@@ -79,7 +79,9 @@ pmap_ce_free_acceleration_buffer(
 #include <vm/pmap.h>
 #include <kern/lock_rw.h>
 #include <libkern/image4/dlxk.h>
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <TrustCache/API.h>
+#endif
 
 
 #if PMAP_CS

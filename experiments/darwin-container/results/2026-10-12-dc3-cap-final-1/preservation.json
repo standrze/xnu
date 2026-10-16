@@ -1,0 +1,20 @@
+{
+  "expectedCLIStatus": 1,
+  "files": {
+    "audit.json": "d7e80b03532b2aada39e5ea7dace4aa09694639b83fa5897f1675559424d4d72",
+    "command-1-stderr.bin": "33bc8aab40703678c3ebe94d2dd8f2afff285dd901f9234e841e4679f8204fd5",
+    "command-1-stdout.bin": "33bc8aab40703678c3ebe94d2dd8f2afff285dd901f9234e841e4679f8204fd5",
+    "command-2-stderr.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "command-2-stdout.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "loader-manifest.json": "a47390eb567019a340dcfbc303ae7c96c3425a52ff500b0ee6fac7850531fb25",
+    "preflight.json": "ae5e7e182a8b55696ff61c72afccd771ffbaef802a8b2566bc38ff53e8145fdb",
+    "result.json": "ba7c7744402429124539e4fc846b71dd5ef94aadedd5f017889bdf858b87e16f",
+    "serial.bin": "d257bb110421439fc34f120eda06e5576796a94c8912a86126b81e0eda93376b",
+    "serial.txt": "d257bb110421439fc34f120eda06e5576796a94c8912a86126b81e0eda93376b",
+    "start-requested.json": "f7b1c05e638f0f2224dfe64327d4abe1a7c9120d02891c2019327d0f7217b776",
+    "started.json": "599cdff0a356c991959fdd6961989e273ad1cd3193e7b3a54f84193e82fd48d4",
+    "stopped.json": "45140d6a90082ceab4c185fbcf7114c088a33ae371b0161ae93c7320cfeaebe1"
+  },
+  "qualification": "managed wire audit passed",
+  "sessionID": "0e5ebed40d5349f1a398264df4aadaad"
+}

@@ -1,0 +1,44 @@
+{
+  "outcome": "network-smoke-milestone-passed-not-full-goal",
+  "proved": [
+    "real XNU en0 interface and MAC via guest routing sysctl",
+    "guest BPF/UDP DHCP discover/offer/request/ACK and address/default-route setup",
+    "guest-originated DNS A lookup and TCP nonce echo, independently witnessed on host NAT interface",
+    "real PTY, job control enabled and initial host window size",
+    "Apple ZLE editing and up-arrow history",
+    "Ctrl-Z/jobs/fg and Ctrl-C status 130",
+    "host SIGWINCH -> XNU TIOCSWINSZ -> zsh trap and dimensions",
+    "high-bit bytes from host input through guest read and output",
+    "guest history-save exit/unmount/poweroff"
+  ],
+  "kernel_sha256": "0501225204ac5711fd409f82e9ff70138d126c002f654bea758827345c023da9",
+  "zsh_sha256": "e31f24dc789daa766506910b3aa25c7963a186517b1c9a2a3379ad50f43d3be3",
+  "remaining": [
+    "guest GPU client/channel and returned real Metal result",
+    "pinned Apple network configuration/resolver userland integration"
+  ],
+  "limits": [
+    "project bootstrap netctl, not Apple ipconfig/Libresolv",
+    "single fixture DNS A lookup and TCP echo, not general internet or IPv6 qualification",
+    "DHCP bootstrap only, no lease renewal",
+    "not a soak or production isolation"
+  ],
+  "sha256": {
+    "apple-zsh-source.json": "c11d69f14c68bb5ec952a2a32e77cf47a771f60f5f7b04fceaf4d8a9254996f4",
+    "guest-trial/host-terminal.bin": "dc800c3a78a03e36fe6bbe5f3a74f4440cecd859fe90d6556c357434dc385506",
+    "guest-trial/preflight.json": "95aadf9c7b62ba3a40d5105ce9c52cd6bf48c2e9acc7b7f47bdcb907f160583a",
+    "guest-trial/result.json": "4686c3f21665f6531a2f1b21b52265cbed549db75628ad387f50a69d7c08d5db",
+    "guest-trial/serial.bin": "efc77696e5ec54d5b8e2c2e618e32f174d9e4da581905893c257bd311835bb5c",
+    "guest-trial/serial.txt": "efc77696e5ec54d5b8e2c2e618e32f174d9e4da581905893c257bd311835bb5c",
+    "guest-trial/start-requested.json": "ee391dd0940f5f92da741e8a830cf05690fa9149ed4128b0c2508e54106509f0",
+    "guest-trial/started.json": "51ca8a3b4fe733491053106ae24a37cffa7e13878497d17e38c6809dbcda5bda",
+    "guest-trial/stopped.json": "729d5c646f9943e93ca9eaedb2ca1dd3abcd694573bb63f884035c2c76c36b3f",
+    "guest-trial/terminal-output.bin": "cf0b678f9bd2e911bd2cd33fa62fcbb86498d526b1d743c2c2a51ef816376d0d",
+    "guest-trial/terminal-trial.json": "ccff56cce614da66ae126b8b54ccdc1fefd5b92fed486dc59acf0b0fb4123acb",
+    "kernel-manifest.json": "ced24cb03cb1e42dc36049e5f2e9124939e7ce330f377eb0fe616615497c3040",
+    "loader-manifest.json": "43782fcde0c23d359f9d4bcb30fd78012ecfd5f1938e7f6f8630385a9a5dc97b",
+    "native-net-ring-check.txt": "43db1676f3f588db33d73798af9f1a8fbdb3a12b298180a1ffa6e6d6781417c5",
+    "root-manifest.json": "624649e8d0fa999bab8290d092c25f49d2ab61e6c7021ff9782e6338585a2f26",
+    "zsh-link-manifest.json": "cbfa1c99b1ed49c0a83e04fc0a5b6fe86544b5e4e756e49e1bb29fd664316c38"
+  }
+}

@@ -377,8 +377,16 @@ static const struct filterops * const sysfilt_ops[EVFILTID_MAX] = {
 	[EVFILTID_SCK]                  = &sock_filtops,
 	[EVFILTID_SOEXCEPT]             = &soexcept_filtops,
 	[EVFILTID_SPEC]                 = &spec_filtops,
+#if NBPFILTER > 0
 	[EVFILTID_BPFREAD]              = &bpfread_filtops,
+#else
+	[EVFILTID_BPFREAD]              = &bad_filtops,
+#endif
+#if NECP
 	[EVFILTID_NECP_FD]              = &necp_fd_rfiltops,
+#else
+	[EVFILTID_NECP_FD]              = &bad_filtops,
+#endif
 #if SKYWALK
 	[EVFILTID_SKYWALK_CHANNEL_W]    = &skywalk_channel_wfiltops,
 	[EVFILTID_SKYWALK_CHANNEL_R]    = &skywalk_channel_rfiltops,

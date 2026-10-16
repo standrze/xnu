@@ -76,7 +76,9 @@
 
 #include <os/refcnt.h>
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <CodeSignature/Entitlements.h>
+#endif
 
 #if SKYWALK
 #include <skywalk/os_skywalk_private.h>
@@ -799,6 +801,7 @@ static LCK_RW_DECLARE_ATTR(necp_update_all_clients_lock, &necp_fd_mtx_grp, &necp
 #define NECP_UPDATE_ALL_CLIENTS_SHARED() lck_rw_lock_shared(&necp_update_all_clients_lock)
 #define NECP_UPDATE_ALL_CLIENTS_UNLOCK() lck_rw_done(&necp_update_all_clients_lock)
 
+#if SKYWALK
 /* Global ARP/ND resolution timer for all offload clients */
 static thread_call_t necp_client_arp_nd_tcall;
 
@@ -806,6 +809,7 @@ static thread_call_t necp_client_arp_nd_tcall;
 
 static void necp_client_setup_offload_ethernet_flow_route_monitoring(struct necp_client *client, struct necp_client_flow_registration *flow_registration);
 static int necp_client_setup_route_monitor(struct necp_client *client, struct necp_client_flow *flow, struct necp_client_flow_registration *flow_registration);
+#endif /* SKYWALK */
 
 // Array of PIDs that will trigger in-process flow divert, protected by NECP_FD_LIST_LOCK
 #define NECP_MAX_FLOW_DIVERT_NEEDED_PIDS 4
@@ -837,8 +841,10 @@ static void necp_sysctl_arena_destroy(struct necp_fd_data *fd_data);
 static void *necp_arena_sysctls_obj(struct necp_fd_data *fd_data, mach_vm_offset_t *off, size_t *size);
 #endif /* !SKYWALK */
 
+#if SKYWALK
 static int necp_aop_offload_stats_initialize(struct necp_client_flow_registration *flow_registration, uuid_t netagent_uuid);
 static void necp_aop_offload_stats_destroy(struct necp_client_flow *flow);
+#endif /* SKYWALK */
 static errno_t necp_client_flow_populate_mac_addresses(struct necp_client_flow *flow);
 
 void necp_copy_inp_domain_info(struct inpcb *, struct socket *, nstat_domain_info *);
@@ -846,6 +852,7 @@ void necp_with_inp_domain_name_locked(struct socket *so, void *ctx, void (*with_
 
 static void necp_flow_route_monitor_unregister(struct rtentry *, eventhandler_tag);
 
+#if SKYWALK
 #if __has_ptrcheck
 static inline
 __attribute__((always_inline)) __pure
@@ -861,6 +868,7 @@ necp_client_get_flow_stats(const struct necp_client_add_flow *req)
 #else
 #define necp_client_get_flow_stats(req) ((struct necp_client_flow_stats *)&(req)->stats_requests[0])
 #endif
+#endif /* SKYWALK */
 
 #if __has_ptrcheck
 static inline
@@ -1078,6 +1086,7 @@ necp_find_client_and_lock(uuid_t client_id)
 /*
  * Locate flow with flow_id.  If found, lock client
  */
+#if CONTENT_FILTER
 static struct necp_client *
 necp_find_flow_locked(uuid_t flow_id, struct necp_client_flow_registration * __single * __single found_flow)
 {
@@ -1105,6 +1114,7 @@ necp_find_flow_locked(uuid_t flow_id, struct necp_client_flow_registration * __s
 
 	return client;
 }
+#endif /* CONTENT_FILTER */
 
 static struct necp_client_flow_registration *
 necp_client_find_flow(struct necp_client *client, uuid_t flow_id)
@@ -2150,7 +2160,9 @@ necp_destroy_client_flow_registration(struct necp_client *client,
 			OSDecrementAtomic(&necp_if_flow_count);
 		}
 
+#if SKYWALK
 		necp_aop_offload_stats_destroy(search_flow);
+#endif /* SKYWALK */
 
 		// Clean up route monitoring for this flow
 		if (search_flow->route_eh_tag != NULL) {
@@ -2773,7 +2785,9 @@ necp_client_update_flows(proc_t proc,
 						OSDecrementAtomic(&necp_if_flow_count);
 					}
 
+#if SKYWALK
 					necp_aop_offload_stats_destroy(flow);
+#endif /* SKYWALK */
 
 					kfree_type(struct necp_client_flow, flow);
 				}
@@ -3796,6 +3810,7 @@ necp_client_parse_parameters(struct necp_client *client, u_int8_t * __sized_by(p
 	return error;
 }
 
+#if SKYWALK
 static void
 necp_client_route_monitor_callback(struct eventhandler_entry_arg ee_arg,
     __unused struct sockaddr *dst, __unused int route_ev,
@@ -3852,6 +3867,8 @@ necp_client_route_monitor_callback(struct eventhandler_entry_arg ee_arg,
 		NECPLOG0(LOG_DEBUG, "necp_client_route_monitor_callback: client not found");
 	}
 }
+
+#endif /* SKYWALK */
 
 static int
 necp_client_parse_result(u_int8_t * __indexable result,
@@ -4623,6 +4640,7 @@ necp_update_flow_protoctl_event(uuid_t netagent_uuid, uuid_t client_id,
 	return error;
 }
 
+#if SKYWALK
 static eventhandler_tag
 necp_client_route_monitor_register(struct rtentry *rt, struct necp_client* client, struct necp_client_flow_registration *flow_registration)
 {
@@ -4638,6 +4656,7 @@ necp_client_route_monitor_register(struct rtentry *rt, struct necp_client* clien
 
 	return tag;
 }
+#endif /* SKYWALK */
 
 static void
 necp_flow_route_monitor_unregister(struct rtentry *rt, eventhandler_tag tag)
@@ -6715,6 +6734,7 @@ necp_with_inp_domain_name(struct socket *so, void *ctx, void (*with_func)(char *
 	socket_unlock(so, 1);
 }
 
+#if SKYWALK
 static size_t
 necp_find_domain_info_common(struct necp_client *client,
     u_int8_t * __sized_by(parameters_size)parameters,
@@ -6891,8 +6911,6 @@ necp_find_conn_extension_info(nstat_provider_context ctx,
 		return 0;
 	}
 }
-
-#if SKYWALK
 
 static struct traffic_stats*
 media_stats_embedded_ts(struct media_stats *media_stats, uint32_t ifflags)
@@ -7930,6 +7948,7 @@ necp_request_quic_netstats(userland_stats_provider_context *ctx,
 
 #endif /* SKYWALK */
 
+#if SKYWALK
 // Support functions for NetworkStatistics support for necp_client connections
 
 static void
@@ -8080,6 +8099,8 @@ necp_request_conn_netstats(nstat_provider_context ctx,
 	return true;
 }
 
+#endif /* SKYWALK */
+
 static int
 necp_skywalk_priv_check_cred(proc_t p, kauth_cred_t cred)
 {
@@ -8201,7 +8222,9 @@ necp_client_add(struct proc *p, struct necp_fd_data *fd_data, struct necp_client
 	int error = 0;
 	struct necp_client * __single client = NULL;
 	const size_t buffer_size = uap->buffer_size;
+#if SKYWALK
 	const task_t __single task = proc_task(p);
+#endif /* SKYWALK */
 
 	if (fd_data->flags & NECP_OPEN_FLAG_PUSH_OBSERVER) {
 		NECPLOG0(LOG_ERR, "NECP client observers with push enabled may not add their own clients");
@@ -8480,11 +8503,13 @@ necp_client_add(struct proc *p, struct necp_fd_data *fd_data, struct necp_client
 	NECP_CLIENT_UNLOCK(client);
 	NECP_FD_UNLOCK(fd_data);
 	// Now everything is set, it's safe to plumb this in to NetworkStatistics
+#if SKYWALK
 	uint32_t ntstat_properties = 0;
 	necp_find_conn_netstat_data(client, &ntstat_properties, NULL, NULL, NULL, NULL, NULL);
 
 	client->nstat_context = nstat_provider_stats_open((nstat_provider_context)client,
 	    NSTAT_PROVIDER_CONN_USERLAND, (u_int64_t)ntstat_properties, necp_request_conn_netstats, necp_find_conn_extension_info);
+#endif /* SKYWALK */
 	necp_client_release(client);
 done:
 	if (error != 0 && client != NULL) {
@@ -9783,6 +9808,7 @@ done:
 	return error;
 }
 
+#if SKYWALK
 static bool
 necp_client_lookup_route_target(struct necp_client_flow *flow, necp_route_resolution_info_t *info)
 {
@@ -9960,6 +9986,8 @@ necp_client_setup_route_monitor(struct necp_client *client, struct necp_client_f
 
 	return error;
 }
+
+#endif /* SKYWALK */
 
 static NECP_CLIENT_ACTION_FUNCTION int
 necp_client_add_flow(struct necp_fd_data *fd_data, struct necp_client_action_args *uap, int *retval)
@@ -12237,8 +12265,13 @@ necp_client_set_signed_client_id(__unused struct necp_fd_data *fd_data, struct n
 
 	// Only allow entitled processes to set the client ID.
 	proc_t proc = current_proc();
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Bring-up does not provide Apple's browser-entitlement roles. */
+	bool has_delegation_entitlement = false;
+#else
 	task_t __single task = proc_task(proc);
 	bool has_delegation_entitlement = task != NULL && IOTaskHasEntitlement(task, kCSWebBrowserNetworkEntitlement);
+#endif
 	if (!has_delegation_entitlement) {
 		has_delegation_entitlement = (priv_check_cred(kauth_cred_get(), PRIV_NET_PRIVILEGED_SOCKET_DELEGATE, 0) == 0);
 	}
@@ -13179,6 +13212,7 @@ necp_mppcb_dispose(struct mppcb *mpp)
 	}
 }
 
+#if CONTENT_FILTER
 int
 necp_client_qualify_flow(uuid_t *flow_uuid, int flow_protocol, union sockaddr_in_4_6 *flow_local, union sockaddr_in_4_6 *flow_remote, u_int32_t filter_control_unit)
 {
@@ -13260,6 +13294,8 @@ necp_client_qualify_flow(uuid_t *flow_uuid, int flow_protocol, union sockaddr_in
 	return error;
 }
 
+#endif /* CONTENT_FILTER */
+
 /// Module init
 
 void
@@ -13269,12 +13305,11 @@ necp_client_init(void)
 	    THREAD_CALL_PRIORITY_KERNEL, THREAD_CALL_OPTIONS_ONCE);
 	VERIFY(necp_client_update_tcall != NULL);
 
+#if SKYWALK
 	/* Initialize global ARP/ND resolution timer */
 	necp_client_arp_nd_tcall = thread_call_allocate_with_options(necp_client_arp_nd_global_timer_callout, NULL,
 	    THREAD_CALL_PRIORITY_KERNEL, THREAD_CALL_OPTIONS_ONCE);
 	VERIFY(necp_client_arp_nd_tcall != NULL);
-
-#if SKYWALK
 
 	necp_client_collect_stats_tcall = thread_call_allocate_with_options(necp_collect_stats_client_callout, NULL,
 	    THREAD_CALL_PRIORITY_KERNEL, THREAD_CALL_OPTIONS_ONCE);

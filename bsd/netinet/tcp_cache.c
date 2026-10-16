@@ -357,8 +357,10 @@ tcp_getcache_with_lock(struct tcp_cache_key_src *tcks,
 				goto out_null;
 			}
 
+#if MPTCP
 			tpcache->tc_mptcp_version = (uint8_t)mptcp_preferred_version;
 			tpcache->tc_mptcp_next_version_try = tcp_now;
+#endif /* MPTCP */
 
 			SLIST_INSERT_HEAD(&head->tcp_caches, tpcache, list);
 		}
@@ -402,6 +404,7 @@ tcp_cache_key_src_create(struct tcpcb *tp, struct tcp_cache_key_src *tcks)
 	return;
 }
 
+#if MPTCP
 static void
 mptcp_version_cache_key_src_init(struct sockaddr *dst, struct tcp_cache_key_src *tcks)
 {
@@ -417,6 +420,8 @@ mptcp_version_cache_key_src_init(struct sockaddr *dst, struct tcp_cache_key_src 
 
 	return;
 }
+
+#endif /* MPTCP */
 
 static void
 tcp_cache_set_cookie_common(struct tcp_cache_key_src *tcks, u_char *__counted_by(len) cookie, uint8_t len)
@@ -531,6 +536,7 @@ tcp_cache_get_cookie_len(struct tcpcb *tp)
  *         0	MPTCP_VERSION_0
  *         1	MPTCP_VERSION_1
  */
+#if MPTCP
 uint8_t
 tcp_cache_get_mptcp_version(struct sockaddr *dst)
 {
@@ -559,7 +565,9 @@ tcp_cache_get_mptcp_version(struct sockaddr *dst)
 	tcp_cache_unlock(head);
 	return version;
 }
+#endif /* MPTCP */
 
+#if MPTCP
 void
 tcp_cache_update_mptcp_version(struct tcpcb *tp, boolean_t succeeded)
 {
@@ -625,6 +633,7 @@ tcp_cache_update_mptcp_version(struct tcpcb *tp, boolean_t succeeded)
 exit:
 	tcp_cache_unlock(head);
 }
+#endif /* MPTCP */
 
 static uint16_t
 tcp_heuristics_hash(struct tcp_cache_key_src *tcks, struct tcp_heuristic_key *key)
@@ -800,6 +809,7 @@ tcp_heuristic_reset_counters(struct tcp_cache_key_src *tcks, uint8_t flags)
 		tpheur->th_ecn_droprst = 0;
 	}
 
+#if MPTCP
 	if (flags & TCPCACHE_F_MPTCP) {
 		tpheur->th_mptcp_loss = 0;
 		if (tpheur->th_mptcp_success < MPTCP_SUCCESS_TRIGGER) {
@@ -813,6 +823,7 @@ tcp_heuristic_reset_counters(struct tcp_cache_key_src *tcks, uint8_t flags)
 			}
 		}
 	}
+#endif /* MPTCP */
 
 	tcp_heuristic_unlock(head);
 }
@@ -1027,10 +1038,14 @@ tcp_heuristic_tfo_loss(struct tcpcb *tp)
 	struct tcp_cache_key_src tcks;
 	uint32_t flag = 0;
 
+#if MPTCP
+	/* The Symptoms advisory service is registered by MPTCP. Without it,
+	 * retain ordinary loss accounting rather than inventing Wi-Fi advice. */
 	if (symptoms_is_wifi_lossy() &&
 	    IFNET_IS_WIFI(tp->t_inpcb->inp_last_outifp)) {
 		return;
 	}
+#endif
 
 	tcp_cache_key_src_create(tp, &tcks);
 
@@ -1062,6 +1077,7 @@ tcp_heuristic_tfo_rst(struct tcpcb *tp)
 	tcp_heuristic_inc_counters(&tcks, flag);
 }
 
+#if MPTCP
 void
 tcp_heuristic_mptcp_loss(struct tcpcb *tp)
 {
@@ -1076,16 +1092,19 @@ tcp_heuristic_mptcp_loss(struct tcpcb *tp)
 
 	tcp_heuristic_inc_counters(&tcks, TCPCACHE_F_MPTCP);
 }
+#endif /* MPTCP */
 
 void
 tcp_heuristic_ecn_loss(struct tcpcb *tp)
 {
 	struct tcp_cache_key_src tcks;
 
+#if MPTCP
 	if (symptoms_is_wifi_lossy() &&
 	    IFNET_IS_WIFI(tp->t_inpcb->inp_last_outifp)) {
 		return;
 	}
+#endif
 
 	tcp_cache_key_src_create(tp, &tcks);
 	tcp_heuristic_inc_counters(&tcks, TCPCACHE_F_ECN_SYN_LOSS);
@@ -1182,6 +1201,7 @@ tcp_heuristic_do_tfo(struct tcpcb *tp)
  *         -1	Enable MPTCP (heuristics have been temporarily disabled)
  *         1	Disable MPTCP
  */
+#if MPTCP
 int
 tcp_heuristic_do_mptcp(struct tcpcb *tp)
 {
@@ -1240,6 +1260,7 @@ fallback:
 
 	return 1;
 }
+#endif /* MPTCP */
 
 static boolean_t
 tcp_heuristic_do_ecn_common(struct tcp_cache_key_src *tcks)

@@ -1,0 +1,19 @@
+{
+  "compile_command": [
+    "xcrun",
+    "clang",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=address,undefined",
+    "-g",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/bootp_guard.c",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/runtime/bootp_guard_test.c",
+    "-o",
+    "experiments/darwin-container/results/2026-10-12-apple-bootp/bootp-guard-test"
+  ],
+  "exit": 0,
+  "stdout": "DHCP_TLV_GUARD_OK truncation overload option-bound (ASan host check)\n",
+  "stderr": "",
+  "scope": "ASan/UBSan host bounds check only, not guest DHCP proof"
+}

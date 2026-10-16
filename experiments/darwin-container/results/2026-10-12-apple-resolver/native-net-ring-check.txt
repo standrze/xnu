@@ -1,0 +1,1 @@
+VM net rings: TX bounds/padding/reclaim, RX bytes/checksum/RSC flags, empty and invalid descriptors passed

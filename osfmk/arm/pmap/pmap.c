@@ -84,8 +84,10 @@
 
 #include <arm64/proc_reg.h>
 #include <pexpert/arm64/boot.h>
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <arm64/ppl/sart.h>
 #include <arm64/ppl/uat.h>
+#endif
 
 #if defined(KERNEL_INTEGRITY_KTRR) || defined(KERNEL_INTEGRITY_CTRR) || defined(KERNEL_INTEGRITY_PV_CTRR)
 #include <arm64/amcc_rorgn.h>
@@ -467,6 +469,16 @@ int nx_enabled = 1;                                     /* enable no-execute pro
 int allow_data_exec  = 0;                               /* No apps may execute data */
 int allow_stack_exec = 0;                               /* No apps may execute from the stack */
 unsigned long pmap_asid_flushes MARK_AS_PMAP_DATA = 0;
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+/* Gate 3 witness: a user-TLB trial must not pass via switch-induced local TLBI. */
+static _Atomic uint64_t rpi5_pmap_switch_local_flushes[MAX_CPUS];
+
+uint64_t
+rpi5_pmap_switch_local_flush_count(void)
+{
+	return os_atomic_load(&rpi5_pmap_switch_local_flushes[cpu_number()], acquire);
+}
+#endif
 unsigned long pmap_asid_hits MARK_AS_PMAP_DATA = 0;
 unsigned long pmap_asid_misses MARK_AS_PMAP_DATA = 0;
 unsigned long pmap_speculation_restrictions MARK_AS_PMAP_DATA = 0;
@@ -1212,6 +1224,7 @@ PMAP_SUPPORT_PROTOTYPES(
 
 
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 PMAP_SUPPORT_PROTOTYPES(
 	kern_return_t,
 	pmap_check_trust_cache_runtime_for_uuid, (const uint8_t check_uuid[kUUIDSize]),
@@ -1226,16 +1239,21 @@ PMAP_SUPPORT_PROTOTYPES(
 	const vm_size_t img4_manifest_len,
 	const vm_address_t img4_aux_manifest,
 	const vm_size_t img4_aux_manifest_len), PMAP_LOAD_TRUST_CACHE_WITH_TYPE_INDEX);
+#endif
 
 PMAP_SUPPORT_PROTOTYPES(
 	void,
 	pmap_toggle_developer_mode, (bool state), PMAP_TOGGLE_DEVELOPER_MODE_INDEX);
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 PMAP_SUPPORT_PROTOTYPES(
 	kern_return_t,
 	pmap_query_trust_cache, (TCQueryType_t query_type,
 	const uint8_t cdhash[kTCEntryHashSize],
 	TrustCacheQueryToken_t * query_token), PMAP_QUERY_TRUST_CACHE_INDEX);
+#endif
+
+MARK_AS_PMAP_TEXT static void pmap_phys_write_disable(vm_address_t va);
 
 PMAP_SUPPORT_PROTOTYPES(
 	errno_t,
@@ -1929,11 +1947,21 @@ pmap_map_bd_with_options(
 		panic("%s: end 0x%lx is not page aligned", __func__, end);
 	}
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Pi DRAM begins at zero. arm_init validates the nonempty envelope. */
+	if (__improbable(!gDramSize)) {
+#else
 	if (__improbable(!gDramBase || !gDramSize)) {
+#endif
 		panic("%s: gDramBase/gDramSize not initialized", __func__);
 	}
 
 	const bool first_page_is_dram = is_dram_addr(start);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (!rpi5_physical_memory_type(start, end)) {
+		panic("BCM2712: boot mapping contains unknown or mixed memory types");
+	}
+#endif
 	for (vm_offset_t pa = start + PAGE_SIZE; pa < end; pa += PAGE_SIZE) {
 		if (first_page_is_dram != is_dram_addr(pa)) {
 			panic("%s: range crosses DRAM boundary. First inconsistent page 0x%lx %s DRAM",
@@ -2334,7 +2362,9 @@ pmap_bootstrap(
 	/**
 	 * Bootstrap any necessary SART data structures and values needed from the device tree.
 	 */
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 	sart_bootstrap();
+#endif /* BCM2712 has no Apple SART. */
 
 	/**
 	 * Don't make any assumptions about the alignment of avail_start before this
@@ -4763,10 +4793,18 @@ pmap_switch_internal(
 
 #if __ARM_MIXED_PAGE_SIZE__
 	if (__improbable(do_commpage_flush)) {
+#if __ARM_RANGE_TLBI__
 		const uint64_t commpage_shift = cpu_data_ptr->commpage_page_shift;
 		const uint64_t rtlbi_param = generate_rtlbi_param((ppnum_t)_COMM_PAGE64_NESTING_SIZE >> commpage_shift,
 		    0, _COMM_PAGE64_NESTING_START, commpage_shift);
 		flush_core_tlb_allrange_async(rtlbi_param);
+#else
+		/* Cortex-A76 has no range TLBI. Invalidate all local EL1 entries,
+		 * including global commpage translations. The common path below
+		 * completes this asynchronous invalidation before switching TTBR.
+		 */
+		flush_core_tlb_async();
+#endif
 	}
 #endif
 	if (__improbable(do_asid_flush)) {
@@ -4781,6 +4819,11 @@ pmap_switch_internal(
 	    || do_speculation_restriction
 #endif /* HAS_SPECRES && !HAS_ERRATA_123855614 */
 	    )) {
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+		if (do_asid_flush || do_shared_region_flush || do_commpage_flush) {
+			os_atomic_inc(&rpi5_pmap_switch_local_flushes[cpu_number()], relaxed);
+		}
+#endif
 		sync_tlb_flush_local();
 	}
 
@@ -4952,8 +4995,13 @@ pmap_page_protect_options_with_flush_range(
 			}
 #endif
 			if (remove && (options & PMAP_OPTIONS_COMPRESSOR)) {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+				panic("pmap_page_protect: attempt to compress ppnum 0x%x owned by iommu pte %p, pve_p=%p",
+				    ppnum, pte_p, pve_p);
+#else
 				panic("pmap_page_protect: attempt to compress ppnum 0x%x owned by iommu %p, pve_p=%p",
 				    ppnum, ptep_get_iommu(pte_p), pve_p);
+#endif
 			}
 			goto protect_skip_pve_pass1;
 		}
@@ -5966,6 +6014,11 @@ MARK_AS_PMAP_TEXT static pt_entry_t
 wimg_to_pte(unsigned int wimg, pmap_paddr_t pa)
 {
 	pt_entry_t pte;
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (!rpi5_physical_memory_type(pa, pa + PAGE_SIZE)) {
+		panic("BCM2712: page mapping contains unknown memory");
+	}
+#endif
 
 	switch (wimg & (VM_WIMG_MASK)) {
 	case VM_WIMG_IO:
@@ -11055,7 +11108,14 @@ pmap_batch_set_cache_attributes_internal(
 				panic("%s: page is not managed; addr: 0x%016llx", __func__, paddr);
 			}
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+			/* The generic forced-clean implementation neither changes
+			 * preemption state nor accesses Apple HID registers.
+			 */
+			CleanPoC_DcacheRegion_Force(phystokv(paddr), PAGE_SIZE);
+#else
 			CleanPoC_DcacheRegion_Force_nopreempt_nohid(phystokv(paddr), PAGE_SIZE);
+#endif
 
 			page_index++;
 
@@ -12237,6 +12297,7 @@ pmap_unpin_kernel_pages(vm_offset_t kva __unused, size_t nbytes __unused)
 #endif /* !XNU_MONITOR */
 
 
+#if PMAP_CS_PPL_MONITOR || PMAP_CS_INCLUDE_CODE_SIGNING
 MARK_AS_PMAP_TEXT static inline void
 pmap_cs_lockdown_pages(vm_address_t kva, vm_size_t size, bool ppl_writable)
 {
@@ -12256,6 +12317,7 @@ pmap_cs_unlockdown_pages(vm_address_t kva, vm_size_t size, bool ppl_writable)
 	pmap_ppl_unlockdown_pages(kva, size, 0, ppl_writable);
 #endif
 }
+#endif /* Code-signing lockdown helpers require a signing monitor. */
 
 /**
  * Perform basic validation checks on the destination only and
@@ -13016,6 +13078,24 @@ pmap_in_ppl(void)
 	// Unsupported
 	return false;
 }
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+int
+pmap_cs_configuration(void)
+{
+	code_signing_config_t config = 0;
+	/* Preserve the shared provider's boot-policy and feature configuration. */
+	code_signing_configuration(NULL, &config);
+	return (int)config;
+}
+
+bool
+pmap_has_iofilter_protected_write(void)
+{
+	/* BCM2712 has no Apple guarded-mode register-write service. */
+	return false;
+}
+#endif
 
 __attribute__((__noreturn__))
 void
@@ -14363,6 +14443,11 @@ MARK_AS_PMAP_TEXT bool
 pmap_lookup_in_loaded_trust_caches_internal(
 	const uint8_t cdhash[CS_CDHASH_LEN])
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* No trust-cache provider: never classify a hash as trusted. */
+	(void)cdhash;
+	return false;
+#else
 	kern_return_t kr = KERN_NOT_FOUND;
 
 #if PMAP_CS_PPL_MONITOR
@@ -14389,6 +14474,7 @@ pmap_lookup_in_loaded_trust_caches_internal(
 		return true;
 	}
 	return false;
+#endif
 }
 
 bool
@@ -14406,6 +14492,10 @@ MARK_AS_PMAP_TEXT uint32_t
 pmap_lookup_in_static_trust_cache_internal(
 	const uint8_t cdhash[CS_CDHASH_LEN])
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	(void)cdhash;
+	return 0; /* No TC_LOOKUP_FOUND bit and no trusted flags. */
+#else
 	TrustCacheQueryToken_t query_token = {0};
 	kern_return_t kr = KERN_NOT_FOUND;
 	uint64_t flags = 0;
@@ -14441,6 +14531,7 @@ pmap_lookup_in_static_trust_cache_internal(
 	}
 
 	return 0;
+#endif
 }
 
 uint32_t

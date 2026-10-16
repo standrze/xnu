@@ -1,0 +1,28 @@
+--- a/pe_fiq.c
++++ b/pe_fiq.c
+@@ -387,8 +387,13 @@
+ 	    __builtin_arm_rsr64("CNTVCT_EL0") < rpi5_wdog_deadline;
+ }
+ 
++#if RPI5_PCI_WDOG_LEASE
++static void
++rpi5_watchdog_service_unlocked(bool healthy)
++#else
+ void
+ pe_rpi5_watchdog_timer_tick(bool healthy)
++#endif
+ {
+ 	if (rpi5_pm_base == 0 || rpi5_wdog_deadline == 0 ||
+ 	    (rpi5_wdog_soak_seconds == 0 && !rpi5_wdog_terminal_enabled &&
+@@ -430,6 +435,11 @@
+ 	}
+ }
+ 
++#if RPI5_PCI_WDOG_LEASE
++#include <pexpert/arm/rpi5_pcie_watchdog_owner.inc>
++#endif
++
++#line 433
+ uint32_t
+ pe_rpi5_irq_acknowledge(void)
+ {

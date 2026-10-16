@@ -1,0 +1,12 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 15.196788166678743,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/zsh-boot-diagnostic-2",
+  "serialByteCount" : 7522,
+  "sessionID" : "a69cdb724ca84d3180127d95eda5926c",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

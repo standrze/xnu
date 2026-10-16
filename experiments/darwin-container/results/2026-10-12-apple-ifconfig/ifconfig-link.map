@@ -1,0 +1,2523 @@
+# Path: /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/ifconfig
+# Arch: arm64
+# Object files:
+[  0] linker synthesized
+[  1] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(0-syscalls.o)
+[  2] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(1-custom.o)
+[  3] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(2-errno.o)
+[  4] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(3-__gettimeofday.o)
+[  5] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(4-kill.o)
+[  6] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(6-mmap.o)
+[  7] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(7-munmap.o)
+[  8] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(9-sigaction.o)
+[  9] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(10-sigtramp.o)
+[ 10] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(11-sigaction.o)
+[ 11] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(12-darwin_entry.o)
+[ 12] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(14-darwin_static.o)
+[ 13] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/abi/libdarwin-static-abi.a(15-darwin_vm.o)
+[ 14] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/0-ns_name.o
+[ 15] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/1-ns_parse.o
+[ 16] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/2-ns_netint.o
+[ 17] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/3-ns_samedomain.o
+[ 18] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/4-res_comp.o
+[ 19] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/5-res_init.o
+[ 20] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/6-res_data.o
+[ 21] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/7-res_mkquery.o
+[ 22] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/8-res_query.o
+[ 23] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/9-res_send.o
+[ 24] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/10-inet_ntop.o
+[ 25] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/11-inet_pton.o
+[ 26] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/12-inet_addr.o
+[ 27] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/13-arc4random.o
+[ 28] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/14-resolver_capabilities.o
+[ 29] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/15-asprintf.o
+[ 30] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/16-libinfo.o
+[ 31] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/17-si_getaddrinfo.o
+[ 32] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/18-si_data.o
+[ 33] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/19-ils.o
+[ 34] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/20-si_module.o
+[ 35] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/21-si_compare.o
+[ 36] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/22-getnameinfo_link.o
+[ 37] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/23-getifaddrs.o
+[ 38] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/24-if_indextoname.o
+[ 39] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/25-if_nametoindex.o
+[ 40] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/26-libinfo_capabilities.o
+[ 41] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/27-send.o
+[ 42] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/28-recv.o
+[ 43] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/29-reallocf.o
+[ 44] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/30-network_command_start.o
+[ 45] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/31-af_inet.o
+[ 46] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/32-af_inet6.o
+[ 47] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/33-af_link.o
+[ 48] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/34-ifbond.o
+[ 49] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/35-ifbridge.o
+[ 50] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/36-ifclone.o
+[ 51] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/37-ifconfig.o
+[ 52] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/38-ifmedia.o
+[ 53] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/39-ifvlan.o
+[ 54] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/40-thread_data.o
+[ 55] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/41-err.o
+[ 56] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/42-getopt.o
+[ 57] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/43-inet_ntoa.o
+[ 58] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/44-inet_netof.o
+[ 59] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/45-inet_lnaof.o
+[ 60] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/46-inet_network.o
+[ 61] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/47-linkaddr.o
+[ 62] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/48-gethostname.o
+[ 63] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/49-ether_addr.o
+[ 64] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/50-inet_makeaddr.o
+[ 65] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/51-strtok.o
+[ 66] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/52-sscanf.o
+[ 67] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/53-vfscanf.o
+[ 68] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/apple-ifconfig-8/54-strtofp.o
+[ 69] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fclose.o)
+[ 70] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fflush.o)
+[ 71] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fgets.o)
+[ 72] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fileno.o)
+[ 73] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-findfp.o)
+[ 74] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-flags.o)
+[ 75] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fopen.o)
+[ 76] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fprintf.o)
+[ 77] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fputs.o)
+[ 78] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fread.o)
+[ 79] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fvwrite.o)
+[ 80] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-fwalk.o)
+[ 81] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-makebuf.o)
+[ 82] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-printf.o)
+[ 83] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-putchar.o)
+[ 84] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-refill.o)
+[ 85] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-setbuf.o)
+[ 86] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-setvbuf.o)
+[ 87] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-snprintf.o)
+[ 88] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-sprintf.o)
+[ 89] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-stdio.o)
+[ 90] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-ungetc.o)
+[ 91] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-vfprintf.o)
+[ 92] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-vsnprintf.o)
+[ 93] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-wbuf.o)
+[ 94] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdio.subproj-wsetup.o)
+[ 95] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-atoi.o)
+[ 96] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-getenv.o)
+[ 97] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-qsort.o)
+[ 98] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-strtod.o)
+[ 99] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-strtol.o)
+[100] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-strtoul.o)
+[101] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-atexit.o)
+[102] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(stdlib.subproj-exit.o)
+[103] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-memchr.o)
+[104] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-memcmp.o)
+[105] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-memset.o)
+[106] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strcasecmp.o)
+[107] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strchr.o)
+[108] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strcoll.o)
+[109] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strcspn.o)
+[110] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strdup.o)
+[111] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strerror.o)
+[112] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(string.subproj-strpbrk.o)
+[113] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strlen.o)
+[114] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strnlen.o)
+[115] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strcmp.o)
+[116] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strncmp.o)
+[117] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strcpy.o)
+[118] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strncpy.o)
+[119] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-memmove.o)
+[120] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strlcpy.o)
+[121] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(platform-strlcat.o)
+[122] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-table.o)
+[123] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-runetype.o)
+[124] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-tolower.o)
+[125] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-toupper.o)
+[126] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-none.o)
+[127] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-nomacros.o)
+[128] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-lconv.o)
+[129] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(locale-localeconv.o)
+[130] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(gen-errlst.o)
+[131] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(gen-time.o)
+[132] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(scalable_malloc.o)
+[133] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(glue-adapters.o)
+[134] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-runtime/libapple-runtime.a(glue-allocator.o)
+[135] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-posix/libapple-posix.a(isatty.o)
+[136] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-posix/libapple-posix.a(termios.o)
+[137] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-working-2026-10-12/archives/apple-libc-leaf/libapple-libc-leaf.a(strrchr.o)
+# Sections:
+# Address	Size    	Segment	Section
+0x100000598	0x00023E44	__TEXT	__text
+0x1000243DC	0x00003B45	__TEXT	__cstring
+0x100027F30	0x00000D50	__TEXT	__const
+0x100028C80	0x00000AF7	__TEXT	__oslogstring
+0x10002C000	0x000033B0	__DATA	__data
+0x10002F3B0	0x00000688	__DATA	__const
+0x10002FA38	0x00000048	__DATA	__mod_init_func
+0x10002FA80	0x000000D0	__DATA	__common
+0x10002FB50	0x00001D58	__DATA	__bss
+# Symbols:
+# Address	Size    	File  Name
+0x100000000	0x00000000	[  0] __mh_execute_header
+0x100000000	0x00000000	[  0] ___dso_handle
+0x100000598	0x00000028	[  1] __exit
+0x1000005C0	0x00000028	[  1] _read
+0x1000005E8	0x00000028	[  1] _write
+0x100000610	0x00000028	[  1] _darwin_open
+0x100000638	0x00000028	[  1] _close
+0x100000660	0x00000028	[  1] _getpid
+0x100000688	0x00000028	[  1] ___kill
+0x1000006B0	0x00000028	[  1] _darwin_ioctl
+0x1000006D8	0x00000028	[  1] _darwin_fcntl
+0x100000700	0x00000028	[  1] _lseek
+0x100000728	0x00000028	[  1] _sigprocmask
+0x100000750	0x00000028	[  1] ___sigaction
+0x100000778	0x00000028	[  1] ___sigreturn
+0x1000007A0	0x00000028	[  1] ___mmap
+0x1000007C8	0x00000028	[  1] ___munmap
+0x1000007F0	0x00000028	[  1] _mprotect
+0x100000818	0x00000028	[  1] _sysctl
+0x100000840	0x00000028	[  1] _fstat
+0x100000868	0x00000028	[  1] _issetugid
+0x100000890	0x00000028	[  1] _getentropy
+0x1000008B8	0x00000028	[  1] _socket
+0x1000008E0	0x00000028	[  1] _connect
+0x100000908	0x00000028	[  1] _bind
+0x100000930	0x00000028	[  1] _setsockopt
+0x100000958	0x00000028	[  1] _getpeername
+0x100000980	0x00000028	[  1] _sendto
+0x1000009A8	0x00000028	[  1] _recvfrom
+0x1000009D0	0x00000028	[  1] _recvmsg
+0x1000009F8	0x00000028	[  1] _writev
+0x100000A20	0x00000028	[  1] _pselect
+0x100000A48	0x00000010	[  2] __thread_set_tsd_base
+0x100000A58	0x0000001C	[  3] ___error
+0x100000A74	0x00000028	[  3] _cerror_nocancel
+0x100000A9C	0x00000000	[  4] ___gettimeofday_with_mach
+0x100000A9C	0x00000028	[  4] ltmp0
+0x100000AC4	0x0000002C	[  4] ___gettimeofday
+0x100000AF0	0x00000008	[  5] _kill
+0x100000AF8	0x000000A8	[  6] _mmap
+0x100000BA0	0x0000005C	[  7] _munmap
+0x100000BFC	0x00000068	[  8] ___platform_sigaction
+0x100000C64	0x00000004	[ 10] _sigaction
+0x100000C68	0x00000000	[ 11] _start
+0x100000C68	0x00000018	[ 11] ltmp0
+0x100000C80	0x0000001C	[ 11] _fork
+0x100000C9C	0x0000002C	[ 11] _pipe
+0x100000CC8	0x0000000C	[ 11] _darwin_task_self
+0x100000CD4	0x0000000C	[ 11] _mach_timebase_info
+0x100000CE0	0x0000000C	[ 12] __NSGetEnviron
+0x100000CEC	0x0000002C	[ 12] ___darwin_check_fd_set_overflow
+0x100000D18	0x00000004	[ 12] _gettimeofday
+0x100000D1C	0x00000030	[ 12] _open
+0x100000D4C	0x00000038	[ 12] _ioctl
+0x100000D84	0x00000044	[ 12] _fcntl
+0x100000DC8	0x000000A4	[ 12] _darwin_static_start
+0x100000E6C	0x000000E4	[ 13] _vm_allocate
+0x100000F50	0x0000004C	[ 13] _vm_deallocate
+0x100000F9C	0x00000054	[ 13] _vm_protect
+0x100000FF0	0x00000038	[ 13] _vm_copy
+0x100001028	0x00000368	[ 14] _res_9_ns_name_ntop
+0x100001390	0x000003E4	[ 14] _res_9_ns_name_pton2
+0x100001774	0x00000198	[ 14] _res_9_ns_name_unpack2
+0x10000190C	0x00000324	[ 14] _res_9_ns_name_pack
+0x100001C30	0x00000064	[ 14] _res_9_ns_name_uncompress
+0x100001C94	0x00000070	[ 14] _res_9_ns_name_compress
+0x100001D04	0x000000D4	[ 14] _res_9_ns_name_skip
+0x100001DD8	0x000000B0	[ 15] _res_9_ns_skiprr
+0x100001E88	0x00000110	[ 15] _res_9_ns_initparse
+0x100001F98	0x00000200	[ 15] _res_9_ns_parserr
+0x100002198	0x0000000C	[ 16] _res_9_ns_get16
+0x1000021A4	0x00000010	[ 16] _res_9_ns_put16
+0x1000021B4	0x0000000C	[ 16] _res_9_ns_put32
+0x1000021C0	0x00000064	[ 17] _res_9_ns_samename
+0x100002224	0x000000D8	[ 17] _res_9_ns_makecanon
+0x1000022FC	0x0000003C	[ 18] _res_9_dn_expand
+0x100002338	0x00000008	[ 18] _res_9_dn_comp
+0x100002340	0x00000040	[ 18] _res_9_dn_skipname
+0x100002380	0x00000120	[ 19] _res_build_start
+0x1000024A0	0x00000058	[ 19] _res_9_ndestroy
+0x1000024F8	0x0000008C	[ 19] _res_next_word
+0x100002584	0x0000066C	[ 19] _res_build
+0x100002BF0	0x0000003C	[ 19] _res_9_ninit
+0x100002C2C	0x000012BC	[ 19] _res_9_vinit
+0x100003EE8	0x00000004	[ 19] _res_9_nrandomid
+0x100003EEC	0x0000007C	[ 19] _res_9_nclose
+0x100003F68	0x000000F0	[ 19] _res_9_setservers
+0x100004058	0x00000460	[ 19] _res_setoptions
+0x1000044B8	0x00000014	[ 20] __res_9_h_errno_set
+0x1000044CC	0x00000058	[ 20] _res_state_new
+0x100004524	0x0000004C	[ 20] _res_9_init
+0x100004570	0x00000058	[ 20] _res_9_randomid
+0x1000045C8	0x00000220	[ 21] _res_9_nmkquery
+0x1000047E8	0x000000C0	[ 21] _res_9_nopt
+0x1000048A8	0x000000BC	[ 21] _res_9_nopt_rdata
+0x100004964	0x000001A8	[ 22] _res_9_nquery
+0x100004B0C	0x00000184	[ 23] _res_ourserver_p
+0x100004C90	0x000000E8	[ 23] _res_9_nameinquery
+0x100004D78	0x00000130	[ 23] _res_9_queriesmatch
+0x100004EA8	0x00001638	[ 23] _dns_res_send
+0x1000064E0	0x00000040	[ 23] _res_9_nsend
+0x100006520	0x00000094	[ 23] _sock_eq
+0x1000065B4	0x00000074	[ 23] _Perror
+0x100006628	0x000000EC	[ 23] _Aerror
+0x100006714	0x00000044	[ 23] _evNowTime
+0x100006758	0x00000058	[ 24] _inet_ntop
+0x1000067B0	0x00000294	[ 24] _inet_ntop6
+0x100006A44	0x00000114	[ 24] _inet_ntop4
+0x100006B58	0x00000338	[ 25] _inet_pton
+0x100006E90	0x0000010C	[ 25] _inet_pton4
+0x100006F9C	0x00000008	[ 26] _inet_aton
+0x100006FA4	0x00000214	[ 26] __inet_aton_check
+0x1000071B8	0x00000160	[ 27] _arc4random
+0x100007318	0x000000C0	[ 27] _arc4_fetch
+0x1000073D8	0x000000E4	[ 27] _arc4_stir
+0x1000074BC	0x0000000C	[ 28] _bzero
+0x1000074C8	0x0000000C	[ 28] ___res_9_state
+0x1000074D4	0x00000008	[ 28] _pthread_self
+0x1000074DC	0x00000018	[ 28] _notify_register_plain
+0x1000074F4	0x00000008	[ 28] _notify_cancel
+0x1000074FC	0x00000008	[ 28] _notify_get_state
+0x100007504	0x00000020	[ 28] _dns_configuration_copy
+0x100007524	0x00000014	[ 28] _dns_configuration_free
+0x100007538	0x0000000C	[ 28] __dns_open_sys_config_notify
+0x100007544	0x00000008	[ 28] __dns_check_sys_config_notify
+0x10000754C	0x0000001C	[ 28] __dns_close_sys_config_notify
+0x100007568	0x00000020	[ 28] _clock_gettime
+0x100007588	0x0000001C	[ 28] _os_unfair_lock_lock
+0x1000075A4	0x0000001C	[ 28] _os_unfair_lock_unlock
+0x1000075C0	0x000000A0	[ 29] _asprintf
+0x100007660	0x00000034	[ 30] _si_search
+0x100007694	0x000000EC	[ 30] _gethostbyname
+0x100007780	0x0000005C	[ 30] _getnetbyname
+0x1000077DC	0x00000150	[ 30] _getaddrinfo
+0x10000792C	0x000001F0	[ 30] _getnameinfo
+0x100007B1C	0x00000154	[ 31] _si_inet_config
+0x100007C70	0x00000048	[ 31] _freeaddrinfo
+0x100007CB8	0x00000028	[ 31] _gai_strerror
+0x100007CE0	0x000003F4	[ 31] _si_nameinfo
+0x1000080D4	0x00000090	[ 31] __gai_serv_to_port
+0x100008164	0x00000078	[ 31] __gai_numericserv
+0x1000081DC	0x00000100	[ 31] _si_addrinfo_v4
+0x1000082DC	0x00000100	[ 31] _si_addrinfo_v4_mapped
+0x1000083DC	0x00000120	[ 31] _si_addrinfo_v6
+0x1000084FC	0x000002B8	[ 31] _si_addrinfo_list
+0x1000087B4	0x00000160	[ 31] _si_addrinfo_list_from_hostent
+0x100008914	0x00000020	[ 31] __gai_addr_sort
+0x100008934	0x000001B0	[ 31] __gai_simple
+0x100008AE4	0x000001A8	[ 31] __gai_sort_list
+0x100008C8C	0x000000B8	[ 31] __gai_nat64_can_v4_address_be_synthesized
+0x100008D44	0x00000548	[ 31] _si_addrinfo
+0x10000928C	0x000002B0	[ 31] __gai_nat64_synthesis
+0x10000953C	0x000001C8	[ 31] __gai_numerichost
+0x100009704	0x00000230	[ 31] __gai_nat64_second_pass
+0x100009934	0x00000088	[ 31] _si_list_to_addrinfo
+0x1000099BC	0x00000084	[ 31] _si_item_to_addrinfo
+0x100009A40	0x00000458	[ 31] _si_ipnode_byname
+0x100009E98	0x00000070	[ 31] _make_hostent6
+0x100009F08	0x00000070	[ 31] _lower_case
+0x100009F78	0x000000C0	[ 31] _merge_alias
+0x10000A038	0x00000090	[ 31] _append_addr
+0x10000A0C8	0x00000094	[ 31] _free_build_hostent
+0x10000A15C	0x0000003C	[ 31] _gai_log_init
+0x10000A198	0x00000014	[ 31] _gai_child_has_forked
+0x10000A1AC	0x00000148	[ 31] __gai_load_libnetwork_once
+0x10000A2F4	0x00000018	[ 31] _OUTLINED_FUNCTION_0
+0x10000A30C	0x00000010	[ 31] _OUTLINED_FUNCTION_1
+0x10000A31C	0x00000008	[ 31] _OUTLINED_FUNCTION_2
+0x10000A324	0x00000010	[ 31] _OUTLINED_FUNCTION_3
+0x10000A334	0x000000B4	[ 32] _si_list_add
+0x10000A3E8	0x000000F0	[ 32] _si_list_concat
+0x10000A4D8	0x0000007C	[ 32] _si_list_release
+0x10000A554	0x00000034	[ 32] _si_item_release
+0x10000A588	0x00000024	[ 32] _OUTLINED_FUNCTION_0
+0x10000A5AC	0x00000C88	[ 33] _LI_ils_create
+0x10000B234	0x0000001C	[ 34] _si_host_byname
+0x10000B250	0x0000001C	[ 34] _si_host_byaddr
+0x10000B26C	0x0000001C	[ 34] _si_network_byname
+0x10000B288	0x0000001C	[ 34] _si_service_byname
+0x10000B2A4	0x0000001C	[ 34] _si_service_byport
+0x10000B2C0	0x0000026C	[ 35] _si_destination_create_control_socket
+0x10000B52C	0x00000068	[ 35] _set_loopback_ifindex
+0x10000B594	0x00000D48	[ 35] _si_destination_compare
+0x10000C2DC	0x00000100	[ 35] _rfc6724_scope_sa
+0x10000C3DC	0x00000094	[ 35] _si_destination_compare_init_once
+0x10000C470	0x0000001C	[ 35] _si_destination_compare_child_has_forked
+0x10000C48C	0x0000025C	[ 35] _si_destination_lookup
+0x10000C6E8	0x00000220	[ 35] _si_destination_fill_netsrc
+0x10000C908	0x00000068	[ 35] _common_prefix_length
+0x10000C970	0x00000018	[ 35] _OUTLINED_FUNCTION_0
+0x10000C988	0x00000010	[ 35] _OUTLINED_FUNCTION_1
+0x10000C998	0x00000014	[ 35] _OUTLINED_FUNCTION_2
+0x10000C9AC	0x00000020	[ 35] _OUTLINED_FUNCTION_3
+0x10000C9CC	0x0000001C	[ 35] _OUTLINED_FUNCTION_4
+0x10000C9E8	0x00000014	[ 35] _OUTLINED_FUNCTION_5
+0x10000C9FC	0x00000008	[ 35] _OUTLINED_FUNCTION_6
+0x10000CA04	0x0000000C	[ 35] _OUTLINED_FUNCTION_7
+0x10000CA10	0x00000014	[ 35] _OUTLINED_FUNCTION_8
+0x10000CA24	0x0000000C	[ 35] _OUTLINED_FUNCTION_9
+0x10000CA30	0x0000000C	[ 35] _OUTLINED_FUNCTION_10
+0x10000CA3C	0x0000000C	[ 35] _OUTLINED_FUNCTION_11
+0x10000CA48	0x00000010	[ 35] _OUTLINED_FUNCTION_12
+0x10000CA58	0x0000000C	[ 35] _OUTLINED_FUNCTION_13
+0x10000CA64	0x0000000C	[ 35] _OUTLINED_FUNCTION_14
+0x10000CA70	0x0000012C	[ 36] _getnameinfo_link
+0x10000CB9C	0x00000594	[ 37] _getifaddrs
+0x10000D130	0x00000004	[ 37] _freeifaddrs
+0x10000D134	0x000000A4	[ 38] _if_indextoname
+0x10000D1D8	0x000000A8	[ 39] _if_nametoindex
+0x10000D280	0x00000044	[ 40] _darwin_network_module_factory
+0x10000D2C4	0x00000018	[ 40] _notify_register_check
+0x10000D2DC	0x00000008	[ 40] _notify_check
+0x10000D2E4	0x00000020	[ 40] _dlopen
+0x10000D304	0x0000000C	[ 40] _dlerror
+0x10000D310	0x00000008	[ 40] _pthread_atfork
+0x10000D318	0x0000008C	[ 40] _pthread_once
+0x10000D3A4	0x00000060	[ 40] _pthread_mutex_lock
+0x10000D404	0x00000048	[ 40] _pthread_mutex_unlock
+0x10000D44C	0x00000034	[ 40] _mach_absolute_time
+0x10000D480	0x0000000C	[ 40] _os_log_create
+0x10000D48C	0x00000008	[ 40] _os_log_type_enabled
+0x10000D494	0x00000294	[ 40] _network_host_byname
+0x10000D728	0x00000008	[ 40] _OUTLINED_FUNCTION_0
+0x10000D730	0x0000000C	[ 41] _send
+0x10000D73C	0x0000000C	[ 42] _recv
+0x10000D748	0x00000038	[ 43] _reallocf
+0x10000D780	0x00000050	[ 44] _pthread_key_create
+0x10000D7D0	0x00000038	[ 44] _pthread_setspecific
+0x10000D808	0x00000034	[ 44] _pthread_getspecific
+0x10000D83C	0x0000000C	[ 44] __NSGetArgv
+0x10000D848	0x00000080	[ 44] _zsh_main
+0x10000D8C8	0x0000000C	[ 45] _inet_ctor
+0x10000D8D4	0x000000E0	[ 45] _in_status
+0x10000D9B4	0x0000013C	[ 45] _in_getaddr
+0x10000DAF0	0x0000010C	[ 45] _in_status_tunnel
+0x10000DBFC	0x000000A4	[ 45] _in_set_tunnel
+0x10000DCA0	0x00000080	[ 45] _in_set_router
+0x10000DD20	0x0000004C	[ 46] _inet6_ctor
+0x10000DD6C	0x0000002C	[ 46] _setifprefixlen
+0x10000DD98	0x00000040	[ 46] _setip6flags
+0x10000DDD8	0x00000014	[ 46] _setip6pltime
+0x10000DDEC	0x00000014	[ 46] _setip6vltime
+0x10000DE00	0x000000E8	[ 46] _setip6eui64
+0x10000DEE8	0x000000EC	[ 46] _setip6lifetime
+0x10000DFD4	0x000004D8	[ 46] _in6_status
+0x10000E4AC	0x00000108	[ 46] _in6_getaddr
+0x10000E5B4	0x000000F0	[ 46] _in6_getprefix
+0x10000E6A4	0x00000044	[ 46] _in6_postproc
+0x10000E6E8	0x0000010C	[ 46] _in6_status_tunnel
+0x10000E7F4	0x000000A4	[ 46] _in6_set_tunnel
+0x10000E898	0x00000080	[ 46] _in6_set_router
+0x10000E918	0x00000014	[ 46] _in6_Lopt_cb
+0x10000E92C	0x00000030	[ 47] _link_ctor
+0x10000E95C	0x000000C0	[ 47] _link_status
+0x10000EA1C	0x000000C4	[ 47] _link_getaddr
+0x10000EAE0	0x00000008	[ 47] _OUTLINED_FUNCTION_0
+0x10000EAE8	0x000002A4	[ 48] _bond_status
+0x10000ED8C	0x00000040	[ 48] _bond_ctor
+0x10000EDCC	0x00000098	[ 48] _setbonddev
+0x10000EE64	0x00000098	[ 48] _unsetbonddev
+0x10000EEFC	0x000000EC	[ 48] _setbondmode
+0x10000EFE8	0x00000014	[ 48] _OUTLINED_FUNCTION_0
+0x10000EFFC	0x00000008	[ 48] _OUTLINED_FUNCTION_1
+0x10000F004	0x00000134	[ 49] _show_config
+0x10000F138	0x00000098	[ 49] _do_cmd
+0x10000F1D0	0x00000040	[ 49] _bridge_ctor
+0x10000F210	0x00000078	[ 49] _setbridge_add
+0x10000F288	0x00000078	[ 49] _setbridge_delete
+0x10000F300	0x00000014	[ 49] _setbridge_discover
+0x10000F314	0x00000014	[ 49] _unsetbridge_discover
+0x10000F328	0x00000014	[ 49] _setbridge_learn
+0x10000F33C	0x00000014	[ 49] _unsetbridge_learn
+0x10000F350	0x00000014	[ 49] _setbridge_stp
+0x10000F364	0x00000014	[ 49] _unsetbridge_stp
+0x10000F378	0x00000058	[ 49] _setbridge_flush
+0x10000F3D0	0x0000005C	[ 49] _setbridge_flushall
+0x10000F42C	0x000000C0	[ 49] _setbridge_static
+0x10000F4EC	0x000000A4	[ 49] _setbridge_deladdr
+0x10000F590	0x00000010	[ 49] _setbridge_addr
+0x10000F5A0	0x00000080	[ 49] _setbridge_maxaddr
+0x10000F620	0x00000088	[ 49] _setbridge_hellotime
+0x10000F6A8	0x00000088	[ 49] _setbridge_fwddelay
+0x10000F730	0x00000088	[ 49] _setbridge_maxage
+0x10000F7B8	0x00000088	[ 49] _setbridge_priority
+0x10000F840	0x000000B8	[ 49] _setbridge_ifpriority
+0x10000F8F8	0x000000B0	[ 49] _setbridge_ifpathcost
+0x10000F9A8	0x00000080	[ 49] _setbridge_timeout
+0x10000FA28	0x0000009C	[ 49] _do_bridgeflag
+0x10000FAC4	0x00000158	[ 49] _bridge_addresses
+0x10000FC1C	0x00000080	[ 49] _get_val
+0x10000FC9C	0x000002CC	[ 49] _bridge_status
+0x10000FF68	0x00000008	[ 49] _OUTLINED_FUNCTION_0
+0x10000FF70	0x00000028	[ 50] _clone_setcallback
+0x10000FF98	0x00000040	[ 50] _clone_ctor
+0x10000FFD8	0x00000010	[ 50] _clone_create
+0x10000FFE8	0x0000005C	[ 50] _clone_destroy
+0x100010044	0x000000C0	[ 50] _ifclonecreate
+0x100010104	0x00000010	[ 50] _clone_Copt_cb
+0x100010114	0x00000014	[ 51] _opt_register
+0x100010128	0x00000DC8	[ 51] _darwin_network_command_main
+0x100010EF0	0x00000080	[ 51] _usage
+0x100010F70	0x00000044	[ 51] _af_getbyname
+0x100010FB4	0x000003CC	[ 51] _ifconfig
+0x100011380	0x00000014	[ 51] _af_register
+0x100011394	0x00000014	[ 51] _cmd_register
+0x1000113A8	0x00000044	[ 51] _callback_register
+0x1000113EC	0x00000098	[ 51] _setifcap
+0x100011484	0x000000D0	[ 51] _printb
+0x100011554	0x00000034	[ 51] _ifconfig_ctor
+0x100011588	0x00000014	[ 51] _setifdstaddr
+0x10001159C	0x00000058	[ 51] _setifaddr
+0x1000115F4	0x000000AC	[ 51] _bps_to_str
+0x1000116A0	0x000000B8	[ 51] _setifflags
+0x100011758	0x00000098	[ 51] _notealias
+0x1000117F0	0x00000028	[ 51] _setifnetmask
+0x100011818	0x0000008C	[ 51] _setifmetric
+0x1000118A4	0x00000014	[ 51] _setifbroadaddr
+0x1000118B8	0x00000050	[ 51] _setifipdst
+0x100011908	0x000000C4	[ 51] _settunnel
+0x1000119CC	0x0000003C	[ 51] _deletetunnel
+0x100011A08	0x0000008C	[ 51] _setifmtu
+0x100011A94	0x0000003C	[ 51] _setrouter
+0x100011AD0	0x00000098	[ 51] _setifdesc
+0x100011B68	0x000002CC	[ 51] _settbr
+0x100011E34	0x00000108	[ 51] _setthrottle
+0x100011F3C	0x00000008	[ 51] _OUTLINED_FUNCTION_0
+0x100011F44	0x00000008	[ 51] _OUTLINED_FUNCTION_1
+0x100011F4C	0x000000D4	[ 52] _ifmedia_getstate
+0x100012020	0x00000040	[ 52] _ifmedia_ctor
+0x100012060	0x00000150	[ 52] _setmedia
+0x1000121B0	0x00000008	[ 52] _setmediaopt
+0x1000121B8	0x00000008	[ 52] _unsetmediaopt
+0x1000121C0	0x00000098	[ 52] _setmediainst
+0x100012258	0x00000070	[ 52] _setifmediacallback
+0x1000122C8	0x000001C4	[ 52] _domediaopt
+0x10001248C	0x000002E8	[ 52] _media_status
+0x100012774	0x000001C0	[ 52] _print_media_word
+0x100012934	0x00000060	[ 52] _get_subtype_desc
+0x100012994	0x00000014	[ 52] _OUTLINED_FUNCTION_0
+0x1000129A8	0x00000014	[ 52] _OUTLINED_FUNCTION_1
+0x1000129BC	0x00000050	[ 53] _vlan_ctor
+0x100012A0C	0x00000038	[ 53] _vlan_cb
+0x100012A44	0x000000A4	[ 53] _setvlantag
+0x100012AE8	0x00000088	[ 53] _setvlandev
+0x100012B70	0x00000098	[ 53] _unsetvlandev
+0x100012C08	0x0000005C	[ 53] _vlan_set
+0x100012C64	0x00000068	[ 53] _vlan_create
+0x100012CCC	0x00000084	[ 53] _vlan_status
+0x100012D50	0x00000008	[ 53] _OUTLINED_FUNCTION_0
+0x100012D58	0x00000014	[ 53] _OUTLINED_FUNCTION_1
+0x100012D6C	0x0000014C	[ 54] _LI_get_thread_info
+0x100012EB8	0x00000034	[ 54] _LI_set_thread_item
+0x100012EEC	0x00000034	[ 54] __LI_data_init
+0x100012F20	0x00000098	[ 54] __LI_data_free
+0x100012FB8	0x00000010	[ 55] _OUTLINED_FUNCTION_0
+0x100012FC8	0x00000010	[ 55] _OUTLINED_FUNCTION_1
+0x100012FD8	0x0000000C	[ 55] _OUTLINED_FUNCTION_2
+0x100012FE4	0x00000014	[ 55] _OUTLINED_FUNCTION_3
+0x100012FF8	0x0000025C	[ 56] _getopt
+0x100013254	0x00000054	[ 57] _inet_ntoa
+0x1000132A8	0x00000198	[ 61] _link_addr
+0x100013440	0x00000078	[ 62] _gethostname
+0x1000134B8	0x00000078	[ 63] _ether_ntoa
+0x100013530	0x000000AC	[ 63] _ether_aton
+0x1000135DC	0x00000040	[ 64] _inet_makeaddr
+0x10001361C	0x0000007C	[ 65] ___strtok_r
+0x100013698	0x0000000C	[ 65] _strtok
+0x1000136A4	0x0000006C	[ 66] _sscanf
+0x100013710	0x00000008	[ 66] _eofread
+0x100013718	0x00000BA0	[ 67] ___svfscanf
+0x1000142B8	0x00000354	[ 68] __ffpp_strtoencf64_l
+0x10001460C	0x0000002C	[ 68] _strtold
+0x100014638	0x00000B80	[ 68] _fastParse64
+0x1000151B8	0x00000728	[ 68] _generalSlowpath
+0x1000158E0	0x000000C4	[ 68] _infinity
+0x1000159A4	0x000000A0	[ 68] _underflow
+0x100015A44	0x0000004C	[ 68] _addToMP
+0x100015A90	0x000001A4	[ 68] _initMPFromDigits
+0x100015C34	0x00000134	[ 68] _multiplyByFiveToTheN
+0x100015D68	0x00000038	[ 68] _bitCountMP
+0x100015DA0	0x000001C0	[ 68] _shiftRightMPWithRounding
+0x100015F60	0x000000A0	[ 68] _shiftLeftMP
+0x100016000	0x00000018	[ 68] _OUTLINED_FUNCTION_0
+0x100016018	0x00000018	[ 68] _OUTLINED_FUNCTION_1
+0x100016030	0x000000B0	[ 69] _fclose
+0x1000160E0	0x00000040	[ 70] _fflush
+0x100016120	0x000000A8	[ 70] ___sflush
+0x1000161C8	0x000000FC	[ 71] _fgets
+0x1000162C4	0x00000008	[ 72] _fileno
+0x1000162CC	0x000000C8	[ 73] ___sfp
+0x100016394	0x00000024	[ 73] ___sinit
+0x1000163B8	0x00000070	[ 73] _moreglue
+0x100016428	0x0000000C	[ 73] __cleanup
+0x100016434	0x0000009C	[ 74] ___sflags
+0x1000164D0	0x000000C4	[ 75] _fopen
+0x100016594	0x00000028	[ 76] _fprintf
+0x1000165BC	0x0000004C	[ 77] _fputs
+0x100016608	0x000000D0	[ 78] _fread
+0x1000166D8	0x000002F4	[ 79] ___sfvwrite
+0x1000169CC	0x0000007C	[ 80] __fwalk
+0x100016A48	0x000000CC	[ 81] ___smakebuf
+0x100016B14	0x000000AC	[ 81] ___swhatbuf
+0x100016BC0	0x00000038	[ 82] _printf
+0x100016BF8	0x00000050	[ 83] _putchar
+0x100016C48	0x00000134	[ 84] ___srefill
+0x100016D7C	0x00000004	[ 84] _lflush
+0x100016D80	0x00000064	[ 87] _snprintf
+0x100016DE4	0x00000050	[ 88] _sprintf
+0x100016E34	0x0000004C	[ 89] ___sread
+0x100016E80	0x00000060	[ 89] ___swrite
+0x100016EE0	0x00000048	[ 89] ___sseek
+0x100016F28	0x00000008	[ 89] ___sclose
+0x100016F30	0x000001B4	[ 90] _ungetc
+0x1000170E4	0x00001C50	[ 91] _vfprintf
+0x100018D34	0x00000518	[ 91] ___find_arguments
+0x10001924C	0x00000088	[ 91] ___grow_type_table
+0x1000192D4	0x00000058	[ 92] _vsnprintf
+0x10001932C	0x000000C8	[ 93] ___swbuf
+0x1000193F4	0x000000D0	[ 94] ___swsetup
+0x1000194C4	0x0000001C	[ 95] _atoi
+0x1000194E0	0x00000020	[ 96] _getenv
+0x100019500	0x000000C0	[ 96] ___findenv
+0x1000195C0	0x0000081C	[ 97] _qsort
+0x100019DDC	0x00000D50	[ 98] _strtod
+0x10001AB2C	0x00000058	[ 98] _Balloc
+0x10001AB84	0x00000138	[ 98] _d2b
+0x10001ACBC	0x00000058	[ 98] _i2b
+0x10001AD14	0x000000D8	[ 98] _pow5mult
+0x10001ADEC	0x0000018C	[ 98] _mult
+0x10001AF78	0x000000EC	[ 98] _lshift
+0x10001B064	0x0000014C	[ 98] _diff
+0x10001B1B0	0x00000070	[ 98] _ulp
+0x10001B220	0x00000FB8	[ 98] ___dtoa
+0x10001C1D8	0x00000078	[ 98] _hi0bits
+0x10001C250	0x000000D4	[ 98] _multadd
+0x10001C324	0x00000198	[ 98] _quorem
+0x10001C4BC	0x000000AC	[ 98] _lo0bits
+0x10001C568	0x0000010C	[ 98] _b2d
+0x10001C674	0x00000208	[ 99] _strtol
+0x10001C87C	0x000001F8	[100] _strtoul
+0x10001CA74	0x00000068	[102] _exit
+0x10001CADC	0x00000034	[103] _memchr
+0x10001CB10	0x00000028	[104] _memcmp
+0x10001CB38	0x0000008C	[105] _memset
+0x10001CBC4	0x00000030	[106] _strcasecmp
+0x10001CBF4	0x00000038	[107] _strchr
+0x10001CC2C	0x00000030	[109] _strcspn
+0x10001CC5C	0x00000050	[110] _strdup
+0x10001CCAC	0x0000008C	[111] _strerror
+0x10001CD38	0x00000034	[112] _strpbrk
+0x10001CD6C	0x0000012C	[113] _strlen
+0x10001CE98	0x00000030	[114] _strnlen
+0x10001CEC8	0x00000020	[115] _strcmp
+0x10001CEE8	0x00000034	[116] _strncmp
+0x10001CF1C	0x0000003C	[117] _strcpy
+0x10001CF58	0x00000084	[118] _strncpy
+0x10001CFDC	0x00000118	[119] _memmove
+0x10001D0F4	0x00000074	[120] _strlcpy
+0x10001D168	0x00000098	[121] _strlcat
+0x10001D200	0x00000078	[123] ____runetype
+0x10001D278	0x00000044	[127] ___maskrune
+0x10001D2BC	0x00000010	[129] _localeconv
+0x10001D2CC	0x00000048	[131] _time
+0x10001D314	0x000000B0	[132] _scalable_zone_info
+0x10001D3C4	0x0000010C	[132] _create_scalable_zone
+0x10001D4D0	0x00000188	[132] _allocate_pages
+0x10001D658	0x000001B0	[132] _szone_size
+0x10001D808	0x0000088C	[132] _szone_malloc
+0x10001E094	0x000008AC	[132] _szone_calloc
+0x10001E940	0x00000010	[132] _szone_valloc
+0x10001E950	0x000009F4	[132] _szone_free
+0x10001F344	0x00000874	[132] _szone_realloc
+0x10001FBB8	0x0000018C	[132] _szone_destroy
+0x10001FD44	0x000002A4	[132] _szone_batch_malloc
+0x10001FFE8	0x0000068C	[132] _szone_batch_free
+0x100020674	0x00000050	[132] _szone_error
+0x1000206C4	0x000000B0	[132] _protect
+0x100020774	0x00000058	[132] _large_entry_for_pointer_no_lock
+0x1000207CC	0x00000464	[132] _large_and_huge_malloc
+0x100020C30	0x00000440	[132] _tiny_malloc_from_region_no_lock
+0x100021070	0x0000015C	[132] _small_malloc_from_region_no_lock
+0x1000211CC	0x000000CC	[132] _small_free_list_add_ptr
+0x100021298	0x000000D0	[132] _small_free_list_remove_ptr
+0x100021368	0x00000100	[132] _huge_entry_append
+0x100021468	0x00000078	[132] _deallocate_pages
+0x1000214E0	0x000001DC	[132] _large_entries_free_no_lock
+0x1000216BC	0x000000E4	[132] _large_free_no_lock
+0x1000217A0	0x00000544	[132] _szone_ptr_in_use_enumerator
+0x100021CE4	0x0000004C	[132] _szone_good_size
+0x100021D30	0x000009B4	[132] _szone_check
+0x1000226E4	0x00000540	[132] _szone_print
+0x100022C24	0x00000008	[132] _szone_log
+0x100022C2C	0x00000014	[132] _szone_force_lock
+0x100022C40	0x0000000C	[132] _szone_force_unlock
+0x100022C4C	0x00000078	[132] _szone_statistics
+0x100022CC4	0x0000000C	[132] __szone_default_reader
+0x100022CD0	0x00000004	[133] _memcpy
+0x100022CD4	0x00000010	[133] _bcopy
+0x100022CE4	0x00000014	[133] _ffs
+0x100022CF8	0x00000048	[134] _malloc
+0x100022D40	0x00000070	[134] _get_zone
+0x100022DB0	0x00000060	[134] _calloc
+0x100022E10	0x00000020	[134] _free
+0x100022E30	0x00000068	[134] _realloc
+0x100022E98	0x0000005C	[134] _malloc_printf
+0x100022EF4	0x00000028	[135] _isatty
+0x100022F1C	0x00000028	[136] _tcgetattr
+0x100022F44	0x00000028	[137] _strrchr
+0x100022F6C	0x0000004C	[  9] __sigtramp
+0x100022FB8	0x00000020	[ 31] __gai_nat64_can_v4_address_be_synthesized.cold.1
+0x100022FD8	0x0000002C	[ 31] __gai_load_libnetwork_once.cold.1
+0x100023004	0x00000020	[ 31] __gai_load_libnetwork_once.cold.2
+0x100023024	0x00000020	[ 31] __gai_load_libnetwork_once.cold.3
+0x100023044	0x00000054	[ 31] __gai_load_libnetwork_once.cold.4
+0x100023098	0x00000008	[ 32] _si_list_add.cold.1
+0x1000230A0	0x00000008	[ 32] _si_list_concat.cold.1
+0x1000230A8	0x00000028	[ 32] _si_list_release.cold.1
+0x1000230D0	0x00000028	[ 32] _si_item_release.cold.1
+0x1000230F8	0x00000038	[ 35] _si_destination_create_control_socket.cold.1
+0x100023130	0x0000004C	[ 35] _si_destination_create_control_socket.cold.2
+0x10002317C	0x0000004C	[ 35] _si_destination_create_control_socket.cold.3
+0x1000231C8	0x00000044	[ 35] _si_destination_create_control_socket.cold.4
+0x10002320C	0x00000038	[ 35] _si_destination_create_control_socket.cold.5
+0x100023244	0x00000038	[ 35] _si_destination_create_control_socket.cold.6
+0x10002327C	0x00000038	[ 35] _si_destination_create_control_socket.cold.7
+0x1000232B4	0x00000038	[ 35] _si_destination_compare.cold.1
+0x1000232EC	0x00000040	[ 35] _si_destination_compare.cold.2
+0x10002332C	0x00000020	[ 35] _si_destination_compare.cold.3
+0x10002334C	0x00000020	[ 35] _si_destination_compare.cold.4
+0x10002336C	0x00000020	[ 35] _si_destination_compare.cold.5
+0x10002338C	0x00000020	[ 35] _si_destination_compare.cold.6
+0x1000233AC	0x00000020	[ 35] _si_destination_compare.cold.7
+0x1000233CC	0x00000020	[ 35] _si_destination_compare.cold.8
+0x1000233EC	0x00000020	[ 35] _si_destination_compare.cold.9
+0x10002340C	0x00000020	[ 35] _si_destination_compare.cold.10
+0x10002342C	0x00000038	[ 35] _si_destination_compare.cold.11
+0x100023464	0x00000020	[ 35] _si_destination_compare.cold.12
+0x100023484	0x00000020	[ 35] _si_destination_compare.cold.13
+0x1000234A4	0x00000020	[ 35] _si_destination_compare.cold.14
+0x1000234C4	0x00000020	[ 35] _si_destination_compare.cold.15
+0x1000234E4	0x00000020	[ 35] _si_destination_compare.cold.16
+0x100023504	0x00000020	[ 35] _si_destination_compare.cold.17
+0x100023524	0x00000020	[ 35] _si_destination_compare.cold.18
+0x100023544	0x00000020	[ 35] _si_destination_compare.cold.19
+0x100023564	0x00000020	[ 35] _si_destination_compare.cold.20
+0x100023584	0x00000020	[ 35] _si_destination_compare.cold.21
+0x1000235A4	0x00000020	[ 35] _si_destination_compare.cold.22
+0x1000235C4	0x00000020	[ 35] _si_destination_compare.cold.23
+0x1000235E4	0x00000020	[ 35] _si_destination_compare.cold.24
+0x100023604	0x00000020	[ 35] _si_destination_compare.cold.25
+0x100023624	0x00000020	[ 35] _si_destination_compare.cold.26
+0x100023644	0x00000020	[ 35] _si_destination_compare.cold.27
+0x100023664	0x0000002C	[ 35] _si_destination_compare.cold.28
+0x100023690	0x0000002C	[ 35] _si_destination_compare.cold.29
+0x1000236BC	0x00000048	[ 35] _si_destination_compare.cold.30
+0x100023704	0x00000048	[ 35] _si_destination_compare.cold.31
+0x10002374C	0x00000020	[ 35] _si_destination_compare.cold.32
+0x10002376C	0x00000020	[ 35] _si_destination_compare.cold.33
+0x10002378C	0x00000048	[ 35] _si_destination_compare.cold.34
+0x1000237D4	0x00000048	[ 35] _si_destination_compare.cold.35
+0x10002381C	0x00000048	[ 35] _si_destination_lookup.cold.1
+0x100023864	0x00000040	[ 35] _si_destination_lookup.cold.2
+0x1000238A4	0x00000038	[ 35] _si_destination_fill_netsrc.cold.1
+0x1000238DC	0x00000038	[ 35] _si_destination_fill_netsrc.cold.2
+0x100023914	0x00000038	[ 35] _si_destination_fill_netsrc.cold.3
+0x10002394C	0x00000020	[ 35] _si_destination_fill_netsrc.cold.4
+0x10002396C	0x00000008	[ 40] __os_log_debug_impl
+0x100023974	0x00000008	[ 40] __os_log_error_impl
+0x10002397C	0x00000008	[ 40] __os_log_fault_impl
+0x100023984	0x00000018	[ 46] _setip6flags.cold.1
+0x10002399C	0x00000018	[ 46] _setip6eui64.cold.1
+0x1000239B4	0x00000018	[ 46] _setip6eui64.cold.2
+0x1000239CC	0x00000018	[ 46] _setip6eui64.cold.3
+0x1000239E4	0x00000014	[ 47] _link_getaddr.cold.1
+0x1000239F8	0x00000014	[ 47] _link_getaddr.cold.2
+0x100023A0C	0x00000014	[ 47] _link_getaddr.cold.3
+0x100023A20	0x00000014	[ 48] _setbonddev.cold.1
+0x100023A34	0x00000008	[ 48] _setbonddev.cold.2
+0x100023A3C	0x00000014	[ 48] _unsetbonddev.cold.1
+0x100023A50	0x00000008	[ 48] _unsetbonddev.cold.2
+0x100023A58	0x00000018	[ 48] _setbondmode.cold.1
+0x100023A70	0x00000014	[ 48] _setbondmode.cold.2
+0x100023A84	0x00000008	[ 48] _setbondmode.cold.3
+0x100023A8C	0x00000014	[ 49] _show_config.cold.1
+0x100023AA0	0x00000014	[ 49] _show_config.cold.2
+0x100023AB4	0x00000014	[ 49] _show_config.cold.3
+0x100023AC8	0x00000014	[ 49] _show_config.cold.4
+0x100023ADC	0x00000014	[ 49] _setbridge_flush.cold.1
+0x100023AF0	0x00000014	[ 49] _setbridge_flushall.cold.1
+0x100023B04	0x00000014	[ 49] _do_bridgeflag.cold.1
+0x100023B18	0x00000014	[ 49] _do_bridgeflag.cold.2
+0x100023B2C	0x00000014	[ 49] _bridge_addresses.cold.1
+0x100023B40	0x00000014	[ 49] _bridge_addresses.cold.2
+0x100023B54	0x00000014	[ 49] _bridge_status.cold.1
+0x100023B68	0x00000014	[ 49] _bridge_status.cold.2
+0x100023B7C	0x00000014	[ 49] _bridge_status.cold.3
+0x100023B90	0x00000018	[ 50] _clone_setcallback.cold.1
+0x100023BA8	0x00000018	[ 50] _clone_destroy.cold.1
+0x100023BC0	0x00000018	[ 50] _ifclonecreate.cold.1
+0x100023BD8	0x0000005C	[ 51] _Perror
+0x100023C34	0x00000014	[ 51] _ifconfig.cold.1
+0x100023C48	0x00000020	[ 51] _ifconfig.cold.2
+0x100023C68	0x00000020	[ 51] _ifconfig.cold.3
+0x100023C88	0x00000014	[ 51] _ifconfig.cold.4
+0x100023C9C	0x00000014	[ 51] _ifconfig.cold.5
+0x100023CB0	0x00000028	[ 51] _ifconfig.cold.6
+0x100023CD8	0x00000014	[ 51] _callback_register.cold.1
+0x100023CEC	0x00000014	[ 51] _setifcap.cold.1
+0x100023D00	0x00000014	[ 51] _setifflags.cold.1
+0x100023D14	0x00000020	[ 51] _settunnel.cold.1
+0x100023D34	0x00000020	[ 51] _settunnel.cold.2
+0x100023D54	0x00000014	[ 51] _settunnel.cold.3
+0x100023D68	0x00000014	[ 51] _deletetunnel.cold.1
+0x100023D7C	0x00000008	[ 52] _ifmedia_getstate.cold.1
+0x100023D84	0x00000008	[ 52] _ifmedia_getstate.cold.2
+0x100023D8C	0x00000028	[ 52] _ifmedia_getstate.cold.3
+0x100023DB4	0x00000008	[ 52] _ifmedia_getstate.cold.4
+0x100023DBC	0x00000008	[ 52] _ifmedia_getstate.cold.5
+0x100023DC4	0x00000018	[ 52] _setifmediacallback.cold.1
+0x100023DDC	0x00000018	[ 52] _domediaopt.cold.1
+0x100023DF4	0x00000008	[ 52] _media_status.cold.1
+0x100023DFC	0x00000008	[ 52] _media_status.cold.2
+0x100023E04	0x00000014	[ 53] _vlan_cb.cold.1
+0x100023E18	0x00000014	[ 53] _setvlantag.cold.1
+0x100023E2C	0x00000014	[ 53] _setvlantag.cold.2
+0x100023E40	0x00000008	[ 53] _unsetvlandev.cold.1
+0x100023E48	0x00000018	[ 53] _unsetvlandev.cold.2
+0x100023E60	0x00000008	[ 53] _vlan_set.cold.1
+0x100023E68	0x00000018	[ 53] _vlan_create.cold.1
+0x100023E80	0x00000014	[ 53] _vlan_create.cold.2
+0x100023E94	0x00000014	[ 53] _vlan_create.cold.3
+0x100023EA8	0x0000001C	[ 55] _err
+0x100023EC4	0x00000098	[ 55] _verr
+0x100023F5C	0x0000001C	[ 55] _errx
+0x100023F78	0x0000005C	[ 55] _verrx
+0x100023FD4	0x0000001C	[ 55] _warn
+0x100023FF0	0x00000084	[ 55] _vwarn
+0x100024074	0x0000001C	[ 55] _warnx
+0x100024090	0x0000006C	[ 55] _vwarnx
+0x1000240FC	0x00000028	[ 68] __ffpp_strtoencf64_l.cold.1
+0x100024124	0x00000028	[ 68] __ffpp_strtoencf64_l.cold.2
+0x10002414C	0x00000028	[ 68] __ffpp_strtoencf64_l.cold.3
+0x100024174	0x00000020	[ 68] _generalSlowpath.cold.1
+0x100024194	0x00000020	[ 68] _generalSlowpath.cold.2
+0x1000241B4	0x00000020	[ 68] _generalSlowpath.cold.3
+0x1000241D4	0x00000020	[ 68] _generalSlowpath.cold.4
+0x1000241F4	0x00000020	[ 68] _generalSlowpath.cold.5
+0x100024214	0x00000020	[ 68] _generalSlowpath.cold.6
+0x100024234	0x00000020	[ 68] _generalSlowpath.cold.7
+0x100024254	0x00000020	[ 68] _generalSlowpath.cold.8
+0x100024274	0x00000020	[ 68] _generalSlowpath.cold.9
+0x100024294	0x00000020	[ 68] _generalSlowpath.cold.10
+0x1000242B4	0x00000020	[ 68] _generalSlowpath.cold.11
+0x1000242D4	0x00000020	[ 68] _generalSlowpath.cold.12
+0x1000242F4	0x00000020	[ 68] _generalSlowpath.cold.13
+0x100024314	0x00000028	[ 68] _bitCountMP.cold.1
+0x10002433C	0x0000005C	[133] _abort
+0x100024398	0x00000044	[133] ___assert_rtn
+0x1000243DC	0x00000004	[ 12] literal string: zsh
+0x1000243E0	0x00000004	[ 14] literal string: \[x
+0x1000243E4	0x00000005	[ 14] literal string: %02x
+0x1000243E9	0x00000004	[ 14] literal string: %1x
+0x1000243ED	0x00000005	[ 14] literal string: /%d]
+0x1000243F2	0x00000009	[ 19] literal string: ip6.arpa
+0x1000243FB	0x00000008	[ 19] literal string: ip6.int
+0x100024403	0x00000006	[ 19] literal string: debug
+0x100024409	0x0000000D	[ 19] literal string: no_tld_query
+0x100024416	0x00000006	[ 19] literal string: inet6
+0x10002441C	0x00000007	[ 19] literal string: rotate
+0x100024423	0x0000000F	[ 19] literal string: no-check-names
+0x100024432	0x00000006	[ 19] literal string: edns0
+0x100024438	0x00000003	[ 19] literal string: a6
+0x10002443B	0x00000006	[ 19] literal string: dname
+0x100024441	0x00000007	[ 19] literal string: domain
+0x100024448	0x00000007	[ 19] literal string: search
+0x10002444F	0x0000000B	[ 19] literal string: nameserver
+0x10002445A	0x00000009	[ 19] literal string: sortlist
+0x100024463	0x00000006	[ 19] literal string: ndots
+0x100024469	0x00000007	[ 19] literal string: nibble
+0x100024470	0x00000008	[ 19] literal string: nibble2
+0x100024478	0x0000000A	[ 19] literal string: bitstring
+0x100024482	0x00000009	[ 19] literal string: attempts
+0x10002448B	0x0000000A	[ 19] literal string: v6revmode
+0x100024495	0x00000007	[ 19] literal string: single
+0x10002449C	0x00000005	[ 19] literal string: both
+0x1000244A1	0x0000000C	[ 19] literal string: LOCALDOMAIN
+0x1000244AD	0x00000012	[ 19] literal string: /data/resolv.conf
+0x1000244BF	0x00000003	[ 19] literal string: re
+0x1000244C2	0x00000004	[ 19] literal string:  \t\n
+0x1000244C6	0x00000006	[ 19] literal string: ;# \t\n
+0x1000244CC	0x00000003	[ 19] literal string: %u
+0x1000244CF	0x00000008	[ 19] literal string: options
+0x1000244D7	0x0000000C	[ 19] literal string: RES_OPTIONS
+0x1000244E3	0x00000007	[ 19] literal string: ndots:
+0x1000244EA	0x00000009	[ 19] literal string: timeout:
+0x1000244F3	0x0000000A	[ 19] literal string: attempts:
+0x1000244FD	0x0000000D	[ 19] literal string: no-tld-query
+0x10002450A	0x0000000A	[ 19] literal string: insecure1
+0x100024514	0x0000000A	[ 19] literal string: insecure2
+0x10002451E	0x00000006	[ 19] literal string: usevc
+0x100024524	0x0000000F	[ 19] literal string: reload-period:
+0x100024533	0x00000008	[ 19] literal string: nibble:
+0x10002453B	0x00000003	[ 19] literal string:  \t
+0x10002453E	0x00000009	[ 19] literal string: nibble2:
+0x100024547	0x0000000B	[ 19] literal string: v6revmode:
+0x100024552	0x00000012	[ 19] literal string: RES_RETRY_TIMEOUT
+0x100024564	0x0000000A	[ 19] literal string: RES_RETRY
+0x10002456E	0x00000003	[ 19] literal string: %d
+0x100024571	0x0000000D	[ 19] literal string: search_order
+0x10002457E	0x0000000B	[ 19] literal string: bitstring:
+0x100024589	0x00000010	[ 22] literal string: self.thread.%lu
+0x100024599	0x00000006	[ 22] literal string: %s.%s
+0x10002459F	0x0000000B	[ 23] literal string: socket(vc)
+0x1000245AA	0x0000000C	[ 23] literal string: connect(vc)
+0x1000245B6	0x0000000D	[ 23] literal string: write failed
+0x1000245C3	0x0000000C	[ 23] literal string: read failed
+0x1000245CF	0x00000009	[ 23] literal string: read(vc)
+0x1000245D8	0x00000012	[ 23] literal string: res_send: %s: %s\n
+0x1000245EA	0x00000002	[ 23] literal string: ?
+0x1000245EC	0x0000001C	[ 23] literal string: res_send: %s ([%s].%s): %s\n
+0x100024608	0x0000000B	[ 23] literal string: socket(dg)
+0x100024613	0x0000000B	[ 23] literal string: getifaddrs
+0x10002461E	0x0000000B	[ 23] literal string: setsockopt
+0x100024629	0x00000007	[ 23] literal string: sendto
+0x100024630	0x00000007	[ 23] literal string: select
+0x100024637	0x00000009	[ 23] literal string: recvfrom
+0x100024640	0x00000003	[ 24] literal string: %x
+0x100024643	0x0000000C	[ 27] literal string: /dev/random
+0x10002464F	0x00000013	[ 30] literal string:  %x:%x:%x:%x:%x:%x
+0x100024662	0x00000012	[ 30] literal string: %x:%x:%x:%x:%x:%x
+0x100024674	0x00000027	[ 31] literal string: com.apple.system.config.network_change
+0x10002469B	0x0000002A	[ 31] literal string: Address family for nodename not supported
+0x1000246C5	0x00000025	[ 31] literal string: Temporary failure in name resolution
+0x1000246EA	0x0000001B	[ 31] literal string: Invalid value for ai_flags
+0x100024705	0x0000002B	[ 31] literal string: Non-recoverable failure in name resolution
+0x100024730	0x00000018	[ 31] literal string: ai_family not supported
+0x100024748	0x0000001A	[ 31] literal string: Memory allocation failure
+0x100024762	0x00000024	[ 31] literal string: No address associated with nodename
+0x100024786	0x0000002D	[ 31] literal string: nodename nor servname provided, or not known
+0x1000247B3	0x00000027	[ 31] literal string: servname not supported for ai_socktype
+0x1000247DA	0x0000001A	[ 31] literal string: ai_socktype not supported
+0x1000247F4	0x0000000D	[ 31] literal string: System error
+0x100024801	0x0000000A	[ 31] literal string: Bad hints
+0x10002480B	0x0000001A	[ 31] literal string: ai_protocol not supported
+0x100024825	0x00000019	[ 31] literal string: argument buffer overflow
+0x10002483E	0x0000000E	[ 31] literal string: Unknown error
+0x10002484C	0x00000007	[ 31] literal string: %s%%%s
+0x100024853	0x00000004	[ 31] literal string: %hu
+0x100024857	0x00000008	[ 31] literal string: L4488ss
+0x10002485F	0x00000004	[ 31] literal string: udp
+0x100024863	0x00000004	[ 31] literal string: tcp
+0x100024867	0x0000000D	[ 31] literal string: L448844444Ss
+0x100024874	0x00000002	[ 31] literal string: 0
+0x100024876	0x0000000A	[ 31] literal string: localhost
+0x100024880	0x0000000B	[ 31] literal string: L4488s*44c
+0x10002488B	0x0000001A	[ 31] literal string: com.apple.network.libinfo
+0x1000248A5	0x0000000C	[ 31] literal string: getaddrinfo
+0x1000248B1	0x0000001A	[ 31] literal string: /usr/lib/libnetwork.dylib
+0x1000248CB	0x0000000B	[ 31] literal string: L4488s*44a
+0x1000248D6	0x0000000A	[ 32] literal string: si_data.c
+0x1000248E0	0x00000008	[ 32] literal string: rc >= 1
+0x1000248E8	0x00000010	[ 32] literal string: si_list_release
+0x1000248F8	0x00000008	[ 32] literal string: rc >= 0
+0x100024900	0x0000000F	[ 32] literal string: si_item_retain
+0x10002490F	0x00000010	[ 32] literal string: si_item_release
+0x10002491F	0x00000009	[ 33] literal string: ILSMAGIC
+0x100024928	0x00000017	[ 35] literal string: si_destination_compare
+0x10002493F	0x00000011	[ 35] literal string: com.apple.netsrc
+0x100024950	0x00000008	[ 36] literal string: link#%d
+0x100024958	0x00000007	[ 36] literal string: %s%02x
+0x10002495F	0x00000002	[ 36] literal string: :
+0x100024961	0x00000001	[ 36] literal string: 
+0x100024962	0x0000002A	[ 40] literal string: static guest: dynamic loading unavailable
+0x10002498C	0x0000000F	[ 40] literal string: darwin-network
+0x10002499B	0x00000005	[ 45] literal string: inet
+0x1000249A0	0x0000000A	[ 45] literal string: \tinet %s 
+0x1000249AA	0x00000008	[ 45] literal string: --> %s 
+0x1000249B2	0x0000000F	[ 45] literal string: netmask 0x%lx 
+0x1000249C1	0x0000000D	[ 45] literal string: broadcast %s
+0x1000249CE	0x0000000E	[ 45] literal string: %s: bad value
+0x1000249DC	0x00000018	[ 45] literal string: \ttunnel inet %s --> %s\n
+0x1000249F4	0x0000000F	[ 45] literal string: SIOCSIFPHYADDR
+0x100024A03	0x00000012	[ 45] literal string: SIOCSETROUTERMODE
+0x100024A15	0x0000000A	[ 46] literal string: prefixlen
+0x100024A1F	0x00000008	[ 46] literal string: anycast
+0x100024A27	0x0000000A	[ 46] literal string: tentative
+0x100024A31	0x0000000B	[ 46] literal string: -tentative
+0x100024A3C	0x0000000B	[ 46] literal string: deprecated
+0x100024A47	0x0000000C	[ 46] literal string: -deprecated
+0x100024A53	0x00000009	[ 46] literal string: autoconf
+0x100024A5C	0x0000000A	[ 46] literal string: -autoconf
+0x100024A66	0x00000007	[ 46] literal string: pltime
+0x100024A6D	0x00000007	[ 46] literal string: vltime
+0x100024A74	0x00000006	[ 46] literal string: eui64
+0x100024A7A	0x00000032	[ 46] literal string: address flags can be set only for inet6 addresses
+0x100024AAC	0x0000000B	[ 46] literal string: invalid %s
+0x100024AB7	0x0000001A	[ 46] literal string: %s not allowed for the AF
+0x100024AD1	0x00000022	[ 46] literal string: interface index is already filled
+0x100024AF3	0x00000027	[ 46] literal string: could not determine link local address
+0x100024B1A	0x0000001C	[ 46] literal string: socket(AF_INET6,SOCK_DGRAM)
+0x100024B36	0x00000018	[ 46] literal string: ioctl(SIOCGIFAFLAG_IN6)
+0x100024B4E	0x0000001C	[ 46] literal string: ioctl(SIOCGIFALIFETIME_IN6)
+0x100024B6A	0x0000000B	[ 46] literal string: \tinet6 %s 
+0x100024B75	0x0000000E	[ 46] literal string: prefixlen %d 
+0x100024B83	0x00000009	[ 46] literal string: anycast 
+0x100024B8C	0x0000000B	[ 46] literal string: tentative 
+0x100024B97	0x0000000C	[ 46] literal string: optimistic 
+0x100024BA3	0x0000000C	[ 46] literal string: duplicated 
+0x100024BAF	0x0000000A	[ 46] literal string: detached 
+0x100024BB9	0x0000000C	[ 46] literal string: deprecated 
+0x100024BC5	0x0000000A	[ 46] literal string: autoconf 
+0x100024BCF	0x0000000B	[ 46] literal string: temporary 
+0x100024BDA	0x0000000E	[ 46] literal string: scopeid 0x%x 
+0x100024BE8	0x00000008	[ 46] literal string: pltime 
+0x100024BF0	0x00000004	[ 46] literal string: %s 
+0x100024BF4	0x00000007	[ 46] literal string: infty 
+0x100024BFB	0x00000008	[ 46] literal string: vltime 
+0x100024C03	0x00000004	[ 46] literal string: %lu
+0x100024C07	0x00000003	[ 46] literal string: 64
+0x100024C0A	0x00000019	[ 46] literal string: \ttunnel inet6 %s --> %s\n
+0x100024C23	0x00000013	[ 46] literal string: SIOCSIFPHYADDR_IN6
+0x100024C36	0x00000016	[ 46] literal string: SIOCSETROUTERMODE_IN6
+0x100024C4C	0x00000002	[ 46] literal string: L
+0x100024C4E	0x00000005	[ 46] literal string: [-L]
+0x100024C53	0x00000005	[ 47] literal string: link
+0x100024C58	0x00000008	[ 47] literal string: \tether 
+0x100024C60	0x00000009	[ 47] literal string: \tlladdr 
+0x100024C69	0x00000007	[ 47] literal string: %02x%c
+0x100024C70	0x0000002A	[ 47] literal string: can't set link-level netmask or broadcast
+0x100024C9A	0x0000000E	[ 47] literal string: malloc failed
+0x100024CA8	0x0000001D	[ 47] literal string: malformed link-level address
+0x100024CC5	0x00000006	[ 47] literal string: ether
+0x100024CCB	0x00000007	[ 47] literal string: lladdr
+0x100024CD2	0x00000005	[ 48] literal string: lacp
+0x100024CD7	0x00000007	[ 48] literal string: static
+0x100024CDE	0x00000034	[ 48] literal string: \tbond mode: %s\n\tbond key: 0x%04x interfaces: <none>
+0x100024D12	0x0000001A	[ 48] literal string: \tbond interfaces: <none>\n
+0x100024D2C	0x0000002D	[ 48] literal string: \tbond mode: %s\n\tbond key: 0x%04x interfaces:
+0x100024D59	0x00000012	[ 48] literal string: \tbond interfaces:
+0x100024D6B	0x00000004	[ 48] literal string:  %s
+0x100024D6F	0x00000006	[ 48] literal string:  (%s)
+0x100024D75	0x00000002	[ 48] literal string: \n
+0x100024D77	0x00000035	[ 48] literal string: \tbond mode: %s\n\tbond key: 0x%04x interfaces: <none>\n
+0x100024DAC	0x0000000B	[ 48] literal string: unselected
+0x100024DB7	0x00000009	[ 48] literal string: selected
+0x100024DC0	0x00000008	[ 48] literal string: standby
+0x100024DC8	0x0000000A	[ 48] literal string: <unknown>
+0x100024DD2	0x000000A1	[ 48] literal string: \tbond interface: %s priority: 0x%04x state: 0x%02x partner system: 0x%04x,%02x:%02x:%02x:%02x:%02x:%02x key: 0x%04x port: 0x%04x priority: 0x%04x state: 0x%02x\n
+0x100024E73	0x00000008	[ 48] literal string: bonddev
+0x100024E7B	0x00000009	[ 48] literal string: -bonddev
+0x100024E84	0x00000009	[ 48] literal string: bondmode
+0x100024E8D	0x00000003	[ 48] literal string: %s
+0x100024E90	0x00000018	[ 48] literal string: interface name too long
+0x100024EA8	0x0000001A	[ 48] literal string: SIOCSIFBOND add interface
+0x100024EC2	0x0000001D	[ 48] literal string: SIOCSIFBOND remove interface
+0x100024EDF	0x00000037	[ 48] literal string: invalid mode value (must be either \"lacp\" or \"static\")
+0x100024F16	0x00000015	[ 48] literal string: SIOCSIFBOND set mode
+0x100024F2B	0x00000008	[ 48] literal string: af_bond
+0x100024F33	0x0000001E	[ 49] literal string: unable to get bridge priority
+0x100024F51	0x00000018	[ 49] literal string: unable to get hellotime
+0x100024F69	0x0000001C	[ 49] literal string: unable to get forward delay
+0x100024F85	0x00000016	[ 49] literal string: unable to get max age
+0x100024F9B	0x00000032	[ 49] literal string: %spriority %u hellotime %u fwddelay %u maxage %u\n
+0x100024FCD	0x0000001A	[ 49] literal string: %sipfilter %s flags 0x%x\n
+0x100024FE7	0x00000008	[ 49] literal string: enabled
+0x100024FEF	0x00000009	[ 49] literal string: disabled
+0x100024FF8	0x00000005	[ 49] literal string: addm
+0x100024FFD	0x00000008	[ 49] literal string: deletem
+0x100025005	0x00000009	[ 49] literal string: discover
+0x10002500E	0x0000000A	[ 49] literal string: -discover
+0x100025018	0x00000006	[ 49] literal string: learn
+0x10002501E	0x00000007	[ 49] literal string: -learn
+0x100025025	0x00000004	[ 49] literal string: stp
+0x100025029	0x00000005	[ 49] literal string: -stp
+0x10002502E	0x00000006	[ 49] literal string: flush
+0x100025034	0x00000009	[ 49] literal string: flushall
+0x10002503D	0x00000008	[ 49] literal string: deladdr
+0x100025045	0x00000005	[ 49] literal string: addr
+0x10002504A	0x00000008	[ 49] literal string: maxaddr
+0x100025052	0x0000000A	[ 49] literal string: hellotime
+0x10002505C	0x00000009	[ 49] literal string: fwddelay
+0x100025065	0x00000007	[ 49] literal string: maxage
+0x10002506C	0x00000009	[ 49] literal string: priority
+0x100025075	0x0000000B	[ 49] literal string: ifpriority
+0x100025080	0x0000000B	[ 49] literal string: ifpathcost
+0x10002508B	0x00000008	[ 49] literal string: timeout
+0x100025093	0x0000000B	[ 49] literal string: BRDGADD %s
+0x10002509E	0x0000000B	[ 49] literal string: BRDGDEL %s
+0x1000250A9	0x0000001B	[ 49] literal string: unable to get bridge flags
+0x1000250C4	0x0000001B	[ 49] literal string: unable to set bridge flags
+0x1000250DF	0x0000000A	[ 49] literal string: BRDGFLUSH
+0x1000250E9	0x00000018	[ 49] literal string: %s: invalid address: %s
+0x100025101	0x0000000D	[ 49] literal string: BRDGSADDR %s
+0x10002510E	0x00000014	[ 49] literal string: invalid address: %s
+0x100025122	0x0000000D	[ 49] literal string: BRDGDADDR %s
+0x10002512F	0x00000022	[ 49] literal string: unable to allocate address buffer
+0x100025151	0x0000001C	[ 49] literal string: unable to get address cache
+0x10002516D	0x0000000D	[ 49] literal string: %s%s %s %lu 
+0x10002517A	0x00000006	[ 49] literal string: flags
+0x100025180	0x00000010	[ 49] literal string: STATICSTICKY
+0x100025190	0x00000012	[ 49] literal string: invalid value: %s
+0x1000251A2	0x0000000E	[ 49] literal string: BRDGSCACHE %s
+0x1000251B0	0x0000000B	[ 49] literal string: BRDGSHT %s
+0x1000251BB	0x0000000B	[ 49] literal string: BRDGSFD %s
+0x1000251C6	0x0000000B	[ 49] literal string: BRDGSMA %s
+0x1000251D1	0x0000000C	[ 49] literal string: BRDGSPRI %s
+0x1000251DD	0x0000000F	[ 49] literal string: BRDGSIFPRIO %s
+0x1000251EC	0x0000000F	[ 49] literal string: BRDGSIFCOST %s
+0x1000251FB	0x0000000B	[ 49] literal string: BRDGSTO %s
+0x100025206	0x0000000A	[ 49] literal string: af_bridge
+0x100025210	0x00000011	[ 49] literal string: \tConfiguration:\n
+0x100025221	0x00000003	[ 49] literal string: \t\t
+0x100025224	0x0000000A	[ 49] literal string: \tmember: 
+0x10002522E	0x0000002E	[ 49] literal string: \tAddress cache (max cache: %u, timeout: %u):\n
+0x10002525C	0x00000007	[ 49] literal string: strdup
+0x100025263	0x00000024	[ 49] literal string: unable to allocate interface buffer
+0x100025287	0x0000001D	[ 49] literal string: unable to get interface list
+0x1000252A4	0x00000006	[ 49] literal string: %s%s 
+0x1000252AA	0x00000059	[ 49] literal string: LEARNINGDISCOVERSTPSPANSTICKYEDGEAUTOEDGEPTP\tAUTOPTPPRIVATEMACNATCSUMVIRTIO
+0x100025303	0x00000015	[ 49] literal string:  port %u priority %u
+0x100025318	0x0000000E	[ 49] literal string:  path cost %u
+0x100025326	0x0000000A	[ 49] literal string:  state %s
+0x100025330	0x00000014	[ 49] literal string:  <unknown state %d>
+0x100025344	0x0000000A	[ 49] literal string: listening
+0x10002534E	0x00000009	[ 49] literal string: learning
+0x100025357	0x0000000B	[ 49] literal string: forwarding
+0x100025362	0x00000009	[ 49] literal string: blocking
+0x10002536B	0x0000000B	[ 49] literal string: discarding
+0x100025376	0x00000025	[ 50] literal string: conflicting device create parameters
+0x10002539B	0x00000007	[ 50] literal string: create
+0x1000253A2	0x00000008	[ 50] literal string: destroy
+0x1000253AA	0x00000006	[ 50] literal string: plumb
+0x1000253B0	0x00000008	[ 50] literal string: unplumb
+0x1000253B8	0x0000000E	[ 50] literal string: SIOCIFCREATE2
+0x1000253C6	0x00000004	[ 50] literal string: %s\n
+0x1000253CA	0x0000000E	[ 50] literal string: SIOCIFDESTROY
+0x1000253D8	0x00000002	[ 50] literal string: C
+0x1000253DA	0x00000005	[ 50] literal string: [-C]
+0x1000253DF	0x00000009	[ 51] literal string: abdlmruv
+0x1000253E8	0x0000001A	[ 51] literal string: %s: cloning name too long
+0x100025402	0x0000001C	[ 51] literal string: interface %s does not exist
+0x10002541E	0x00000026	[ 51] literal string: %s: interface name too long, skipping
+0x100025444	0x00000002	[ 51] literal string:  
+0x100025446	0x00000027	[ 51] literal string: unable to allocate memory for callback
+0x10002546D	0x00000013	[ 51] literal string: ioctl (SIOCGIFCAP)
+0x100025480	0x00000016	[ 51] literal string: %s: no such interface
+0x100025496	0x00000016	[ 51] literal string: %s: permission denied
+0x1000254AC	0x00000006	[ 51] literal string: %s=%o
+0x1000254B2	0x00000006	[ 51] literal string: %s=%x
+0x1000254B8	0x00000111	[ 51] literal string: usage: ifconfig %sinterface address_family [address [dest_address]]\n                [parameters]\n       ifconfig interface create\n       ifconfig -a %s[-d] [-m] [-u] [-v] [address_family]\n       ifconfig -l [-d] [-u] [address_family]\n       ifconfig %s[-d] [-m] [-u] [-v]\n
+0x1000255C9	0x0000001C	[ 51] literal string: socket(family %u,SOCK_DGRAM
+0x1000255E5	0x0000001C	[ 51] literal string: internal error, no callback
+0x100025601	0x00000017	[ 51] literal string: '%s' requires argument
+0x100025618	0x0000001A	[ 51] literal string: '%s' requires 2 arguments
+0x100025632	0x00000029	[ 51] literal string: interface %s cannot change %s addresses!
+0x10002565B	0x00000014	[ 51] literal string: ioctl (SIOCDIFADDR)
+0x10002566F	0x00000014	[ 51] literal string: ioctl (SIOCAIFADDR)
+0x100025683	0x0000000A	[ 51] literal string: ifdstaddr
+0x10002568D	0x00000007	[ 51] literal string: ifaddr
+0x100025694	0x0000001D	[ 51] literal string: socket(family %u,SOCK_DGRAM)
+0x1000256B1	0x00000005	[ 51] literal string: %s: 
+0x1000256B6	0x0000007B	[ 51] literal string: UPBROADCASTDEBUGLOOPBACKPOINTOPOINTSMARTRUNNINGNOARP\tPROMISC\nALLMULTIOACTIVESIMPLEX\rLINK0LINK1LINK2MULTICAST
+0x100025731	0x0000000B	[ 51] literal string:  metric %d
+0x10002573C	0x00000008	[ 51] literal string:  mtu %d
+0x100025744	0x0000000A	[ 51] literal string:  rtref %d
+0x10002574E	0x0000000A	[ 51] literal string:  index %u
+0x100025758	0x00000008	[ 51] literal string: \teflags
+0x100025760	0x000000A8	[ 51] literal string: AUTOCONFIGURINGACCEPT_RTADVTXSTART\tRXPOLL\nVLANBONDARPLL\rNOWINDOWSCALENOAUTOIPV6LLROUTER4ROUTER6LOCALNET_PRIVATEND6ALTRESTRICTED_RECVAWDLNOACKPRISENDLIST
+0x100025808	0x00000009	[ 51] literal string: \toptions
+0x100025811	0x00000043	[ 51] literal string: RXCSUMTXCSUMVLAN_MTUVLAN_HWTAGGINGJUMBO_MTUTSO4TSO6LRO\tAV
+0x100025854	0x0000000E	[ 51] literal string: \tcapabilities
+0x100025862	0x00000013	[ 51] literal string: \tlink quality: %d 
+0x100025875	0x00000006	[ 51] literal string: (off)
+0x10002587B	0x0000000A	[ 51] literal string: (unknown)
+0x100025885	0x00000007	[ 51] literal string: (poor)
+0x10002588C	0x00000007	[ 51] literal string: (good)
+0x100025893	0x00000004	[ 51] literal string: (?)
+0x100025897	0x00000012	[ 51] literal string: \tscheduler: %s%s 
+0x1000258A9	0x00000006	[ 51] literal string: ALTQ_
+0x1000258AF	0x00000011	[ 51] literal string: (driver managed)
+0x1000258C0	0x0000001C	[ 51] literal string: \tthrottling: level %d (%s)\n
+0x1000258DC	0x00000010	[ 51] literal string: \tlink rate: %s\n
+0x1000258EC	0x0000001A	[ 51] literal string: \tuplink rate: %s [eff] / 
+0x100025906	0x0000000C	[ 51] literal string: %s [tbr] / 
+0x100025912	0x00000011	[ 51] literal string: %s [tbr %u%%] / 
+0x100025923	0x00000007	[ 51] literal string:  [max]
+0x10002592A	0x00000014	[ 51] literal string: \tdownlink rate: %s\n
+0x10002593E	0x0000001C	[ 51] literal string: \tdownlink rate: %s [eff] / 
+0x10002595A	0x0000000A	[ 51] literal string: %s [max]\n
+0x100025964	0x00000018	[ 51] literal string: \tuplink rate: %s [tbr]\n
+0x10002597C	0x0000001B	[ 51] literal string: sysctl IFDATA_SUPPLEMENTAL
+0x100025997	0x00000017	[ 51] literal string: \tunaligned pkts: %lld\n
+0x1000259AE	0x0000000B	[ 51] literal string: \tdesc: %s\n
+0x1000259B9	0x00000005	[ 51] literal string: NONE
+0x1000259BE	0x00000004	[ 51] literal string: CBQ
+0x1000259C2	0x00000005	[ 51] literal string: HFSC
+0x1000259C7	0x00000005	[ 51] literal string: PRIQ
+0x1000259CC	0x00000006	[ 51] literal string: FAIRQ
+0x1000259D2	0x00000004	[ 51] literal string: TCQ
+0x1000259D6	0x00000004	[ 51] literal string: QFQ
+0x1000259DA	0x00000008	[ 51] literal string: UNKNOWN
+0x1000259E2	0x0000000E	[ 51] literal string: opportunistic
+0x1000259F0	0x00000008	[ 51] literal string: unknown
+0x1000259F8	0x00000005	[ 51] literal string: Gbps
+0x1000259FD	0x00000005	[ 51] literal string: Mbps
+0x100025A02	0x00000005	[ 51] literal string: Kbps
+0x100025A07	0x00000005	[ 51] literal string: bps 
+0x100025A0C	0x0000000C	[ 51] literal string: %-4.2Lf %4s
+0x100025A18	0x00000003	[ 51] literal string: up
+0x100025A1B	0x00000005	[ 51] literal string: down
+0x100025A20	0x00000004	[ 51] literal string: arp
+0x100025A24	0x00000005	[ 51] literal string: -arp
+0x100025A29	0x00000007	[ 51] literal string: -debug
+0x100025A30	0x00000004	[ 51] literal string: add
+0x100025A34	0x00000006	[ 51] literal string: alias
+0x100025A3A	0x00000007	[ 51] literal string: -alias
+0x100025A41	0x00000007	[ 51] literal string: delete
+0x100025A48	0x00000007	[ 51] literal string: remove
+0x100025A4F	0x00000008	[ 51] literal string: netmask
+0x100025A57	0x00000007	[ 51] literal string: metric
+0x100025A5E	0x0000000A	[ 51] literal string: broadcast
+0x100025A68	0x00000006	[ 51] literal string: ipdst
+0x100025A6E	0x00000007	[ 51] literal string: tunnel
+0x100025A75	0x00000008	[ 51] literal string: -tunnel
+0x100025A7D	0x0000000D	[ 51] literal string: deletetunnel
+0x100025A8A	0x00000006	[ 51] literal string: link0
+0x100025A90	0x00000007	[ 51] literal string: -link0
+0x100025A97	0x00000006	[ 51] literal string: link1
+0x100025A9D	0x00000007	[ 51] literal string: -link1
+0x100025AA4	0x00000006	[ 51] literal string: link2
+0x100025AAA	0x00000007	[ 51] literal string: -link2
+0x100025AB1	0x00000007	[ 51] literal string: rxcsum
+0x100025AB8	0x00000008	[ 51] literal string: -rxcsum
+0x100025AC0	0x00000007	[ 51] literal string: txcsum
+0x100025AC7	0x00000008	[ 51] literal string: -txcsum
+0x100025ACF	0x00000004	[ 51] literal string: tso
+0x100025AD3	0x00000005	[ 51] literal string: -tso
+0x100025AD8	0x00000004	[ 51] literal string: lro
+0x100025ADC	0x00000005	[ 51] literal string: -lro
+0x100025AE1	0x00000007	[ 51] literal string: normal
+0x100025AE8	0x00000009	[ 51] literal string: compress
+0x100025AF1	0x00000007	[ 51] literal string: noicmp
+0x100025AF8	0x00000004	[ 51] literal string: mtu
+0x100025AFC	0x00000003	[ 51] literal string: av
+0x100025AFF	0x00000004	[ 51] literal string: -av
+0x100025B03	0x00000007	[ 51] literal string: router
+0x100025B0A	0x00000008	[ 51] literal string: -router
+0x100025B12	0x00000005	[ 51] literal string: desc
+0x100025B17	0x00000004	[ 51] literal string: tbr
+0x100025B1B	0x00000009	[ 51] literal string: throttle
+0x100025B24	0x00000015	[ 51] literal string: ioctl (SIOCGIFFLAGS)
+0x100025B39	0x00000013	[ 51] literal string: ioctl (set metric)
+0x100025B4C	0x00000030	[ 51] literal string: address family %s does not support tunnel setup
+0x100025B7C	0x00000024	[ 51] literal string: error in parsing address string: %s
+0x100025BA0	0x00000035	[ 51] literal string: source and destination address families do not match
+0x100025BD5	0x0000000F	[ 51] literal string: SIOCDIFPHYADDR
+0x100025BE4	0x00000010	[ 51] literal string: ioctl (set mtu)
+0x100025BF4	0x0000002F	[ 51] literal string: address family %s does not support router mode
+0x100025C23	0x00000011	[ 51] literal string: ioctl (set desc)
+0x100025C34	0x00000013	[ 51] literal string: Invalid value '%s'
+0x100025C47	0x00000002	[ 51] literal string: b
+0x100025C49	0x00000004	[ 51] literal string: bps
+0x100025C4D	0x00000003	[ 51] literal string: Kb
+0x100025C50	0x00000003	[ 51] literal string: Mb
+0x100025C53	0x00000003	[ 51] literal string: Gb
+0x100025C56	0x00000002	[ 51] literal string: %
+0x100025C58	0x00000018	[ 51] literal string: Value out of range '%s'
+0x100025C70	0x00000012	[ 51] literal string: Unknown unit '%s'
+0x100025C82	0x00000018	[ 51] literal string: ioctl (set link params)
+0x100025C9A	0x00000019	[ 51] literal string: TBR cannot be set on %s\n
+0x100025CB3	0x00000019	[ 51] literal string: %s: TBR is now disabled\n
+0x100025CCC	0x00000020	[ 51] literal string: %s: requires absolute TBR rate\n
+0x100025CEC	0x00000031	[ 51] literal string: %s: TBR rate set to %u%% of effective link rate\n
+0x100025D1D	0x00000018	[ 51] literal string: %s: TBR rate set to %s\n
+0x100025D35	0x0000001D	[ 51] literal string: ioctl (set throttling level)
+0x100025D52	0x00000026	[ 51] literal string: throttling level cannot be set on %s\n
+0x100025D78	0x00000020	[ 51] literal string: %s: throttling level set to %d\n
+0x100025D98	0x00000007	[ 52] literal string: malloc
+0x100025D9F	0x0000000D	[ 52] literal string: SIOCGIFMEDIA
+0x100025DAC	0x00000014	[ 52] literal string: %s: no media types?
+0x100025DC0	0x00000006	[ 52] literal string: media
+0x100025DC6	0x00000009	[ 52] literal string: mediaopt
+0x100025DCF	0x0000000A	[ 52] literal string: -mediaopt
+0x100025DD9	0x00000005	[ 52] literal string: inst
+0x100025DDE	0x00000009	[ 52] literal string: instance
+0x100025DE7	0x00000018	[ 52] literal string: unknown media type 0x%x
+0x100025DFF	0x0000001A	[ 52] literal string: unknown media subtype: %s
+0x100025E19	0x00000009	[ 52] literal string: Ethernet
+0x100025E22	0x0000000B	[ 52] literal string: Token ring
+0x100025E2D	0x00000005	[ 52] literal string: FDDI
+0x100025E32	0x0000000B	[ 52] literal string: IEEE802.11
+0x100025E3D	0x0000000B	[ 52] literal string: autoselect
+0x100025E48	0x00000007	[ 52] literal string: manual
+0x100025E4F	0x00000005	[ 52] literal string: none
+0x100025E54	0x00000005	[ 52] literal string: auto
+0x100025E59	0x0000000C	[ 52] literal string: 10baseT/UTP
+0x100025E65	0x0000000C	[ 52] literal string: 10base2/BNC
+0x100025E71	0x0000000C	[ 52] literal string: 10base5/AUI
+0x100025E7D	0x0000000A	[ 52] literal string: 100baseTX
+0x100025E87	0x0000000A	[ 52] literal string: 100baseFX
+0x100025E91	0x0000000A	[ 52] literal string: 100baseT4
+0x100025E9B	0x0000000A	[ 52] literal string: 100baseVG
+0x100025EA5	0x0000000A	[ 52] literal string: 100baseT2
+0x100025EAF	0x0000000A	[ 52] literal string: 10baseSTP
+0x100025EB9	0x00000009	[ 52] literal string: 10baseFL
+0x100025EC2	0x0000000B	[ 52] literal string: 1000baseSX
+0x100025ECD	0x0000000B	[ 52] literal string: 1000baseLX
+0x100025ED8	0x0000000B	[ 52] literal string: 1000baseCX
+0x100025EE3	0x0000000A	[ 52] literal string: 1000baseT
+0x100025EED	0x00000008	[ 52] literal string: homePNA
+0x100025EF5	0x0000000B	[ 52] literal string: 10Gbase-LR
+0x100025F00	0x0000000B	[ 52] literal string: 10Gbase-SR
+0x100025F0B	0x0000000C	[ 52] literal string: 10Gbase-CX4
+0x100025F17	0x0000000B	[ 52] literal string: 2500BaseSX
+0x100025F22	0x0000000C	[ 52] literal string: 10Gbase-LRM
+0x100025F2E	0x0000000F	[ 52] literal string: 10Gbase-Twinax
+0x100025F3D	0x00000014	[ 52] literal string: 10Gbase-Twinax-Long
+0x100025F51	0x0000000A	[ 52] literal string: 10Gbase-T
+0x100025F5B	0x0000000C	[ 52] literal string: 40Gbase-CR4
+0x100025F67	0x0000000C	[ 52] literal string: 40Gbase-SR4
+0x100025F73	0x0000000C	[ 52] literal string: 40Gbase-LR4
+0x100025F7F	0x0000000C	[ 52] literal string: 1000Base-KX
+0x100025F8B	0x00000006	[ 52] literal string: Other
+0x100025F91	0x0000000C	[ 52] literal string: 10GBase-KX4
+0x100025F9D	0x0000000B	[ 52] literal string: 10GBase-KR
+0x100025FA8	0x0000000C	[ 52] literal string: 10GBase-CR1
+0x100025FB4	0x0000000C	[ 52] literal string: 20GBase-KR2
+0x100025FC0	0x0000000C	[ 52] literal string: 2500Base-KX
+0x100025FCC	0x0000000B	[ 52] literal string: 2500Base-T
+0x100025FD7	0x0000000B	[ 52] literal string: 5000Base-T
+0x100025FE2	0x0000000F	[ 52] literal string: PCIExpress-50G
+0x100025FF1	0x0000000F	[ 52] literal string: PCIExpress-25G
+0x100026000	0x0000000F	[ 52] literal string: 1000Base-SGMII
+0x10002600F	0x0000000C	[ 52] literal string: 10GBase-SFI
+0x10002601B	0x0000000E	[ 52] literal string: 40GBase-XLPPI
+0x100026029	0x00000012	[ 52] literal string: 1000Base-CX-SGMII
+0x10002603B	0x0000000C	[ 52] literal string: 40GBase-KR4
+0x100026047	0x0000000B	[ 52] literal string: 10GBase-ER
+0x100026052	0x0000000D	[ 52] literal string: 100GBase-CR4
+0x10002605F	0x0000000D	[ 52] literal string: 100GBase-SR4
+0x10002606C	0x0000000D	[ 52] literal string: 100GBase-KR4
+0x100026079	0x0000000D	[ 52] literal string: 100GBase-LR4
+0x100026086	0x0000000B	[ 52] literal string: 56GBase-R4
+0x100026091	0x00000009	[ 52] literal string: 100BaseT
+0x10002609A	0x0000000B	[ 52] literal string: 25GBase-CR
+0x1000260A5	0x0000000B	[ 52] literal string: 25GBase-KR
+0x1000260B0	0x0000000B	[ 52] literal string: 25GBase-SR
+0x1000260BB	0x0000000C	[ 52] literal string: 50GBase-CR2
+0x1000260C7	0x0000000C	[ 52] literal string: 50GBase-KR2
+0x1000260D3	0x0000000B	[ 52] literal string: 25GBase-LR
+0x1000260DE	0x0000000C	[ 52] literal string: 10GBase-AOC
+0x1000260EA	0x0000000C	[ 52] literal string: 25GBase-ACC
+0x1000260F6	0x0000000C	[ 52] literal string: 25GBase-AOC
+0x100026102	0x0000000B	[ 52] literal string: 100M-SGMII
+0x10002610D	0x0000000B	[ 52] literal string: 2500Base-X
+0x100026118	0x0000000C	[ 52] literal string: 5000Base-KR
+0x100026124	0x0000000A	[ 52] literal string: 25GBase-T
+0x10002612E	0x0000000D	[ 52] literal string: 25GBase-CR-S
+0x10002613B	0x0000000C	[ 52] literal string: 25GBase-CR1
+0x100026147	0x0000000D	[ 52] literal string: 25GBase-KR-S
+0x100026154	0x0000000E	[ 52] literal string: 5000Base-KR-S
+0x100026162	0x0000000D	[ 52] literal string: 5000Base-KR1
+0x10002616F	0x00000008	[ 52] literal string: 25G-AUI
+0x100026177	0x0000000A	[ 52] literal string: 40G-XLAUI
+0x100026181	0x0000000D	[ 52] literal string: 40G-XLAUI-AC
+0x10002618E	0x0000000C	[ 52] literal string: 40GBase-ER4
+0x10002619A	0x0000000C	[ 52] literal string: 50GBase-SR2
+0x1000261A6	0x0000000C	[ 52] literal string: 50GBase-LR2
+0x1000261B2	0x0000000D	[ 52] literal string: 50G-LAUI2-AC
+0x1000261BF	0x0000000A	[ 52] literal string: 50G-LAUI2
+0x1000261C9	0x0000000C	[ 52] literal string: 50G-AUI2-AC
+0x1000261D5	0x00000009	[ 52] literal string: 50G-AUI2
+0x1000261DE	0x0000000B	[ 52] literal string: 50GBase-CP
+0x1000261E9	0x0000000B	[ 52] literal string: 50GBase-SR
+0x1000261F4	0x0000000B	[ 52] literal string: 50GBase-LR
+0x1000261FF	0x0000000B	[ 52] literal string: 50GBase-FR
+0x10002620A	0x00000010	[ 52] literal string: 50GBase-KR-PAM4
+0x10002621A	0x0000000C	[ 52] literal string: 25GBase-KR1
+0x100026226	0x0000000C	[ 52] literal string: 50G-AUI1-AC
+0x100026232	0x00000009	[ 52] literal string: 50G-AUI1
+0x10002623B	0x0000000E	[ 52] literal string: 100G-CAUI4-AC
+0x100026249	0x0000000B	[ 52] literal string: 100G-CAUI4
+0x100026254	0x0000000D	[ 52] literal string: 100G-AUI4-AC
+0x100026261	0x0000000A	[ 52] literal string: 100G-AUI4
+0x10002626B	0x00000011	[ 52] literal string: 100GBase-CR-PAM4
+0x10002627C	0x00000011	[ 52] literal string: 100GBase-KR-PAM4
+0x10002628D	0x0000000D	[ 52] literal string: 100GBase-CP2
+0x10002629A	0x0000000D	[ 52] literal string: 100GBase-SR2
+0x1000262A7	0x0000000C	[ 52] literal string: 100GBase-DR
+0x1000262B3	0x00000012	[ 52] literal string: 100GBase-KR2-PAM4
+0x1000262C5	0x0000000E	[ 52] literal string: 100G-CAUI2-AC
+0x1000262D3	0x0000000B	[ 52] literal string: 100G-CAUI2
+0x1000262DE	0x0000000D	[ 52] literal string: 100G-AUI2-AC
+0x1000262EB	0x0000000A	[ 52] literal string: 100G-AUI2
+0x1000262F5	0x00000012	[ 52] literal string: 200GBase-CR4-PAM4
+0x100026307	0x0000000D	[ 52] literal string: 200GBase-SR4
+0x100026314	0x0000000D	[ 52] literal string: 200GBase-FR4
+0x100026321	0x0000000D	[ 52] literal string: 200GBase-LR4
+0x10002632E	0x0000000D	[ 52] literal string: 200GBase-DR4
+0x10002633B	0x00000012	[ 52] literal string: 200GBase-KR4-PAM4
+0x10002634D	0x0000000D	[ 52] literal string: 200G-AUI4-AC
+0x10002635A	0x0000000A	[ 52] literal string: 200G-AUI4
+0x100026364	0x0000000D	[ 52] literal string: 200G-AUI8-AC
+0x100026371	0x0000000A	[ 52] literal string: 200G-AUI8
+0x10002637B	0x0000000D	[ 52] literal string: 400GBase-FR8
+0x100026388	0x0000000D	[ 52] literal string: 400GBase-LR8
+0x100026395	0x0000000D	[ 52] literal string: 400GBase-DR4
+0x1000263A2	0x0000000D	[ 52] literal string: 400G-AUI8-AC
+0x1000263AF	0x0000000A	[ 52] literal string: 400G-AUI8
+0x1000263B9	0x00000004	[ 52] literal string: UTP
+0x1000263BD	0x00000006	[ 52] literal string: 10UTP
+0x1000263C3	0x00000004	[ 52] literal string: BNC
+0x1000263C7	0x00000006	[ 52] literal string: 10BNC
+0x1000263CD	0x00000004	[ 52] literal string: AUI
+0x1000263D1	0x00000006	[ 52] literal string: 10AUI
+0x1000263D7	0x00000006	[ 52] literal string: 100TX
+0x1000263DD	0x00000006	[ 52] literal string: 100FX
+0x1000263E3	0x00000006	[ 52] literal string: 100T4
+0x1000263E9	0x00000006	[ 52] literal string: 100VG
+0x1000263EF	0x00000006	[ 52] literal string: 100T2
+0x1000263F5	0x00000007	[ 52] literal string: 1000SX
+0x1000263FC	0x00000004	[ 52] literal string: STP
+0x100026400	0x00000006	[ 52] literal string: 10STP
+0x100026406	0x00000003	[ 52] literal string: FL
+0x100026409	0x00000005	[ 52] literal string: 10FL
+0x10002640E	0x00000007	[ 52] literal string: 1000LX
+0x100026415	0x00000007	[ 52] literal string: 1000CX
+0x10002641C	0x00000006	[ 52] literal string: 1000T
+0x100026422	0x00000006	[ 52] literal string: HPNA1
+0x100026428	0x00000006	[ 52] literal string: 10GSR
+0x10002642E	0x00000006	[ 52] literal string: 10GLR
+0x100026434	0x00000007	[ 52] literal string: 10GCX4
+0x10002643B	0x00000005	[ 52] literal string: 10GT
+0x100026440	0x0000000C	[ 52] literal string: full-duplex
+0x10002644C	0x0000000C	[ 52] literal string: half-duplex
+0x100026458	0x0000000D	[ 52] literal string: flow-control
+0x100026465	0x0000001A	[ 52] literal string: energy-efficient-ethernet
+0x10002647F	0x00000006	[ 52] literal string: flag0
+0x100026485	0x00000006	[ 52] literal string: flag1
+0x10002648B	0x00000006	[ 52] literal string: flag2
+0x100026491	0x0000000C	[ 52] literal string: hw-loopback
+0x10002649D	0x0000000A	[ 52] literal string: DB9/4Mbit
+0x1000264A7	0x0000000B	[ 52] literal string: DB9/16Mbit
+0x1000264B2	0x0000000A	[ 52] literal string: UTP/4Mbit
+0x1000264BC	0x0000000B	[ 52] literal string: UTP/16Mbit
+0x1000264C7	0x00000005	[ 52] literal string: 4STP
+0x1000264CC	0x00000006	[ 52] literal string: 16STP
+0x1000264D2	0x00000005	[ 52] literal string: 4UTP
+0x1000264D7	0x00000006	[ 52] literal string: 16UTP
+0x1000264DD	0x00000012	[ 52] literal string: EarlyTokenRelease
+0x1000264EF	0x0000000E	[ 52] literal string: SourceRouting
+0x1000264FD	0x0000000A	[ 52] literal string: AllRoutes
+0x100026507	0x0000000C	[ 52] literal string: Single-mode
+0x100026513	0x0000000B	[ 52] literal string: Multi-mode
+0x10002651E	0x00000004	[ 52] literal string: SMF
+0x100026522	0x00000004	[ 52] literal string: MMF
+0x100026526	0x00000005	[ 52] literal string: CDDI
+0x10002652B	0x0000000C	[ 52] literal string: Dual-attach
+0x100026537	0x00000004	[ 52] literal string: FH1
+0x10002653B	0x00000004	[ 52] literal string: FH2
+0x10002653F	0x00000004	[ 52] literal string: DS1
+0x100026543	0x00000004	[ 52] literal string: DS2
+0x100026547	0x00000004	[ 52] literal string: DS5
+0x10002654B	0x00000005	[ 52] literal string: DS11
+0x100026550	0x00000005	[ 52] literal string: DS22
+0x100026555	0x00000006	[ 52] literal string: adhoc
+0x10002655B	0x00000015	[ 52] literal string: SIOCSIFMEDIA (media)
+0x100026570	0x00000002	[ 52] literal string: ,
+0x100026572	0x00000013	[ 52] literal string: unknown option: %s
+0x100026585	0x0000001B	[ 52] literal string: invalid media instance: %s
+0x1000265A0	0x00000009	[ 52] literal string: af_media
+0x1000265A9	0x00000009	[ 52] literal string: \tmedia: 
+0x1000265B2	0x0000000A	[ 52] literal string: \tstatus: 
+0x1000265BC	0x00000007	[ 52] literal string: active
+0x1000265C3	0x00000009	[ 52] literal string: inactive
+0x1000265CC	0x00000013	[ 52] literal string: \tsupported media:\n
+0x1000265DF	0x0000000F	[ 52] literal string: <unknown type>
+0x1000265EE	0x00000012	[ 52] literal string: <unknown subtype>
+0x100026600	0x00000003	[ 52] literal string:  <
+0x100026603	0x00000005	[ 52] literal string: %s%s
+0x100026608	0x00000002	[ 52] literal string: >
+0x10002660A	0x00000009	[ 52] literal string: media %s
+0x100026613	0x0000000D	[ 52] literal string:  mediaopt %s
+0x100026620	0x0000000D	[ 52] literal string:  instance %d
+0x10002662D	0x00000005	[ 53] literal string: vlan
+0x100026632	0x00000008	[ 53] literal string: vlandev
+0x10002663A	0x00000009	[ 53] literal string: -vlandev
+0x100026643	0x00000008	[ 53] literal string: vlanmtu
+0x10002664B	0x00000009	[ 53] literal string: -vlanmtu
+0x100026654	0x0000000A	[ 53] literal string: vlanhwtag
+0x10002665E	0x0000000B	[ 53] literal string: -vlanhwtag
+0x100026669	0x00000017	[ 53] literal string: invalid value for vlan
+0x100026680	0x0000001C	[ 53] literal string: value for vlan out of range
+0x10002669C	0x0000000C	[ 53] literal string: SIOCSETVLAN
+0x1000266A8	0x00000023	[ 53] literal string: must specify a tag for vlan create
+0x1000266CB	0x0000002D	[ 53] literal string: must specify a parent device for vlan create
+0x1000266F8	0x0000000C	[ 53] literal string: SIOCGETVLAN
+0x100026704	0x00000008	[ 53] literal string: af_vlan
+0x10002670C	0x00000020	[ 53] literal string: \tvlan: %d parent interface: %s\n
+0x10002672C	0x00000007	[ 53] literal string: <none>
+0x100026733	0x00000028	[ 53] literal string: both vlan and vlandev must be specified
+0x10002675B	0x00000003	[ 55] literal string: : 
+0x10002675E	0x0000001A	[ 56] literal string: %s: illegal option -- %c\n
+0x100026778	0x00000027	[ 56] literal string: %s: option requires an argument -- %c\n
+0x10002679F	0x00000012	[ 57] literal string: [inet_ntoa error]
+0x1000267B1	0x00000010	[ 68] literal string: generalSlowpath
+0x1000267C1	0x0000000A	[ 68] literal string: strtofp.c
+0x1000267CB	0x0000000C	[ 68] literal string: heapAllocOK
+0x1000267D7	0x0000002E	[ 68] literal string: (workMP.msw - workMP.lsw) <= totalWordsNeeded
+0x100026805	0x0000003E	[ 68] literal string: (denominator.msw - denominator.lsw) <= denominatorWordsNeeded
+0x100026843	0x00000019	[ 68] literal string: denominator.msw[-1] != 0
+0x10002685C	0x00000017	[ 68] literal string: numerator.msw[-1] != 0
+0x100026873	0x00000037	[ 68] literal string: (numerator.msw - numerator.lsw) < numeratorWordsNeeded
+0x1000268AA	0x0000000B	[ 68] literal string: bitCountMP
+0x1000268B5	0x00000012	[ 68] literal string: work.msw[-1] != 0
+0x1000268C7	0x0000000D	[ 68] literal string: divideMPByMP
+0x1000268D4	0x0000001E	[ 68] literal string: numerator.msw > numerator.lsw
+0x1000268F2	0x00000022	[ 68] literal string: denominator.msw > denominator.lsw
+0x100026914	0x00000047	[ 68] literal string: (numerator.msw < denominator.lsw) || (denominator.msw < numerator.lsw)
+0x10002695B	0x0000002D	[ 68] literal string: normalizeDigits <= 4 || info.digitCount < 20
+0x100026988	0x00000014	[ 68] literal string: _ffpp_strtoencf64_l
+0x10002699C	0x00000016	[ 68] literal string: normalizeProduct <= 2
+0x1000269B2	0x00000018	[ 68] literal string: 0 < shift && shift < 64
+0x1000269CA	0x00000004	[ 91] literal string: Inf
+0x1000269CE	0x00000004	[ 91] literal string: NaN
+0x1000269D2	0x00000011	[ 91] literal string: 0123456789abcdef
+0x1000269E3	0x00000007	[ 91] literal string: (null)
+0x1000269EA	0x00000011	[ 91] literal string: 0123456789ABCDEF
+0x1000269FB	0x00000003	[ 91] literal string: 0.
+0x1000269FE	0x00000002	[ 91] literal string: .
+0x100026A00	0x00000009	[ 98] literal string: Infinity
+0x100026A09	0x0000000B	[111] literal string: 0123456789
+0x100026A14	0x00000013	[130] literal string: Undefined error: 0
+0x100026A27	0x00000018	[130] literal string: Operation not permitted
+0x100026A3F	0x0000001A	[130] literal string: No such file or directory
+0x100026A59	0x00000010	[130] literal string: No such process
+0x100026A69	0x00000018	[130] literal string: Interrupted system call
+0x100026A81	0x00000013	[130] literal string: Input/output error
+0x100026A94	0x00000016	[130] literal string: Device not configured
+0x100026AAA	0x00000017	[130] literal string: Argument list too long
+0x100026AC1	0x00000012	[130] literal string: Exec format error
+0x100026AD3	0x00000014	[130] literal string: Bad file descriptor
+0x100026AE7	0x00000013	[130] literal string: No child processes
+0x100026AFA	0x0000001A	[130] literal string: Resource deadlock avoided
+0x100026B14	0x00000017	[130] literal string: Cannot allocate memory
+0x100026B2B	0x00000012	[130] literal string: Permission denied
+0x100026B3D	0x0000000C	[130] literal string: Bad address
+0x100026B49	0x00000016	[130] literal string: Block device required
+0x100026B5F	0x0000000C	[130] literal string: Device busy
+0x100026B6B	0x0000000C	[130] literal string: File exists
+0x100026B77	0x00000012	[130] literal string: Cross-device link
+0x100026B89	0x00000022	[130] literal string: Operation not supported by device
+0x100026BAB	0x00000010	[130] literal string: Not a directory
+0x100026BBB	0x0000000F	[130] literal string: Is a directory
+0x100026BCA	0x00000011	[130] literal string: Invalid argument
+0x100026BDB	0x0000001E	[130] literal string: Too many open files in system
+0x100026BF9	0x00000014	[130] literal string: Too many open files
+0x100026C0D	0x0000001F	[130] literal string: Inappropriate ioctl for device
+0x100026C2C	0x0000000F	[130] literal string: Text file busy
+0x100026C3B	0x0000000F	[130] literal string: File too large
+0x100026C4A	0x00000018	[130] literal string: No space left on device
+0x100026C62	0x0000000D	[130] literal string: Illegal seek
+0x100026C6F	0x00000016	[130] literal string: Read-only file system
+0x100026C85	0x0000000F	[130] literal string: Too many links
+0x100026C94	0x0000000C	[130] literal string: Broken pipe
+0x100026CA0	0x00000021	[130] literal string: Numerical argument out of domain
+0x100026CC1	0x00000011	[130] literal string: Result too large
+0x100026CD2	0x00000021	[130] literal string: Resource temporarily unavailable
+0x100026CF3	0x0000001A	[130] literal string: Operation now in progress
+0x100026D0D	0x0000001E	[130] literal string: Operation already in progress
+0x100026D2B	0x0000001F	[130] literal string: Socket operation on non-socket
+0x100026D4A	0x0000001D	[130] literal string: Destination address required
+0x100026D67	0x00000011	[130] literal string: Message too long
+0x100026D78	0x0000001F	[130] literal string: Protocol wrong type for socket
+0x100026D97	0x00000017	[130] literal string: Protocol not available
+0x100026DAE	0x00000017	[130] literal string: Protocol not supported
+0x100026DC5	0x0000001A	[130] literal string: Socket type not supported
+0x100026DDF	0x00000018	[130] literal string: Operation not supported
+0x100026DF7	0x0000001E	[130] literal string: Protocol family not supported
+0x100026E15	0x00000030	[130] literal string: Address family not supported by protocol family
+0x100026E45	0x00000017	[130] literal string: Address already in use
+0x100026E5C	0x0000001F	[130] literal string: Can't assign requested address
+0x100026E7B	0x00000010	[130] literal string: Network is down
+0x100026E8B	0x00000017	[130] literal string: Network is unreachable
+0x100026EA2	0x00000024	[130] literal string: Network dropped connection on reset
+0x100026EC6	0x00000021	[130] literal string: Software caused connection abort
+0x100026EE7	0x00000019	[130] literal string: Connection reset by peer
+0x100026F00	0x0000001A	[130] literal string: No buffer space available
+0x100026F1A	0x0000001C	[130] literal string: Socket is already connected
+0x100026F36	0x00000018	[130] literal string: Socket is not connected
+0x100026F4E	0x00000021	[130] literal string: Can't send after socket shutdown
+0x100026F6F	0x00000022	[130] literal string: Too many references: can't splice
+0x100026F91	0x00000014	[130] literal string: Operation timed out
+0x100026FA5	0x00000013	[130] literal string: Connection refused
+0x100026FB8	0x00000022	[130] literal string: Too many levels of symbolic links
+0x100026FDA	0x00000013	[130] literal string: File name too long
+0x100026FED	0x0000000D	[130] literal string: Host is down
+0x100026FFA	0x00000011	[130] literal string: No route to host
+0x10002700B	0x00000014	[130] literal string: Directory not empty
+0x10002701F	0x00000013	[130] literal string: Too many processes
+0x100027032	0x0000000F	[130] literal string: Too many users
+0x100027041	0x00000014	[130] literal string: Disc quota exceeded
+0x100027055	0x00000016	[130] literal string: Stale NFS file handle
+0x10002706B	0x00000022	[130] literal string: Too many levels of remote in path
+0x10002708D	0x00000012	[130] literal string: RPC struct is bad
+0x10002709F	0x00000012	[130] literal string: RPC version wrong
+0x1000270B1	0x00000014	[130] literal string: RPC prog. not avail
+0x1000270C5	0x00000016	[130] literal string: Program version wrong
+0x1000270DB	0x0000001A	[130] literal string: Bad procedure for program
+0x1000270F5	0x00000013	[130] literal string: No locks available
+0x100027108	0x00000019	[130] literal string: Function not implemented
+0x100027121	0x00000022	[130] literal string: Inappropriate file type or format
+0x100027143	0x00000015	[130] literal string: Authentication error
+0x100027158	0x00000013	[130] literal string: Need authenticator
+0x10002716B	0x00000014	[130] literal string: Device power is off
+0x10002717F	0x0000000D	[130] literal string: Device error
+0x10002718C	0x0000002A	[130] literal string: Value too large to be stored in data type
+0x1000271B6	0x00000023	[130] literal string: Bad executable (or shared library)
+0x1000271D9	0x0000001B	[130] literal string: Bad CPU type in executable
+0x1000271F4	0x00000020	[130] literal string: Shared library version mismatch
+0x100027214	0x00000016	[130] literal string: Malformed Mach-o file
+0x10002722A	0x00000033	[132] literal string: *** vm_allocate(size=%lld) failed (error code=%d)\n
+0x10002725D	0x00000016	[132] literal string: can't allocate region
+0x100027273	0x0000002D	[132] literal string: *** freeing unaligned header failed with %d\n
+0x1000272A0	0x0000002D	[132] literal string: *** freeing unaligned footer failed with %d\n
+0x1000272CD	0x0000001D	[132] literal string: *** error for object %p: %s\n
+0x1000272EA	0x0000000F	[132] literal string: *** error: %s\n
+0x1000272F9	0x0000002E	[132] literal string: *** set a breakpoint in szone_error to debug\n
+0x100027327	0x0000003B	[132] literal string: *** can't protect(%p) region for prelude guard page at %p\n
+0x100027362	0x0000003C	[132] literal string: *** can't protect(%p) region for postlude guard page at %p\n
+0x10002739E	0x00000074	[132] literal string: incorrect checksum for freed object - object was probably modified after being freed, break at szone_error to debug
+0x100027412	0x00000021	[132] literal string: object already freed being freed
+0x100027433	0x00000036	[132] literal string: incorrect size information - block header was damaged
+0x100027469	0x0000001E	[132] literal string: Can't deallocate_pages region
+0x100027487	0x00000020	[132] literal string: Non-aligned pointer being freed
+0x1000274A7	0x00000024	[132] literal string: Non-aligned pointer being freed (2)
+0x1000274CB	0x00000034	[132] literal string: non-page-aligned, non-allocated pointer being freed
+0x1000274FF	0x0000000C	[132] literal string: double free
+0x10002750B	0x00000019	[132] literal string: double free (tiny cache)
+0x100027524	0x00000021	[132] literal string: Object already freed being freed
+0x100027545	0x0000001A	[132] literal string: double free (small cache)
+0x10002755F	0x00000026	[132] literal string: pointer being freed was not allocated
+0x100027585	0x0000002C	[132] literal string: pointer being reallocated was not allocated
+0x1000275B1	0x00000031	[132] literal string: large entry reallocated is not properly in table
+0x1000275E2	0x00000030	[132] literal string: huge entry reallocated is not properly in table
+0x100027612	0x0000001B	[132] literal string: at szone_check counter=%d\n
+0x10002762D	0x0000003D	[132] literal string: *** tiny region %d incorrect szone_check_all(%s) counter=%d\n
+0x10002766A	0x0000001D	[132] literal string: check: tiny region incorrect
+0x100027687	0x00000047	[132] literal string: *** tiny free list incorrect (slot=%d) szone_check_all(%s) counter=%d\n
+0x1000276CE	0x00000020	[132] literal string: check: tiny free list incorrect
+0x1000276EE	0x0000003E	[132] literal string: *** small region %d incorrect szone_check_all(%s) counter=%d\n
+0x10002772C	0x0000001E	[132] literal string: check: small region incorrect
+0x10002774A	0x00000049	[132] literal string: *** small free list incorrect (grain=%d) szone_check_all(%s) counter=%d\n
+0x100027793	0x00000021	[132] literal string: check: small free list incorrect
+0x1000277B4	0x0000004A	[132] literal string: *** invariant broken for tiny block %p this msize=%d - size is too small\n
+0x1000277FE	0x00000048	[132] literal string: *** invariant broken for %p this tiny msize=%d[%p] - size is too large\n
+0x100027846	0x00000055	[132] literal string: *** invariant broken for free block %p this tiny msize=%d: two free blocks in a row\n
+0x10002789B	0x00000041	[132] literal string: *** invariant broken for %p (previous %p is not a free pointer)\n
+0x1000278DC	0x0000004A	[132] literal string: *** invariant broken for %p (next in free list %p is not a free pointer)\n
+0x100027926	0x00000078	[132] literal string: *** invariant broken for tiny free %p followed by %p in region [%p-%p] (end marker incorrect) should be %d; in fact %d\n
+0x10002799E	0x0000002D	[132] literal string: *** invariant broken for region end %p - %p\n
+0x1000279CB	0x00000033	[132] literal string: *** invariant broken for blocker block %p - %d %d\n
+0x1000279FE	0x00000035	[132] literal string: *** in-use ptr in free list slot=%d count=%d ptr=%p\n
+0x100027A33	0x00000039	[132] literal string: *** inaligned ptr in free list slot=%d  count=%d ptr=%p\n
+0x100027A6C	0x0000002F	[132] literal string: *** itr not in szone slot=%d  count=%d ptr=%p\n
+0x100027A9B	0x00000037	[132] literal string: *** irevious incorrectly set slot=%d  count=%d ptr=%p\n
+0x100027AD2	0x00000050	[132] literal string: *** invariant broken: null msize ptr=%p region#=%d num_small_regions=%d end=%p\n
+0x100027B22	0x00000045	[132] literal string: *** invariant broken for %p this small msize=%d - size is too large\n
+0x100027B67	0x00000036	[132] literal string: *** invariant broken for free block %p this msize=%d\n
+0x100027B9D	0x0000002F	[132] literal string: *** invariant broken for %p (2 free in a row)\n
+0x100027BCC	0x0000003A	[132] literal string: *** invariant broken for %p (next is not a free pointer)\n
+0x100027C06	0x00000079	[132] literal string: *** invariant broken for small free %p followed by %p in region [%p-%p] (end marker incorrect) should be %d; in fact %d\n
+0x100027C7F	0x00000036	[132] literal string: *** in-use ptr in free list grain=%d count=%d ptr=%p\n
+0x100027CB5	0x0000003A	[132] literal string: *** unaligned ptr in free list grain=%d  count=%d ptr=%p\n
+0x100027CEF	0x00000030	[132] literal string: *** ptr not in szone grain=%d  count=%d ptr=%p\n
+0x100027D1F	0x00000038	[132] literal string: *** previous incorrectly set grain=%d  count=%d ptr=%p\n
+0x100027D57	0x00000041	[132] literal string: Scalable zone %p: inUse=%d(%y) touched=%y allocated=%y flags=%d\n
+0x100027D98	0x00000034	[132] literal string: \ttiny=%d(%y) small=%d(%y) large=%d(%y) huge=%d(%y)\n
+0x100027DCC	0x00000013	[132] literal string: %d tiny regions: \n
+0x100027DDF	0x00000014	[132] literal string: %d small regions: \n
+0x100027DF3	0x0000001D	[132] literal string: *** error with %p: msize=%d\n
+0x100027E10	0x00000028	[132] literal string: *** error at %p msize for in_use is %d\n
+0x100027E38	0x00000019	[132] literal string: Tiny region [%p-%p, %y]\t
+0x100027E51	0x0000000B	[132] literal string: In_use=%d 
+0x100027E5C	0x0000000E	[132] literal string: untouched=%y 
+0x100027E6A	0x00000010	[132] literal string: \tSizes in use: 
+0x100027E7A	0x00000007	[132] literal string: %d[%d]
+0x100027E81	0x00000012	[132] literal string: tiny free sizes: 
+0x100027E93	0x0000000B	[132] literal string: %s%y[%d]; 
+0x100027E9E	0x00000003	[132] literal string: >=
+0x100027EA1	0x00000024	[132] literal string: Small region [%p-%p, %y]\tIn_use=%d 
+0x100027EC5	0x0000000E	[132] literal string: Untouched=%y 
+0x100027ED3	0x00000011	[132] literal string: \n\tSizes in use: 
+0x100027EE4	0x00000008	[132] literal string: %d[%d] 
+0x100027EEC	0x00000013	[132] literal string: small free sizes: 
+0x100027EFF	0x00000022	[133] literal string: Assertion failed: %s (%s:%d, %s)\n
+0x100027F30	0x0000000B	[ 14] _digits
+0x100027F3B	0x00000100	[ 14] _digitvalue
+0x100028040	0x00000008	[ 15] 8-byte-literal
+0x100028048	0x00000008	[ 19] 8-byte-literal
+0x100028050	0x00000008	[ 19] 8-byte-literal
+0x100028058	0x00000003	[ 19] _sort_mask
+0x10002805B	0x0000000B	[ 25] _inet_pton4.digits
+0x100028066	0x00000011	[ 25] _inet_pton6.xdigits_l
+0x100028077	0x00000011	[ 25] _inet_pton6.xdigits_u
+0x100028088	0x00000010	[ 28] _in6addr_any
+0x100028098	0x00000008	[ 31] 8-byte-literal
+0x1000280A0	0x00000008	[ 31] 8-byte-literal
+0x1000280A8	0x00000008	[ 31] 8-byte-literal
+0x1000280B0	0x00000024	[ 33] _align_64
+0x1000280D8	0x00000008	[ 35] 8-byte-literal
+0x1000280E0	0x00000008	[ 35] 8-byte-literal
+0x1000280E8	0x00000008	[ 35] 8-byte-literal
+0x1000280F0	0x00000008	[ 35] 8-byte-literal
+0x1000280F8	0x00000008	[ 35] 8-byte-literal
+0x100028100	0x00000008	[ 35] 8-byte-literal
+0x100028108	0x00000008	[ 35] 8-byte-literal
+0x100028110	0x00000008	[ 35] 8-byte-literal
+0x100028118	0x00000008	[ 35] 8-byte-literal
+0x100028120	0x00000010	[ 35] _rfc6724_scope_ip6.in6addr_lo
+0x100028130	0x00000014	[ 35] l_switch.table.rfc6724_scope_sa
+0x100028150	0x00000010	[ 37] 16-byte-literal
+0x100028160	0x00000008	[ 37] 8-byte-literal
+0x100028168	0x00000008	[ 40] 8-byte-literal
+0x100028170	0x00000008	[ 48] 8-byte-literal
+0x100028180	0x00000010	[ 51] 16-byte-literal
+0x100028190	0x00000008	[ 51] 8-byte-literal
+0x100028198	0x00000008	[ 51] 8-byte-literal
+0x1000281A0	0x00000008	[ 51] 8-byte-literal
+0x1000281A8	0x00000008	[ 62] 8-byte-literal
+0x1000281B0	0x00000050	[ 67] lJTI0_0
+0x100028200	0x00000022	[ 67] ___svfscanf.basefix
+0x100028230	0x00000010	[ 68] 16-byte-literal
+0x100028240	0x00000010	[ 68] 16-byte-literal
+0x100028250	0x00000100	[ 68] _hexdigit
+0x100028350	0x00000028	[ 68] _initMPFromDigits.powersOfTen
+0x100028378	0x000000E0	[ 68] _powersOfFive
+0x100028458	0x00000370	[ 68] _powersOf10_Float
+0x1000287C8	0x000000B8	[ 68] __ffpp_strtoencf64_l.doublePowerOf10
+0x100028880	0x000000F0	[ 68] _powersOf10_CoarseBinary64
+0x100028970	0x0000006A	[ 91] lJTI0_0
+0x1000289DA	0x00000035	[ 91] lJTI1_0
+0x100028A0F	0x00000011	[ 91] lJTI1_1
+0x100028A20	0x00000008	[ 98] 8-byte-literal
+0x100028A28	0x00000008	[ 98] 8-byte-literal
+0x100028A30	0x00000008	[ 98] 8-byte-literal
+0x100028A38	0x00000008	[ 98] 8-byte-literal
+0x100028A40	0x00000008	[ 98] 8-byte-literal
+0x100028A48	0x00000008	[ 98] 8-byte-literal
+0x100028A50	0x00000008	[ 98] 8-byte-literal
+0x100028A58	0x00000008	[ 98] 8-byte-literal
+0x100028A60	0x00000008	[ 98] 8-byte-literal
+0x100028A68	0x000000B8	[ 98] _tens
+0x100028B20	0x00000028	[ 98] _bigtens
+0x100028B48	0x00000028	[ 98] _tinytens
+0x100028B70	0x0000000C	[ 98] _pow5mult.p05
+0x100028B7C	0x00000100	[106] _charmap
+0x100028C7C	0x00000004	[130] _sys_nerr
+0x100028C80	0x00000012	[ 31] literal string: ipv4_addr is NULL
+0x100028C92	0x0000003E	[ 31] literal string: nat64_v4_synthesize(%d, %{network:in_addr}d, ...) returned %d
+0x100028CD0	0x00000019	[ 31] literal string: Opening libnetwork.dylib
+0x100028CE9	0x00000031	[ 31] literal string: dlopen(\"...libnetwork.dylib\") failed: %{public}s
+0x100028D1A	0x00000039	[ 31] literal string: libnetwork.dylib did not set nat64_v4_requires_synthesis
+0x100028D53	0x00000031	[ 31] literal string: libnetwork.dylib did not set nat64_v4_synthesize
+0x100028D84	0x0000003D	[ 31] literal string: nat64_v4_requires_synthesis(%{network:in_addr}d) == %{bool}d
+0x100028DC1	0x0000003B	[ 35] literal string: socket(PF_SYSTEM, SOCK_DGRAM, SYSPROTO_CONTROL) failed: %m
+0x100028DFC	0x00000039	[ 35] literal string: setsockopt(%d, SOL_SOCKET, SO_NOSIGPIPE, ...) failed: %m
+0x100028E35	0x00000027	[ 35] literal string: ioctl(%d, CTLIOCGINFO, ...) failed: %m
+0x100028E5C	0x00000027	[ 35] literal string: connect(%d, ...) ctl_id=%u, failed: %m
+0x100028E83	0x00000035	[ 35] literal string: setsockopt(%d, SOL_SOCKET, SO_RCVBUF, %d) failed: %m
+0x100028EB8	0x00000022	[ 35] literal string: fcntl(%d, F_SETFL, %d) failed: %m
+0x100028EDA	0x00000021	[ 35] literal string: fcntl(%d, F_GETFL, 0) failed: %m
+0x100028EFB	0x00000018	[ 35] literal string: %{public}s dst1 is NULL
+0x100028F13	0x00000018	[ 35] literal string: %{public}s dst2 is NULL
+0x100028F2B	0x00000037	[ 35] literal string: %{network:sockaddr}.*P@%u %c %{network:sockaddr}.*P@%u
+0x100028F62	0x00000026	[ 35] literal string: si_destination_lookup for dst1 failed
+0x100028F88	0x00000026	[ 35] literal string: si_destination_lookup for dst2 failed
+0x100028FAE	0x00000024	[ 35] literal string: prefer d1, known while d2 not known
+0x100028FD2	0x00000024	[ 35] literal string: prefer d2, known while d1 not known
+0x100028FF6	0x00000040	[ 35] literal string: (dst_sa->sa_len %u > sizeof(cache_entry->dce_entry.d_dst.addr))
+0x100029036	0x00000017	[ 35] literal string: calloc(%zu) failed: %m
+0x10002904D	0x00000014	[ 35] literal string: sockaddr is too big
+0x100029061	0x00000010	[ 35] literal string: send failed: %m
+0x100029071	0x00000010	[ 35] literal string: recv failed: %m
+0x100029081	0x0000004A	[ 35] literal string: prefering 1, dst1 min rtt %f < dst2 min rtt %f, leeway %u small leeway %u
+0x1000290CB	0x00000053	[ 35] literal string: prefering 1 slightly, dst1 min rtt %f < dst2 min rtt %f, leeway %u small leeway %u
+0x10002911E	0x0000004E	[ 35] literal string: not prefering 1, dst1 min rtt %f < dst2 min rtt %f, leeway %u small leeway %u
+0x10002916C	0x0000004A	[ 35] literal string: prefering 2, dst1 min rtt %f > dst2 min rtt %f, leeway %u small leeway %u
+0x1000291B6	0x00000053	[ 35] literal string: prefering 2 slightly, dst1 min rtt %f > dst2 min rtt %f, leeway %u small leeway %u
+0x100029209	0x0000004E	[ 35] literal string: not prefering 2, dst1 min rtt %f > dst2 min rtt %f, leeway %u small leeway %u
+0x100029257	0x00000020	[ 35] literal string: no preference, equal min rtt %f
+0x100029277	0x0000003E	[ 35] literal string: prefer 2, dst 1 has no successful connections and %u attempts
+0x1000292B5	0x0000003E	[ 35] literal string: prefer 1, dst 2 has no successful connections and %u attempts
+0x1000292F3	0x00000029	[ 35] literal string: prefer dst 1, dst 2 is p2p, dst 1 is not
+0x10002931C	0x00000029	[ 35] literal string: prefer dst 2, dst 1 is p2p, dst 2 is not
+0x100029345	0x0000002A	[ 35] literal string: prefer 1, dst 1 is loopback, dst 2 is not
+0x10002936F	0x0000002A	[ 35] literal string: prefer 2, dst 2 is loopback, dst 1 is not
+0x100029399	0x00000027	[ 35] literal string: prefer 1, dst 1 is local, dst 2 is not
+0x1000293C0	0x00000027	[ 35] literal string: prefer 2, dst 2 is local, dst 1 is not
+0x1000293E7	0x0000001D	[ 35] literal string: prefer 1, dst 2 has no route
+0x100029404	0x0000001D	[ 35] literal string: prefer 2, dst 1 has no route
+0x100029421	0x00000026	[ 35] literal string: Rule 1, prefer d1, d2 is not routable
+0x100029447	0x00000026	[ 35] literal string: Rule 1, prefer d2, d1 is not routable
+0x10002946D	0x00000039	[ 35] literal string: Rule 2, prefer d1, d2 dst scope does not match src scope
+0x1000294A6	0x00000039	[ 35] literal string: Rule 2, prefer d2, d1 dst scope does not match src scope
+0x1000294DF	0x0000002B	[ 35] literal string: Rule 3, prefer d2, d1 source is deprecated
+0x10002950A	0x0000002B	[ 35] literal string: Rule 3, prefer d1, d2 source is deprecated
+0x100029535	0x0000002C	[ 35] literal string: Rule 3a, prefer d2, d1 source is optimistic
+0x100029561	0x0000002C	[ 35] literal string: Rule 3a, prefer d1, d2 source is optimistic
+0x10002958D	0x00000039	[ 35] literal string: Rule 5, prefer d1, d2 dst label does not match src label
+0x1000295C6	0x00000039	[ 35] literal string: Rule 5, prefer d2, d1 dst label does not match src label
+0x1000295FF	0x00000037	[ 35] literal string: Rule 6, prefer d1, d1 precedence %d > d2 precedence %d
+0x100029636	0x00000037	[ 35] literal string: Rule 6, prefer d2, d2 precedence %d > d1 precedence %d
+0x10002966D	0x00000028	[ 35] literal string: Rule 7, prefer d1, d2 src is not native
+0x100029695	0x00000028	[ 35] literal string: Rule 7, prefer d2, d1 src is not native
+0x1000296BD	0x0000002D	[ 35] literal string: Rule 8, prefer d1, d1 scope %d < d2 scope %d
+0x1000296EA	0x0000002D	[ 35] literal string: Rule 8, prefer d2, d2 scope %d < d1 scope %d
+0x100029717	0x00000030	[ 35] literal string: Rule 9, prefer d1, d1 shares more common prefix
+0x100029747	0x00000030	[ 35] literal string: Rule 9, prefer d2, d2 shares more common prefix
+0x10002C000	0x00000102	[ 27] _rs
+0x10002C108	0x00000040	[ 31] _net_config_mutex
+0x10002C148	0x00000008	[ 31] _net_config_token
+0x10002C150	0x00000010	[ 31] _gai_log.once
+0x10002C160	0x00000008	[ 31] __gai_log
+0x10002C168	0x00000010	[ 31] __gai_load_libnetwork.load_once
+0x10002C178	0x00000008	[ 35] _si_destination_log
+0x10002C180	0x00000008	[ 35] _kLoopbackIndex
+0x10002C188	0x00000010	[ 35] _si_destination_compare_init.cache_init
+0x10002C198	0x00000008	[ 35] _si_destination_fill_netsrc.netsrc_sockfd
+0x10002C1A0	0x00000010	[ 35] _si_destination_compare_statistics.once
+0x10002C1B0	0x00000008	[ 40] _nameserver_port
+0x10002C1B8	0x00000030	[ 40] _network_module
+0x10002C1E8	0x00000078	[ 45] _af_inet
+0x10002C260	0x00000020	[ 46] _in6_Lopt
+0x10002C280	0x000001B8	[ 46] _inet6_cmds
+0x10002C438	0x00000080	[ 46] _in6_addreq
+0x10002C4B8	0x00000078	[ 46] _af_inet6
+0x10002C530	0x00000078	[ 47] _af_link
+0x10002C5A8	0x00000078	[ 47] _af_ether
+0x10002C620	0x00000078	[ 47] _af_lladdr
+0x10002C698	0x00000078	[ 48] _bond_cmds
+0x10002C710	0x00000078	[ 48] _af_bond
+0x10002C788	0x00000348	[ 49] _bridge_cmds
+0x10002CAD0	0x00000078	[ 49] _af_bridge
+0x10002CB48	0x00000020	[ 50] _clone_Copt
+0x10002CB68	0x000000A0	[ 50] _clone_cmds
+0x10002CC08	0x00000008	[ 51] _newaddr
+0x10002CC10	0x000006B8	[ 51] _basic_cmds
+0x10002D2C8	0x000000C8	[ 52] _media_cmds
+0x10002D390	0x000002C0	[ 52] _ifmedia_types_to_subtypes
+0x10002D650	0x00000040	[ 52] _ifm_subtype_shared_descriptions
+0x10002D690	0x00000020	[ 52] _ifm_subtype_shared_aliases
+0x10002D6B0	0x00000730	[ 52] _ifm_subtype_ethernet_descriptions
+0x10002DDE0	0x00000190	[ 52] _ifm_subtype_ethernet_aliases
+0x10002DF70	0x00000090	[ 52] _ifm_shared_option_descriptions
+0x10002E000	0x00000050	[ 52] _ifm_subtype_tokenring_descriptions
+0x10002E050	0x00000050	[ 52] _ifm_subtype_tokenring_aliases
+0x10002E0A0	0x00000040	[ 52] _ifm_subtype_tokenring_option_descriptions
+0x10002E0E0	0x00000040	[ 52] _ifm_subtype_fddi_descriptions
+0x10002E120	0x00000040	[ 52] _ifm_subtype_fddi_aliases
+0x10002E160	0x00000020	[ 52] _ifm_subtype_fddi_option_descriptions
+0x10002E180	0x00000080	[ 52] _ifm_subtype_ieee80211_descriptions
+0x10002E200	0x00000020	[ 52] _ifm_subtype_ieee80211_option_descriptions
+0x10002E220	0x00000078	[ 52] _af_media
+0x10002E298	0x00000118	[ 53] _vlan_cmds
+0x10002E3B0	0x00000018	[ 53] _params
+0x10002E3C8	0x00000078	[ 53] _af_vlan
+0x10002E440	0x00000010	[ 54] __info_key_initialized
+0x10002E450	0x00000004	[ 56] _opterr
+0x10002E454	0x00000004	[ 56] _optind
+0x10002E458	0x00000008	[ 56] _getopt.place
+0x10002E460	0x000001C8	[ 73] ___sF
+0x10002E628	0x00000018	[ 73] ___sglue
+0x10002E640	0x00000018	[ 73] _uglue
+0x10002E658	0x00000010	[ 91] _vfprintf.blanks
+0x10002E668	0x00000010	[ 91] _vfprintf.zeroes
+0x10002E678	0x00000028	[111] _ebuf
+0x10002E6A0	0x00000C88	[122] __DefaultRuneLocale
+0x10002F328	0x00000008	[122] __CurrentRuneLocale
+0x10002F330	0x00000008	[128] ___lconv
+0x10002F338	0x00000060	[128] _C_lconv
+0x10002F398	0x00000004	[132] _szone_check_modulo
+0x10002F3A0	0x00000008	[133] ___stdoutp
+0x10002F3A8	0x00000008	[133] ___stderrp
+0x10002F3B0	0x00000070	[ 31] l_switch.table.gai_strerror
+0x10002F420	0x00000168	[ 40] _network_vtable
+0x10002F588	0x00000020	[ 45] _sintab
+0x10002F5A8	0x00000020	[ 46] _sin6tab
+0x10002F5C8	0x00000018	[ 48] _selected_state_string.names
+0x10002F5E0	0x00000030	[ 49] _stpstates
+0x10002F610	0x00000028	[ 51] _setifdstaddr_cmd
+0x10002F638	0x00000028	[ 51] _setifaddr_cmd
+0x10002F660	0x00000038	[ 51] l_switch.table.darwin_network_command_main
+0x10002F698	0x00000050	[ 52] _ifm_type_descriptions
+0x10002F6E8	0x000002C8	[130] _sys_errlist
+0x10002F9B0	0x00000088	[132] _szone_introspect
+0x10002FA38	0x00000000	[  0] section$start$__DATA$__mod_init_func
+0x10002FA38	0x00000008	[ 45] ltmp5
+0x10002FA40	0x00000008	[ 46] ltmp5
+0x10002FA48	0x00000008	[ 47] ltmp4
+0x10002FA50	0x00000008	[ 48] ltmp5
+0x10002FA58	0x00000008	[ 49] ltmp4
+0x10002FA60	0x00000008	[ 50] ltmp4
+0x10002FA68	0x00000008	[ 51] ltmp8
+0x10002FA70	0x00000008	[ 52] ltmp5
+0x10002FA78	0x00000008	[ 53] ltmp3
+0x10002FA80	0x00000000	[  0] section$end$__DATA$__mod_init_func
+0x10002FA80	0x00000004	[  9] ___in_sigtramp
+0x10002FA84	0x00000004	[ 23] _interrupt_pipe_enabled
+0x10002FA88	0x00000004	[ 51] _bond_details
+0x10002FA8C	0x00000004	[ 51] _supmedia
+0x10002FA90	0x00000004	[ 51] _verbose
+0x10002FA94	0x00000004	[ 51] _showrtref
+0x10002FA98	0x00000004	[ 73] ___sdidinit
+0x10002FAA0	0x00000008	[101] ___atexit
+0x10002FAA8	0x00000008	[102] ___cleanup
+0x10002FAB0	0x00000004	[130] _errno
+0x10002FAB4	0x00000004	[132] _szone_check_counter
+0x10002FAB8	0x00000004	[132] _szone_check_start
+0x10002FABC	0x00000004	[134] _malloc_num_zones
+0x10002FAC0	0x00000008	[ 12] ___progname
+0x10002FAC8	0x00000008	[ 12] ___syscall_logger
+0x10002FAD0	0x00000008	[ 12] _environ
+0x10002FAD8	0x00000004	[ 12] _mach_task_self_
+0x10002FAE0	0x00000008	[ 23] _interrupt_pipe_key
+0x10002FAE8	0x00000004	[ 28] _h_errno
+0x10002FAEC	0x00000001	[ 40] __os_log_default
+0x10002FAED	0x00000001	[ 40] __os_log_disabled
+0x10002FAF0	0x00000004	[ 51] _all
+0x10002FAF4	0x00000004	[ 51] _clearaddr
+0x10002FAF8	0x00000004	[ 51] _doalias
+0x10002FB00	0x00000020	[ 51] _ifr
+0x10002FB20	0x00000010	[ 51] _name
+0x10002FB30	0x00000004	[ 51] _noload
+0x10002FB34	0x00000004	[ 51] _setaddr
+0x10002FB38	0x00000004	[ 51] _setmask
+0x10002FB40	0x00000008	[ 56] _optarg
+0x10002FB48	0x00000004	[ 56] _optopt
+0x10002FB4C	0x00000004	[ 56] _optreset
+0x10002FB50	0x00000400	[ 12] _main_tsd
+0x10002FF50	0x00000004	[ 12] _main_errno
+0x10002FF58	0x00000004	[ 27] _arc4_lock
+0x10002FF5C	0x00000004	[ 27] _rs_stired
+0x10002FF60	0x00000004	[ 27] _rs_data_available
+0x10002FF64	0x00000004	[ 27] _arc4_count
+0x10002FF68	0x00000098	[ 27] _rdat
+0x100030000	0x00000228	[ 28] _process_resolver
+0x100030228	0x00000008	[ 30] _si_search.search
+0x100030230	0x00000004	[ 31] _net_v4_count
+0x100030234	0x00000004	[ 31] _net_v6_count
+0x100030238	0x00000008	[ 31] _nat64_v4_requires_synthesis
+0x100030240	0x00000008	[ 31] _nat64_v4_synthesize
+0x100030248	0x00000008	[ 31] __gai_load_libnetwork_once.handle
+0x100030250	0x00000008	[ 35] _cache_timeout
+0x100030258	0x00000018	[ 35] _si_compare_settings
+0x100030270	0x00000008	[ 35] _cache_lock
+0x100030278	0x00000008	[ 35] _cache
+0x100030280	0x00000001	[ 35] _si_destination_fill_netsrc.version
+0x100030288	0x00000200	[ 40] _once_entries
+0x100030488	0x00000200	[ 40] _mutex_entries
+0x100030688	0x00000180	[ 44] _keys
+0x100030808	0x00000008	[ 44] _command_argv
+0x100030810	0x00000020	[ 45] _in_ridreq
+0x100030830	0x00000040	[ 45] _in_addreq
+0x100030870	0x00000008	[ 46] _explicit_prefix
+0x100030878	0x00000120	[ 46] _in6_ridreq
+0x100030998	0x00000204	[ 46] _addr_buf
+0x100030B9C	0x00000004	[ 46] _ip6lifetime
+0x100030BA0	0x00000100	[ 46] _sec2str.result
+0x100030CA0	0x00000020	[ 47] _link_ridreq
+0x100030CC0	0x00000008	[ 50] _clone_cb
+0x100030CC8	0x00000008	[ 51] _opts
+0x100030CD0	0x00000008	[ 51] _afs
+0x100030CD8	0x00000008	[ 51] _cmds
+0x100030CE0	0x00000008	[ 51] _callbacks
+0x100030CE8	0x00000020	[ 51] _bps_to_str.buf
+0x100030D08	0x00000008	[ 52] _ifmedia_getstate.ifmr
+0x100030D10	0x00000010	[ 52] _ifm_subtype_ethernet_option_descriptions
+0x100030D20	0x00000001	[ 52] _setifmediacallback.did_it
+0x100030D28	0x00000008	[ 54] __info_key_ok
+0x100030D30	0x00000008	[ 54] __info_key
+0x100030D38	0x00000012	[ 57] _inet_ntoa.ret
+0x100030D50	0x00000008	[ 63] _ether_ntoa.s
+0x100030D58	0x00000008	[ 63] _ether_aton.ep
+0x100030D60	0x00000008	[ 65] _strtok.last
+0x100030D68	0x00000A18	[ 73] _usual
+0x100031780	0x00000008	[ 98] ___dtoa.result
+0x100031788	0x00000008	[ 98] ___dtoa.result_k
+0x100031790	0x00000080	[ 98] _freelist
+0x100031810	0x00000008	[ 98] _p5s
+0x100031818	0x00000001	[128] _empty
+0x100031820	0x00000080	[134] _zone_storage
+0x1000318A0	0x00000008	[134] _default_zone
+
+# Dead Stripped Symbols:
+#        	Size    	File  Name
+<<dead>>	0x00000028	[  1] _wait4
+<<dead>>	0x00000028	[  1] _link
+<<dead>>	0x00000028	[  1] _unlink
+<<dead>>	0x00000028	[  1] _chdir
+<<dead>>	0x00000028	[  1] _fchdir
+<<dead>>	0x00000028	[  1] _chmod
+<<dead>>	0x00000028	[  1] _chown
+<<dead>>	0x00000028	[  1] _getppid
+<<dead>>	0x00000028	[  1] _getuid
+<<dead>>	0x00000028	[  1] _geteuid
+<<dead>>	0x00000028	[  1] _getgid
+<<dead>>	0x00000028	[  1] _getegid
+<<dead>>	0x00000028	[  1] _access
+<<dead>>	0x00000028	[  1] _setuid
+<<dead>>	0x00000028	[  1] _setgid
+<<dead>>	0x00000028	[  1] _getpgrp
+<<dead>>	0x00000028	[  1] _setpgid
+<<dead>>	0x00000028	[  1] _dup
+<<dead>>	0x00000028	[  1] _dup2
+<<dead>>	0x00000028	[  1] _umask
+<<dead>>	0x00000028	[  1] _execve
+<<dead>>	0x00000028	[  1] _readlink
+<<dead>>	0x00000028	[  1] _symlink
+<<dead>>	0x00000028	[  1] _rename
+<<dead>>	0x00000028	[  1] _fchmod
+<<dead>>	0x00000028	[  1] _fchown
+<<dead>>	0x00000028	[  1] _select
+<<dead>>	0x00000028	[  1] _getrusage
+<<dead>>	0x00000028	[  1] _getrlimit
+<<dead>>	0x00000028	[  1] _setrlimit
+<<dead>>	0x00000028	[  1] _setreuid
+<<dead>>	0x00000028	[  1] _setregid
+<<dead>>	0x00000028	[  1] _seteuid
+<<dead>>	0x00000028	[  1] _setegid
+<<dead>>	0x00000028	[  1] ___sigsuspend_nocancel
+<<dead>>	0x00000028	[  1] ___sigaltstack
+<<dead>>	0x00000028	[  1] _getdirentries64
+<<dead>>	0x00000028	[  1] _apple_getdirentries64
+<<dead>>	0x00000028	[  1] _stat
+<<dead>>	0x00000028	[  1] _lstat
+<<dead>>	0x00000028	[  1] _fstatfs
+<<dead>>	0x00000028	[  1] _csops
+<<dead>>	0x00000028	[  1] _setitimer
+<<dead>>	0x00000028	[  1] _getitimer
+<<dead>>	0x00000028	[  1] _getpriority
+<<dead>>	0x00000028	[  1] _setpriority
+<<dead>>	0x00000028	[  1] _getdtablesize
+<<dead>>	0x00000028	[  1] _getgroups
+<<dead>>	0x00000028	[  1] _getsockopt
+<<dead>>	0x00000028	[  1] _shutdown
+<<dead>>	0x00000030	[  3] _cerror
+<<dead>>	0x00000004	[  3] _errno
+<<dead>>	0x0000001C	[  9] __sigunaltstack
+<<dead>>	0x00000004	[ 10] __sigaction_nobind
+<<dead>>	0x00000008	[ 12] _vm_page_size
+<<dead>>	0x00000008	[ 12] _vm_page_shift
+<<dead>>	0x00000008	[ 12] _vm_page_mask
+<<dead>>	0x00000008	[ 14] _res_9_ns_name_pton
+<<dead>>	0x00000114	[ 14] _res_9_ns_name_ntol
+<<dead>>	0x00000008	[ 14] _res_9_ns_name_unpack
+<<dead>>	0x00000028	[ 14] _res_9_ns_name_rollback
+<<dead>>	0x00000020	[ 15] _res_9_ns_msg_getflag
+<<dead>>	0x000001FC	[ 15] _res_9_ns_parserr2
+<<dead>>	0x00000080	[ 15] __res_9_ns_flagdata
+<<dead>>	0x0000000C	[ 16] _res_9_ns_get32
+<<dead>>	0x00000164	[ 17] _res_9_ns_samedomain
+<<dead>>	0x00000044	[ 17] _res_9_ns_subdomain
+<<dead>>	0x000000B4	[ 18] _res_9_hnok
+<<dead>>	0x0000002C	[ 18] _res_9_ownok
+<<dead>>	0x00000058	[ 18] _res_9_mailok
+<<dead>>	0x00000024	[ 18] _res_9_dnok
+<<dead>>	0x00000008	[ 18] _res_9_putlong
+<<dead>>	0x00000004	[ 18] _res_9_putshort
+<<dead>>	0x00000014	[ 18] _res_9_getlong
+<<dead>>	0x00000018	[ 18] _res_9_getshort
+<<dead>>	0x00000064	[ 19] _res_build_finish
+<<dead>>	0x00000040	[ 19] _res_build_sortlist
+<<dead>>	0x0000001C	[ 19] _res_get_nibblesuffix
+<<dead>>	0x0000001C	[ 19] _res_get_nibblesuffix2
+<<dead>>	0x0000001C	[ 19] _res_get_bitstringsuffix
+<<dead>>	0x000000E4	[ 19] _res_9_getservers
+<<dead>>	0x00000034	[ 20] _res_client_close
+<<dead>>	0x00000004	[ 20] _res_9_nisourserver
+<<dead>>	0x00000014	[ 20] _res_9_p_query
+<<dead>>	0x0000000C	[ 20] _res_9_fp_query
+<<dead>>	0x00000068	[ 20] _res_9_fp_nquery
+<<dead>>	0x000000C4	[ 20] _res_9_mkquery
+<<dead>>	0x0000007C	[ 20] ___res_mkupdate
+<<dead>>	0x00000098	[ 20] _res_9_query
+<<dead>>	0x00000024	[ 20] _res_9_isourserver
+<<dead>>	0x0000007C	[ 20] _res_9_send
+<<dead>>	0x00000084	[ 20] _res_9_sendsigned
+<<dead>>	0x00000014	[ 20] _res_9_close
+<<dead>>	0x00000064	[ 20] ___res_update
+<<dead>>	0x00000098	[ 20] _res_9_search
+<<dead>>	0x000000AC	[ 20] _res_9_querydomain
+<<dead>>	0x00000030	[ 20] _res_9_hostalias_1
+<<dead>>	0x00000006	[ 20] literal string: QUERY
+<<dead>>	0x00000007	[ 20] literal string: IQUERY
+<<dead>>	0x00000008	[ 20] literal string: CQUERYM
+<<dead>>	0x00000008	[ 20] literal string: CQUERYU
+<<dead>>	0x00000007	[ 20] literal string: NOTIFY
+<<dead>>	0x00000007	[ 20] literal string: UPDATE
+<<dead>>	0x00000002	[ 20] literal string: 6
+<<dead>>	0x00000002	[ 20] literal string: 7
+<<dead>>	0x00000002	[ 20] literal string: 8
+<<dead>>	0x00000002	[ 20] literal string: 9
+<<dead>>	0x00000003	[ 20] literal string: 10
+<<dead>>	0x00000003	[ 20] literal string: 11
+<<dead>>	0x00000003	[ 20] literal string: 12
+<<dead>>	0x00000003	[ 20] literal string: 13
+<<dead>>	0x00000009	[ 20] literal string: ZONEINIT
+<<dead>>	0x00000008	[ 20] literal string: ZONEREF
+<<dead>>	0x00000080	[ 20] __res_opcodes
+<<dead>>	0x00000401	[ 20] _res_9_hostalias_1.abuf
+<<dead>>	0x000004AC	[ 22] _res_query_mDNSResponder
+<<dead>>	0x00000174	[ 22] _res_query_callback
+<<dead>>	0x00000308	[ 22] _res_nquery_soa_min
+<<dead>>	0x00000020	[ 22] _res_nquery_2
+<<dead>>	0x00000108	[ 22] _res_nquerydomain_2
+<<dead>>	0x000002FC	[ 22] _res_nsearch_2
+<<dead>>	0x000001AC	[ 22] _res_9_hostalias_2
+<<dead>>	0x00000304	[ 22] ___res_nsearch_list_2
+<<dead>>	0x00000104	[ 22] _res_9_nquerydomain
+<<dead>>	0x000003B8	[ 22] _res_9_nsearch
+<<dead>>	0x0000000C	[ 22] literal string: HOSTALIASES
+<<dead>>	0x00000003	[ 22] literal string: re
+<<dead>>	0x0000002C	[ 23] _get_nsaddr
+<<dead>>	0x00000060	[ 23] _res_delete_interrupt_token
+<<dead>>	0x000000C8	[ 23] _res_init_interrupt_token
+<<dead>>	0x0000001C	[ 23] _res_interrupt_requests_enable
+<<dead>>	0x00000014	[ 23] _res_interrupt_requests_disable
+<<dead>>	0x0000002C	[ 23] _res_interrupt_request
+<<dead>>	0x00000030	[ 23] _res_nsend_2
+<<dead>>	0x00000048	[ 23] _res_check_if_exit_requested
+<<dead>>	0x00000010	[ 23] literal string: self.thread.%lu
+<<dead>>	0x00000003	[ 24] literal string: %d
+<<dead>>	0x00000030	[ 26] _inet_addr
+<<dead>>	0x0000001C	[ 27] __arc4_fork_child
+<<dead>>	0x000000B8	[ 27] _arc4random_addrandom
+<<dead>>	0x0000011C	[ 27] _arc4random_buf
+<<dead>>	0x00000030	[ 27] _arc4random_stir
+<<dead>>	0x00000098	[ 27] _arc4random_uniform
+<<dead>>	0x00000034	[ 30] _si_search_file
+<<dead>>	0x0000004C	[ 30] _si_search_module_set_flags
+<<dead>>	0x0000005C	[ 30] _getpwnam
+<<dead>>	0x000000A4	[ 30] _getpwnam_async_call
+<<dead>>	0x000000A8	[ 30] _si_libinfo_general_callback
+<<dead>>	0x00000004	[ 30] _getpwnam_async_handle_reply
+<<dead>>	0x00000090	[ 30] _getpwuid
+<<dead>>	0x000000F8	[ 30] _getpwuid_async_call
+<<dead>>	0x00000004	[ 30] _getpwuid_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getpwuuid
+<<dead>>	0x0000000C	[ 30] _setpwent
+<<dead>>	0x0000006C	[ 30] _getpwent
+<<dead>>	0x0000000C	[ 30] _endpwent
+<<dead>>	0x00000030	[ 30] _setpassent
+<<dead>>	0x0000005C	[ 30] _getgrnam
+<<dead>>	0x000000A4	[ 30] _getgrnam_async_call
+<<dead>>	0x00000004	[ 30] _getgrnam_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getgrgid
+<<dead>>	0x000000A4	[ 30] _getgrgid_async_call
+<<dead>>	0x00000004	[ 30] _getgruid_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getgruuid
+<<dead>>	0x0000000C	[ 30] _setgrent
+<<dead>>	0x0000006C	[ 30] _getgrent
+<<dead>>	0x0000000C	[ 30] _endgrent
+<<dead>>	0x00000030	[ 30] _setgroupent
+<<dead>>	0x00000064	[ 30] _innetgr
+<<dead>>	0x00000048	[ 30] _setnetgrent
+<<dead>>	0x00000058	[ 30] _getnetgrent
+<<dead>>	0x0000000C	[ 30] _endnetgrent
+<<dead>>	0x00000004	[ 30] _getgrouplist
+<<dead>>	0x0000010C	[ 30] _getgrouplist_internal
+<<dead>>	0x00000014	[ 30] _getgrouplist_2
+<<dead>>	0x000000F4	[ 30] __getgrouplist_2_internal
+<<dead>>	0x00000040	[ 30] _getgroupcount
+<<dead>>	0x00000040	[ 30] _initgroups
+<<dead>>	0x0000005C	[ 30] _alias_getbyname
+<<dead>>	0x000000A4	[ 30] _alias_getbyname_async_call
+<<dead>>	0x00000004	[ 30] _alias_getbyname_async_handle_reply
+<<dead>>	0x0000000C	[ 30] _alias_setent
+<<dead>>	0x0000006C	[ 30] _alias_getent
+<<dead>>	0x0000000C	[ 30] _alias_endent
+<<dead>>	0x00000010	[ 30] _freehostent
+<<dead>>	0x000000F4	[ 30] _gethostbynameerrno
+<<dead>>	0x000000A4	[ 30] _gethostbyname_async_call
+<<dead>>	0x00000004	[ 30] _gethostbyname_async_start
+<<dead>>	0x00000004	[ 30] _gethostbyname_async_cancel
+<<dead>>	0x00000004	[ 30] _gethostbyname_async_handleReply
+<<dead>>	0x00000120	[ 30] _gethostbyname2
+<<dead>>	0x000000B0	[ 30] _gethostbyname2_async_call
+<<dead>>	0x00000004	[ 30] _gethostbyname2_async_cancel
+<<dead>>	0x00000004	[ 30] _gethostbyname2_async_handle_reply
+<<dead>>	0x000000A0	[ 30] _gethostbyaddr
+<<dead>>	0x000000B4	[ 30] _gethostbyaddr_async_call
+<<dead>>	0x00000004	[ 30] _gethostbyaddr_async_start
+<<dead>>	0x00000004	[ 30] _gethostbyaddr_async_cancel
+<<dead>>	0x00000004	[ 30] _gethostbyaddr_async_handleReply
+<<dead>>	0x0000009C	[ 30] _getipnodebyname
+<<dead>>	0x000000F0	[ 30] _getipnodebyaddr
+<<dead>>	0x0000000C	[ 30] _sethostent
+<<dead>>	0x0000006C	[ 30] _gethostent
+<<dead>>	0x0000000C	[ 30] _endhostent
+<<dead>>	0x000000D4	[ 30] _ether_hostton
+<<dead>>	0x000000E0	[ 30] _ether_ntohost
+<<dead>>	0x000000A4	[ 30] _getnetbyname_async_call
+<<dead>>	0x00000004	[ 30] _getnetbyname_async_handle_reply
+<<dead>>	0x0000006C	[ 30] _getnetbyaddr
+<<dead>>	0x000000B4	[ 30] _getnetbyaddr_async_call
+<<dead>>	0x00000004	[ 30] _getnetbyaddr_async_handle_reply
+<<dead>>	0x0000000C	[ 30] _setnetent
+<<dead>>	0x0000006C	[ 30] _getnetent
+<<dead>>	0x0000000C	[ 30] _endnetent
+<<dead>>	0x0000006C	[ 30] _getservbyname
+<<dead>>	0x000000B0	[ 30] _getservbyname_async_call
+<<dead>>	0x00000004	[ 30] _getservbyname_async_handle_reply
+<<dead>>	0x0000006C	[ 30] _getservbyport
+<<dead>>	0x000000B0	[ 30] _getservbyport_async_call
+<<dead>>	0x00000004	[ 30] _getservbyport_async_handle_reply
+<<dead>>	0x0000000C	[ 30] _setservent
+<<dead>>	0x0000006C	[ 30] _getservent
+<<dead>>	0x0000000C	[ 30] _endservent
+<<dead>>	0x0000005C	[ 30] _getprotobyname
+<<dead>>	0x000000A4	[ 30] _getprotobyname_async_call
+<<dead>>	0x00000004	[ 30] _getprotobyname_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getprotobynumber
+<<dead>>	0x000000A4	[ 30] _getprotobynumber_async_call
+<<dead>>	0x00000004	[ 30] _getprotobynumber_async_handle_reply
+<<dead>>	0x0000000C	[ 30] _setprotoent
+<<dead>>	0x0000006C	[ 30] _getprotoent
+<<dead>>	0x0000000C	[ 30] _endprotoent
+<<dead>>	0x0000005C	[ 30] _getrpcbyname
+<<dead>>	0x000000A4	[ 30] _getrpcbyname_async_call
+<<dead>>	0x00000004	[ 30] _getrpcbyname_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getrpcbynumber
+<<dead>>	0x000000A4	[ 30] _getrpcbynumber_async_call
+<<dead>>	0x00000004	[ 30] _getrpcbynumber_async_handle_reply
+<<dead>>	0x0000000C	[ 30] _setrpcent
+<<dead>>	0x0000006C	[ 30] _getrpcent
+<<dead>>	0x0000000C	[ 30] _endrpcent
+<<dead>>	0x0000005C	[ 30] _getfsspec
+<<dead>>	0x00000004	[ 30] _getfsbyname
+<<dead>>	0x000000A4	[ 30] _getfsspec_async_call
+<<dead>>	0x00000004	[ 30] _getfsspec_async_handle_reply
+<<dead>>	0x0000005C	[ 30] _getfsfile
+<<dead>>	0x000000A4	[ 30] _getfsfile_async_call
+<<dead>>	0x00000004	[ 30] _getfsfile_async_handle_reply
+<<dead>>	0x00000020	[ 30] _setfsent
+<<dead>>	0x0000006C	[ 30] _getfsent
+<<dead>>	0x0000000C	[ 30] _endfsent
+<<dead>>	0x000000F0	[ 30] __getaddrinfo_interface_async_call
+<<dead>>	0x000000C0	[ 30] _si_libinfo_addrinfo_callback
+<<dead>>	0x00000010	[ 30] _getaddrinfo_async_call
+<<dead>>	0x00000048	[ 30] _getaddrinfo_async_start
+<<dead>>	0x00000050	[ 30] _getaddrinfo_async_send
+<<dead>>	0x00000008	[ 30] _getaddrinfo_async_receive
+<<dead>>	0x00000004	[ 30] _getaddrinfo_async_cancel
+<<dead>>	0x00000018	[ 30] _getaddrinfo_async_handle_reply
+<<dead>>	0x000000C0	[ 30] __getnameinfo_interface_async_call
+<<dead>>	0x000000D0	[ 30] _si_libinfo_nameinfo_callback
+<<dead>>	0x00000010	[ 30] _getnameinfo_async_call
+<<dead>>	0x00000048	[ 30] _getnameinfo_async_start
+<<dead>>	0x00000050	[ 30] _getnameinfo_async_send
+<<dead>>	0x00000004	[ 30] _getnameinfo_async_cancel
+<<dead>>	0x00000018	[ 30] _getnameinfo_async_handle_reply
+<<dead>>	0x000000BC	[ 30] _getgrnam_r
+<<dead>>	0x000001C0	[ 30] _copy_group_r
+<<dead>>	0x000000BC	[ 30] _getgrgid_r
+<<dead>>	0x000000BC	[ 30] _getgruuid_r
+<<dead>>	0x000000BC	[ 30] _getpwnam_r
+<<dead>>	0x00000204	[ 30] _copy_user_r
+<<dead>>	0x000000EC	[ 30] _getpwuid_r
+<<dead>>	0x000000BC	[ 30] _getpwuuid_r
+<<dead>>	0x00000068	[ 30] _user_from_uid
+<<dead>>	0x00000068	[ 30] _group_from_gid
+<<dead>>	0x00000008	[ 30] _prdb_getbyname
+<<dead>>	0x00000008	[ 30] _prdb_get
+<<dead>>	0x00000004	[ 30] _prdb_set
+<<dead>>	0x00000004	[ 30] _prdb_end
+<<dead>>	0x00000008	[ 30] _bootparams_getbyname
+<<dead>>	0x00000008	[ 30] _bootparams_getent
+<<dead>>	0x00000004	[ 30] _bootparams_setent
+<<dead>>	0x00000004	[ 30] _bootparams_endent
+<<dead>>	0x00000008	[ 30] _bootp_getbyether
+<<dead>>	0x00000008	[ 30] _bootp_getbyip
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] 8-byte-literal
+<<dead>>	0x00000008	[ 30] _si_search_file.search
+<<dead>>	0x00000010	[ 30] _user_from_uid.buf
+<<dead>>	0x00000010	[ 30] _group_from_gid.buf
+<<dead>>	0x00000005	[ 30] literal string: file
+<<dead>>	0x00000007	[ 30] literal string: search
+<<dead>>	0x00000003	[ 30] literal string: %u
+<<dead>>	0x00000004	[ 30] __proto_stayopen
+<<dead>>	0x0000001C	[ 31] _si_srv_byname
+<<dead>>	0x00000024	[ 31] _si_wants_addrinfo
+<<dead>>	0x00000060	[ 31] _si_set_nat64_v4_requires_synthesis
+<<dead>>	0x00000060	[ 31] _si_set_nat64_v4_synthesize
+<<dead>>	0x00000020	[ 31] _si_set_nat64_v4_requires_synthesis.cold.1
+<<dead>>	0x00000020	[ 31] _si_set_nat64_v4_synthesize.cold.1
+<<dead>>	0x00000006	[ 31] literal string: %s.%s
+<<dead>>	0x00000002	[ 31] literal string: ?
+<<dead>>	0x0000001F	[ 31] literal string: new_requires_synthesis is NULL
+<<dead>>	0x00000017	[ 31] literal string: new_synthesize is NULL
+<<dead>>	0x00000024	[ 32] _si_item_retain
+<<dead>>	0x0000002C	[ 32] _si_list_next
+<<dead>>	0x0000000C	[ 32] _si_list_reset
+<<dead>>	0x00000020	[ 32] _si_list_retain
+<<dead>>	0x00000008	[ 32] _si_item_retain.cold.1
+<<dead>>	0x00000028	[ 32] _si_list_retain.cold.1
+<<dead>>	0x0000000F	[ 32] literal string: si_list_retain
+<<dead>>	0x00000114	[ 34] _si_module_with_path
+<<dead>>	0x00000068	[ 34] _si_mod_dlsym
+<<dead>>	0x00000128	[ 34] _si_module_with_name
+<<dead>>	0x0000001C	[ 34] _si_module_retain
+<<dead>>	0x00000144	[ 34] _si_module_release
+<<dead>>	0x0000000C	[ 34] _si_module_name
+<<dead>>	0x0000000C	[ 34] _si_module_vers
+<<dead>>	0x000002D8	[ 34] _si_item_match
+<<dead>>	0x00000028	[ 34] _si_item_is_valid
+<<dead>>	0x0000001C	[ 34] _si_user_byname
+<<dead>>	0x0000001C	[ 34] _si_user_byuid
+<<dead>>	0x0000001C	[ 34] _si_user_byuuid
+<<dead>>	0x0000001C	[ 34] _si_user_all
+<<dead>>	0x0000001C	[ 34] _si_group_byname
+<<dead>>	0x0000001C	[ 34] _si_group_bygid
+<<dead>>	0x0000001C	[ 34] _si_group_byuuid
+<<dead>>	0x0000001C	[ 34] _si_group_all
+<<dead>>	0x0000001C	[ 34] _si_grouplist
+<<dead>>	0x0000001C	[ 34] _si_netgroup_byname
+<<dead>>	0x0000001C	[ 34] _si_in_netgroup
+<<dead>>	0x0000001C	[ 34] _si_alias_byname
+<<dead>>	0x0000001C	[ 34] _si_alias_all
+<<dead>>	0x0000001C	[ 34] _si_host_all
+<<dead>>	0x0000001C	[ 34] _si_mac_byname
+<<dead>>	0x0000001C	[ 34] _si_mac_bymac
+<<dead>>	0x0000001C	[ 34] _si_mac_all
+<<dead>>	0x0000001C	[ 34] _si_network_byaddr
+<<dead>>	0x0000001C	[ 34] _si_network_all
+<<dead>>	0x0000001C	[ 34] _si_service_all
+<<dead>>	0x0000001C	[ 34] _si_protocol_byname
+<<dead>>	0x0000001C	[ 34] _si_protocol_bynumber
+<<dead>>	0x0000001C	[ 34] _si_protocol_all
+<<dead>>	0x0000001C	[ 34] _si_rpc_byname
+<<dead>>	0x0000001C	[ 34] _si_rpc_bynumber
+<<dead>>	0x0000001C	[ 34] _si_rpc_all
+<<dead>>	0x0000001C	[ 34] _si_fs_byspec
+<<dead>>	0x0000001C	[ 34] _si_fs_byfile
+<<dead>>	0x0000001C	[ 34] _si_fs_all
+<<dead>>	0x000001C4	[ 34] _si_item_call
+<<dead>>	0x0000014C	[ 34] _si_list_call
+<<dead>>	0x00000330	[ 34] _si_async_call
+<<dead>>	0x00000108	[ 34] ___si_async_call_block_invoke
+<<dead>>	0x00000058	[ 34] _si_async_cancel
+<<dead>>	0x00000058	[ 34] _si_async_worklist_find_unit
+<<dead>>	0x000000FC	[ 34] _si_async_workunit_release
+<<dead>>	0x0000006C	[ 34] _si_async_handle_reply
+<<dead>>	0x000000EC	[ 34] _si_standardize_mac_address
+<<dead>>	0x00000008	[ 34] 8-byte-literal
+<<dead>>	0x00000008	[ 34] 8-byte-literal
+<<dead>>	0x00000008	[ 34] 8-byte-literal
+<<dead>>	0x0000000D	[ 34] lJTI7_0
+<<dead>>	0x00000025	[ 34] lJTI43_0
+<<dead>>	0x00000005	[ 34] literal string: init
+<<dead>>	0x00000006	[ 34] literal string: close
+<<dead>>	0x00000007	[ 34] literal string: search
+<<dead>>	0x00000006	[ 34] literal string: cache
+<<dead>>	0x00000005	[ 34] literal string: file
+<<dead>>	0x00000005	[ 34] literal string: mdns
+<<dead>>	0x00000009	[ 34] literal string: %s/%s.%s
+<<dead>>	0x0000000E	[ 34] literal string: /usr/lib/info
+<<dead>>	0x00000003	[ 34] literal string: so
+<<dead>>	0x00000004	[ 34] literal string: udp
+<<dead>>	0x00000004	[ 34] literal string: tcp
+<<dead>>	0x00000006	[ 34] literal string: v8@?0
+<<dead>>	0x00000004	[ 34] literal string: 0%x
+<<dead>>	0x00000003	[ 34] literal string: %x
+<<dead>>	0x00000012	[ 34] literal string: %s:%s:%s:%s:%s:%s
+<<dead>>	0x00000006	[ 34] literal string: %s_%s
+<<dead>>	0x00000078	[ 34] _si_module_with_name.modules
+<<dead>>	0x00000040	[ 34] _module_mutex
+<<dead>>	0x00000008	[ 34] _module_list
+<<dead>>	0x00000008	[ 34] _module_count
+<<dead>>	0x00000008	[ 34] _si_async_worklist
+<<dead>>	0x00000020	[ 34] ___block_descriptor_tmp
+<<dead>>	0x00000168	[ 35] _si_destination_compare_no_dependencies
+<<dead>>	0x000000F0	[ 35] _rfc6724_precedence
+<<dead>>	0x0000002C	[ 35] _si_destination_compare_no_dependencies.cold.1
+<<dead>>	0x0000002C	[ 35] _si_destination_compare_no_dependencies.cold.2
+<<dead>>	0x0000002C	[ 35] _si_destination_compare_no_dependencies.cold.3
+<<dead>>	0x0000002C	[ 35] _si_destination_compare_no_dependencies.cold.4
+<<dead>>	0x00000048	[ 35] _si_destination_compare_no_dependencies.cold.5
+<<dead>>	0x00000048	[ 35] _si_destination_compare_no_dependencies.cold.6
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000008	[ 35] 8-byte-literal
+<<dead>>	0x00000018	[ 35] literal string: %{public}s dst1 is NULL
+<<dead>>	0x00000018	[ 35] literal string: %{public}s dst2 is NULL
+<<dead>>	0x0000003A	[ 35] literal string: ND Rule 6, prefer d1, d1 precedence %d > d2 precedence %d
+<<dead>>	0x0000003A	[ 35] literal string: ND Rule 6, prefer d2, d2 precedence %d > d1 precedence %d
+<<dead>>	0x00000030	[ 35] literal string: ND Rule 8, prefer d1, d1 scope %d < d2 scope %d
+<<dead>>	0x00000030	[ 35] literal string: ND Rule 8, prefer d2, d2 scope %d < d1 scope %d
+<<dead>>	0x00000010	[ 35] literal string: recv failed: %m
+<<dead>>	0x00000027	[ 35] literal string: si_destination_compare_no_dependencies
+<<dead>>	0x0000001A	[ 35] literal string: com.apple.network.libinfo
+<<dead>>	0x0000000C	[ 40] _darwin_network_nameserver_port
+<<dead>>	0x00000007	[ 40] literal string: search
+<<dead>>	0x0000000B	[ 40] literal string: L4488s*44a
+<<dead>>	0x0000000B	[ 40] literal string: L4488s*44c
+<<dead>>	0x0000003C	[ 44] _pthread_key_delete
+<<dead>>	0x00000003	[ 45] literal string: %u
+<<dead>>	0x0000000B	[ 46] literal string: getifaddrs
+<<dead>>	0x00000006	[ 46] literal string: inet6
+<<dead>>	0x00000008	[ 46] literal string: --> %s 
+<<dead>>	0x00000002	[ 46] literal string: 0
+<<dead>>	0x0000000E	[ 46] literal string: %s: bad value
+<<dead>>	0x00000003	[ 48] literal string: %d
+<<dead>>	0x00000007	[ 49] literal string: static
+<<dead>>	0x00000001	[ 49] literal string: 
+<<dead>>	0x00000002	[ 49] literal string: \n
+<<dead>>	0x00000003	[ 49] literal string: %s
+<<dead>>	0x00000004	[ 51] _printkeys
+<<dead>>	0x00000007	[ 51] literal string: create
+<<dead>>	0x00000006	[ 51] literal string: plumb
+<<dead>>	0x0000000B	[ 51] literal string: getifaddrs
+<<dead>>	0x00000002	[ 51] literal string: \n
+<<dead>>	0x00000003	[ 51] literal string: %s
+<<dead>>	0x00000005	[ 51] literal string: inet
+<<dead>>	0x00000006	[ 51] literal string: flags
+<<dead>>	0x00000001	[ 51] literal string: 
+<<dead>>	0x00000006	[ 51] literal string: debug
+<<dead>>	0x00000007	[ 52] literal string: strdup
+<<dead>>	0x00000003	[ 52] literal string: \t\t
+<<dead>>	0x00000003	[ 52] literal string: %s
+<<dead>>	0x00000001	[ 52] literal string: 
+<<dead>>	0x0000000E	[ 53] literal string: SIOCIFCREATE2
+<<dead>>	0x0000001C	[ 54] _LI_get_thread_item
+<<dead>>	0x0000001C	[ 54] _LI_get_thread_list
+<<dead>>	0x0000003C	[ 54] _LI_set_thread_list
+<<dead>>	0x00000005	[ 55] literal string: %s: 
+<<dead>>	0x00000004	[ 55] literal string: %s\n
+<<dead>>	0x00000002	[ 55] literal string: \n
+<<dead>>	0x00000001	[ 56] literal string: 
+<<dead>>	0x0000002C	[ 58] _inet_netof
+<<dead>>	0x0000002C	[ 59] _inet_lnaof
+<<dead>>	0x0000017C	[ 60] _inet_network
+<<dead>>	0x000000E8	[ 61] _link_ntoa
+<<dead>>	0x00000040	[ 61] _link_ntoa.obuf
+<<dead>>	0x00000011	[ 61] literal string: 0123456789abcdef
+<<dead>>	0x00000088	[ 63] _ether_line
+<<dead>>	0x00000016	[ 63] literal string:  %x:%x:%x:%x:%x:%x %s
+<<dead>>	0x00000012	[ 63] literal string: %x:%x:%x:%x:%x:%x
+<<dead>>	0x00000013	[ 63] literal string:  %x:%x:%x:%x:%x:%x
+<<dead>>	0x0000007C	[ 68] _strtoencf16
+<<dead>>	0x00000004	[ 68] _strtoencf32
+<<dead>>	0x00000200	[ 68] __ffpp_strtoencf32_l
+<<dead>>	0x0000002C	[ 68] _strtof
+<<dead>>	0x00000004	[ 68] _strtoencf64
+<<dead>>	0x00000004	[ 68] _strtoencf64x
+<<dead>>	0x0000002C	[ 68] _darwin_ifconfig_strtod
+<<dead>>	0x00000028	[ 68] __ffpp_strtoencf32_l.cold.1
+<<dead>>	0x00000028	[ 68] __ffpp_strtoencf32_l.cold.2
+<<dead>>	0x00000010	[ 68] 16-byte-literal
+<<dead>>	0x00000010	[ 68] 16-byte-literal
+<<dead>>	0x00000010	[ 68] 16-byte-literal
+<<dead>>	0x00000010	[ 68] 16-byte-literal
+<<dead>>	0x00000030	[ 68] __ffpp_strtoencf32_l.floatPowerOf10
+<<dead>>	0x00000014	[ 68] literal string: _ffpp_strtoencf32_l
+<<dead>>	0x00000016	[ 68] literal string: normalizeProduct <= 1
+<<dead>>	0x00000048	[ 73] _f_prealloc
+<<dead>>	0x00000014	[ 85] _setbuf
+<<dead>>	0x000001A8	[ 86] _setvbuf
+<<dead>>	0x00000002	[ 91] literal string: 0
+<<dead>>	0x00000008	[ 98] 8-byte-literal
+<<dead>>	0x00000008	[ 98] 8-byte-literal
+<<dead>>	0x00000004	[ 98] literal string: NaN
+<<dead>>	0x00000002	[ 98] literal string: 0
+<<dead>>	0x00000088	[101] _atexit
+<<dead>>	0x00000110	[101] _atexit.__atexit0
+<<dead>>	0x00000044	[106] _strncasecmp
+<<dead>>	0x00000004	[108] _strcoll
+<<dead>>	0x00000008	[122] ___mb_cur_max
+<<dead>>	0x00000008	[122] ___mbrtowc
+<<dead>>	0x00000008	[122] ___mbsinit
+<<dead>>	0x00000008	[122] ___mbsnrtowcs
+<<dead>>	0x00000008	[122] ___wcrtomb
+<<dead>>	0x00000008	[122] ___wcsnrtombs
+<<dead>>	0x00000068	[124] ____tolower
+<<dead>>	0x00000068	[125] ____toupper
+<<dead>>	0x00000088	[126] __none_init
+<<dead>>	0x00000034	[126] __none_mbrtowc
+<<dead>>	0x00000008	[126] __none_mbsinit
+<<dead>>	0x00000098	[126] __none_mbsnrtowcs
+<<dead>>	0x00000038	[126] __none_wcrtomb
+<<dead>>	0x000000BC	[126] __none_wcsnrtombs
+<<dead>>	0x00000068	[127] ___istype
+<<dead>>	0x0000002C	[127] ___isctype
+<<dead>>	0x00000024	[127] ___toupper
+<<dead>>	0x00000024	[127] ___tolower
+<<dead>>	0x00000054	[127] ___wcwidth
+<<dead>>	0x00000002	[128] literal string: .
+<<dead>>	0x000000B8	[132] _scalable_zone_statistics
+<<dead>>	0x000000D8	[132] _malloc_freezedry
+<<dead>>	0x000000D8	[132] _malloc_jumpstart
+<<dead>>	0x00000008	[132] _frozen_malloc
+<<dead>>	0x0000000C	[132] _frozen_calloc
+<<dead>>	0x00000008	[132] _frozen_valloc
+<<dead>>	0x00000004	[132] _frozen_free
+<<dead>>	0x00000064	[132] _frozen_realloc
+<<dead>>	0x00000004	[132] _frozen_destroy
+<<dead>>	0x00000012	[132] literal string: DefaultMallocZone
+<<dead>>	0x00000001	[132] literal string: 
+<<dead>>	0x00000002	[132] literal string: \n
+<<dead>>	0x00000004	[133] _index
+<<dead>>	0x00000014	[133] _alphasort
+<<dead>>	0x00000008	[133] ___stdinp
+<<dead>>	0x00000008	[133] literal string: unknown
+<<dead>>	0x00000044	[134] _malloc_zone_register
+<<dead>>	0x00000048	[134] _valloc
+<<dead>>	0x00000008	[134] _malloc_zones
+<<dead>>	0x00000004	[134] ___is_threaded
+<<dead>>	0x000000A8	[136] _tcsetattr
+<<dead>>	0x00000030	[136] _tcsetpgrp
+<<dead>>	0x00000038	[136] _tcgetpgrp
+<<dead>>	0x00000008	[136] _cfgetospeed
+<<dead>>	0x00000008	[136] _cfgetispeed
+<<dead>>	0x0000000C	[136] _cfsetospeed
+<<dead>>	0x0000000C	[136] _cfsetispeed
+<<dead>>	0x0000000C	[136] _cfsetspeed
+<<dead>>	0x00000030	[136] _cfmakeraw
+<<dead>>	0x00000084	[136] _tcsendbreak
+<<dead>>	0x00000028	[136] _tcdrain
+<<dead>>	0x00000050	[136] _tcflush
+<<dead>>	0x000000E8	[136] _tcflow
+<<dead>>	0x00000010	[136] 16-byte-literal
+<<dead>>	0x00000000	[  0] _fopen$DARWIN_EXTSN

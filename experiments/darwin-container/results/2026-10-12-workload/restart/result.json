@@ -1,0 +1,12 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 7.2187514583347365,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-workload-storage-interactive-1",
+  "serialByteCount" : 8143,
+  "sessionID" : "bb17bbd40bfb432191d0a569ae47f073",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

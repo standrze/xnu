@@ -1,0 +1,37 @@
+--- a/probe_main.c
++++ b/probe_main.c
+@@ -9,6 +9,17 @@
+ #include "firmware_seed.h"
+ #include "firmware_seed_tree.h"
+ #include "boot_data.h"
++#ifndef RPI5_PCIE_DEVICE_HANDOFF
++#define RPI5_PCIE_DEVICE_HANDOFF 0
++#endif
++#if RPI5_PCIE_DEVICE_HANDOFF
++#include "pcie_device_handoff.h"
++/* This patch is only for a distinct declaration-only terminal package.
++ * No hardware claimant or PHY driver is enabled by these memory types. */
++#if !RPI5_GATE5_PCIE_TOPOLOGY || !RPI5_XNU_TRANSFER || !RPI5_SERIAL_TERMINAL || RPI5_GATE4_STORAGE
++#error "PCIe Device handoff requires the separate topology/terminal transfer profile"
++#endif
++#endif
+ #include "transfer.h"
+ #ifndef RPI5_XNU_TRANSFER
+ #define RPI5_XNU_TRANSFER 0
+@@ -413,7 +424,16 @@
+ #endif
+     for (size_t i=0;i<memory->count;i++)
+         types.normal.extent[i]=(struct rpi5_range){memory->start[i],memory->end[i]};
++#if RPI5_PCIE_DEVICE_HANDOFF
++    static struct rpi5_memory_types pcie_types;
++    if (rpi5_pcie_device_handoff((const void *)fdt_pa,fdt_length,&types,&pcie_types)) return 0;
++    types=pcie_types;
++#endif
+     if (rpi5_board_tree_memory_map(&tree,&types)) return 0;
++#if RPI5_PCIE_DEVICE_HANDOFF
++    if (!text("RPI5XNU:BL33:PCIE_DEVICE_HANDOFF RANGES=3 PAGES=5 DECLARATIONS_ONLY PCIE_MMIO=0 IRQ=0 DMA=0\r\n"))
++        return 0;
++#endif
+     /* Geometry first; resolved planner below proves reservation exclusion.
+      * Firmware memory-node truth is the explicit DTSpec trust assumption. */
+     if (rpi5_macho_placement(validated_kernel,validated_kernel_length,

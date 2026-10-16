@@ -6389,7 +6389,7 @@ static uint64_t memorystatus_purge_before_jetsam_success = 0;
 
 #if SOCKETS
 static int
-networking_memstatus_callout(proc_t p, uint32_t status)
+networking_memstatus_callout(proc_t p, uint32_t status __unused)
 {
 	struct fileproc *fp;
 
@@ -6452,7 +6452,9 @@ memorystatus_kill_proc(proc_t p, uint32_t cause, os_reason_t jetsam_reason, bool
 		uint64_t num_pages_reclaimed = 0;
 		uint64_t num_pages_unsecluded = 0;
 
+#if SOCKETS
 		networking_memstatus_callout(p, cause);
+#endif
 		num_pages_purged = vm_purgeable_purge_task_owned(proc_task(p));
 		num_pages_reclaimed += num_pages_purged;
 #if CONFIG_SECLUDED_MEMORY

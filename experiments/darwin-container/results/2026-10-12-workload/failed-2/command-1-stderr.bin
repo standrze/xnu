@@ -1,0 +1,6 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+zsh:1: read-only file system: /data/demo.zsh
+zsh:1: read-only file system: /data/note

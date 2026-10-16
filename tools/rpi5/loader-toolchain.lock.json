@@ -1,0 +1,11 @@
+{
+  "purpose": "Project-local ELF link driver; XNU compilation still uses Xcode",
+  "version": "0.16.0",
+  "host": "aarch64-macos",
+  "url": "https://ziglang.org/download/0.16.0/zig-aarch64-macos-0.16.0.tar.xz",
+  "sha256": "b23d70deaa879b5c2d486ed3316f7eaa53e84acf6fc9cc747de152450d401489",
+  "size": 52238004,
+  "metadata_source": "https://ziglang.org/download/index.json",
+  "local_directory": "build/rpi5/zig-aarch64-macos-0.16.0",
+  "cache_directory": "build/rpi5/zig-cache"
+}

@@ -370,7 +370,9 @@ void init_inband_wake_pkt_tagging_for_family(struct ifnet *ifp);
 
 #if (DEBUG | DEVELOPMENT)
 bool check_wake_mbuf(ifnet_t ifp, protocol_family_t protocol_family, mbuf_ref_t m);
+#if SKYWALK
 bool check_wake_pkt(ifnet_t ifp, struct __kern_packet *pkt);
+#endif
 #endif /* (DEBUG | DEVELOPMENT) */
 
 bool if_is_lpw_enabled(struct ifnet *);

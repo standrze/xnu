@@ -1,0 +1,54 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : true,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : false
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 2,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "error" : "agent protocol: stale session",
+    "handshakeCompleted" : true,
+    "protocolValid" : false,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : false
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 36.51486100000329,
+  "error" : "guest exceeded the 30-second deadline",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/darwin-workload-storage-trial-3",
+  "serialByteCount" : 14471,
+  "sessionID" : "02a7d2eef32e4e66902787591fee01bf",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "timedOut"
+}

@@ -1,0 +1,6 @@
+{
+  "event" : "start-requested",
+  "networkAttachment" : "virtio-nat-host-only-unproven-guest",
+  "sessionID" : "91b3d733fbff47c7b7347ea2224f0524",
+  "time" : "2026-10-12T20:36:05Z"
+}

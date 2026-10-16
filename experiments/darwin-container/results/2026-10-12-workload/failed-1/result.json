@@ -1,0 +1,53 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : false
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : false,
+        "commandID" : 2,
+        "outputLimit" : false,
+        "stderrByteCount" : 0,
+        "stderrEOF" : false,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 0,
+        "stdoutEOF" : false,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : false
+      }
+    ],
+    "error" : "agent protocol: guest stopped before complete framed shutdown",
+    "handshakeCompleted" : false,
+    "protocolValid" : false,
+    "protocolVersion" : 1,
+    "readyObserved" : false,
+    "shutdownAcknowledged" : false
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 36.82719370833365,
+  "error" : "guest exceeded the 30-second deadline",
+  "guestStopped" : false,
+  "outputDirectory" : "\/private\/tmp\/darwin-workload-storage-trial-1",
+  "serialByteCount" : 5268,
+  "sessionID" : "45fd8924ea3d4ea2a4aaf7e106908a8f",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "timedOut"
+}

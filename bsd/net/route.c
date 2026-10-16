@@ -117,7 +117,9 @@
 #endif
 
 
+#if SKYWALK
 #include <skywalk/os_skywalk_private.h>
+#endif /* SKYWALK */
 
 #include <IOKit/IOBSD.h>
 
@@ -4866,12 +4868,17 @@ rt_lookup_qset_id(route_t rt, bool skip_if_no_change)
 		goto done;
 	}
 
-	uint16_t eth_type = (rt_key(rt)->sa_family == AF_INET)
+	uint16_t eth_type __unused = (rt_key(rt)->sa_family == AF_INET)
 	    ? ETHERTYPE_IP : ETHERTYPE_IPV6;
-	ether_addr_t *eth_raddr = _sockaddr_get_lladdr(rt->rt_gateway);
+	ether_addr_t *eth_raddr __unused = _sockaddr_get_lladdr(rt->rt_gateway);
 
+#if SKYWALK
 	int err = nxctl_eth_traffic_rule_find_qset_id(ifp->if_xname,
 	    eth_type, eth_raddr, &rt->rt_qset_id);
+#else /* SKYWALK */
+	/* Nexus traffic-rule queues do not exist in the mbuf-only stack. */
+	int err = ENOTSUP;
+#endif /* SKYWALK */
 	if (err != 0) {
 		DTRACE_IP3(qset__id__not__found__eth,
 		    route_t, rt,

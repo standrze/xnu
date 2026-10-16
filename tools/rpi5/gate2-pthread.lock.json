@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Gate 2 source-backed pthread kernel provider candidate",
+  "xnu_tag": "xnu-12377.121.6",
+  "libpthread": {
+    "tag": "libpthread-539.100.4",
+    "commit": "1f4f5265b319111142f1bf3a27d4484ef5a98314",
+    "url": "https://codeload.github.com/apple-oss-distributions/libpthread/tar.gz/refs/tags/libpthread-539.100.4",
+    "sha256": "c815492b81044b1cf8d53b124a9ac9503697439e96325daac982adad934d7cd4",
+    "directory": "libpthread-libpthread-539.100.4"
+  },
+  "adapted_sha256": {
+    "kern/kern_init.c": "9d789729129734e26d7d68f331e3760dc3bf38ebdad8eace2193745af9544c5d",
+    "kern/kern_internal.h": "97d5dc48955b16dbd18c9ce48f124a0a5efe02482a02831935e07e73ff1c56e7",
+    "kern/kern_support.c": "046318556bfa7180b6d23ffffdde60a7b0dd2191a4380e95d51aabcc6d87365b",
+    "kern/kern_synch.c": "af33b8de0c8961124333709cd309af8f65ef38d0440b1acc178f3c680a25b6c1",
+    "kern/kern_trace.h": "7bd90948a45f19e74b6ef8733273c4cefc9103d20b1764b7d41b0feaabd2840c",
+    "kern/synch_internal.h": "0ef6d51c695deb9adccc65c6b13277d722a3739124caae32354d262b73b23564",
+    "sys/pthread_internal.h": "bb77f1e549815c6a2613c022441922c6aaaf0d6eab289c7eeb357482690e4c8f"
+  }
+}

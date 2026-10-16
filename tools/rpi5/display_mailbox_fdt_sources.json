@@ -1,0 +1,77 @@
+{
+  "format": "rpi5-display-mailbox-fdt-primary-v1",
+  "repository": "https://github.com/raspberrypi/linux",
+  "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "directory": "build/rpi5/display-mailbox-dma-primary-80d4218-20261013",
+  "sources": [
+    {
+      "path": "arch/arm64/Kconfig",
+      "bytes": 89385,
+      "sha256": "4e8db8d084a22244d9f4a22c7bf0d4e1cbc5802b339693dfe65e39c5b7111294",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/Kconfig"
+    },
+    {
+      "path": "arch/arm64/boot/dts/broadcom/bcm2712-rpi.dtsi",
+      "bytes": 12567,
+      "sha256": "6d09493a2912d8e616d2dbefe49892591023fb7d47ab08c61cb741da4fc681f0",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/bcm2712-rpi.dtsi"
+    },
+    {
+      "path": "arch/arm64/boot/dts/broadcom/bcm2712.dtsi",
+      "bytes": 17534,
+      "sha256": "528db3391562b79470028ca60fa86e710a27258d52caca407c4d11248ac9ce88",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/bcm2712.dtsi"
+    },
+    {
+      "path": "arch/arm64/mm/dma-mapping.c",
+      "bytes": 1524,
+      "sha256": "6d98b68963ec916fcc83db02b46e588ad32f7ff1de3aa6edb9e5f17e67049aab",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/mm/dma-mapping.c"
+    },
+    {
+      "path": "drivers/base/platform.c",
+      "bytes": 38060,
+      "sha256": "b3df261190611e2840323be3e1082f6f1b0a9165176b7ad12eca4ad6ac8622c1",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/base/platform.c"
+    },
+    {
+      "path": "drivers/firmware/raspberrypi.c",
+      "bytes": 13227,
+      "sha256": "df915d2a2c74ac24c684b108930e4fcc37ae0daeac858c50c9961a278d5463cb",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/firmware/raspberrypi.c"
+    },
+    {
+      "path": "drivers/mailbox/bcm2835-mailbox.c",
+      "bytes": 5732,
+      "sha256": "5bf38b7233da48644976feb787d8a08078570829ea5c81790db67c669f383657",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/mailbox/bcm2835-mailbox.c"
+    },
+    {
+      "path": "drivers/of/address.c",
+      "bytes": 30870,
+      "sha256": "1cfdf73abe6cf6c55768e48815b7932ffae967fd6576edfc4e3cee86f17278d7",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/of/address.c"
+    },
+    {
+      "path": "drivers/of/device.c",
+      "bytes": 8867,
+      "sha256": "71ef202a21bf7ca797fa5427f367c8d0ad2a0447ea840767dfb30ce1e2ffb858",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/of/device.c"
+    },
+    {
+      "path": "include/linux/dma-direct.h",
+      "bytes": 4118,
+      "sha256": "e38b8799b92b37d96e33acd46e379880d4989170fd6664a96b302feaf383791e",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/include/linux/dma-direct.h"
+    },
+    {
+      "path": "kernel/dma/direct.c",
+      "bytes": 18296,
+      "sha256": "6015f4c3e9523c5a1c312c63f7e953c23020b9230aa933b0173f847ecbdf8037",
+      "url": "https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/kernel/dma/direct.c"
+    }
+  ],
+  "hardware_claim": false,
+  "sources_compiled_into_helper": false,
+  "scope": "Reference bytes for exact Pi5 mailbox graph and conditional ARM64 direct-DMA no-range profile; does not establish cache coherence, exclusive buffer ownership or current firmware behavior."
+}

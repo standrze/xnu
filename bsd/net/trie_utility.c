@@ -28,6 +28,7 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
+#include <mach/vm_param.h>
 #include <sys/malloc.h>
 #include <os/base.h>
 #include <sys/syslog.h>
@@ -270,12 +271,12 @@ net_trie_init_with_mem(struct net_trie *new_trie, uint8_t * __sized_by(trie_memo
 	/* The root points to the first node */
 	new_trie->root = 0;
 
-	NET_TRIE_LOG(LOG_DEBUG, "%s: NET_TRIE - initialized - mem %X (size %zu) nodes %X (size %zu count %d) maps %X (size %zu count %d) bytes %X (size %zu count %d)",
+	NET_TRIE_LOG(LOG_DEBUG, "%s: NET_TRIE - initialized - mem %llx (size %zu) nodes %llx (size %zu count %d) maps %llx (size %zu count %d) bytes %llx (size %zu count %d)",
 	    __FUNCTION__,
-	    (unsigned int)new_trie->memory, new_trie->trie_memory_size,
-	    (unsigned int)new_trie->nodes, new_trie->nodes_mem_size, new_trie->nodes_count,
-	    (unsigned int)new_trie->child_maps, new_trie->child_maps_mem_size, new_trie->child_maps_count,
-	    (unsigned int)new_trie->bytes, new_trie->bytes_mem_size, new_trie->bytes_count);
+	    (uint64_t)VM_KERNEL_ADDRPERM(new_trie->memory), new_trie->trie_memory_size,
+	    (uint64_t)VM_KERNEL_ADDRPERM(new_trie->nodes), new_trie->nodes_mem_size, new_trie->nodes_count,
+	    (uint64_t)VM_KERNEL_ADDRPERM(new_trie->child_maps), new_trie->child_maps_mem_size, new_trie->child_maps_count,
+	    (uint64_t)VM_KERNEL_ADDRPERM(new_trie->bytes), new_trie->bytes_mem_size, new_trie->bytes_count);
 
 	return true;
 }

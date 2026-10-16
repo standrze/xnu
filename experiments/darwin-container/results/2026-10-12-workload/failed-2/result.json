@@ -1,0 +1,55 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "exitStatus" : 0,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 153,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 9,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true
+      },
+      {
+        "cancellationAcknowledged" : false,
+        "cancellationRequested" : false,
+        "cancelled" : false,
+        "cleanupVerified" : true,
+        "commandID" : 2,
+        "exitStatus" : 0,
+        "outputLimit" : false,
+        "processID" : 5,
+        "stderrByteCount" : 67,
+        "stderrEOF" : true,
+        "stderrPath" : "command-2-stderr.bin",
+        "stdoutByteCount" : 14,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-2-stdout.bin",
+        "terminalObserved" : true
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : true,
+  "elapsedSeconds" : 0.44235774999833666,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-workload-storage-trial-2",
+  "serialByteCount" : 8882,
+  "sessionID" : "13f896d957ca47e7a93b77b187f7a7ce",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "guestStopped"
+}

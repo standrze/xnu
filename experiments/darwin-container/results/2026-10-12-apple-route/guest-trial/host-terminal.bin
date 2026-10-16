@@ -1,0 +1,186 @@
+[33mWarning![0m Running debug build. Performance may be degraded.
+VZ:VIRTIO:READY EL1 MMU_OFF GICD=0000000010000000 GICR=0000000010010000
+VZ:XNU:HANDOFF ARGS=00000000720d4000 ENTRY=00000000714c1db8 ARENA=0000000070000000 SIZE=0000000014000000
+XDAZPMVCISTBDELHKWabcdefghijRPUNQ100kprintf initialized
+FSerial mode specified: 00000003
+initialize_screen: b=00000000, w=00000000, h=00000000, r=00000000, d=00000000
+initialize_screen: No video - forcing serial mode
+pe_arm_init_interrupts: args: 0xfffffe00079baf80
+pe_arm_map_interrupt_controller: soc_phys:  0x10000000
+pe_arm_map_interrupt_controller: failed to find the interrupt-controller.
+pe_arm_init_debug: failed to find cpu-debug-interface
+VZXNU:GIC:READY TIMER=27 SGI=1
+Darwin Kernel Version 12377.121.6: Mon Oct 12 10:07:59 EDT 2026; stephen:obj[xnu-12377.121.6-dirty]/DEVELOPMENT_ARM64_VZGENERIC
+pmap_startup() init/release time: 321 microsec
+vm_page_bootstrap: 18132 free pages, 2348 wired pages
+VM bootstrap: 73 maps, 256 entries and 64 nodes available
+Enable all vm_debug options with boot-arg vm_debug=1
+Maximum number of VM swap files: 100
+mb                      : 0xfffffe1000178000 - 0xfffffe1004178000 (64M)
+zone_meta               : 0xfffffe1004178000 - 0xfffffe100c280000 (129M)
+compressor              : 0xfffffe100c280000 - 0xfffffe114c310000 (5G)
+zones                   : 0xfffffe114c310000 - 0xfffffe314c310000 (128G)
+ipc_kernel_map          : 0xfffffe314c310000 - 0xfffffe3150310000 (64M)
+kmem_ptr_range_0        : 0xfffffe3150310000 - 0xfffffe65ff2f8000 (210G)
+ipc_kernel_copy_map     : 0xfffffe65ff2f8000 - 0xfffffe65ffaf8000 (8M)
+kmem_data_shared_range  : 0xfffffe65ffaf8000 - 0xfffffe9aaeadc000 (210G)
+bufferhdr               : 0xfffffe9aaeadc000 - 0xfffffe9aaeb10000 (208K)
+gIOKitPageableFixed     : 0xfffffe9aaeb10000 - 0xfffffe9b0eb10000 (1536M)
+bsd_pageable            : 0xfffffe9b0eb10000 - 0xfffffe9b10d18000 (34M)
+kmem_io                 : 0xfffffe9b10d18000 - 0xfffffe9b50d18000 (1024M)
+kmem_data_private_range : 0xfffffe9b50d18000 - 0xfffffecfffcfc000 (210G)
+vm: "vm_compressor_mode" is 4
+Unable to find vm tag  for btlog
+zone_init: map VM    0xfffffe114c310000:0xfffffe1618fdc000 (19G, 19G usable)
+zone_init: map RO    0xfffffe1618fdc000:0xfffffe17b2980000 (6G, 6G usable)
+zone_init: map GEN0  0xfffffe17b2980000:0xfffffe1c7f64c000 (19G, 19G usable)
+zone_init: map GEN1  0xfffffe1c7f64c000:0xfffffe214c318000 (19G, 19G usable)
+zone_init: map GEN2  0xfffffe214c318000:0xfffffe2618fe4000 (19G, 19G usable)
+zone_init: map GEN3  0xfffffe2618fe4000:0xfffffe2ae5cb0000 (19G, 19G usable)
+zone_init: map DATA  0xfffffe2ae5cb0000:0xfffffe314c310000 (25G, 25G usable)
+zone_init: metadata  0xfffffe1004188000:0xfffffe100c188000 (128M)
+zone_init: metabits  0xfffffe100c188000:0xfffffe100c270000 (928K)
+zone_init: extra     0:0 (0B)
+VM bootstrap done: 71 maps, 235 entries and 60 nodes left
+IOKit IOMD setownership ENABLED
+ATM subsystem is initialized
+standard timeslicing quantum is 10000 us
+standard background quantum is 2500 us
+Scheduler: Default of clutch
+Setting scheduler priority decay band limit 18
+OSLog stream configured: stream: 8192 bytes, cache: 2112 bytes
+OSLog stream verification: 0
+Firehose configured: 16 chunks, 8 io pages
+Long logs support configured: size: 16384
+Log queues configured: slot count: 9, per-slot size: 32768, total size: 294912
+[trap_telemetry] trap_telemetry_init
+mig_table_max_displ = 90 mach_kobj_count = 381
+BANK subsystem is initialized
+debug_log_init: Error!! gPanicBase is still not initialized
+suspend_cluster_powerdown_locked>calling sched_update_powered_cores to suspend powerdown
+debug_log_init: Error!! gPanicBase is still not initialized
+kdp_core zlib memory 0x8000
+Registered coredump handler for kernel
+Serial requested, consistent debug disabled or debug boot arg not present, configuring debugging over serial
+Initializing serial KDP
+BCM2712 crypto provider registration
+BCM2712 crypto and PRNG registered
+BCM2712 pthread provider registered before IOKit lockdown
+iBoot version: 
+iBoot Stage 2 version: 
+"name" not a kext
+"RAMDisk" not a kext
+ulock_initialize>thread_max=2560, ull_hash_buckets=1024
+vm: creating swapout thread
+vm: creating swapfile creation thread
+vm: creating swapfile GC thread
+lockdown_mode: error getting state from nvram
+lockdown_mode: lockdown mode in nvram is off
+BCM2712 START PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 END PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 MAX_CPUS READY count=1
+BCM2712 START BSD_INIT daif=0x200 cntvctl=0x1
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+	The Regents of the University of California. All rights reserved.
+
+MAC Framework successfully initialized
+using 364 buffer headers and 364 cluster IO buffer headers
+BCM2712 IORTC wait deferred
+IOResources: not registry member at registerService()
+ktriage_register_subsystem_strings: set subsystem 8 strings
+mbinit: done [64 MB total pool size, (42/21) split]
+New aio workqueue implementation selected
+DLIL: running SUM16 self-tests ... PASSED
+dlil_init: Waiting for all the create dlil kernel threads to get scheduled at least once.
+dlil_init: All the created dlil kernel threads have been scheduled at least once. Proceeding.
+bsd_autoconf: calling kminit
+IOResources: not registry member at registerService()
+ifnet_attach: All kernel threads created for interface lo0 have been scheduled at least once. Proceeding.
+VZXNcpu_start() cpu: 0
+VZXNU:PLATFORM:READY CPUS=1
+U:HFS:ENCODINGS_READY
+IOServicePH::kIOMessageSystemCapabilityChange: will 0xf->0xf
+IOServicePH::systemPowerChange to 0x30
+IOServicePH::kIOMessageSystemCapabilityChange: did 0xf->0xf
+VZXNU:BLOCK:READY SECTORS=262144 FLUSH=1
+VZXNU:HFS:REGISTERED
+Added memory device md0/rmd0 (02000000/0B000000) at FFFFFE00080D8000 for 0000000000230000
+BSD root: md0, major 2, minor 0
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x0), isssd is (0)
+RPI5XNU:RAMROOT:MOUNT NODES=30 BYTES=2293760 READONLY
+ifnet_attach: Waiting for all kernel threads created for interfaSerial keyboard started
+resume_cluster_powerdown_locked>calling sched_update_powered_cores to resume powerdown
+ce en0 to get scheduled at least once.
+vm: initializing swap
+vm: starting swapout thread
+vm: starting swapfile creation thread
+vm: starting swapfile GC thread
+VM Swap Subsystem is ON
+ifnet_attach: All kernel threads created for interface en0 have been scheduled at least once. Proceeding.
+VZXNU:NET:READY en0 MAC=ce:d6:1f:17:82:c6 MTU=1500
+load_init_program: attempting to load /sbin/launchd
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x1), isssd is (0)
+hfs: mounted DarwinWorkload on device disk0
+DARWIN:STORAGE:MOUNTED /dev/disk0 /data HFS READWRITE
+DARWIN:INIT:READY
+DARWIN:INIT:SHELL_PID=2
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004h/bin/dhcpctl; print -r -- APPLE_BOOTP_STATUS:$?[?2004l
+DARWIN:NET:APPLE_BOOTP bootp-268.1 options match BPF checksum IPv4
+DARWIN:NET:DHCP IP=192.168.64.17 MASK=255.255.255.0 ROUTER=192.168.64.1 DNS=192.168.64.1 LEASE=3600
+APPLE_BOOTP_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h[[ $(</data/resolv.conf) == 'nameserver 192.168.64.1' ]]; print -r -- CONFIG_DNS_STATUS:$?[?2004l
+CONFIG_DNS_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/route -n delete default && /bin/route -n add default 192.168.64.1 && /bin/route -n get default; print<d default 192.168.64.1 && /bin/route -n get default; print                                                           -r -- APPLE_ROUTE_STATUS:$?[?2004l
+delete net default
+add net default: gateway 192.168.64.1
+   route to: default
+destination: default
+       mask: default
+    gateway: 192.168.64.1
+  interface: en0
+      flags: <UP,GATEWAY,DONE,STATIC,PRCLONING>
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+APPLE_ROUTE_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf[?2004l
+#                                                                                                                       darwin-zsh# [?2004h/bin/resolverctl gai 52043 f0f1831f551b57d1ff66e15e.darwin.test 58886 f0f1831f551b57d1ff66e15e; print -r -<15e.darwin.test 58886 f0f1831f551b57d1ff66e15e; print -r --                                                           APPLE_GAI_STATUS:$?[?2004l
+DARWIN:NET:APPLE_LIBINFO_NUMERIC IPv4 IPv6 errors en0=2
+DARWIN:NET:APPLE_GETADDRINFO f0f1831f551b57d1ff66e15e.darwin.test 192.168.64.1 Libinfo-542.40.3
+DARWIN:NET:APPLE_GAI_TCP ECHO=f0f1831f551b57d1ff66e15e
+APPLE_GAI_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf; exit[?2004l
+DARWIN:INIT:ZSH_STOPPED:WAIT_STATUS=0
+hfs: unmount initiated on DarwinWorkload on device disk0
+DARWIN:POWEROFF:REQUEST
+Kext loading now disabled.
+Kext unloading now disabled.
+Kext autounloading now disabled.
+Kernel requests now disabled.
+PMRD: PagingOff all drivers took 0 ms
+PMRD: PagingOff total 1 ms
+syncing disks... Killing all processes 
+
+vfs_unmountall(nonsystem) start
+unmount(1) /dev skipped
+unmount(1) / skipped
+vfs_unmountall(nonsystem) end
+IOServicePH::systemHalt took 0 ms
+Killing all processes 
+
+continuing
+vfs_unmountall(system) start
+unmount(0) /dev
+unmount(0) /
+vfs_unmountall(system) end
+done
+CPU halted
+PMRD: PowerOff all drivers took 10 ms
+PMRD: PowerOff total 15 ms
+
+Darwin guest session: guestStopped; evidence: /private/tmp/darwin-route-trial-1/result.json
+[?25l[?25h

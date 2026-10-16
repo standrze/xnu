@@ -1,0 +1,29 @@
+{
+  "name": "independent",
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/counter-trial-0.3.0",
+  "package_manifest_sha256": "f1dbaba92816b3610d2880560a0ba3025382514fe8f2bbdd22f0889f187bf5d6",
+  "workload": "counter-trial",
+  "version": "1.0.0",
+  "state": "succeeded",
+  "volume": "other",
+  "network": "none",
+  "resources": {
+    "cpus": 1,
+    "memory_mib": 512,
+    "timeout_seconds": 30
+  },
+  "directory": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/packaged-workload-trial-2/state/runs/independent",
+  "data_disk": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/packaged-workload-trial-2/state/volumes/other/data.raw",
+  "started_at": "2026-10-12T22:47:49.801422+00:00",
+  "guest_stopped": true,
+  "managed_completion_verified": true,
+  "native_exit_code": 0,
+  "exit_status": 0,
+  "termination_signal": null,
+  "cancel_requested": false,
+  "cancel_accepted": null,
+  "termination": "guestStopped",
+  "error": null,
+  "runner_exit_code": 0,
+  "finished_at": "2026-10-12T22:47:50.449442+00:00"
+}

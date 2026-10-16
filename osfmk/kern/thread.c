@@ -4295,16 +4295,6 @@ dtrace_get_thread_inprobe(thread_t thread)
 	}
 }
 
-vm_offset_t
-thread_get_kernel_stack(thread_t thread)
-{
-	if (thread != THREAD_NULL) {
-		return thread->kernel_stack;
-	} else {
-		return 0;
-	}
-}
-
 #if KASAN
 struct kasan_thread_data *
 kasan_get_thread_data(thread_t thread)
@@ -4312,13 +4302,6 @@ kasan_get_thread_data(thread_t thread)
 	return &thread->kasan_data;
 }
 #endif
-
-/* Accessor functions for thread block hint information */
-uint32_t
-thread_get_block_hint(thread_t thread)
-{
-	return (uint32_t)thread->block_hint;
-}
 
 #if CONFIG_KCOV
 kcov_thread_data_t *
@@ -4439,3 +4422,16 @@ dtrace_thread_didexec(thread_t thread)
 	thread->t_dtrace_flags |= TH_DTRACE_EXECSUCCESS;
 }
 #endif /* CONFIG_DTRACE */
+
+/* These accessors also serve non-DTrace kernel consumers. */
+vm_offset_t
+thread_get_kernel_stack(thread_t thread)
+{
+	return thread != THREAD_NULL ? thread->kernel_stack : 0;
+}
+
+uint32_t
+thread_get_block_hint(thread_t thread)
+{
+	return (uint32_t)thread->block_hint;
+}

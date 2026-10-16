@@ -353,6 +353,8 @@ extern void ifnet_poll(struct ifnet *);
 extern errno_t ifnet_input_poll(struct ifnet *, struct mbuf *,
     struct mbuf *, const struct ifnet_stat_increment_param *);
 
+extern void      ifnet_start_ignore_delay(ifnet_t interface);
+
 #if SKYWALK
 extern boolean_t ifnet_needs_fsw_transport_netagent(ifnet_t ifp);
 extern boolean_t ifnet_needs_fsw_ip_netagent(ifnet_t ifp);
@@ -366,7 +368,6 @@ extern boolean_t ifnet_detach_flowswitch_nexus(ifnet_t ifp);
 extern boolean_t ifnet_add_netagent(ifnet_t ifp);
 extern boolean_t ifnet_remove_netagent(ifnet_t ifp);
 extern void      ifnet_attach_native_flowswitch(ifnet_t ifp);
-extern void      ifnet_start_ignore_delay(ifnet_t interface);
 extern int       ifnet_set_flowswitch_rx_callback(ifnet_t ifp, ifnet_fsw_rx_cb_t cb, void *arg);
 extern int       ifnet_get_flowswitch_rx_callback(ifnet_t ifp, ifnet_fsw_rx_cb_t *cbp, void **argp);
 extern void      ifnet_release_flowswitch_rx_callback(ifnet_t ifp);

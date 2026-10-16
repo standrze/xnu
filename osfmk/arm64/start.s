@@ -33,7 +33,9 @@
 #include <pexpert/arm64/board_config.h>
 #include <mach_assert.h>
 #include <machine/asm.h>
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 #include <arm64/tunables/tunables.s>
+#endif
 #include <arm64/exception_asm.h>
 
 #if __ARM_KERNEL_PROTECT__
@@ -467,9 +469,44 @@ start_cpu:
 	.globl EXT(start_first_cpu)
 LEXT(start_first_cpu)
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Physical, stack-free pre-MMU checkpoints. Clobber only x9-x11/NZCV.
+	 * Call only where those temporaries/flags are dead. Preserve x0 and lr.
+	 * UART10 clock/divisors are owned and verified by our loader. Bounded
+	 * polling cannot hang entry if UART stops responding. Not boot proof. */
+.macro rpi5_pre_mmu_mark byte
+	mov		x9, #0x1000
+	movk	x9, #0x7d00, lsl #16
+	movk	x9, #0x10, lsl #32
+	mov		x10, #0xffff
+91:
+	ldr		w11, [x9, #0x18]
+	tbz		w11, #5, 92f
+	subs	x10, x10, #1
+	b.ne	91b
+	b		94f
+92:
+	mov		w11, #\byte
+	str		w11, [x9]
+	dsb		sy
+	mov		x10, #0xffff
+93:
+	ldr		w11, [x9, #0x18]
+	tbz		w11, #3, 94f
+	subs	x10, x10, #1
+	b.ne	93b
+94:
+.endmacro
+	rpi5_pre_mmu_mark 88 // X: first XNU instructions
+#endif
+
 	// Unlock the core for debugging
 	msr		OSLAR_EL1, xzr
 	msr		DAIFSet, #(DAIFSC_ALL)				// Disable all interrupts
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 68 // D: debug unlock and DAIF complete
+#endif
 
 	mov		x20, x0
 	mov		x21, #0
@@ -486,6 +523,10 @@ LEXT(start_first_cpu)
 	ldr		x24, [x20, BA_MEM_SIZE]				// Get the physical memory size
 	adrp	x25, EXT(bootstrap_pagetables)@page	// Get the start of the page tables
 	ldr		x26, [x20, BA_BOOT_FLAGS]			// Get the kernel boot flags
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 65 // A: boot arguments read
+#endif
 
 	// Clear the registers that will be used to store the userspace thread pointer and CPU number.
 	// We may not actually be booting from ordinal CPU 0, so this register will be updated
@@ -542,6 +583,10 @@ Linvalidate_bootstrap:							// do {
 	str		x0, [x1], #(1 << TTE_SHIFT)			//   Invalidate and advance
 	subs	x2, x2, #1							//   entries--
 	b.ne	Linvalidate_bootstrap				// } while (entries != 0)
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 90 // Z: bootstrap tables cleared
+#endif
 
 	/*
 	 * In order to reclaim memory on targets where TZ0 (or some other entity)
@@ -620,8 +665,41 @@ Lkernelcache_base_found:
 	lsr		x5,  x24, #(ARM_TT_L2_SHIFT)
 	create_bootstrap_mapping x14, x15, x5, x3, x2, x9, x10, x11, x12, x13
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#if !__ARM_16K_PG__
+#error BCM2712 early UART mapping requires 16 KiB granules
+#endif
+	/* Identity-map only [0x107d000000,0x107d004000) as Device-nGnRnE.
+	 * L1[1] -> private L2[62] -> private L3[1024]. No RAM slot overlap.
+	 * Clobber x9-x13 only, after create_bootstrap_mapping finishes. */
+	ldr		x9, [x25, #8]
+	cbnz	x9, . // Never replace an existing mapping
+	adrp	x9, EXT(rpi5_boot_uart_tables)@page
+	add		x9, x9, EXT(rpi5_boot_uart_tables)@pageoff
+	mov		x10, x9
+	mov		x11, #4096 // Two 16-KiB pages, in eight-byte entries
+95:
+	str		xzr, [x10], #8
+	subs	x11, x11, #1
+	b.ne	95b
+	add		x10, x9, #0x4000
+	orr		x11, x10, #3 // L2 table descriptor
+	str		x11, [x9, #496]
+	MOV64	x11, 0x107d000000
+	/* AF, outer-shareable, AttrIndx=3, EL1 RW / EL0 inaccessible, XN/PXN. */
+	MOV64	x12, 0x006000000000060f
+	orr		x11, x11, x12
+	str		x11, [x10, #8192]
+	dsb		ishst
+	orr		x11, x9, #3
+	str		x11, [x25, #8] // Publish root only after private tables are ready
+#endif
 	/* Ensure TTEs are visible */
 	dsb		ish
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 80 // P: bootstrap mappings populated
+#endif
 
 
 	b		common_start
@@ -748,9 +826,23 @@ common_start:
 #endif /* HAS_APPLE_PAC */
 
 	// Enable caches, MMU, ROP and JOP
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 77 // M: final pre-MMU checkpoint, physical UART still valid
+#endif
 	MOV64   x0, SCTLR_EL1_DEFAULT
 	MSR_SCTLR_EL1_X0
 	isb		sy
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* The bootstrap TTBR0 retains the dedicated identity UART mapping on
+	 * both paths. This bounded warm marker locates the first post-MMU fetch. */
+	cbz	x21, 95f
+	rpi5_pre_mmu_mark 118 // v: warm reset executed after MMU enablement
+	b	96f
+95:
+	rpi5_pre_mmu_mark 86 // V: execution after MMU enablement
+96:
+#endif
 
 #if !VMAPPLE
 	MOV64	x1, SCTLR_EL1_DEFAULT
@@ -768,6 +860,10 @@ common_start:
 	// Enable NEON
 	mov		x0, #(CPACR_FPEN_ENABLE)
 	msr		CPACR_EL1, x0
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Synchronize FP/SIMD enablement before returning to compiled C code. */
+	isb		sy
+#endif
 #endif
 
 	// Clear thread pointer
@@ -784,7 +880,9 @@ common_start:
 	// Read MIDR before start of per-SoC tunables
 	mrs x12, MIDR_EL1
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 	APPLY_TUNABLES x12, x13, x14
+#endif /* Apple CPU tunables do not apply to Cortex-A76. */
 
 #if HAS_CLUSTER && !NO_CPU_OVRD
 	// Unmask external IRQs if we're restarting from non-retention WFI
@@ -814,6 +912,9 @@ common_start:
 #endif
 
 	// Return to arm_init()
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 67 // C: cold assembly initialization complete
+#endif
 	ret
 
 Ltrampoline:
@@ -824,6 +925,9 @@ Ltrampoline:
 	sub		x0, x0, x23
 
 	// Branch to the trampoline
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 116 // t: warm path is about to branch to KVA
+#endif
 	br		x0
 
 /*
@@ -834,6 +938,9 @@ Ltrampoline:
 	.align 2
 arm_init_tramp:
 	ARM64_JUMP_TARGET
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	rpi5_pre_mmu_mark 107 // k: executing at KVA before C handoff
+#endif
 	/* On a warm boot, the full kernel translation table is initialized in
 	 * addition to the bootstrap tables. The layout is as follows:
 	 *

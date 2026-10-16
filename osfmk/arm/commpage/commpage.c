@@ -756,11 +756,16 @@ commpage_init_arm_optional_features_smfr0(void)
 static void
 commpage_init_arm_optional_features_zfr0(void)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Cortex-A76 has no SVE; retain the zero-initialized capability flags. */
+	return;
+#else
 	uint64_t zfr0 = __builtin_arm_rsr64("S3_0_C0_C4_4" /* ID_AA64ZFR0_EL1 */);
 
 	if ((zfr0 & ID_AA64ZFR0_EL1_B16B16_MASK) >= ID_AA64ZFR0_EL1_B16B16_EN) {
 		gARM_FEAT_SVE_B16B16 = 1;
 	}
+#endif /* ARM64_BOARD_CONFIG_BCM2712 */
 }
 
 static void

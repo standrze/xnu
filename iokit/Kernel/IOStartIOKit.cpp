@@ -72,6 +72,7 @@ SECURITY_READ_ONLY_LATE(static IOPlatformExpertDevice*) gRootNub;
 void
 IOKitInitializeTime( void )
 {
+#if !(defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT)
 	mach_timespec_t         t;
 
 	t.tv_sec = 30;
@@ -79,6 +80,11 @@ IOKitInitializeTime( void )
 
 	IOService::waitForService(
 		IOService::resourceMatching("IORTC"), &t );
+#else
+	/* No RTC provider exists in the single-core Pi bring-up. Waiting for the
+	 * normal 30-second timeout exceeds the board's recovery watchdog. */
+	kprintf("BCM2712 IORTC wait deferred\n");
+#endif
 #if defined(__i386__) || defined(__x86_64__)
 	IOService::waitForService(
 		IOService::resourceMatching("IONVRAM"), &t );

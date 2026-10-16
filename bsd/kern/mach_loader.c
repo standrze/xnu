@@ -1263,7 +1263,7 @@ parse_machfile(
 	proc_t                  p = vfs_context_proc(imgp->ip_vfs_context);
 	int                     error;
 	int                     resid = 0;
-	int                     spawn = (imgp->ip_flags & IMGPF_SPAWN);
+	int                     spawn __unused = (imgp->ip_flags & IMGPF_SPAWN);
 	size_t                  mach_header_sz = sizeof(struct mach_header);
 	boolean_t               abi64;
 	boolean_t               got_code_signatures = FALSE;

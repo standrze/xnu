@@ -1,0 +1,40 @@
+{
+  "mode": "xnu-handoff-not-yet-boot-verified",
+  "directory": "/private/tmp/darwin-vz-loader-b3dkn04h",
+  "payload": "/private/tmp/darwin-vz-loader-b3dkn04h/BOOTAA64.EFI",
+  "writableStorageProfile": true,
+  "networkProfile": true,
+  "bootDisk": "/private/tmp/darwin-vz-loader-b3dkn04h/efi.img",
+  "sources": {
+    "loader/vz/boot.c": "b4d1a756827888f34f5dc0bb15e8d2debdfa0ac512fe59dde4dc4fa150aef9c4",
+    "loader/vz/virtio_console.c": "ca769425e1eff2c05ba6fa61a6e475b456813d768a6fd89e8876d9b4a4271aff",
+    "loader/vz/transition.S": "99d4b4e5c8891532c4bc93ba16d2d5fd392ce7b849b43fc93721dfbb81c43484",
+    "loader/vz/virtio_block.c": "70bb33f7eab809a9e0e811a723e43e0382b7b49065f8b7db65576c4f4462db19",
+    "loader/vz/virtio_net.c": "862f0316245c6f9c7b047cc060a423391fc194c6863cdafdba5cdbcd8ac08e6c",
+    "loader/rpi5/macho.c": "2676404e3f892c25396f85c3ec2a8f7ab23e1b41aad41678e3afe9df70603ad2",
+    "loader/rpi5/boot_args.c": "d8ea14d9ea88f90a3c5f7034a11149aff39e4deafcb34870a85049a992c1a5b6",
+    "loader/rpi5/apple_dt.c": "8b6f6af049dba08ef4907b6f2635e788eeb516e2253268b1fd475516ec51ae13",
+    "payload.S": "4368d4c71c057d00a389801bd0fb46bcf3199c80c300fafa65a787859cb29de6",
+    "loader/vz/efi.h": "5a418a7999cf5295aab56556745a7288faa518b2dbcd71aa446c1d14331208a0",
+    "loader/vz/virtio_console.h": "c8ef8f27f89838e5381d75a2a5e19820a5fd593a5a54a04ee2ee842512bd4907",
+    "loader/vz/virtio_block.h": "09d7f8274910d026c87bd597e068a7491b535df8c17a7092c8636c7603ea609f",
+    "loader/vz/virtio_net.h": "4cb3f5f24a05f398ade25ce6785d7c84adfefb4bcb5907b205727d0535d58dc3",
+    "loader/rpi5/macho.h": "f6d2ed7932626f557cc16316866425a6888026a9340688af190ac8605bc0bff6",
+    "loader/rpi5/boot_args.h": "7b50001cbf1630285fff441d0166c066f161e49a5cf31545a0702f01d831e87a",
+    "loader/rpi5/apple_dt.h": "4973e66fd3e97ed2ecd709796291758d611e5f97325622bc14ee3a7ad64a05b0",
+    "experiments/darwin-container/build_loader.py": "13752a8db9b48324ffd13a8011904fc84cd5792f42d751e3977a180033ad5de3"
+  },
+  "payloadSHA256": "7693bf7ee8c6cf393fe5a3797633ff4de3fe1cb471aad623e4fea02672a862fc",
+  "inputs": {
+    "bytes": 16557992,
+    "linkedHeaderVA": "0xfffffe0007004000",
+    "materializedBytes": 17563648,
+    "localRelocations": 99333,
+    "kernelSource": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/kernel/build/vzgeneric-8c5vzyrd/obj/DEVELOPMENT_ARM64_VZGENERIC/kernel.development.vzgeneric",
+    "ramrootSource": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-resolver-1/ramdisk.bin",
+    "kernelSHA256": "0501225204ac5711fd409f82e9ff70138d126c002f654bea758827345c023da9",
+    "ramrootSHA256": "4cd4308041ba3caba097b341418d9de62283495e79e3737ea4f55913acd9410d",
+    "ramrootBytes": 1966080,
+    "seedSource": "fresh os.urandom(256), never logged"
+  }
+}

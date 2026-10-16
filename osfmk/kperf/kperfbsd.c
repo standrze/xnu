@@ -478,7 +478,7 @@ kperf_sysctl SYSCTL_HANDLER_ARGS
 {
 #pragma unused(oidp, arg2)
 	int ret;
-	enum kperf_request type = (enum kperf_request)arg1;
+	enum kperf_request type = (enum kperf_request)(uintptr_t)arg1;
 
 	ktrace_lock();
 
@@ -806,7 +806,7 @@ static int
 kperf_sysctl_limits SYSCTL_HANDLER_ARGS
 {
 #pragma unused(oidp, arg2)
-	enum kptimer_period_limit limit = (enum kptimer_period_limit)arg1;
+	enum kptimer_period_limit limit = (enum kptimer_period_limit)(uintptr_t)arg1;
 	if (limit >= KTPL_MAX) {
 		return ENOENT;
 	}

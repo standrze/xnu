@@ -1,0 +1,31 @@
+{
+  "format": "darwin-workload-spec-1",
+  "name": "counter-trial",
+  "version": "1.0.0",
+  "entrypoint": [
+    "/bin/zsh",
+    "-f",
+    "/app/counter.zsh",
+    "argument with spaces",
+    "literal ' quote; $HOME"
+  ],
+  "env": {
+    "WORKLOAD_MESSAGE": "Built from Apple's published zsh sources",
+    "LITERAL": "quote ' and $HOME; not evaluated",
+    "DARWIN_PACKAGE_TRIAL": "1"
+  },
+  "cwd": "/data",
+  "network": "none",
+  "resources": {
+    "cpus": 1,
+    "memory_mib": 512,
+    "timeout_seconds": 30
+  },
+  "files": [
+    {
+      "path": "/app/counter.zsh",
+      "mode": 292,
+      "sha256": "c1e03dac09a5c797eae6359d7513dc746e4ec3985e9be11e3c88c6c1d879b9d1"
+    }
+  ]
+}

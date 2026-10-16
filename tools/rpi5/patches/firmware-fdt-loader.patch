@@ -1,0 +1,118 @@
+--- a/probe_main.c
++++ b/probe_main.c
+@@ -22,6 +22,16 @@
+ #endif
+ #endif
+ #include "transfer.h"
++#ifndef RPI5_FIRMWARE_FDT_HANDOFF
++#define RPI5_FIRMWARE_FDT_HANDOFF 0
++#endif
++#if RPI5_FIRMWARE_FDT_HANDOFF
++#include "firmware_fdt_tree.h"
++#if !RPI5_PCIE_DEVICE_HANDOFF || !RPI5_XNU_TRANSFER || !RPI5_SERIAL_TERMINAL || RPI5_GATE4_STORAGE
++#error "Firmware FDT handoff requires the separate Device/terminal transfer profile"
++#endif
++#endif
++
+ #ifndef RPI5_XNU_TRANSFER
+ #define RPI5_XNU_TRANSFER 0
+ #endif
+@@ -437,2 +447,8 @@
+ #endif
++#if RPI5_FIRMWARE_FDT_HANDOFF
++    static struct rpi5_firmware_fdt_tree firmware_fdt;
++    if (rpi5_firmware_fdt_tree_attach(&tree,(const void *)fdt_pa,fdt_length,fdt_pa,&types,&firmware_fdt))
++        return 0;
++    if (!text("RPI5XNU:BL33:FIRMWARE_FDT RETAINED_DESCRIPTOR_ONLY NO_RAW_TREE_OR_SEED_PUBLISHED PCIE_MMIO=0\r\n")) return 0;
++#endif
+     /* Geometry first; resolved planner below proves reservation exclusion.
+@@ -439,6 +455,9 @@
+      * Firmware memory-node truth is the explicit DTSpec trust assumption. */
+     if (rpi5_macho_placement(validated_kernel,validated_kernel_length,
+             0x7004000,0x6000000,0x10000000,&placement)) return 0;
++#if RPI5_FIRMWARE_FDT_HANDOFF
++    if (fdt_pa<placement.end) return 0; /* XNU may reclaim pre-kernel memory. */
++#endif
+     uint64_t args=(placement.end+0x3fff)&~0x3fffull;
+     /* Keep the RAM disk after the fixed-size tree window. The resolver
+      * proves this extra retained range is DRAM, unreserved and disjoint. */
+--- a/firmware_seed_tree.c
++++ b/firmware_seed_tree.c
+@@ -7,9 +7,17 @@
+     if (!tree || !seed || !consumed || !output || !written || !consume ||
++#if RPI5_FIRMWARE_FDT_HANDOFF
++        tree->chosen.property_count<2 || tree->chosen.property_count>4 ||
++        !tree->chosen.properties)
++#else
+         (tree->chosen.property_count!=2 && tree->chosen.property_count!=3) ||
+         tree->chosen.properties!=tree->chosen_props)
++#endif
+         return -1;
+     unsigned original_count=tree->chosen.property_count;
++#if RPI5_FIRMWARE_FDT_HANDOFF
++    const struct rpi5_adt_property *original_properties=tree->chosen.properties;
++#endif
+     size_t expected;
+     if (rpi5_seed_tree_measure(&tree->root,capacity,&expected)) return -1;
+     uint8_t derived[256]={0};
+     int status=consume(seed,64,derived,sizeof derived,consumed);
+@@ -17,4 +25,9 @@
+     if (status) goto clear;
++#if RPI5_FIRMWARE_FDT_HANDOFF
++    struct rpi5_adt_property properties[5];
++    for (unsigned i=0;i<original_count;i++) properties[i]=original_properties[i];
++#else
+     struct rpi5_adt_property properties[4];
+     for (unsigned i=0;i<original_count;i++) properties[i]=tree->chosen_props[i];
++#endif
+     properties[original_count]=(struct rpi5_adt_property){"random-seed",derived,sizeof derived};
+@@ -24,4 +37,8 @@
+     status=rpi5_adt_encode(&tree->root,output,capacity,&encoded);
++#if RPI5_FIRMWARE_FDT_HANDOFF
++    tree->chosen.properties=original_properties;
++#else
+     tree->chosen.properties=tree->chosen_props;
++#endif
+     tree->chosen.property_count=original_count;
+     if (!status && encoded==expected) *written=encoded;
+--- a/arm_init.c
++++ b/arm_init.c
+@@ -188,6 +188,9 @@
+ {
+ 	return rpi5_map_type(&rpi5_memory_map, start, end);
+ }
++#if RPI5_FIRMWARE_FDT_HANDOFF
++#include "arm64/rpi5_firmware_fdt.inc"
++#endif
+ #endif
+ SECURITY_READ_ONLY_LATE(ppnum_t)  pmap_first_pnum;
+ 
+@@ -630,4 +633,14 @@
+ #endif
++#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_FIRMWARE_FDT_HANDOFF
++    const void *firmware_fdt_record;
++    if (SecureDTGetProperty(chosen, "rpi5-firmware-fdt", &firmware_fdt_record, &dt_entry_size) != kSuccess ||
++        rpi5_fdt_record_decode(firmware_fdt_record, dt_entry_size, args->physBase,
++            args->memSize, args->topOfKernelData, &rpi5_fdt_source_span) ||
++        rpi5_physical_memory_type(rpi5_fdt_source_span.physical,
++            rpi5_fdt_source_span.physical + rpi5_fdt_source_span.bytes) != 1) {
++        panic("BCM2712: invalid retained firmware FDT descriptor");
++    }
++#endif
+ 	pmap_first_pnum = (ppnum_t)atop(gDramBase);
+ 
+ 	RPI5_BOOT_MARK('W');
+@@ -634,3 +647,13 @@
+ 	/* No bootstrap-UART checkpoints after final VM mappings take over. */
+ 	arm_vm_init(xmaxmem, args);
++#if defined(ARM64_BOARD_CONFIG_BCM2712) && RPI5_FIRMWARE_FDT_HANDOFF
++    /* No Device/uncached alias: use the existing Normal-RAM physical aperture.
++     * The loader includes this FDT live range below topOfKernelData. */
++    if (end_kern < args->virtBase || end_kern - args->virtBase > args->memSize ||
++        rpi5_fdt_retained_tail(&rpi5_fdt_source_span,
++            args->physBase + (end_kern - args->virtBase), args->topOfKernelData)) {
++        panic("BCM2712: firmware FDT overlaps reclaimable kernel memory");
++    }
++    rpi5_fdt_source_kva = phystokv(rpi5_fdt_source_span.physical);
++#endif
+ 

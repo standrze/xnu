@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'experiments/darwin-container/results/2026-10-12-apple-bootp/bootp-guard-test'
+relocations:     []
+...

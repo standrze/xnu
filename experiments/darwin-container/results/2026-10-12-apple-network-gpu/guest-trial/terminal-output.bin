@@ -1,0 +1,50 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004h/bin/gpuctl selftest 22294; print -r -- GPU_STATUS:$?[?2004l
+DARWIN:GPU:ADD OK seed=22294 count=16
+GPU_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/gpuctl selftest 36669; print -r -- GPU_STATUS:$?[?2004l
+DARWIN:GPU:ADD OK seed=36669 count=16
+GPU_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/gpuctl unsupported; print -r -- GPU_STATUS:$?[?2004l
+DARWIN:GPU:UNSUPPORTED status=1
+GPU_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/netctl info; print -r -- NET_INFO_STATUS:$?[?2004l
+DARWIN:NET:INTERFACE en0 INDEX=2 MAC=76:c3:60:f1:f4:76
+NET_INFO_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/netctl dhcp; print -r -- NET_DHCP_STATUS:$?[?2004l
+DARWIN:NET:DHCP IP=192.168.64.13 MASK=255.255.255.0 ROUTER=192.168.64.1 DNS=192.168.64.1
+NET_DHCP_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/netctl exchange 192.168.64.1 56177 53178 e624265e4de357487f9d4077; print -r -- NET_EXCHANGE_STATUS:$?[?2004l
+DARWIN:NET:APPLE_DNS_WIRE libresolv-96
+DARWIN:NET:DNS e624265e4de357487f9d4077.darwin.test A=192.168.64.1
+DARWIN:NET:TCP ECHO=e624265e4de357487f9d4077
+NET_EXCHANGE_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLU<TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUM                                                          NS[?2004l
+TERMINAL_TTY_JOB_OK
+SIZE_INITIAL:35:120
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- ZLE_EITDIT[?2004l
+ZLE_EDIT
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STARTED; /bin/sleep 20[?2004l
+JOB_STARTED
+^Z
+zsh: suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hjobs[?2004l
+[1]  + suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hfg[?2004l
+[1]  + continued  /bin/sleep 20
+^C
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STATUS:$?[?2004l
+JOB_STATUS:130
+#                                                                                                                       darwin-zsh# [?2004hTRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED[?2004l
+RESIZE_ARMED
+#                                                                                                                       darwin-zsh# [?2004hdarwin-zsh# SIZE_CHANGED:47:132
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"[?2004l
+€ÿBYTE_ROUNDTRIP:€ÿ:END#                                                                                                                                   darwin-zsh# [?2004hprint -r -- FRAME_SAVED >> /data/framed-note; exit[?2004l

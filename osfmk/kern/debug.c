@@ -286,7 +286,9 @@ SECURITY_READ_ONLY_LATE(bool) awl_scratch_reg_supported = false;
 static bool PERCPU_DATA(hv_entry_detected); // = false
 static void awl_set_scratch_reg_hv_bit(void);
 void awl_mark_hv_entry(void);
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 static bool awl_pm_state_change_cbk(void *param, enum cpu_event event, unsigned int cpu_or_cluster);
+#endif
 
 #if !XNU_TARGET_OS_OSX & CONFIG_KDP_INTERACTIVE_DEBUGGING
 static boolean_t device_corefile_valid_on_ephemeral(void);
@@ -2474,12 +2476,12 @@ check_for_failure_injection(failure_injection_stage_t current_stage)
 static inline void
 awl_set_scratch_reg_hv_bit(void)
 {
-#if defined(__arm64__)
+#if defined(__arm64__) && !defined(ARM64_BOARD_CONFIG_BCM2712)
 #define WATCHDOG_DIAG0     "S3_5_c15_c2_6"
 	uint64_t awl_diag0 = __builtin_arm_rsr64(WATCHDOG_DIAG0);
 	awl_diag0 |= AWL_HV_ENTRY_FLAG;
 	__builtin_arm_wsr64(WATCHDOG_DIAG0, awl_diag0);
-#endif // defined(__arm64__)
+#endif // arm64 Apple watchdog diagnostic register
 }
 
 void
@@ -2497,6 +2499,7 @@ awl_mark_hv_entry(void)
  * Awl WatchdogDiag0 is not restored by hardware when coming out of reset,
  * so restore it manually.
  */
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 static bool
 awl_pm_state_change_cbk(void *param __unused, enum cpu_event event, unsigned int cpu_or_cluster __unused)
 {
@@ -2508,6 +2511,7 @@ awl_pm_state_change_cbk(void *param __unused, enum cpu_event event, unsigned int
 
 	return true;
 }
+#endif
 
 /*
  * Identifies and sets a flag if AWL Scratch0/1 exists in the system, subscribes
@@ -2517,6 +2521,10 @@ __startup_func
 static void
 set_awl_scratch_exists_flag_and_subscribe_for_pm(void)
 {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* BCM2712 has no Apple AWL scratch register, regardless of DT contents. */
+	return;
+#else
 	DTEntry base = NULL;
 
 	if (SecureDTLookupEntry(NULL, "/arm-io/wdt", &base) != kSuccess) {
@@ -2534,6 +2542,7 @@ set_awl_scratch_exists_flag_and_subscribe_for_pm(void)
 			}
 		}
 	}
+#endif /* ARM64_BOARD_CONFIG_BCM2712 */
 }
 STARTUP(EARLY_BOOT, STARTUP_RANK_MIDDLE, set_awl_scratch_exists_flag_and_subscribe_for_pm);
 

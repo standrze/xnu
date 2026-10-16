@@ -1,0 +1,27 @@
+{
+  "commandRequested" : false,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 0.8941863749932963,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-pty-framed-trial-6",
+  "serialByteCount" : 18191,
+  "sessionID" : "ef9ecf7776a24cc2be00cb22c30d08d7",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "terminal" : {
+    "acknowledgedSizes" : [
+      [
+        35,
+        120
+      ],
+      [
+        47,
+        132
+      ]
+    ],
+    "exitStatus" : 0,
+    "handshakeCompleted" : true,
+    "outputByteCount" : 3784
+  },
+  "termination" : "guestStopped"
+}

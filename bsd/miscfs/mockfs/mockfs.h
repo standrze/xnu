@@ -61,6 +61,11 @@ struct mockfs_mount {
 	boolean_t       mockfs_physical_memory; /* (valid if memory backed) */
 	uint32_t        mockfs_memdev_base;     /* Base page of the backing store (valid if memory backed) */
 	uint64_t        mockfs_memdev_size;     /* Size of the backing store (valid if memory backed) */
+#if MOCKFS_RPI5_RAMROOT
+	uint32_t ramroot_count; /* Nonzero only after complete archive validation. */
+	uint64_t ramroot_bytes; /* Immutable validated backing extent, including archive metadata/padding. */
+	mockfs_fsnode_t ramroot_nodes[RPI5_RFS_NODES];
+#endif
 };
 
 typedef struct mockfs_mount * mockfs_mount_t;

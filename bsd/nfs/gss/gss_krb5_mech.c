@@ -714,6 +714,27 @@ krb5_mic_mbuf(crypto_ctx_t ctx, gss_buffer_t header,
 	return 0;
 }
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+static int
+rpi5_crypt_cts_tail(const struct ccmode_cbc *mode, cccbc_ctx *key, cccbc_iv *iv,
+    mbuf_t tail, size_t length, ccpad_func crypt)
+{
+	uint8_t *buffer = kalloc_data(2 * mode->block_size, Z_WAITOK | Z_ZERO);
+	if (buffer == NULL) {
+		return ENOMEM;
+	}
+	int error = mbuf_copydata(tail, 0, length, buffer);
+	if (!error && crypt(mode, key, iv, length, buffer, buffer) != length) {
+		error = EIO;
+	}
+	if (!error) {
+		error = mbuf_copyback(tail, 0, length, buffer, MBUF_WAITOK);
+	}
+	kfree_data(buffer, 2 * mode->block_size);
+	return error;
+}
+#endif
+
 errno_t
 /* __attribute__((optnone)) */
 krb5_crypt_mbuf(crypto_ctx_t ctx, mbuf_t *mbp, size_t len, int encrypt, cccbc_ctx *ks)
@@ -760,10 +781,24 @@ krb5_crypt_mbuf(crypto_ctx_t ctx, mbuf_t *mbp, size_t len, int encrypt, cccbc_ct
 			if (plen == 0) {
 				lmb = *mbp;
 			} else {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+				/* Keep the caller's entire chain owned and linked, including
+				 * the tail when a later CTS operation fails. */
+				error = gss_normalize_mbuf(*mbp, 0, &plen, &mb, &lmb, 1);
+				if (error) {
+					kfree_data(block, ccmode->block_size);
+					return error;
+				}
+#else
 				gss_normalize_mbuf(*mbp, 0, &plen, &mb, &lmb, 0);
+#endif
 				assert(*mbp == mb);
 				assert(plen == len - cts_len);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+				assert(gss_mbuf_len(mb, 0) == len);
+#else
 				assert(gss_mbuf_len(mb, 0) == plen);
+#endif
 				assert(gss_mbuf_len(lmb, 0) == cts_len);
 			}
 		}
@@ -788,11 +823,23 @@ krb5_crypt_mbuf(crypto_ctx_t ctx, mbuf_t *mbp, size_t len, int encrypt, cccbc_ct
 	if (plen) {
 		error = mbuf_walk(*mbp, 0, plen, ccmode->block_size, do_crypt, &wctx);
 		if (error) {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+			kfree_data(wctx.iv, wctx.ccmode->block_size);
+#endif
 			return error;
 		}
 	}
 
 	if ((ctx->flags & CRYPTO_CTS_ENABLE) && cts_len) {
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+		assert(cts_len <= 2 * ccmode->block_size && cts_len > ccmode->block_size);
+		error = rpi5_crypt_cts_tail(ccmode, wctx.crypt_ctx, wctx.iv, lmb, cts_len,
+		    encrypt ? ccpad_cts3_encrypt : ccpad_cts3_decrypt);
+		if (error) {
+			kfree_data(wctx.iv, wctx.ccmode->block_size);
+			return error;
+		}
+#else
 		uint8_t *cts_pad = NULL;
 		ccpad_func do_ccpad = encrypt ? ccpad_cts3_encrypt : ccpad_cts3_decrypt;
 
@@ -806,6 +853,7 @@ krb5_crypt_mbuf(crypto_ctx_t ctx, mbuf_t *mbp, size_t len, int encrypt, cccbc_ct
 		do_ccpad(ccmode, wctx.crypt_ctx, wctx.iv, cts_len, cts_pad, cts_pad);
 		gss_append_mbuf(*mbp, cts_pad, cts_len);
 		kfree_data(cts_pad, 2 * ccmode->block_size);
+#endif
 	}
 	kfree_data(wctx.iv, wctx.ccmode->block_size);
 

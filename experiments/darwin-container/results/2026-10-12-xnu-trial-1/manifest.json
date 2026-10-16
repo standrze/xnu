@@ -1,0 +1,31 @@
+{
+  "mode": "xnu-handoff-not-yet-boot-verified",
+  "directory": "/private/tmp/darwin-vz-loader-49_3bvym",
+  "payload": "/private/tmp/darwin-vz-loader-49_3bvym/BOOTAA64.EFI",
+  "bootDisk": "/private/tmp/darwin-vz-loader-49_3bvym/efi.img",
+  "sources": {
+    "loader/vz/boot.c": "7ff963c48f9c5d7f7e12054f697d901ed885bd044907b7ef4dc6257b938ed991",
+    "loader/vz/virtio_console.c": "f6d7ae086116ddc8c1a4e181bb1e6924766f4b5f632f83f26590cea298695166",
+    "loader/vz/transition.S": "99c2c2385b5f0e4b39fed1620873cbcb728a9d83940373f01ea09865b7839828",
+    "loader/rpi5/macho.c": "2676404e3f892c25396f85c3ec2a8f7ab23e1b41aad41678e3afe9df70603ad2",
+    "loader/rpi5/boot_args.c": "d8ea14d9ea88f90a3c5f7034a11149aff39e4deafcb34870a85049a992c1a5b6",
+    "loader/rpi5/apple_dt.c": "8b6f6af049dba08ef4907b6f2635e788eeb516e2253268b1fd475516ec51ae13",
+    "payload.S": "c78a341e48bdeb2903ac4fcee75a709caa2152b63bcea750a3d064676067e24c",
+    "loader/vz/efi.h": "5a418a7999cf5295aab56556745a7288faa518b2dbcd71aa446c1d14331208a0",
+    "loader/vz/virtio_console.h": "0998a005202a96ecb9bb02e6ebdf288f855781ef279df6cdc53893a4ae2cac0b",
+    "experiments/darwin-container/build_loader.py": "2b6317a5e84919e2378d4b0ec33692b54b740e53408cec185295480f3ea2a782"
+  },
+  "payloadSHA256": "df816613e6a2832498e9fea399e9ab0fee9113131181972b1ae3e1a7d44c38a4",
+  "inputs": {
+    "bytes": 15703200,
+    "linkedHeaderVA": "0xfffffe0007004000",
+    "materializedBytes": 16695296,
+    "localRelocations": 92254,
+    "kernelSource": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/kernel/build/vzgeneric-jj770p16/obj/DEVELOPMENT_ARM64_VZGENERIC/kernel.development.vzgeneric",
+    "ramrootSource": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/vm-bootstrap-1/ramdisk.bin",
+    "kernelSHA256": "6537d80bdb99706946800daeef6b538e7438e262a1eb437c61fc65914362abc5",
+    "ramrootSHA256": "ed5228f52a06ad587fbd7067e513972c239b2b6c6d1d1c70bb38ddc60bd067fb",
+    "ramrootBytes": 737280,
+    "seedSource": "fresh os.urandom(256), never logged"
+  }
+}

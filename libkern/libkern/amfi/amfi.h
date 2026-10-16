@@ -32,12 +32,29 @@
 #include <os/base.h>
 #include <sys/cdefs.h>
 #include <kern/cs_blobs.h>
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* Raspberry Pi port, 2026-09-04. The monitor-free DEVELOPMENT target only
+ * transports these pointers. Incomplete types deliberately prohibit allocation
+ * or dereferencing without the unavailable V2 implementation's real headers.
+ * These are not definitions of Apple's V2 ABI; registration is rejected below
+ * in amfi.c. Existing Apple targets continue using their complete interfaces. */
+#if !DEVELOPMENT || CONFIG_PMAP_PPL || CONFIG_SPTM
+#error BCM2712 opaque entitlement types require monitor-free DEVELOPMENT
+#endif
+typedef struct rpi5_unavailable_ce_context CEContext_t;
+typedef struct rpi5_unavailable_ce_kernel_api CEKernelAPI_t;
+#else
 #include <CoreEntitlements/V2/API.h>
 #include <CoreEntitlements/V2/Kernel.h>
+#endif
 
 #define KERN_AMFI_INTERFACE_VERSION 7
 #define KERN_AMFI_SUPPORTS_DATA_ALLOC 2
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#define KERN_AMFI_SUPPORTS_CORE_ENTITLEMENTS_V2 0
+#else
 #define KERN_AMFI_SUPPORTS_CORE_ENTITLEMENTS_V2 1
+#endif
 
 #pragma mark Forward Declarations
 struct proc;
@@ -135,6 +152,10 @@ typedef struct _OSEntitlementsInterface {
 
 #pragma mark libTrustCache
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* Development port has no trust-cache provider or binary AMFI ABI. */
+#define KERN_AMFI_SUPPORTS_TRUST_CACHE_API 0
+#else
 #include <TrustCache/API.h>
 #define KERN_AMFI_SUPPORTS_TRUST_CACHE_API 1
 #define TRUST_CACHE_INTERFACE_VERSION 4u
@@ -248,6 +269,7 @@ typedef struct _TrustCacheInterface {
 	getModule_t getModule;
 	getUUID_t getUUID;
 } TrustCacheInterface_t;
+#endif /* !ARM64_BOARD_CONFIG_BCM2712 */
 
 #define APPLE_FEATURE_MTE 1
 

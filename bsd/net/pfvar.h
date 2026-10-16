@@ -2467,14 +2467,10 @@ __private_extern__ int pf_osfp_get(struct pf_osfp_ioctl *);
 __private_extern__ void pf_osfp_initialize(void);
 __private_extern__ int pf_osfp_match(struct pf_osfp_enlist *, pf_osfp_t);
 __private_extern__ struct pf_os_fingerprint *pf_osfp_validate(void);
-__private_extern__ struct pf_mtag *pf_find_mtag(struct mbuf *);
 __private_extern__ struct pf_mtag *pf_find_mtag_pbuf(pbuf_t *);
 __private_extern__ struct pf_mtag *pf_get_mtag(struct mbuf *);
 __private_extern__ struct pf_mtag *pf_get_mtag_pbuf(pbuf_t *);
 __private_extern__ struct pf_fragment_tag * pf_find_fragment_tag_pbuf(pbuf_t *);
-__private_extern__ struct pf_fragment_tag * pf_find_fragment_tag(struct mbuf *);
-__private_extern__ struct pf_fragment_tag * pf_copy_fragment_tag(struct mbuf *,
-    struct pf_fragment_tag *, int);
 #if SKYWALK
 #define PF_COMPATIBLE_FLAGS_PF_ENABLED 0x00000001
 #define PF_COMPATIBLE_FLAGS_CUSTOM_ANCHORS_PRESENT 0x00000002

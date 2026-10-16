@@ -1,0 +1,15 @@
+{
+  "count": 9,
+  "original_constructor_addresses": {
+    "_inet_ctor": 4295022792,
+    "_inet6_ctor": 4295023904,
+    "_link_ctor": 4295026988,
+    "_bond_ctor": 4295028108,
+    "_bridge_ctor": 4295029200,
+    "_clone_ctor": 4295032728,
+    "_ifconfig_ctor": 4295038292,
+    "_ifmedia_ctor": 4295041056,
+    "_vlan_ctor": 4295043516
+  },
+  "scope": "linked pointer/section inspection; actual constructor execution requires guest evidence"
+}

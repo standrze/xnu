@@ -794,6 +794,7 @@ pktsched_mbuf_mark_ecn(struct mbuf* m)
 	}
 }
 
+#if SKYWALK
 static int
 pktsched_kpkt_mark_ecn(struct __kern_packet *kpkt)
 {
@@ -873,14 +874,18 @@ pktsched_kpkt_mark_ecn(struct __kern_packet *kpkt)
 	}
 }
 
+#endif /* SKYWALK */
+
 int
 pktsched_mark_ecn(pktsched_pkt_t *pkt)
 {
 	switch (pkt->pktsched_ptype) {
 	case QP_MBUF:
 		return pktsched_mbuf_mark_ecn(pkt->pktsched_pkt_mbuf);
+#if SKYWALK
 	case QP_PACKET:
 		return pktsched_kpkt_mark_ecn(pkt->pktsched_pkt_kpkt);
+#endif /* SKYWALK */
 	default:
 		VERIFY(0);
 		/* NOTREACHED */
@@ -896,10 +901,12 @@ pktsched_is_pkt_l4s(pktsched_pkt_t *pkt)
 		struct pkthdr *pkth = &(pkt->pktsched_pkt_mbuf->m_pkthdr);
 		return (pkth->pkt_ext_flags & PKTF_EXT_L4S) != 0;
 	}
+#if SKYWALK
 	case QP_PACKET: {
 		struct __kern_packet *kp = pkt->pktsched_pkt_kpkt;
 		return (kp->pkt_pflags & PKT_F_L4S) != 0;
 	}
+#endif /* SKYWALK */
 
 	default:
 		VERIFY(0);

@@ -1,0 +1,20 @@
+--- a/IOPCIBridge.cpp
++++ b/IOPCIBridge.cpp
+@@ -532,7 +532,7 @@
+ 
+ 	if (entry == NULL)
+ 	{
+-		return NULL;
++		return false;
+ 	}
+ 
+ 	entry = entry->getParentEntry(gIOServicePlane);
+@@ -575,7 +575,7 @@
+ 		return kIOReturnSuccess;
+ 	});
+ 
+-    return true;
++    return;
+ }
+ 
+ void IOPCIHostBridgeData::disablePowerAssertion(void)

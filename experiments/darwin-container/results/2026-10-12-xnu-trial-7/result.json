@@ -1,0 +1,13 @@
+{
+  "commandExitStatus" : 0,
+  "commandRequested" : true,
+  "commandSucceeded" : true,
+  "elapsedSeconds" : 1.3750425000034738,
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/darwin-vz-xnu-trial-7",
+  "serialByteCount" : 7255,
+  "sessionID" : "2ab057ca5a2f46deab3340f755fc4678",
+  "shellReadyObserved" : true,
+  "started" : true,
+  "termination" : "guestStopped"
+}

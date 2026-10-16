@@ -1,0 +1,36 @@
+--- a/IOPCIBridge.cpp
++++ b/IOPCIBridge.cpp
+@@ -31,7 +31,15 @@
+ #include <IOKit/acpi/IOACPIPlatformDevice.h>
+ #include "AppleVTD.h"
+ #elif TARGET_CPU_ARM64 || TARGET_CPU_ARM
++// BCM2712 has no Apple DART. This port still needs its own admitted DMA
++// translation/coherency provider; omitting Apple-only platform calls is not
++// an identity-mapping or bus-mastering authorization.
++#if defined(RPI5_PCI_NO_APPLE_DART) && !defined(ARM64_BOARD_CONFIG_BCM2712)
++#error RPI5_PCI_NO_APPLE_DART is restricted to the BCM2712 port
++#endif
++#if !defined(RPI5_PCI_NO_APPLE_DART)
+ #include <IOKit/dart/IODARTKeys.h>
++#endif
+ #include <IOKit/IOMapper.h>
+ #endif
+ 
+@@ -3102,7 +3110,7 @@
+ void IOPCIBridge::waitForDartToQuiesce(IOPCIDevice *nub)
+ {
+ // This function will be removed once rdar://115125719 is resolved
+-#if TARGET_CPU_ARM64 || TARGET_CPU_ARM
++#if (TARGET_CPU_ARM64 || TARGET_CPU_ARM) && !defined(RPI5_PCI_NO_APPLE_DART)
+     IOMapper* dartMapper = IOMapper::copyMapperForDevice(nub);
+     if(   (dartMapper != NULL)
+        && (dartMapper->metaCast("IODARTMapper") != NULL))
+@@ -4428,7 +4436,7 @@
+ 
+ #if ACPI_SUPPORT
+ 	AppleVTD::adjustDevice(nub);
+-#elif TARGET_CPU_ARM64 || TARGET_CPU_ARM
++#elif (TARGET_CPU_ARM64 || TARGET_CPU_ARM) && !defined(RPI5_PCI_NO_APPLE_DART)
+     IOMapper* dartMapper = IOMapper::copyMapperForDevice(nub);
+     if(   (dartMapper != NULL)
+        && (dartMapper->metaCast("IODARTMapper") != NULL))

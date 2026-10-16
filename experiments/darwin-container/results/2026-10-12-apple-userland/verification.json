@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "scope": "23 source-built tools, two short workspace boots and one final offline managed job; not a full option/security suite",
+  "commands": [
+    "basename",
+    "cat",
+    "chmod",
+    "comm",
+    "cp",
+    "dirname",
+    "echo",
+    "fold",
+    "head",
+    "ln",
+    "ls",
+    "mkdir",
+    "printenv",
+    "pwd",
+    "rev",
+    "rm",
+    "rmdir",
+    "sleep",
+    "tee",
+    "touch",
+    "uname",
+    "uniq",
+    "wc"
+  ],
+  "root_nodes": {
+    "darwin-workspace-0.4.2": 49,
+    "apple-userland-workload-0.4.1": 41
+  },
+  "loader_root_limit_bytes": 8388608,
+  "host_default_and_pi_node_limit": 32,
+  "vm_only_node_limit": 96,
+  "old_packages_integrity_verified": {
+    "darwin-workspace-0.2.0": "062f69b00656b842cb568191b2e3a5c05430345d32fc31d5ef5deeb1a061ece2",
+    "counter-0.3.0": "9b533dbae59f2b1de90cffeee5c6a182ec51bc45534500831be7b6eb2790cdd7"
+  },
+  "guest_outcome": "succeeded",
+  "sha256": {
+    "results/2026-10-12-apple-utilities-trial-4/verification.json": "4d3e4f9fc0d4a7947616c022abf7809d73cc5531f15b0cbdc1db0cc6975a2404",
+    "userland/build/darwin-workspace-0.4.2/manifest.json": "72befa1cb90f9ae920b4a454be582e64015d95f5035931b25695ab197368667c",
+    "userland/build/apple-userland-workload-0.4.1/manifest.json": "34b1fe9dcd7467df314f4df8e282e4f5d4c65b377dd99fce80922a67201c9819",
+    "results/2026-10-12-apple-userland-workload-final/runs/apple-userland-final/run.json": "f93693466021dc661e74d46fb209dcd655dcecf28206a459047752217c65fa70",
+    "results/2026-10-12-apple-userland-workload-final/runs/apple-userland-final/session/result.json": "9c7c54e86e7ac357fb2dda7d1f94d6c145a0a221cc72b517b2964e239856f26e",
+    "results/2026-10-12-apple-userland-workload-final/runs/apple-userland-final/session/command-1-stdout.bin": "01108136de4517bd45b671fc46a0397178c1101887c0de43eff89e5b41a3104b",
+    "results/2026-10-12-apple-userland-workload-final/runs/apple-userland-final/session/command-1-stderr.bin": "ce3f8368d9bea2d8f6f3b69c0f2052380484855265a16e0be051393825505a5d",
+    "userland/build_apple_utilities.py": "caca1bffefa87f914ba10054bf9034fe97fe980e3239740dc0716e78523fe795",
+    "userland/build.py": "33b5b4f81eb4d43133451bfaa4d4ba35adbdc34f67c36233a7cdaeded205f2a4",
+    "userland/build_darwin_abi.py": "8b718e50195ece2142976e19b52733c43103a5205213ce4093de275c9a001c55",
+    "userland/ramroot.py": "6740b2ba27771fd2f6a75ea8ec3538756078e1f55947faacb0e3804b23287011",
+    "userland/pack_darwin_workload.py": "9b56ee70bf4ed3c6bb5ae4b3f3ddcabb296ea52ffd827fa54e86312f054348c7",
+    "userland/package_workspace.py": "e82fc416e1549aeee89285b820cf0d630141becbe491be8c418bfdb0f62c6b2e",
+    "userland/apple-utilities.sources.lock.json": "8c58038ee97c54c2dbed5b50926a335d833c0fc4f23aaec1fbd56ff184cf32cb",
+    "userland/tests/apple_utilities_smoke.zsh": "6162763b4dbfdccc9c326d600f5e23e3eb1d30b516886312719e4bd7d02a5a90"
+  },
+  "failed_trials_retained": [
+    "trial-1: bulk terminal paste stalled",
+    "trial-2: read-only mkdir ancestor",
+    "trial-3: old calendar conversion hung; replaced by Apple Libc-391 time code"
+  ]
+}

@@ -320,7 +320,7 @@ sysctl_hw_generic(__unused struct sysctl_oid *oidp, void *arg1,
 	 * If we are using one of the perflevel sysctls, return early if the perflevel
 	 * does not exist in this system.
 	 */
-	int perflevel = (int)arg1;
+	int perflevel = (int)(uintptr_t)arg1;
 	int n_perflevels = __builtin_popcount(ml_get_cpu_types());
 
 	if (arg2 & CTLHW_PERFLEVEL) {
@@ -750,7 +750,11 @@ sysctl_load_devicetree_entries(void)
 		}
 	}
 
+#if !defined(ARM64_BOARD_CONFIG_BCM2712)
 	eng_sample_dev_fused = !ml_device_is_prod_fused();
+#endif /* Pi bring-up retains the conservative engineering-sample default;
+        * no Apple production-fuse interface exists on this platform.
+        */
 }
 STARTUP(SYSCTL, STARTUP_RANK_MIDDLE, sysctl_load_devicetree_entries);
 

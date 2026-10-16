@@ -1,0 +1,370 @@
+# Path: /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/userland
+# Arch: arm64
+# Object files:
+[  0] linker synthesized
+[  1] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/apple-network/ns_name.o
+[  2] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/apple-network/ns_parse.o
+[  3] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/apple-network/ns_netint.o
+[  4] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/apple-network/res_comp.o
+[  5] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/start.o
+[  6] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/runtime.o
+[  7] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/parser.o
+[  8] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/shell.o
+[  9] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/utilities.o
+[ 10] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/init.o
+[ 11] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/poweroff.o
+[ 12] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/storage.o
+[ 13] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/terminal.o
+[ 14] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/terminal_protocol.o
+[ 15] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/network.o
+[ 16] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/gpu_client.o
+[ 17] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/gpu_relay.o
+[ 18] /Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/zsh-apple-network-1/apple_dns.o
+# Sections:
+# Address	Size    	Segment	Section
+0x1000004A8	0x00006784	__TEXT	__text
+0x100006C30	0x00000280	__TEXT	__const
+0x100006EB0	0x00000B04	__TEXT	__cstring
+0x100008000	0x00000480	__DATA	__data
+0x100008480	0x00000068	__DATA	__const
+0x1000084E8	0x0000100C	__DATA	__bss
+# Symbols:
+# Address	Size    	File  Name
+0x100000000	0x00000000	[  0] __mh_execute_header
+0x1000004A8	0x00000198	[  1] _res_9_ns_name_unpack2
+0x100000640	0x000000D4	[  1] _res_9_ns_name_skip
+0x100000714	0x00000020	[  2] _res_9_ns_msg_getflag
+0x100000734	0x000000B0	[  2] _res_9_ns_skiprr
+0x1000007E4	0x00000110	[  2] _res_9_ns_initparse
+0x1000008F4	0x000001FC	[  2] _res_9_ns_parserr2
+0x100000AF0	0x0000000C	[  3] _res_9_ns_get16
+0x100000AFC	0x00000040	[  4] _res_9_dn_skipname
+0x100000B3C	0x00000000	[  5] _start
+0x100000B3C	0x00000024	[  5] ltmp0
+0x100000B60	0x00000028	[  5] _rt_call
+0x100000B88	0x00000020	[  5] _rt_fork
+0x100000BA8	0x00000028	[  5] _rt_pipe
+0x100000BD0	0x0000001C	[  6] _memcpy
+0x100000BEC	0x00000018	[  6] _memset
+0x100000C04	0x00000018	[  6] _rt_len
+0x100000C1C	0x00000034	[  6] _rt_equal
+0x100000C50	0x00000044	[  6] _rt_copy
+0x100000C94	0x00000020	[  6] _rt_read
+0x100000CB4	0x00000020	[  6] _rt_write
+0x100000CD4	0x00000024	[  6] _rt_open
+0x100000CF8	0x00000020	[  6] _rt_close
+0x100000D18	0x00000024	[  6] _rt_dup2
+0x100000D3C	0x00000020	[  6] _rt_chdir
+0x100000D5C	0x00000020	[  6] _rt_getpid
+0x100000D7C	0x00000020	[  6] _rt_entries
+0x100000D9C	0x00000048	[  6] _rt_wait
+0x100000DE4	0x0000002C	[  6] _rt_exit
+0x100000E10	0x00000040	[  6] _rt_sleep
+0x100000E50	0x00000084	[  6] _rt_write_all
+0x100000ED4	0x00000018	[  6] _rt_put
+0x100000EEC	0x00000068	[  6] _rt_number
+0x100000F54	0x00000070	[  6] _rt_error
+0x100000FC4	0x00000028	[  6] _rt_basename
+0x100000FEC	0x00000558	[  7] _sh_parse
+0x100001544	0x000001F8	[  7] _sh_path
+0x10000173C	0x000002D0	[  8] _shell_main
+0x100001A0C	0x00000440	[  8] _run_line
+0x100001E4C	0x000000DC	[  8] _redirect
+0x100001F28	0x0000019C	[  8] _builtin
+0x1000020C4	0x00000144	[  8] _execute
+0x100002208	0x00000424	[  9] _utility_main
+0x10000262C	0x00000108	[  9] _files
+0x100002734	0x0000018C	[  9] _list
+0x1000028C0	0x000000A0	[  9] _uname_value
+0x100002960	0x000001D4	[  9] _stream
+0x100002B34	0x0000008C	[ 10] _user_start
+0x100002BC0	0x00000258	[ 10] _init_main
+0x100002E18	0x00000080	[ 10] _init_check_shutdown
+0x100002E98	0x00000094	[ 11] _poweroff_main
+0x100002F2C	0x000001A8	[ 12] _workload_mount
+0x1000030D4	0x000009AC	[ 13] _terminal_main
+0x100003A80	0x00000110	[ 13] _terminal_frame_read
+0x100003B90	0x0000006C	[ 13] _terminal_nonblocking
+0x100003BFC	0x000000E4	[ 13] _terminal_frame_queue
+0x100003CE0	0x00000080	[ 13] _terminal_send
+0x100003D60	0x000000C8	[ 13] _terminal_frame_flush
+0x100003E28	0x00000410	[ 14] _dgt_decode
+0x100004238	0x000001E8	[ 14] _dgt_encode
+0x100004420	0x0000000C	[ 15] _bzero
+0x10000442C	0x00001474	[ 15] _network_main
+0x1000058A0	0x00000224	[ 15] _identity
+0x100005AC4	0x000000B4	[ 15] _socket_open
+0x100005B78	0x000000EC	[ 15] _configure
+0x100005C64	0x00000104	[ 15] _default_route
+0x100005D68	0x00000064	[ 15] _ip_print
+0x100005DCC	0x0000006C	[ 15] _port_parse
+0x100005E38	0x0000042C	[ 16] _exchange
+0x100006264	0x00000254	[ 16] _gpu_main
+0x1000064B8	0x0000018C	[ 17] _gpu_relay_open
+0x100006644	0x00000060	[ 17] _gpu_relay_close
+0x1000066A4	0x00000134	[ 17] _gpu_relay_request
+0x1000067D8	0x00000048	[ 17] _now
+0x100006820	0x0000011C	[ 17] _gpu_relay_reply
+0x10000693C	0x0000007C	[ 17] _gpu_relay_expired
+0x1000069B8	0x0000000C	[ 18] ___error
+0x1000069C4	0x00000268	[ 18] _apple_dns_answer
+0x100006C30	0x00000008	[  2] 8-byte-literal
+0x100006C38	0x00000150	[  8] _help
+0x100006D88	0x00000004	[ 10] _shutdown_mask
+0x100006D90	0x00000010	[ 13] 16-byte-literal
+0x100006DA0	0x00000008	[ 14] 8-byte-literal
+0x100006DA8	0x00000008	[ 15] 8-byte-literal
+0x100006DB0	0x00000008	[ 15] 8-byte-literal
+0x100006DB8	0x00000008	[ 15] 8-byte-literal
+0x100006DC0	0x00000008	[ 15] 8-byte-literal
+0x100006DC8	0x00000008	[ 15] 8-byte-literal
+0x100006DD0	0x00000008	[ 15] 8-byte-literal
+0x100006DE0	0x00000010	[ 15] 16-byte-literal
+0x100006DF0	0x00000010	[ 15] 16-byte-literal
+0x100006E00	0x00000010	[ 15] 16-byte-literal
+0x100006E10	0x00000010	[ 15] 16-byte-literal
+0x100006E20	0x00000028	[ 15] l___const.arp_monitor.rules
+0x100006E48	0x00000018	[ 15] l___const.identity.mib
+0x100006E60	0x00000008	[ 16] 8-byte-literal
+0x100006E70	0x00000010	[ 16] 16-byte-literal
+0x100006E80	0x00000010	[ 16] 16-byte-literal
+0x100006E90	0x00000010	[ 16] 16-byte-literal
+0x100006EA0	0x00000010	[ 17] 16-byte-literal
+0x100006EB0	0x00000009	[  6] literal string: : errno 
+0x100006EB9	0x00000002	[  6] literal string: \n
+0x100006EBB	0x00000016	[  7] literal string: missing redirect path
+0x100006ED1	0x00000010	[  7] literal string: missing command
+0x100006EE1	0x0000000E	[  7] literal string: empty command
+0x100006EEF	0x00000022	[  7] literal string: background jobs are not supported
+0x100006F11	0x0000001F	[  7] literal string: missing command after operator
+0x100006F30	0x00000012	[  7] literal string: too many commands
+0x100006F42	0x00000010	[  7] literal string: trailing escape
+0x100006F52	0x00000012	[  7] literal string: line storage full
+0x100006F64	0x00000029	[  7] literal string: only $? and $PWD expansion are supported
+0x100006F8D	0x00000013	[  7] literal string: unterminated quote
+0x100006FA0	0x00000014	[  7] literal string: empty redirect path
+0x100006FB4	0x00000019	[  7] literal string: duplicate input redirect
+0x100006FCD	0x0000001A	[  7] literal string: duplicate output redirect
+0x100006FE7	0x00000013	[  7] literal string: too many arguments
+0x100006FFA	0x00000003	[  8] literal string: -c
+0x100006FFD	0x00000021	[  8] literal string: usage: sh [-c command | script]\n
+0x10000701E	0x0000003A	[  8] literal string: \nDARWIN:SHELL:READY\nType help for commands.\ndarwin-vm:/# 
+0x100007058	0x00000005	[  8] literal string: read
+0x10000705D	0x0000000F	[  8] literal string: line too long\n
+0x10000706C	0x0000000B	[  8] literal string: darwin-vm:
+0x100007077	0x00000003	[  8] literal string: # 
+0x10000707A	0x00000009	[  8] literal string: syntax: 
+0x100007083	0x00000020	[  8] literal string: shell: cannot save descriptors\n
+0x1000070A3	0x0000000D	[  8] literal string: pipe failed\n
+0x1000070B0	0x00000005	[  8] literal string: fork
+0x1000070B5	0x00000003	[  8] literal string: cd
+0x1000070B8	0x00000004	[  8] literal string: pwd
+0x1000070BC	0x00000005	[  8] literal string: help
+0x1000070C1	0x00000007	[  8] literal string: status
+0x1000070C8	0x00000005	[  8] literal string: exit
+0x1000070CD	0x00000005	[  8] literal string: dup2
+0x1000070D2	0x0000001E	[  8] literal string: exit: no arguments supported\n
+0x1000070F0	0x00000002	[  8] literal string: /
+0x1000070F2	0x0000001A	[  8] literal string: cd: invalid or long path\n
+0x10000710C	0x00000006	[  8] literal string: /bin/
+0x100007112	0x00000005	[  8] literal string: PWD=
+0x100007117	0x0000000A	[  8] literal string: PATH=/bin
+0x100007121	0x00000007	[  8] literal string: HOME=/
+0x100007128	0x0000000A	[  8] literal string: TERM=dumb
+0x100007132	0x00000007	[  9] literal string: gpuctl
+0x100007139	0x00000007	[  9] literal string: netctl
+0x100007140	0x00000009	[  9] literal string: poweroff
+0x100007149	0x00000005	[  9] literal string: true
+0x10000714E	0x00000006	[  9] literal string: false
+0x100007154	0x00000005	[  9] literal string: echo
+0x100007159	0x00000003	[  9] literal string: -n
+0x10000715C	0x00000002	[  9] literal string:  
+0x10000715E	0x00000004	[  9] literal string: cat
+0x100007162	0x00000003	[  9] literal string: wc
+0x100007165	0x00000008	[  9] literal string: hexdump
+0x10000716D	0x00000003	[  9] literal string: ls
+0x100007170	0x00000002	[  9] literal string: .
+0x100007172	0x00000006	[  9] literal string: sleep
+0x100007178	0x00000020	[  9] literal string: usage: sleep seconds (0..3600)\n
+0x100007198	0x00000019	[  9] literal string: sleep: invalid duration\n
+0x1000071B1	0x00000006	[  9] literal string: uname
+0x1000071B7	0x00000003	[  9] literal string: -a
+0x1000071BA	0x00000013	[  9] literal string: usage: uname [-a]\n
+0x1000071CD	0x00000011	[  9] literal string: unknown utility\n
+0x1000071DE	0x00000002	[  9] literal string: -
+0x1000071E0	0x00000011	[  9] literal string: 0123456789abcdef
+0x1000071F1	0x00000003	[  9] literal string: ..
+0x1000071F4	0x00000003	[  9] literal string: /\n
+0x1000071F7	0x00000020	[  9] literal string: ls: malformed directory result\n
+0x100007217	0x0000000D	[  9] literal string: uname/sysctl
+0x100007224	0x00000003	[ 10] literal string: sh
+0x100007227	0x0000000D	[ 10] literal string: /dev/console
+0x100007234	0x00000013	[ 10] literal string: init block SIGTERM
+0x100007247	0x0000002D	[ 10] literal string: DARWIN:STORAGE:FAILED; workload not started\n
+0x100007274	0x00000013	[ 10] literal string: DARWIN:INIT:READY\n
+0x100007287	0x0000001B	[ 10] literal string: init restore child signals
+0x1000072A2	0x00000010	[ 10] literal string: PATH=/bin:/sbin
+0x1000072B2	0x0000000A	[ 10] literal string: PWD=/data
+0x1000072BC	0x0000000B	[ 10] literal string: HOME=/data
+0x1000072C7	0x0000000B	[ 10] literal string: TERM=vt100
+0x1000072D2	0x00000017	[ 10] literal string: TERMINFO=/etc/terminfo
+0x1000072E9	0x0000001C	[ 10] literal string: HISTFILE=/data/.zsh_history
+0x100007305	0x0000000E	[ 10] literal string: HISTSIZE=1000
+0x100007313	0x0000000E	[ 10] literal string: SAVEHIST=1000
+0x100007321	0x00000012	[ 10] literal string: PS1=darwin-zsh%# 
+0x100007333	0x0000000A	[ 10] literal string: init fork
+0x10000733D	0x00000017	[ 10] literal string: DARWIN:INIT:SHELL_PID=
+0x100007354	0x00000025	[ 10] literal string: DARWIN:INIT:ZSH_STOPPED:WAIT_STATUS=
+0x100007379	0x00000006	[ 10] literal string: /data
+0x10000737F	0x00000021	[ 10] literal string: workload unmount before poweroff
+0x1000073A0	0x00000010	[ 10] literal string: init sigpending
+0x1000073B0	0x00000016	[ 10] literal string: DARWIN:INIT:SHUTDOWN\n
+0x1000073C6	0x00000011	[ 11] literal string: usage: poweroff\n
+0x1000073D7	0x00000019	[ 11] literal string: DARWIN:POWEROFF:REQUEST\n
+0x1000073F0	0x00000010	[ 11] literal string: poweroff/reboot
+0x100007400	0x00000033	[ 11] literal string: poweroff: reboot returned without stopping the VM\n
+0x100007433	0x0000000B	[ 12] literal string: /dev/disk0
+0x10000743E	0x00000004	[ 12] literal string: hfs
+0x100007442	0x0000001A	[ 12] literal string: workload mount /dev/disk0
+0x10000745C	0x0000001A	[ 12] literal string: workload mounted identity
+0x100007476	0x00000037	[ 12] literal string: DARWIN:STORAGE:MOUNTED /dev/disk0 /data HFS READWRITE\n
+0x1000074AD	0x00000017	[ 13] literal string: PTY console attributes
+0x1000074C4	0x00000015	[ 13] literal string: PTY console raw mode
+0x1000074D9	0x0000000A	[ 13] literal string: /dev/ptmx
+0x1000074E3	0x0000000B	[ 13] literal string: PTY master
+0x1000074EE	0x0000001E	[ 13] literal string: PTY grant/unlock/name failed\n
+0x10000750C	0x0000000A	[ 13] literal string: PTY slave
+0x100007516	0x00000014	[ 13] literal string: DARWIN:PTY:READY:1\n
+0x10000752A	0x00000006	[ 13] literal string: HELLO
+0x100007530	0x00000016	[ 13] literal string: PTY handshake failed\n
+0x100007546	0x00000010	[ 13] literal string: PTY window size
+0x100007556	0x0000001B	[ 13] literal string: GPU local endpoint failed\n
+0x100007571	0x00000009	[ 13] literal string: /bin/zsh
+0x10000757A	0x00000003	[ 13] literal string: -i
+0x10000757D	0x0000000D	[ 13] literal string: PTY exec zsh
+0x10000758A	0x00000009	[ 13] literal string: PTY fork
+0x100007593	0x00000006	[ 13] literal string: INPUT
+0x100007599	0x00000007	[ 13] literal string: RESIZE
+0x1000075A0	0x00000005	[ 13] literal string: SIZE
+0x1000075A5	0x00000007	[ 13] literal string: GPURES
+0x1000075AC	0x00000004	[ 13] literal string: GPU
+0x1000075B0	0x00000007	[ 13] literal string: OUTPUT
+0x1000075B7	0x00000005	[ 13] literal string: EXIT
+0x1000075BC	0x00000007	[ 14] literal string: length
+0x1000075C3	0x00000006	[ 14] literal string: ascii
+0x1000075C9	0x00000007	[ 14] literal string: fields
+0x1000075D0	0x00000008	[ 14] literal string: version
+0x1000075D8	0x0000000A	[ 14] literal string: direction
+0x1000075E2	0x00000008	[ 14] literal string: session
+0x1000075EA	0x00000009	[ 14] literal string: sequence
+0x1000075F3	0x00000005	[ 14] literal string: type
+0x1000075F8	0x00000008	[ 14] literal string: payload
+0x100007600	0x00000004	[ 14] literal string: crc
+0x100007604	0x00000011	[ 14] literal string: 0123456789abcdef
+0x100007615	0x00000005	[ 15] literal string: dhcp
+0x10000761A	0x00000009	[ 15] literal string: exchange
+0x100007623	0x00000005	[ 15] literal string: info
+0x100007628	0x00000020	[ 15] literal string: DARWIN:NET:INTERFACE en0 INDEX=
+0x100007648	0x00000006	[ 15] literal string:  MAC=
+0x10000764E	0x00000011	[ 15] literal string: 0123456789abcdef
+0x10000765F	0x00000002	[ 15] literal string: :
+0x100007661	0x0000003D	[ 15] literal string: usage: netctl info|dhcp|exchange HOST DNSPORT TCPPORT TOKEN\n
+0x10000769E	0x0000000E	[ 15] literal string: netctl/socket
+0x1000076AC	0x00000004	[ 15] literal string: en0
+0x1000076B0	0x0000000A	[ 15] literal string: /dev/bpf0
+0x1000076BA	0x0000001A	[ 15] literal string: netctl: DHCP ACK timeout\n
+0x1000076D4	0x0000001C	[ 15] literal string: netctl: DHCP OFFER timeout\n
+0x1000076F0	0x00000014	[ 15] literal string: DARWIN:NET:DHCP IP=
+0x100007704	0x00000007	[ 15] literal string:  MASK=
+0x10000770B	0x00000009	[ 15] literal string:  ROUTER=
+0x100007714	0x00000006	[ 15] literal string:  DNS=
+0x10000771A	0x0000000C	[ 15] literal string: netctl/dhcp
+0x100007726	0x0000000F	[ 15] literal string: netctl/address
+0x100007735	0x00000014	[ 15] literal string: netctl/route-socket
+0x100007749	0x00000015	[ 15] literal string: netctl/default-route
+0x10000775E	0x00000007	[ 15] literal string: darwin
+0x100007765	0x00000005	[ 15] literal string: test
+0x10000776A	0x00000014	[ 15] literal string: netctl/monitor-open
+0x10000777E	0x00000028	[ 15] literal string: DARWIN:NET:APPLE_DNS_WIRE libresolv-96\n
+0x1000077A6	0x00000010	[ 15] literal string: DARWIN:NET:DNS 
+0x1000077B6	0x00000010	[ 15] literal string: .darwin.test A=
+0x1000077C6	0x00000015	[ 15] literal string: DARWIN:NET:TCP ECHO=
+0x1000077DB	0x00000010	[ 15] literal string: netctl/exchange
+0x1000077EB	0x0000001A	[ 15] literal string: netctl/packet-observation
+0x100007805	0x00000013	[ 15] literal string: DARWIN:NET:ARP OP=
+0x100007818	0x00000007	[ 15] literal string:  FROM=
+0x10000781F	0x00000005	[ 15] literal string:  TO=
+0x100007824	0x00000015	[ 15] literal string: DARWIN:NET:UDP FROM=
+0x100007839	0x00000007	[ 15] literal string:  PORT=
+0x100007840	0x0000000F	[ 15] literal string:  CHECKSUM_SUM=
+0x10000784F	0x00000018	[ 15] literal string: debug.vznet_rx_rejected
+0x100007867	0x00000019	[ 15] literal string: DARWIN:NET:REJECTED LEN=
+0x100007880	0x00000008	[ 15] literal string:  FLAGS=
+0x100007888	0x00000006	[ 15] literal string:  GSO=
+0x10000788E	0x0000000D	[ 15] literal string:  CSUM_START=
+0x10000789B	0x0000000E	[ 15] literal string:  CSUM_OFFSET=
+0x1000078A9	0x0000000E	[ 15] literal string: netctl/iflist
+0x1000078B7	0x0000001A	[ 15] literal string: netctl: en0 not attached\n
+0x1000078D1	0x0000000C	[ 16] literal string: unsupported
+0x1000078DD	0x00000013	[ 16] literal string: gpuctl unsupported
+0x1000078F0	0x00000021	[ 16] literal string: DARWIN:GPU:UNSUPPORTED status=1\n
+0x100007911	0x00000009	[ 16] literal string: selftest
+0x10000791A	0x00000024	[ 16] literal string: gpuctl selftest SEED | unsupported\n
+0x10000793E	0x0000000B	[ 16] literal string: gpuctl add
+0x100007949	0x0000001E	[ 16] literal string: gpuctl wrong returned result\n
+0x100007967	0x00000018	[ 16] literal string: DARWIN:GPU:ADD OK seed=
+0x10000797F	0x0000000B	[ 16] literal string:  count=16\n
+0x10000798A	0x00000017	[ 16] literal string: /data/.darwin-gpu.sock
+0x1000079A1	0x00000013	[ 16] literal string: /data/.darwin-gpu-
+0x100008000	0x00000080	[  2] __res_9_ns_flagdata
+0x100008080	0x00000400	[  8] _cwd
+0x100008480	0x00000050	[ 10] l___const.init_main.env
+0x1000084D0	0x00000018	[ 13] l___const.terminal_main.argv
+0x1000084E8	0x00000004	[  8] _last_status
+0x1000084EC	0x00000001	[  8] _leave_shell
+0x1000084ED	0x00001000	[ 15] _arp_observation.records
+0x1000094F0	0x00000004	[ 18] _parser_errno
+
+# Dead Stripped Symbols:
+#        	Size    	File  Name
+<<dead>>	0x00000368	[  1] _res_9_ns_name_ntop
+<<dead>>	0x00000008	[  1] _res_9_ns_name_pton
+<<dead>>	0x000003E4	[  1] _res_9_ns_name_pton2
+<<dead>>	0x00000114	[  1] _res_9_ns_name_ntol
+<<dead>>	0x00000008	[  1] _res_9_ns_name_unpack
+<<dead>>	0x00000324	[  1] _res_9_ns_name_pack
+<<dead>>	0x00000064	[  1] _res_9_ns_name_uncompress
+<<dead>>	0x00000070	[  1] _res_9_ns_name_compress
+<<dead>>	0x00000028	[  1] _res_9_ns_name_rollback
+<<dead>>	0x0000000B	[  1] _digits
+<<dead>>	0x00000100	[  1] _digitvalue
+<<dead>>	0x00000004	[  1] literal string: \[x
+<<dead>>	0x00000005	[  1] literal string: %02x
+<<dead>>	0x00000004	[  1] literal string: %1x
+<<dead>>	0x00000005	[  1] literal string: /%d]
+<<dead>>	0x00000200	[  2] _res_9_ns_parserr
+<<dead>>	0x0000000C	[  3] _res_9_ns_get32
+<<dead>>	0x00000010	[  3] _res_9_ns_put16
+<<dead>>	0x0000000C	[  3] _res_9_ns_put32
+<<dead>>	0x0000003C	[  4] _res_9_dn_expand
+<<dead>>	0x00000008	[  4] _res_9_dn_comp
+<<dead>>	0x000000B4	[  4] _res_9_hnok
+<<dead>>	0x0000002C	[  4] _res_9_ownok
+<<dead>>	0x00000058	[  4] _res_9_mailok
+<<dead>>	0x00000024	[  4] _res_9_dnok
+<<dead>>	0x00000008	[  4] _res_9_putlong
+<<dead>>	0x00000004	[  4] _res_9_putshort
+<<dead>>	0x00000014	[  4] _res_9_getlong
+<<dead>>	0x00000018	[  4] _res_9_getshort
+<<dead>>	0x00000048	[  6] _rt_input_ready
+<<dead>>	0x00000002	[  8] literal string: \n
+<<dead>>	0x00000002	[  9] literal string: \n
+<<dead>>	0x00000005	[  9] literal string: read
+<<dead>>	0x00000002	[ 10] literal string: \n
+<<dead>>	0x00000006	[ 12] literal string: /data
+<<dead>>	0x00000006	[ 13] literal string: /data
+<<dead>>	0x00000002	[ 15] literal string: \n
+<<dead>>	0x00000002	[ 15] literal string: .
+<<dead>>	0x00000024	[ 16] _gpu_client_add
+<<dead>>	0x00000017	[ 17] literal string: /data/.darwin-gpu.sock
+<<dead>>	0x00000010	[ 18] 16-byte-literal

@@ -1,0 +1,40 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAccepted" : true,
+        "cancellationAcknowledged" : true,
+        "cancellationRequested" : true,
+        "cancelled" : true,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 0,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 13,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true,
+        "terminationSignal" : 15
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 2.0890153750078753,
+  "error" : "guest exceeded the 1-second deadline",
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-timeout-1",
+  "serialByteCount" : 7461,
+  "sessionID" : "9f96b56250d84400b88f8669b7683c71",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "timedOut"
+}

@@ -1,0 +1,40 @@
+{
+  "agent" : {
+    "commands" : [
+      {
+        "cancellationAccepted" : true,
+        "cancellationAcknowledged" : true,
+        "cancellationRequested" : true,
+        "cancelled" : true,
+        "cleanupVerified" : true,
+        "commandID" : 1,
+        "outputLimit" : false,
+        "processID" : 3,
+        "stderrByteCount" : 19,
+        "stderrEOF" : true,
+        "stderrPath" : "command-1-stderr.bin",
+        "stdoutByteCount" : 17,
+        "stdoutEOF" : true,
+        "stdoutPath" : "command-1-stdout.bin",
+        "terminalObserved" : true,
+        "terminationSignal" : 9
+      }
+    ],
+    "handshakeCompleted" : true,
+    "protocolValid" : true,
+    "protocolVersion" : 1,
+    "readyObserved" : true,
+    "shutdownAcknowledged" : true
+  },
+  "commandRequested" : true,
+  "commandSucceeded" : false,
+  "elapsedSeconds" : 2.3896031666663475,
+  "error" : "host task was cancelled",
+  "guestStopped" : true,
+  "outputDirectory" : "\/private\/tmp\/dc3-managed-api-cancel-2",
+  "serialByteCount" : 7585,
+  "sessionID" : "c59daef988384f55a4a8364ec74c6694",
+  "shellReadyObserved" : false,
+  "started" : true,
+  "termination" : "interrupted"
+}

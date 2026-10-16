@@ -31,6 +31,9 @@
 #include <libkern/crypto/aesxts.h>
 #include <corecrypto/ccmode.h>
 #include <corecrypto/ccpad.h>
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <corecrypto/cc_error.h>
+#endif
 #include <kern/debug.h>
 
 /*
@@ -88,7 +91,14 @@ xts_encrypt(const uint8_t *pt, unsigned long ptlen,
 		return rc;
 	}
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* A failed candidate provider call must not look like encryption success. */
+	if (xtsenc->xts(xts->enc, tweak, ptlen / 16, pt, ct) == NULL) {
+		return CCERR_INTERNAL;
+	}
+#else
 	xtsenc->xts(xts->enc, tweak, ptlen / 16, pt, ct);
+#endif
 	return 0;
 }
 
@@ -110,7 +120,13 @@ xts_decrypt(const uint8_t *ct, unsigned long ptlen,
 		return rc;
 	}
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (xtsdec->xts(xts->dec, tweak, ptlen / 16, ct, pt) == NULL) {
+		return CCERR_INTERNAL;
+	}
+#else
 	xtsdec->xts(xts->dec, tweak, ptlen / 16, ct, pt);
+#endif
 	return 0;
 }
 

@@ -1,0 +1,41 @@
+{
+  "profile": "bcm2712-gem-full-retained-provider-default-off-v7",
+  "sources": [
+    {
+      "path": "iokit/Kernel/BCM2712GEMDMAMemory.h",
+      "sha256": "4a3072e5b447ae56af2146d0560734a59f22e741cfe6571ab9a5f5bcc3fbc87a"
+    },
+    {
+      "path": "iokit/Kernel/BCM2712GEMDMAMemory.cpp",
+      "sha256": "41c029887570fbd042bd717a708e019b6cbfee3893effd0e3c1aa215ab42c43d"
+    },
+    {
+      "path": "tools/rpi5/tests/gem_dma_memory_host.cpp",
+      "sha256": "1e705b46ae114979e9992590e33fc80eb11f5b7c32f7f5c5a061b7a5cc93fcee"
+    },
+    {
+      "path": "tools/rpi5/tests/test_gem_dma_memory.py",
+      "sha256": "e288b700823a9567a4be302eadea57fcaf4cc552cf9321609e05b53c1126e978"
+    },
+    {
+      "path": "tools/rpi5/build_gem_dma_memory_kernel.py",
+      "sha256": "4334d11474facd379cb7c726cd297102fdcb01c185c1648047d3a1c941737107"
+    },
+    {
+      "path": "tools/rpi5/gem_dma_memory_sources.json",
+      "sha256": "e2f73bdfd291570429c885ea000f5904f7378fb73f3bb1b7cf30ed116fdfd9e0"
+    },
+    {
+      "path": "tools/rpi5/build_gem_full_provider_candidate.py",
+      "sha256": "fd1b2f451496ac5cb4289c3d7f05f2f47137e3f1cf4daf34d0afdb3c1c1b0d65"
+    },
+    {
+      "path": "tools/rpi5/check_gem_full_provider_candidate.py",
+      "sha256": "dfc8d7339693f2f3a35018a856bfa4ff6736c0ef24e7ebcecba8949c2bb9f4b3"
+    },
+    {
+      "path": "tools/rpi5/tests/test_gem_full_provider_candidate.py",
+      "sha256": "764eed87d3a1b361dfdd0267b93df3c0d6a759658777cf28dcba179bd5d48609"
+    }
+  ]
+}

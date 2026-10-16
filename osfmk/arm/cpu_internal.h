@@ -66,6 +66,17 @@ extern bool cpu_has_SIGPdebug_pending(void);
 
 extern unsigned int real_ncpus;
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && !CONFIG_SPTM
+/* Publish physical code/data before a future PSCI CPU_ON. Both outputs are
+ * zero on failure. */
+extern bool rpi5_publish_secondary_handoff(int cpu, vm_offset_t *entry_paddr,
+    vm_offset_t *reset_vector_paddr);
+extern void rpi5_gate3_start_tlb_test(void);
+extern void rpi5_gate3_start_concurrency_test(void);
+extern bool rpi5_gate3_enable_soak(uint32_t seconds);
+extern bool rpi5_terminal_watchdog_start(void);
+#endif
+
 #if defined(CONFIG_XNUPOST) && __arm64__
 extern void arm64_ipi_test(void);
 #endif /* defined(CONFIG_XNUPOST) && __arm64__ */

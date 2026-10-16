@@ -243,6 +243,12 @@
 /* D-Cache, 128KB for Acc8 PCore, 8-way. 64KB for ECore, 8-way. */
 #define MMU_CLINE   6                      /* cache line size is 1<<MMU_CLINE (64) */
 
+#elif defined (ARM64_BOARD_CONFIG_BCM2712)
+
+/* Raspberry Pi downstream addition, 2026-09-04: Cortex-A76 cache lines. */
+#define MMU_I_CLINE 6
+#define MMU_CLINE   6
+
 #elif defined (VMAPPLE)
 
 /* I-Cache. */
@@ -3843,8 +3849,12 @@ nop
 #define MSR(reg, src)  __asm__ volatile ("msr " reg ", %0" :: "r" (src))
 #define MRS(dest, reg) __asm__ volatile ("mrs %0, " reg : "=r" (dest))
 
-#if XNU_MONITOR
+#if XNU_MONITOR || (defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT && \
+    defined(RPI5_GEM_PAGE_GRANULAR_PHYSMAP) && RPI5_GEM_PAGE_GRANULAR_PHYSMAP)
 #define __ARM_PTE_PHYSMAP__ 1
+#endif
+
+#if XNU_MONITOR
 #define PPL_STATE_KERNEL    0
 #define PPL_STATE_DISPATCH  1
 #define PPL_STATE_PANIC     2

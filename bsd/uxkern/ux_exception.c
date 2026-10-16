@@ -37,6 +37,7 @@
 #include <mach/boolean.h>
 #include <mach/exception.h>
 #include <mach/kern_return.h>
+#include <pexpert/pexpert.h>
 
 #include <sys/proc.h>
 #include <sys/user.h>
@@ -44,6 +45,10 @@
 #include <sys/vmparam.h>        /* MAXSSIZ */
 
 #include <sys/ux_exception.h>
+
+#if defined(__arm64__)
+#include <pexpert/arm64/board_config.h>
+#endif
 
 /*
  * Translate Mach exceptions to UNIX signals.
@@ -126,6 +131,18 @@ handle_ux_exception(thread_t                    thread,
 
 	/* Translate exception and code to signal type */
 	int ux_signal = ux_exception(exception, code, subcode);
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712) && DEVELOPMENT
+	/* Gate 3: identify PID 1's two-core SIGBUS at the exception boundary.
+	 * A fault handled entirely inside sleh need not reach this point. */
+	static unsigned rpi5_pid1_sigbus_reports;
+	if (p->p_pid == 1 && ux_signal == SIGBUS &&
+	    rpi5_pid1_sigbus_reports < 8) {
+		rpi5_pid1_sigbus_reports++;
+		kprintf("RPI5XNU:PID1_SIGBUS EXC=%d CODE=0x%llx SUB=0x%llx\n",
+		    exception, (unsigned long long)code, (unsigned long long)subcode);
+	}
+#endif
 
 	uthread_t ut = get_bsdthread_info(thread);
 

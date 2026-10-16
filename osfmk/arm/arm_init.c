@@ -180,6 +180,15 @@ SECURITY_READ_ONLY_LATE(boolean_t) diversify_user_jop = TRUE;
 
 SECURITY_READ_ONLY_LATE(uint64_t) gDramBase;
 SECURITY_READ_ONLY_LATE(uint64_t) gDramSize;
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <arm64/rpi5_memory_map.h>
+static SECURITY_READ_ONLY_LATE(struct rpi5_kernel_memory_map) rpi5_memory_map;
+unsigned
+rpi5_physical_memory_type(uint64_t start, uint64_t end)
+{
+	return rpi5_map_type(&rpi5_memory_map, start, end);
+}
+#endif
 SECURITY_READ_ONLY_LATE(ppnum_t)  pmap_first_pnum;
 
 SECURITY_READ_ONLY_LATE(bool) serial_console_enabled = false;
@@ -344,6 +353,13 @@ arm_auxkc_init(void *mh, void *base)
  *		Function:		Runs on the boot CPU, once, on entry from iBoot.
  */
 
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+#include <arm64/rpi5_boot_uart.h>
+#define RPI5_BOOT_MARK(stage) ((void)rpi5_boot_uart_mark_at(0x107d001000ull, stage))
+#else
+#define RPI5_BOOT_MARK(stage) ((void)0)
+#endif
+
 __startup_func
 void
 arm_init(
@@ -356,19 +372,24 @@ arm_init(
 	DTEntry chosen = NULL;
 	unsigned int dt_entry_size = 0;
 
+	RPI5_BOOT_MARK('I');
 	arm_slide_rebase_and_sign_image();
+	RPI5_BOOT_MARK('S');
 
 	arm_static_if_init(args);
+	RPI5_BOOT_MARK('T');
 
 	/* If kernel integrity is supported, use a constant copy of the boot args. */
 	const_boot_args = *args;
 	BootArgs = args = &const_boot_args;
+	RPI5_BOOT_MARK('B');
 
 #if APPLEVIRTUALPLATFORM
 	reset_vector_vaddr = (vm_offset_t) &LowResetVectorBase;
 #endif /* APPLEVIRTUALPLATFORM */
 
 	cpu_data_init(&BootCpuData);
+	RPI5_BOOT_MARK('D');
 #if defined(HAS_APPLE_PAC)
 	/* bootstrap cpu process dependent key for kernel has been loaded by start.s */
 	BootCpuData.rop_key = ml_default_rop_pid();
@@ -376,6 +397,7 @@ arm_init(
 #endif /* defined(HAS_APPLE_PAC) */
 
 	PE_init_platform(FALSE, args); /* Get platform expert set up */
+	RPI5_BOOT_MARK('E');
 
 #if __arm64__
 	configure_timer_apple_regs();
@@ -459,6 +481,7 @@ arm_init(
 #endif
 
 	ml_parse_cpu_topology();
+	RPI5_BOOT_MARK('L');
 
 
 	boot_cpu_id = ml_get_boot_cpu_number();
@@ -481,6 +504,7 @@ arm_init(
 	thread->machine.pcpu_data_base_and_cpu_number =
 	    ml_make_pcpu_base_and_cpu_number(0, BootCpuData.cpu_number);
 	machine_set_current_thread(thread);
+	RPI5_BOOT_MARK('H');
 
 	/*
 	 * Preemption is enabled for this thread so that it can lock mutexes without
@@ -495,6 +519,7 @@ arm_init(
 
 	kernel_debug_string_early("kernel_startup_bootstrap");
 	kernel_startup_bootstrap();
+	RPI5_BOOT_MARK('K');
 
 	/*
 	 * Initialize the timer callout world
@@ -560,31 +585,89 @@ arm_init(
 	if (SecureDTGetProperty(chosen, "dram-base", (void const **)&dram_base, &dt_entry_size) != kSuccess) {
 		panic("%s: Unable to find 'dram-base' entry in the 'chosen' DT node", __FUNCTION__);
 	}
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	if (dt_entry_size != sizeof(*dram_base)) {
+		panic("BCM2712: dram-base must be a 64-bit property");
+	}
+#endif
 
 	if (SecureDTGetProperty(chosen, "dram-size", (void const **)&dram_size, &dt_entry_size) != kSuccess) {
 		panic("%s: Unable to find 'dram-size' entry in the 'chosen' DT node", __FUNCTION__);
 	}
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Zero is a valid physical DRAM base, not an uninitialized sentinel.
+	 * This validates the envelope, not ownership or holes within it. */
+	if (dt_entry_size != sizeof(*dram_size) || *dram_size == 0 ||
+	    *dram_base >= (1ULL << 40) || *dram_size > (1ULL << 40) - *dram_base) {
+		panic("BCM2712: invalid DRAM envelope");
+	}
+#endif
 
 	gDramBase = *dram_base;
 	gDramSize = *dram_size;
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	const void *memory_map;
+	if (SecureDTGetProperty(chosen, "rpi5-memory-map", &memory_map, &dt_entry_size) != kSuccess ||
+	    rpi5_map_decode(memory_map, dt_entry_size, &rpi5_memory_map)) {
+		panic("BCM2712: missing or invalid explicit memory map");
+	}
+	for (unsigned i = 0; i < rpi5_memory_map.count; i++) {
+		if (rpi5_memory_map.type[i] == 1 &&
+		    (rpi5_memory_map.start[i] < gDramBase ||
+		    rpi5_memory_map.end[i] > gDramBase + gDramSize)) {
+			panic("BCM2712: Normal memory outside DRAM envelope");
+		}
+	}
+	/* arm_vm_init builds Normal mappings directly, without wimg_to_pte.
+	 * Validate its complete managed span before it rounds or adds addresses.
+	 * Loader reservation checks remain responsible for allocation ownership. */
+	if (!args->memSize || args->physBase >= (1ULL << 40) ||
+	    args->memSize > (1ULL << 40) - args->physBase ||
+	    ((args->physBase | args->memSize) & 0x3fff) ||
+	    rpi5_physical_memory_type(args->physBase, args->physBase + args->memSize) != 1) {
+		panic("BCM2712: managed memory is not entirely Normal RAM");
+	}
+#endif
 	pmap_first_pnum = (ppnum_t)atop(gDramBase);
 
+	RPI5_BOOT_MARK('W');
+	/* No bootstrap-UART checkpoints after final VM mappings take over. */
 	arm_vm_init(xmaxmem, args);
+
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+	/* Use the normal post-VM I/O allocator, not the removed identity map.
+	 * The exact containing page has already been classified as Device memory. */
+	vm_offset_t rpi5_uart_kva = ml_io_map(0x107d000000ull, 0x4000);
+#define RPI5_POST_VM_MARK(stage) ((void)rpi5_boot_uart_mark_at(rpi5_uart_kva + 0x1000, stage))
+#else
+#define RPI5_POST_VM_MARK(stage) ((void)0)
+#endif
+	RPI5_POST_VM_MARK('R');
 
 	if (debug_boot_arg) {
 		patch_low_glo();
 	}
+	RPI5_POST_VM_MARK('P');
 
 #if __arm64__ && WITH_CLASSIC_S2R
 	sleep_token_buffer_init();
 #endif
 
 	PE_consistent_debug_inherit();
+	RPI5_POST_VM_MARK('U');
 
 	/* Setup debugging output. */
 	const unsigned int serial_exists = serial_init();
+	RPI5_POST_VM_MARK('N');
 	kernel_startup_initialize_upto(STARTUP_SUB_KPRINTF);
+	RPI5_POST_VM_MARK('Q');
+	/* Read-only state: availability, serial disabled, kprintf disabled. */
+	RPI5_POST_VM_MARK(serial_exists ? '1' : '0');
+	RPI5_POST_VM_MARK(disable_serial_output ? '1' : '0');
+	RPI5_POST_VM_MARK(disable_kprintf_output ? '1' : '0');
 	kprintf("kprintf initialized\n");
+	RPI5_POST_VM_MARK('F');
+#undef RPI5_POST_VM_MARK
 
 	serialmode = 0;
 	if (PE_parse_boot_argn("serial", &serialmode, sizeof(serialmode))) {

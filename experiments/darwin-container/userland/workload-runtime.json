@@ -1,0 +1,9 @@
+{
+  "format": "darwin-workload-runtime-1",
+  "version": "0.4.0",
+  "kernel_build": "kernel/build/vzgeneric-xs4lhgpl",
+  "kernel_sha256": "93c37e69717deb91c3cd3271af89ec311af8b0b1a165f8d3a8890a4b760209af",
+  "base_workspace": "userland/build/darwin-workspace-0.4.2",
+  "ramroot_max_nodes": 96,
+  "prerequisites": ["fresh per-run boot entropy", "correct native_rand clear length", "NIC absence supported without platform panic", "compiled VM-only 96-node RAM root", "23 official Apple-source utilities"]
+}

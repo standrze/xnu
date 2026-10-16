@@ -1,0 +1,14 @@
+{
+  "format": "rpi5-gem-mdio-primary-v1",
+  "commit": "80d4218cb877ccb07d09a9f21f0678e78d8b36f5",
+  "source_code_imported": false,
+  "sources": [
+    {"path":"build/rpi5/gem-capability-primary-80d4218-20261013/macb.h","bytes":51692,"sha256":"ec4394d8c2daf984517441d079e8ca61af986de007e822f094f5b051b90461e7","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb.h"},
+    {"path":"build/rpi5/gem-capability-primary-80d4218-20261013/macb_main.c","bytes":172018,"sha256":"ec5a8df6096d3a4541e7a17821ef81264ce230aa5676afe276af3aed26cbee87","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/ethernet/cadence/macb_main.c"},
+    {"path":"build/rpi5/gem-capability-primary-80d4218-20261013/rp1.dtsi","bytes":37929,"sha256":"e8c537ab4f2a9b1a62ec8284c45085a3767d2316b0ad921a1d9f5fcfdfbda45a","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/arch/arm64/boot/dts/broadcom/rp1.dtsi"},
+    {"path":"build/rpi5/gem-mdio-primary-80d4218-20261013/mii.h","bytes":9566,"sha256":"b0260b7f7d093788954660a8cdc3eda738673690604e7528db121c860c3905ae","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/include/uapi/linux/mii.h"},
+    {"path":"build/rpi5/gem-mdio-primary-80d4218-20261013/phy_device.c","bytes":101413,"sha256":"9c45cc833de9007324fe4526c5124d8f82dbd9fee850639c580eb76b57fae5ad","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/drivers/net/phy/phy_device.c"},
+    {"path":"build/rpi5/gem-mdio-primary-80d4218-20261013/mdio.yaml","bytes":3182,"sha256":"428863beb52d00875e31ec230b1522e955fc26787d6516f987b29500e5e7871b","url":"https://github.com/raspberrypi/linux/blob/80d4218cb877ccb07d09a9f21f0678e78d8b36f5/Documentation/devicetree/bindings/net/mdio.yaml"}
+  ],
+  "scope": "Bounded Clause22 read commands only, with temporary MPE and optional CLK-only DIV96 setup/restoration. No PHY writes, packets, DMA, IRQ, clock-controller or reset writes. Fresh private original-FDT decode and live MID/design/selected-source ownership are required, not a historical result. The 200MHz selected-source profile is not an independently measured frequency; division96 gives approximately2.083MHz within the primary MDIO binding's IEEE2.5MHz baseline. NCFGR whole-register ordinary configuration RMW follows macb_set_features; unknown NCR set bits are refused."
+}

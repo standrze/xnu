@@ -1,0 +1,60 @@
+--- a/core/hfs.h
++++ b/core/hfs.h
+@@ -1342,6 +1342,11 @@
+ 
+ SYSCTL_DECL(_vfs_generic_hfs);
+ 
++#if RPI5_HFS_BUILTIN
++/* XNU-private SYSCTL macros install real permanent early startup entries. */
++#define HFS_SYSCTL(kind, parent, flags, name, ...) \
++	SYSCTL_##kind(parent, flags, name, __VA_ARGS__);
++#else
+ #define HFS_SYSCTL(kind, parent, flags, name, ...)							\
+ 	SYSCTL_##kind(parent, flags, name, __VA_ARGS__);							\
+ 	struct hfs_sysctl_chain hfs_sysctl_##parent##_##name##_chain = {		\
+@@ -1354,6 +1359,7 @@
+ 		hfs_sysctl_##parent##_##name##_chain.next = sysctl_list;			\
+ 		sysctl_list = &hfs_sysctl_##parent##_##name##_chain;				\
+ 	}
++#endif
+ 
+ __END_DECLS
+ 
+--- a/core/hfs_iokit.cpp
++++ b/core/hfs_iokit.cpp
+@@ -121,6 +121,8 @@
+ 	hfs_init_zones();
+ 	
++#if !RPI5_HFS_BUILTIN
+ 	hfs_sysctl_register();
++#endif /* Already registered by XNU permanent early SYSCTL startup. */
+ 
+ 	uint32_t num_cpus;
+ 	size_t sz = sizeof(num_cpus);
+@@ -146,6 +148,8 @@
+ {
+ 	if (vfs_handle) {
+ 		vfs_fsremove(vfs_handle);
++#if !RPI5_HFS_BUILTIN
+ 		hfs_sysctl_unregister();
++#endif
+ 		vfs_handle = NULL;
+ 	}
+--- a/core/hfs_vfsutils.c
++++ b/core/hfs_vfsutils.c
+@@ -3900,6 +3900,7 @@
+ 	zfree(hfs_zones[zone].hz_zone, ptr);
+ }
+ 
++#if !RPI5_HFS_BUILTIN
+ struct hfs_sysctl_chain *sysctl_list;
+ 
+ void hfs_sysctl_register(void)
+@@ -3919,6 +3920,7 @@
+ 		e = e->next;
+ 	}
+ }
++#endif /* Built-in HFS never unregisters permanent kernel SYSCTL nodes. */
+ 
+ void hfs_assert_fail(const char *file, unsigned line, const char *expr)
+ {

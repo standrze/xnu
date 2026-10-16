@@ -311,6 +311,9 @@ endif
 ifeq ($(SPTM_ENABLED),1)
 lastkerneldataconst.o_CFLAGS_ADD = -DCONFIG_SPTM=1
 endif # !SPTM_ENABLED
+ifeq ($(CURRENT_MACHINE_CONFIG),BCM2712)
+lastkerneldataconst.o_CFLAGS_ADD += -DDEVELOPMENT=1
+endif
 -include lastkerneldataconst.d
 lastkerneldataconst.o: .CFLAGS $(filter %/MakeInc.kernel,$(MAKEFILE_LIST))
 lastkerneldataconst.o: $(SRCROOT)/libsa/lastkerneldataconst.c

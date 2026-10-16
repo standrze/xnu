@@ -1,0 +1,3 @@
+DARWIN_WORKLOAD:zsh=5.9:count=2:cwd=/data
+Built from Apple's published zsh sources
+Darwin

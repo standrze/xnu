@@ -384,9 +384,6 @@ udp6_input(struct mbuf **mp, int *offp, int proto)
 		lck_rw_lock_shared(&pcbinfo->ipi_lock);
 
 		LIST_FOREACH(in6p, &udb, inp_list) {
-#if IPSEC
-			int skipit;
-#endif /* IPSEC */
 
 			if ((in6p->inp_vflag & INP_IPV6) == 0) {
 				continue;
@@ -459,7 +456,7 @@ udp6_input(struct mbuf **mp, int *offp, int proto)
 			    (SO_REUSEPORT | SO_REUSEADDR);
 
 #if NECP
-			skipit = 0;
+			int skipit = 0;
 			if (!necp_socket_is_allowed_to_send_recv_v6(in6p,
 			    uh->uh_dport, uh->uh_sport, &ip6->ip6_dst,
 			    &ip6->ip6_src, ifp, pf_tag, NULL, NULL, NULL, NULL)) {

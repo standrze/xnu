@@ -1694,7 +1694,15 @@ kalloc_type_init_sig_eq(
 	}
 }
 
-#ifndef __BUILDING_XNU_LIB_UNITTEST__
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+/* This public-source image has a different type distribution from Apple's
+ * linked kernels: a size class can receive 32 zones before its shared slot.
+ * Preserve the policy and bound scratch storage by the global zone limit,
+ * not an assumed distribution. Startup is single-threaded; reclaim this
+ * storage with the other startup data instead of enlarging the boot stack. */
+#define KT_ZONES_FOR_SIZE_SIZE (MAX_ZONES + 1)
+static __startup_data zone_t rpi5_kt_zones_for_size[KT_ZONES_FOR_SIZE_SIZE];
+#elif !defined(__BUILDING_XNU_LIB_UNITTEST__)
 #define KT_ZONES_FOR_SIZE_SIZE 32
 #else /* __BUILDING_XNU_LIB_UNITTEST__ */
 /* different init sequence in unit-test requires a bigger buffer in the kalloc zones initialization */
@@ -1808,7 +1816,12 @@ kalloc_type_create_zones_fixed(
 
 		zone_carry = 0;
 		assert(n_zones_sig + n_zones_type + 1 <= KT_ZONES_FOR_SIZE_SIZE);
+#if defined(ARM64_BOARD_CONFIG_BCM2712)
+		zone_t *kt_zones_for_size = rpi5_kt_zones_for_size;
+		bzero(rpi5_kt_zones_for_size, sizeof(rpi5_kt_zones_for_size));
+#else
 		zone_t kt_zones_for_size[KT_ZONES_FOR_SIZE_SIZE] = {};
+#endif
 		kalloc_type_create_zone_for_size(kt_zones_for_size,
 		    n_zones_sig + n_zones_type, z_size);
 

@@ -792,7 +792,9 @@ skip_ipsec:
 	len = m_pktlen(m);
 	pktcnt = 1;
 	error = nd6_output(ifp, origifp, m, dst, rt, NULL);
+#if PF
 sent:
+#endif
 	if (error) {
 		in6_ifstat_add(ifp, ifs6_out_discard, pktcnt);
 		ip6stat.ip6s_cantforward += pktcnt;

@@ -54,8 +54,8 @@ static void
 test_once_callback(thread_call_param_t param0,
     thread_call_param_t param1)
 {
-	T_ASSERT_EQ_INT((test_param)param0, TEST_ARG1, "param0 is correct");
-	T_ASSERT_EQ_INT((test_param)param1, TEST_ARG2, "param1 is correct");
+	T_ASSERT_EQ_INT((test_param)(uintptr_t)param0, TEST_ARG1, "param0 is correct");
+	T_ASSERT_EQ_INT((test_param)(uintptr_t)param1, TEST_ARG2, "param1 is correct");
 
 	once_callback_counter++;
 

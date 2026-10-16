@@ -1,0 +1,30 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004h[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLU<TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUM                                                          NS[?2004l
+TERMINAL_TTY_JOB_OK
+SIZE_INITIAL:35:120
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- ZLE_EITDIT[?2004l
+ZLE_EDIT
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STARTED; /bin/sleep 20[?2004l
+JOB_STARTED
+^Z
+zsh: suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hjobs[?2004l
+[1]  + suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hfg[?2004l
+[1]  + continued  /bin/sleep 20
+^C
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STATUS:$?[?2004l
+JOB_STATUS:130
+#                                                                                                                       darwin-zsh# [?2004hTRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED[?2004l
+RESIZE_ARMED
+#                                                                                                                       darwin-zsh# [?2004hdarwin-zsh# SIZE_CHANGED:47:132
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"[?2004l
+€ÿBYTE_ROUNDTRIP:€ÿ:END#                                                                                                                                   darwin-zsh# [?2004hprint -r -- FRAME_SAVED >> /data/framed-note; exit[?2004l

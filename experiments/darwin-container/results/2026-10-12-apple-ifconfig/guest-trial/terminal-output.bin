@@ -1,0 +1,38 @@
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004h/bin/dhcpctl; print -r -- APPLE_BOOTP_STATUS:$?[?2004l
+DARWIN:NET:APPLE_BOOTP bootp-268.1 options match BPF checksum IPv4
+DARWIN:NET:DHCP IP=192.168.64.18 MASK=255.255.255.0 ROUTER=192.168.64.1 DNS=192.168.64.1 LEASE=3600
+APPLE_BOOTP_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h[[ $(</data/resolv.conf) == 'nameserver 192.168.64.1' ]]; print -r -- CONFIG_DNS_STATUS:$?[?2004l
+CONFIG_DNS_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/ifconfig en0 mtu 1400 && /bin/ifconfig en0 inet; print -r -- APPLE_IFCONFIG_SET_STATUS:$?[?2004l
+en0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1400
+	inet 192.168.64.18 netmask 0xffffff00 broadcast 192.168.64.255
+APPLE_IFCONFIG_SET_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/ifconfig en0 mtu 1500 && /bin/ifconfig en0 inet; print -r -- APPLE_IFCONFIG_RESTORE_STATUS:$?[?2004l
+en0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	inet 192.168.64.18 netmask 0xffffff00 broadcast 192.168.64.255
+APPLE_IFCONFIG_RESTORE_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004h/bin/route -n delete default && /bin/route -n add default 192.168.64.1 && /bin/route -n get default; print<d default 192.168.64.1 && /bin/route -n get default; print                                                           -r -- APPLE_ROUTE_STATUS:$?[?2004l
+delete net default
+add net default: gateway 192.168.64.1
+   route to: default
+destination: default
+       mask: default
+    gateway: 192.168.64.1
+  interface: en0
+      flags: <UP,GATEWAY,DONE,STATIC,PRCLONING>
+ recvpipe  sendpipe  ssthresh  rtt,msec    rttvar  hopcount      mtu     expire
+       0         0         0         0         0         0      1500         0 
+APPLE_ROUTE_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf[?2004l
+#                                                                                                                       darwin-zsh# [?2004h/bin/resolverctl gai 61389 a9ec03ff457ee3d3603ca96b.darwin.test 60536 a9ec03ff457ee3d3603ca96b; print -r -<96b.darwin.test 60536 a9ec03ff457ee3d3603ca96b; print -r --                                                           APPLE_GAI_STATUS:$?[?2004l
+DARWIN:NET:APPLE_LIBINFO_NUMERIC IPv4 IPv6 errors en0=2
+DARWIN:NET:APPLE_GETADDRINFO a9ec03ff457ee3d3603ca96b.darwin.test 192.168.64.1 Libinfo-542.40.3
+DARWIN:NET:APPLE_GAI_TCP ECHO=a9ec03ff457ee3d3603ca96b
+APPLE_GAI_STATUS:0
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- 'nameserver 192.168.64.1' > /data/resolv.conf; exit[?2004l

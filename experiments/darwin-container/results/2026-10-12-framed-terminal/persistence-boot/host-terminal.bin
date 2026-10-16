@@ -1,0 +1,207 @@
+[33mWarning![0m Running debug build. Performance may be degraded.
+VZ:VIRTIO:READY EL1 MMU_OFF GICD=0000000010000000 GICR=0000000010010000
+VZ:XNU:HANDOFF ARGS=00000000720d4000 ENTRY=00000000714c1db8 ARENA=0000000070000000 SIZE=0000000014000000
+XDAZPMVCISTBDELHKWabcdefghijRPUNQ100kprintf initialized
+FSerial mode specified: 00000003
+initialize_screen: b=00000000, w=00000000, h=00000000, r=00000000, d=00000000
+initialize_screen: No video - forcing serial mode
+pe_arm_init_interrupts: args: 0xfffffe00079baf80
+pe_arm_map_interrupt_controller: soc_phys:  0x10000000
+pe_arm_map_interrupt_controller: failed to find the interrupt-controller.
+pe_arm_init_debug: failed to find cpu-debug-interface
+VZXNU:GIC:READY TIMER=27 SGI=1
+Darwin Kernel Version 12377.121.6: Mon Oct 12 09:47:20 EDT 2026; stephen:obj[xnu-12377.121.6-dirty]/DEVELOPMENT_ARM64_VZGENERIC
+pmap_startup() init/release time: 363 microsec
+vm_page_bootstrap: 18168 free pages, 2312 wired pages
+VM bootstrap: 73 maps, 256 entries and 64 nodes available
+Enable all vm_debug options with boot-arg vm_debug=1
+Maximum number of VM swap files: 100
+zones                   : 0xfffffe100066c000 - 0xfffffe300066c000 (128G)
+zone_meta               : 0xfffffe300066c000 - 0xfffffe3008774000 (129M)
+kmem_ptr_range_0        : 0xfffffe3008774000 - 0xfffffe64b75b4000 (210G)
+bufferhdr               : 0xfffffe64b75b4000 - 0xfffffe64b75e8000 (208K)
+bsd_pageable            : 0xfffffe64b75e8000 - 0xfffffe64b97f0000 (34M)
+ipc_kernel_copy_map     : 0xfffffe64b97f0000 - 0xfffffe64b9ff0000 (8M)
+gIOKitPageableFixed     : 0xfffffe64b9ff0000 - 0xfffffe6519ff0000 (1536M)
+kmem_data_shared_range  : 0xfffffe6519ff0000 - 0xfffffe99c8e2c000 (210G)
+mb                      : 0xfffffe99c8e2c000 - 0xfffffe99cce2c000 (64M)
+kmem_data_private_range : 0xfffffe99cce2c000 - 0xfffffece7bc68000 (210G)
+compressor              : 0xfffffece7bc68000 - 0xfffffecfbbcf8000 (5G)
+kmem_io                 : 0xfffffecfbbcf8000 - 0xfffffecffbcf8000 (1024M)
+ipc_kernel_map          : 0xfffffecffbcf8000 - 0xfffffecfffcf8000 (64M)
+vm: "vm_compressor_mode" is 4
+Unable to find vm tag  for btlog
+zone_init: map VM    0xfffffe100066c000:0xfffffe14cd338000 (19G, 19G usable)
+zone_init: map RO    0xfffffe14cd338000:0xfffffe1666cdc000 (6G, 6G usable)
+zone_init: map GEN0  0xfffffe1666cdc000:0xfffffe1b339a8000 (19G, 19G usable)
+zone_init: map GEN1  0xfffffe1b339a8000:0xfffffe2000674000 (19G, 19G usable)
+zone_init: map GEN2  0xfffffe2000674000:0xfffffe24cd340000 (19G, 19G usable)
+zone_init: map GEN3  0xfffffe24cd340000:0xfffffe299a00c000 (19G, 19G usable)
+zone_init: map DATA  0xfffffe299a00c000:0xfffffe300066c000 (25G, 25G usable)
+zone_init: metadata  0xfffffe300067c000:0xfffffe300867c000 (128M)
+zone_init: metabits  0xfffffe300867c000:0xfffffe3008764000 (928K)
+zone_init: extra     0:0 (0B)
+VM bootstrap done: 71 maps, 235 entries and 60 nodes left
+IOKit IOMD setownership ENABLED
+ATM subsystem is initialized
+standard timeslicing quantum is 10000 us
+standard background quantum is 2500 us
+Scheduler: Default of clutch
+Setting scheduler priority decay band limit 18
+OSLog stream configured: stream: 8192 bytes, cache: 2112 bytes
+OSLog stream verification: 0
+Firehose configured: 16 chunks, 8 io pages
+Long logs support configured: size: 16384
+Log queues configured: slot count: 9, per-slot size: 32768, total size: 294912
+[trap_telemetry] trap_telemetry_init
+mig_table_max_displ = 90 mach_kobj_count = 381
+BANK subsystem is initialized
+debug_log_init: Error!! gPanicBase is still not initialized
+suspend_cluster_powerdown_locked>calling sched_update_powered_cores to suspend powerdown
+debug_log_init: Error!! gPanicBase is still not initialized
+kdp_core zlib memory 0x8000
+Registered coredump handler for kernel
+Serial requested, consistent debug disabled or debug boot arg not present, configuring debugging over serial
+Initializing serial KDP
+BCM2712 crypto provider registration
+BCM2712 crypto and PRNG registered
+BCM2712 pthread provider registered before IOKit lockdown
+iBoot version: 
+iBoot Stage 2 version: 
+"name" not a kext
+"RAMDisk" not a kext
+ulock_initialize>thread_max=2560, ull_hash_buckets=1024
+vm: creating swapout thread
+vm: creating swapfile creation thread
+vm: creating swapfile GC thread
+lockdown_mode: error getting state from nvram
+lockdown_mode: lockdown mode in nvram is off
+BCM2712 START PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 END PE_LOCKDOWN daif=0x200 cntvctl=0x1
+BCM2712 MAX_CPUS READY count=1
+BCM2712 START BSD_INIT daif=0x200 cntvctl=0x1
+Copyright (c) 1982, 1986, 1989, 1991, 1993
+	The Regents of the University of California. All rights reserved.
+
+MAC Framework successfully initialized
+using 365 buffer headers and 365 cluster IO buffer headers
+BCM2712 IORTC wait deferred
+IOResources: not registry member at registerService()
+ktriage_register_subsystem_strings: set subsystem 8 strings
+mbinit: done [64 MB total pool size, (42/21) split]
+New aio workqueue implementation selected
+DLIL: running SUM16 self-tests ... PASSED
+dlil_init: Waiting for all the create dlil kernel threads to get scheduled at least once.
+dlil_init: All the created dlil kernel threads have been scheduled at least once. Proceeding.
+bsd_autoconf: calling kminit
+IOResources: not registry member at registerService()
+ifnet_attach: All kernel threads created for interface lo0 have been scheduled at least once. Proceeding.
+VZXNU:cpu_start() cpu: 0
+VZXNU:PLATFORM:READY CPUS=1
+HFS:ENCODINGS_READY
+IOServicePH::kIOMessageSystemCapabilityChange: will 0xf->0xf
+IOServicePH::systemPowerChange to 0x30
+IOServicePH::kIOMessageSystemCapabilityChange: did 0xf->0xf
+VZXNU:HFS:REGISTERED
+VZXNU:BLOCK:READY SECTORS=262144 FLUSH=1
+Added memory device md0/rmd0 (02000000/0B000000) at FFFFFE00080D8000 for 00000000001A0000
+BSD root: md0, major 2, minor 0
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x0), isssd is (0)
+RPI5XNU:RAMROOT:MOUNT NODES=25 BYTES=1703936 READONLY
+Serial keyboard started
+resume_cluster_powerdown_locked>calling sched_update_powered_cores to resume powerdown
+vm: initializing swap
+vm: starting swapout thread
+vm: starting swapfile creation thread
+vm: starting swapfile GC thread
+VM Swap Subsystem is ON
+load_init_program: attempting to load /sbin/launchd
+spec_open : si_devbsdunit initialized to (0), throttle_mask is (0x1), isssd is (0)
+hfs: mounted DarwinWorkload on device disk0
+DARWIN:STORAGE:MOUNTED /dev/disk0 /data HFS READWRITE
+DARWIN:INIT:READY
+DARWIN:INIT:SHELL_PID=2
+DARWIN:ZSH:ENTRY
+DARWIN:ZSH:TSD
+DARWIN:ZSH:ENTROPY
+DARWIN:ZSH:MAIN
+#                                                                                                                       zsh: failed to load module: zsh/compctl
+darwin-zsh# [?2004hprint -r -- READBACK_BEGIN; /bin/cat /data/framed-note; print -r -- READBACK_END; fc -ln -20[?2004l
+READBACK_BEGIN
+FRAME_SAVED
+READBACK_END
+print -r -- PTY_JOB_INTERRUPT:$?; print -r -- PTY_HISTORY_OK >> /data/pty-note; exit
+print -r -- ZLE_EDIT
+[[ -o monitor ]] && print -r -- PTY_MONITOR_ON; /bin/sleep 20
+jobs
+fg
+print -r -- PTY_JOB_STATUS:$?
+print -r -- ZLE_HISTORY_RECALL
+print -r -- ZLE_HISTORY_RECALL
+print -r -- ZLE_SAVED >> /data/pty-note; exit
+[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUMNS
+print -r -- ZLE_EDIT
+print -r -- FRAME_HISTORY_RECALL
+print -r -- FRAME_HISTORY_RECALL
+print -r -- JOB_STARTED; /bin/sleep 20
+jobs
+fg
+print -r -- JOB_STATUS:$?
+TRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"
+print -r -- FRAME_SAVED >> /data/framed-note; exit
+#                                                                                                                       darwin-zsh# [?2004h[[ -t 0 && -t 1 && -o monitor ]] && print -r -- TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLU<TERMINAL_TTY_JOB_OK; print -r -- SIZE_INITIAL:$LINES:$COLUM                                                          NS[?2004l
+TERMINAL_TTY_JOB_OK
+SIZE_INITIAL:35:120
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- ZLE_EITDIT[?2004l
+ZLE_EDIT
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- FRAME_HISTORY_RECALL[?2004l
+FRAME_HISTORY_RECALL
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STARTED; /bin/sleep 20[?2004l
+JOB_STARTED
+^Z
+zsh: suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hjobs[?2004l
+[1]  + suspended  /bin/sleep 20
+#                                                                                                                       darwin-zsh# [?2004hfg[?2004l
+[1]  + continued  /bin/sleep 20
+^C
+#                                                                                                                       darwin-zsh# [?2004hprint -r -- JOB_STATUS:$?[?2004l
+JOB_STATUS:130
+#                                                                                                                       darwin-zsh# [?2004hTRAPWINCH() { print -r -- "SIZE_CHANGED:$LINES:$COLUMNS"; }; print -r -- RESIZE_ARMED[?2004l
+RESIZE_ARMED
+#                                                                                                                       darwin-zsh# [?2004hdarwin-zsh# SIZE_CHANGED:47:132
+read -r -k 2 pair; print -rn -- "BYTE_ROUNDTRIP:$pair:END"[?2004l
+€ÿBYTE_ROUNDTRIP:€ÿ:END#                                                                                                                                   darwin-zsh# [?2004hprint -r -- FRAME_SAVED >> /data/framed-note; exit[?2004l
+DARWIN:INIT:ZSH_STOPPED:WAIT_STATUS=0
+hfs: unmount initiated on DarwinWorkload on device disk0
+DARWIN:POWEROFF:REQUEST
+Kext loading now disabled.
+Kext unloading now disabled.
+Kext autounloading now disabled.
+Kernel requests now disabled.
+PMRD: PagingOff all drivers took 0 ms
+PMRD: PagingOff total 1 ms
+syncing disks... Killing all processes 
+
+vfs_unmountall(nonsystem) start
+unmount(1) /dev skipped
+unmount(1) / skipped
+vfs_unmountall(nonsystem) end
+IOServicePH::systemHalt took 0 ms
+Killing all processes 
+
+continuing
+vfs_unmountall(system) start
+unmount(0) /dev
+unmount(0) /
+vfs_unmountall(system) end
+done
+CPU halted
+PMRD: PowerOff all drivers took 13 ms
+PMRD: PowerOff total 18 ms
+
+Darwin guest session: guestStopped; evidence: /private/tmp/darwin-pty-framed-trial-6/result.json
+[?25l[?25h

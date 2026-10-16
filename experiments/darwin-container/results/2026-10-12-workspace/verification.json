@@ -1,0 +1,38 @@
+{
+  "passed": [
+    "boot 1: real zsh, PTY and automatic DHCP/DNS configuration",
+    "running status and same-workspace collision guard",
+    "real foreground interrupt through workspace terminal",
+    "Apple-source resolver DNS/TCP exchange using the automatically configured interface",
+    "boot 1: normal exit, HFS unmount and actual guest stop",
+    "boot 2: real zsh, PTY and automatic DHCP/DNS configuration",
+    "same named workspace restored its saved file and real zsh history",
+    "boot 2: normal exit, HFS unmount and actual guest stop",
+    "fresh distinct boot entropy, unchanged zero-seed package template",
+    "independent named workspace disks"
+  ],
+  "error": null,
+  "workspace_runs": [
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/runs/20261012T203602Z-79f7ac816e40",
+    "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/workspace-trial-2/workspaces/verification/runs/20261012T203605Z-4b4834dfa916"
+  ],
+  "package": "/Users/stephen/Documents/ChatGPT/xnu/experiments/darwin-container/userland/build/darwin-workspace-0.2.0",
+  "package_manifest_sha256": "062f69b00656b842cb568191b2e3a5c05430345d32fc31d5ef5deeb1a061ece2",
+  "network_fixture": {
+    "events": [
+      {
+        "type": "dns",
+        "guest": "192.168.64.20",
+        "name": "479390462e9a063f58eba873.darwin.test",
+        "answer": "192.168.64.1"
+      },
+      {
+        "type": "tcp",
+        "guest": "192.168.64.20",
+        "echo": "479390462e9a063f58eba873"
+      }
+    ],
+    "errors": []
+  },
+  "scope": "two actual launcher boots: shell/network then clean persistence restart; no soak"
+}
